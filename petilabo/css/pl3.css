@@ -1,0 +1,12 @@
+/*
+ * CSS PL3
+ */
+ 
+.contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
+.bloc{background:#08f;margin:10px;padding:10px;}
+.bloc p{margin:0;padding:10px 0;text-align:center;background:#8f8;}
+
+/* Small screens */
+@media all and (max-width: 600px) {
+  .contenu {flex-direction: column;}
+}
