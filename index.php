@@ -54,7 +54,7 @@
 	$bloc_1_1 = $contenu_1->creer_bloc(1);
 	$bloc_1_2 = $contenu_1->creer_bloc(8);
 	$bloc_1_3 = $contenu_1->creer_bloc(1);
-	$page->ajouter_contenu($contenu_1);
+	$page->ajouter_objet($contenu_1);
 	
 	$contenu_2 = new pl3_objet_page_contenu(pl3_fiche_page::NOM_FICHE, $id_page);
 	$bloc_2_1 = $contenu_2->creer_bloc(3);
@@ -62,7 +62,7 @@
 	$bloc_2_3 = $contenu_2->creer_bloc(2);
 	$bloc_2_4 = $contenu_2->creer_bloc(5);
 	$bloc_2_5 = $contenu_2->creer_bloc(1);
-	$page->ajouter_contenu($contenu_2);
+	$page->ajouter_objet($contenu_2);
 	
 	
 	echo "<h3>Méthode ecrire_xml</h3>\n";

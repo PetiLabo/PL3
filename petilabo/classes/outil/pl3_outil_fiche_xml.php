@@ -21,7 +21,7 @@ class pl3_outil_fiche_xml {
 		$this->nom_fichier_xml = "xml/".static::NOM_FICHE.".xml";
 		$this->dom = new DOMDocument();
 	}
-	protected function ajouter_objet($nom_classe) {
+	protected function declarer_objet($nom_classe) {
 		$nom_balise = $nom_classe::NOM_BALISE;
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
 	}
@@ -55,6 +55,15 @@ class pl3_outil_fiche_xml {
 			foreach($liste_objets as $objet) {$objet->charger_xml();}
 			$this->liste_objets[$nom_classe] = $liste_objets;
 		}
+	}
+	
+	/* Ajouts "inline" */
+	public function ajouter_objet(&$objet) {
+		$nom_classe = get_class($objet);
+		if (isset($this->liste_noms_objets[$nom_classe])) {
+			$this->liste_objets[$nom_classe][] = $objet;
+		}
+		else {die("ERREUR : Tentative d'ajout d'un objet dans une classe non déclarée.");}
 	}
 	
 	/* Parser */

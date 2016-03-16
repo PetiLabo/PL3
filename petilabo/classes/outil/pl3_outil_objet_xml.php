@@ -46,6 +46,9 @@ abstract class pl3_outil_objet_xml {
 	public function avec_valeur() {return $this->avec_valeur;}
 	public function set_valeur($valeur) {$this->valeur = $valeur;}
 	public function get_valeur() {return $this->valeur;}
+	
+	/* Gestion du noeud */
+	public function &get_noeud() {return $this->noeud;}
 
 	/* Gestion des attributs */
 	public function set_attribut($nom_attribut, $valeur_attribut) {

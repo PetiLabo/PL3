@@ -6,11 +6,10 @@
  
 class pl3_fiche_page extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "page";
-	private $contenus = array();
 	
 	/* Constructeur */
 	public function __construct() {
-		$this->ajouter_objet("pl3_objet_page_contenu");
+		$this->declarer_objet("pl3_objet_page_contenu");
 		parent::__construct();
 	}
 
@@ -21,11 +20,6 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		return $contenu;
 	}
 
-	/* TODO : Ajouts inline à recoder !!! */
-	public function ajouter_contenu(&$contenu) {
-		$this->contenus[] = $contenu;
-	}
-	
 	/* Afficher */
 	public function afficher() {
 		echo "<div class=\"page\">\n";
