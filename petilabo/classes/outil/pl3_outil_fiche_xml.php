@@ -9,6 +9,7 @@ class pl3_outil_fiche_xml {
 
 	protected $id = 0;
 	protected $noeud = null;
+	protected $obligatoire = false;
 	protected $nom_fichier_xml = null;
 	protected $liste_noms_objets = array();
 	protected $liste_objets = array();
@@ -16,9 +17,9 @@ class pl3_outil_fiche_xml {
 	private $petilabo = null;
 	
 	/* Constructeur */
-	public function __construct() {
+	public function __construct($chemin) {
 		$this->id = uniqid();
-		$this->nom_fichier_xml = "xml/".static::NOM_FICHE.".xml";
+		$this->nom_fichier_xml = $chemin.(static::NOM_FICHE)._SUFFIXE_XML;
 		$this->dom = new DOMDocument();
 	}
 	protected function declarer_objet($nom_classe) {
@@ -34,12 +35,12 @@ class pl3_outil_fiche_xml {
 	public function charger_xml() {
 		$ret = $this->charger();
 		if ($ret) {$this->charger_objets(); }
-		else {die("Erreur XML...");}
+		else if ($this->obligatoire) {die("ERREUR : Fichier XML obligatoire introuvable");}
 	}
 
 	protected function charger() {
 		$ret = false;
-		$load = $this->dom->load($this->nom_fichier_xml);
+		$load = @$this->dom->load($this->nom_fichier_xml);
 		if ($load) {
 			$document = $this->dom->getElementsByTagName(self::NOM_BALISE_GENERIQUE);
 			if ($document->length > 0) {

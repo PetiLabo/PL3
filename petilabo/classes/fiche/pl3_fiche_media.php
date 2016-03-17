@@ -8,10 +8,10 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "media";
 	
 	/* Constructeur */
-	public function __construct() {
+	public function __construct($chemin) {
 		$this->declarer_objet("pl3_objet_media_image");
 		$this->declarer_objet("pl3_objet_media_galerie");
-		parent::__construct();
+		parent::__construct($chemin);
 	}
 	
 	/* Afficher */

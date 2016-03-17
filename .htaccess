@@ -1,0 +1,26 @@
+# .htaccess PetiLabo v3
+SetEnv PHP_VER 5_6
+SetEnv REGISTER_GLOBALS 0
+
+Options +FollowSymlinks
+Options -Indexes
+
+RewriteEngine on
+
+# Redirection de la page d'accueil vers index.php
+# afin d'éviter le duplicate content entre / et /index.php
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.php [L,R=301]
+
+# Réécriture d'URL pour gérer les noms de page
+RewriteRule ^(.*\.php)$ index.php?p=$1 [QSA,L]
+
+# Doublon avec l'ini_set PHP pour les cookies de session
+<IfModule php5_module>
+	php_value session.cookie_httponly True
+</IfModule>
+
+<Files .htaccess>
+	Order allow,deny
+	Deny from all
+</Files>

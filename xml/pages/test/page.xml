@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petilabo>
+	<contenu style="initial">
+		<bloc>
+			<saut>1</saut>
+		</bloc>
+	</contenu>
+	<contenu>
+		<bloc>
+			<saut>1</saut>
+			<titre style="sous_titre_gris" niveau="1">titre_page</titre>
+			<saut>1</saut>
+		</bloc>
+		<bloc>
+			<saut>1</saut>
+			<paragraphe>toto</paragraphe>
+			<saut>1</saut>
+		</bloc>
+	</contenu>
+</petilabo>

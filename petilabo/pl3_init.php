@@ -7,13 +7,39 @@ define("_VERSION_PETILABO", "3.0.0");
 define("_CHEMIN_PETILABO", "petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
+define("_CHEMIN_XML", "xml/");
+define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
 
 /* Préfixes */
 define("_PREFIXE_PETILABO", "pl3_");
 define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 
+/* Suffixes */
+define("_SUFFIXE_PHP", ".php");
+define("_SUFFIXE_XML", ".xml");
+
+/* Page principale */
+define("_PAGE_PRINCIPALE", "index.php");
+
 /* Gestion des erreurs */
 error_reporting(E_ALL);
+
+/* Récupération du nom de la page */
+if (isset($_SERVER["PHP_SELF"]) && isset($_GET["p"])) {
+	$php_self = htmlentities(trim($_SERVER["PHP_SELF"]));
+	$nom_php_en_cours = basename($php_self);
+	if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE))) {
+		$nom_get_en_cours = htmlentities(trim($_GET["p"]));
+		if (strlen($nom_get_en_cours) == 0) {$nom_get_en_cours = _PAGE_PRINCIPALE;}
+		$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);
+	}
+	else {
+		die("ERREUR : Page XML introuvable");
+	}
+}
+else {die("ERREUR : Page XML introuvable");}
+
+define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");
 
 /**
  * Fonction d'autoload

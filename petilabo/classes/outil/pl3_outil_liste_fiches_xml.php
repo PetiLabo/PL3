@@ -1,9 +1,9 @@
 <?php
 
 class pl3_outil_liste_fiches_xml {
-	public static function Nouvelle_fiche() {
+	public static function Nouvelle_fiche($chemin = _CHEMIN_PAGE_COURANTE) {
 		$nom_classe = static::NOM_CLASSE;
-		$fiche = new $nom_classe();
+		$fiche = new $nom_classe($chemin);
 		static::$Liste_fiches[] = $fiche;
 		return $fiche;
 	}

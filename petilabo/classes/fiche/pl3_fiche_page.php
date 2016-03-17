@@ -9,8 +9,9 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	/* Constructeur */
 	public function __construct() {
+		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_contenu");
-		parent::__construct();
+		parent::__construct(_CHEMIN_PAGE_COURANTE);
 	}
 
 	/* TODO : Ajouts inline à recoder !!! */

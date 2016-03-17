@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petilabo>
+	<style_legende nom="legende_actu">
+		<marge_haut>90</marge_haut>
+		<marge_bas>0</marge_bas>
+		<marge_gauche>0</marge_gauche>
+		<marge_droite>0</marge_droite>
+		<couleur_fond>#113</couleur_fond>
+		<couleur_texte>#fff</couleur_texte>
+		<style_texte>texte_legende_chantier</style_texte>
+		<survol>oui</survol>
+	</style_legende>
+	<!-- Carrousel -->
+	<image nom="carrousel_1">
+		<fichier>carrousel-1.jpg</fichier>
+		<alt>alt_carrousel_1</alt>
+		<largeur_standard>320</largeur_standard>
+		<hauteur_standard>270</hauteur_standard>
+	</image>
+	<image nom="carrousel_2">
+		<fichier>carrousel-2.jpg</fichier>
+		<alt>alt_carrousel_2</alt>
+		<largeur_standard>320</largeur_standard>
+		<hauteur_standard>270</hauteur_standard>
+	</image>
+	<image nom="carrousel_3">
+		<fichier>carrousel-3.jpg</fichier>
+		<alt>alt_carrousel_3</alt>
+		<largeur_standard>320</largeur_standard>
+		<hauteur_standard>270</hauteur_standard>
+	</image>
+	<image nom="carrousel_4">
+		<fichier>carrousel-4.jpg</fichier>
+		<alt>alt_carrousel_4</alt>
+		<largeur_standard>320</largeur_standard>
+		<hauteur_standard>270</hauteur_standard>
+	</image>
+	<galerie nom="carrousel">
+		<element>carrousel_1</element>
+		<element>carrousel_2</element>
+		<element>carrousel_3</element>
+		<element>carrousel_4</element>
+	</galerie>
+</petilabo>
