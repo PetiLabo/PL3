@@ -14,13 +14,6 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		parent::__construct(_CHEMIN_PAGE_COURANTE);
 	}
 
-	/* TODO : Ajouts inline à recoder !!! */
-	public function creer_contenu() {
-		$contenu = new pl3_objet_page_contenu($this->id);
-		$this->ajouter_contenu($contenu);
-		return $contenu;
-	}
-
 	/* Afficher */
 	public function afficher() {
 		echo "<div class=\"page\">\n";

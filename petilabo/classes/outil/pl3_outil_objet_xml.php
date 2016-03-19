@@ -9,6 +9,8 @@ abstract class pl3_outil_objet_xml {
 	protected $id_parent = 0;
 	protected $noeud = null;
 	protected $attributs = array();
+	protected $liste_noms_objets = array();
+	protected $liste_objets = array();
 	protected $avec_valeur = true;
 	protected $valeur;
 	protected $nom_fiche;
@@ -20,10 +22,28 @@ abstract class pl3_outil_objet_xml {
 		$this->id_parent = $id_parent;
 		$this->noeud = $noeud;
 	}
-	
+	protected function declarer_objet($nom_classe) {
+		$nom_balise = $nom_classe::NOM_BALISE;
+		$this->liste_noms_objets[$nom_classe] = $nom_balise;
+		$this->liste_objets[$nom_classe] = array();
+	}
+
 	/* Méthodes abstraites */
 	abstract public function afficher();
 	abstract public function ecrire_xml($niveau);
+	
+	/* Accesseurs */
+	public function lire_id() {return $this->id;}
+	
+	
+	/* Ajouts "inline" */
+	public function ajouter_objet(&$objet) {
+		$nom_classe = get_class($objet);
+		if (isset($this->liste_noms_objets[$nom_classe])) {
+			$this->liste_objets[$nom_classe][] = $objet;
+		}
+		else {die("ERREUR : Tentative d'ajout d'un objet dans une classe non déclarée.");}
+	}
 	
 	/* Parsing des balises */
 	public function parser_balise($nom_balise) {
@@ -119,6 +139,18 @@ abstract class pl3_outil_objet_xml {
 			}
 		}
 		return $ret;
+	}
+	
+	public function __call($methode, $args) {
+		if (!(strncmp($methode, "get_attribut_", 13))) {
+			$nom_attribut = substr($methode, 13);
+			return $this->get_attribut_chaine($nom_attribut);
+		}
+		else if (!(strncmp($methode, "set_attribut_", 13))) {
+			$nom_attribut = substr($methode, 13);
+			$this->set_attribut($nom_attribut, $args[0]);
+		}
+		else {die("ERREUR : Appel d'une méthode non définie dans un objet XML"); }
 	}
 
 }

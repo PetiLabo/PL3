@@ -25,6 +25,7 @@ class pl3_outil_fiche_xml {
 	protected function declarer_objet($nom_classe) {
 		$nom_balise = $nom_classe::NOM_BALISE;
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
+		$this->liste_objets[$nom_classe] = array();
 	}
 
 	/* Accesseurs */

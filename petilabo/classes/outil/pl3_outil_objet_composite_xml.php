@@ -42,10 +42,12 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 	}
 	
 	public function __call($methode, $args) {
-		if (!(strncmp($methode, "get_", 4))) {
-			$nom_balise = substr($methode, 4);
+		if (!(strncmp($methode, "get_valeur_", 11))) {
+			$nom_balise = substr($methode, 11);
 			return $this->lire_element_valeur($nom_balise);
 		}
-		else {die("ERREUR : Appel d'une méthode non définie dans un objet XML composite"); }
+		else {
+			return parent::_call($methode, $args);
+		}
 	}
 }
