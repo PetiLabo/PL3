@@ -18,6 +18,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
-		echo "<h1>Titre</h1>\n";
+		$html_id = $this->get_html_id();
+		echo "<h1 id=\"".$html_id."\">Titre</h1>\n";
 	}
 }

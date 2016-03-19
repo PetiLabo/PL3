@@ -36,7 +36,8 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
-		echo "<div class=\"contenu\">\n";
+		$html_id = $this->get_html_id();
+		echo "<div id=\"".$html_id."\" class=\"contenu\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
 		foreach ($liste_blocs as $bloc) {
 			$bloc->afficher();

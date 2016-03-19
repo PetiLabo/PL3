@@ -29,7 +29,8 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	
 	public function afficher() {
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
-		echo "<div class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
+		$html_id = $this->get_html_id();
+		echo "<div id=\"".$html_id."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
 		echo "<p>".$taille."</p>\n";
 		foreach($this->objets as $objet) {
 			$objet->afficher();

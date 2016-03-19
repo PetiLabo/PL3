@@ -135,6 +135,14 @@ abstract class pl3_outil_objet_xml {
 		return $ret;
 	}
 	
+	/* Afficher */
+	protected function get_html_id() {
+		$nom_classe = get_called_class();
+		$nom_id = str_replace(_PREFIXE_OBJET, "", $nom_classe);
+		$ret = (strlen($nom_id) > 0)?$nom_id."-".$this->id:$this->id;
+		return $ret;
+	}
+	
 	/* Méthodes de service pour l'affichage des balises XML */
 	protected function indenter_xml($niveau) {
 		$ret = str_repeat("&nbsp;", 5 * ((int) ($niveau)));
