@@ -2,12 +2,14 @@
 require_once("petilabo/pl3_init.php");
 
 /* Fichier style */
-$style = pl3_fiche_liste_styles::Nouvelle_fiche();
-$style->charger_xml();
+pl3_fiche_liste_styles::Nouvelle_fiche(_CHEMIN_XML);
+pl3_fiche_liste_styles::Nouvelle_fiche(_CHEMIN_PAGE_COURANTE);
+pl3_fiche_liste_styles::Charger_xml();
 
 /* Fichier media */
-$media = pl3_fiche_liste_medias::Nouvelle_fiche();
-$media->charger_xml();
+pl3_fiche_liste_medias::Nouvelle_fiche(_CHEMIN_XML);
+pl3_fiche_liste_medias::Nouvelle_fiche(_CHEMIN_PAGE_COURANTE);
+pl3_fiche_liste_medias::Charger_xml();
 
 /* Fichier page */
 $page = new pl3_fiche_page();

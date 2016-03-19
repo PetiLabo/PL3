@@ -1,11 +1,17 @@
 <?php
 
 class pl3_outil_liste_fiches_xml {
-	public static function Nouvelle_fiche($chemin = _CHEMIN_PAGE_COURANTE) {
+	public static function Nouvelle_fiche($chemin) {
 		$nom_classe = static::NOM_CLASSE;
 		$fiche = new $nom_classe($chemin);
 		static::$Liste_fiches[] = $fiche;
 		return $fiche;
+	}
+	
+	public static function Charger_xml() {
+		foreach (static::$Liste_fiches as $fiche) {
+			$fiche->charger_xml();
+		}
 	}
 	
 	public static function Chercher_instance_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut) {
