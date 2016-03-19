@@ -12,7 +12,8 @@ RewriteEngine on
 RewriteCond %{REQUEST_URI} ^/$
 RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.php [L,R=301]
 
-# Réécriture d'URL pour gérer les noms de page
+# Réécriture d'URL pour gérer les noms de page (AJAX exclu)
+RewriteCond %{REQUEST_URI} !/ajax/(.*)\.php$
 RewriteRule ^(.*\.php)$ index.php?p=$1 [QSA,L]
 
 # Doublon avec l'ini_set PHP pour les cookies de session

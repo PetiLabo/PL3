@@ -1,4 +1,6 @@
 <?php
+define("_CHEMIN_PETILABO", "petilabo/");
+define("_CHEMIN_XML", "xml/");
 require_once("petilabo/pl3_init.php");
 
 /* Fichier style */
@@ -17,6 +19,7 @@ $page->charger_xml();
 
 $page->afficher_head();
 $page->ouvrir_body();
+
 echo "<h3>Méthode afficher</h3>\n";
 $page->ecrire_body();
 
