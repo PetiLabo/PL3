@@ -36,6 +36,9 @@ $contenu_1->ajouter_objet($bloc_3);
 $page->ajouter_objet($contenu_1);
 
 echo "<h3>Méthode afficher</h3>\n";
-
 $page->ecrire_body();
+
+echo "<h3>Méthode ecrire_xml</h3>\n";
+echo nl2br($page->ecrire_xml());
+
 $page->fermer_body();
