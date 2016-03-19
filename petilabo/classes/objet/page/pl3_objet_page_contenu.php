@@ -24,7 +24,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	public function ecrire_xml($niveau) {
 		$attr_style = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
 		$xml = $this->ouvrir_xml($niveau, array($attr_style));
-		foreach($this->blocs as $bloc) {
+		foreach($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {
 			$xml .= $bloc->ecrire_xml(1 + $niveau);
 		}
 		$xml .= $this->fermer_xml($niveau);

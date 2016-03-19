@@ -18,7 +18,7 @@ class pl3_objet_page_image extends pl3_outil_objet_xml {
 		$image = pl3_fiche_liste_medias::Chercher_instance_balise_par_attribut(pl3_objet_media_image::NOM_BALISE, pl3_objet_media_image::NOM_ATTRIBUT_NOM, $nom_image);
 		if ($image != null) {
 			$fichier = $image->get_valeur_fichier();
-			echo "<img src=\"${fichier}\" alt=\"\" />\n";
+			echo "<p style=\"text-align:center;\"><img src=\""._CHEMIN_IMAGES_XML.$fichier."\" alt=\"\" /></p>\n";
 		}
 	}
 }

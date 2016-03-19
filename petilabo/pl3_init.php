@@ -9,6 +9,7 @@ define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
 define("_CHEMIN_XML", "xml/");
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
+define("_CHEMIN_IMAGES_XML", _CHEMIN_XML."images/");
 
 /* Préfixes */
 define("_PREFIXE_PETILABO", "pl3_");

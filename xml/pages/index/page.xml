@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
+	<meta>
+		<titre>PL3 : Index</titre>
+		<description>Yet another PetiLabo :-)</description>
+	</meta>
 	<contenu style="initial">
 		<bloc>
 			<saut>1</saut>
