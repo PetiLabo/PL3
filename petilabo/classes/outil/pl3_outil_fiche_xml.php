@@ -22,10 +22,22 @@ class pl3_outil_fiche_xml {
 		$this->nom_fichier_xml = $chemin.(static::NOM_FICHE)._SUFFIXE_XML;
 		$this->dom = new DOMDocument();
 	}
+	
+	/* Gestion des objets */
 	protected function declarer_objet($nom_classe) {
 		$nom_balise = $nom_classe::NOM_BALISE;
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
 		$this->liste_objets[$nom_classe] = array();
+	}
+	
+	public function nouvel_objet($nom_classe) {
+		if (isset($this->liste_objets[$nom_classe])) {
+			$objet = new $nom_classe(static::NOM_FICHE, $this->id);
+			return $objet;
+		}
+		else {
+			die("ERREUR : Instanciation d'un objet inexistant");
+		}
 	}
 
 	/* Accesseurs */

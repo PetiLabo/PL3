@@ -22,10 +22,22 @@ abstract class pl3_outil_objet_xml {
 		$this->id_parent = $id_parent;
 		$this->noeud = $noeud;
 	}
+	
+	/* Gestion des objets */
 	protected function declarer_objet($nom_classe) {
 		$nom_balise = $nom_classe::NOM_BALISE;
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
 		$this->liste_objets[$nom_classe] = array();
+	}
+
+	public function nouvel_objet($nom_classe) {
+		if (isset($this->liste_objets[$nom_classe])) {
+			$objet = new $nom_classe($this->nom_fiche, $this->id);
+			return $objet;
+		}
+		else {
+			die("ERREUR : Instanciation d'un objet inexistant");
+		}
 	}
 
 	/* Méthodes abstraites */
