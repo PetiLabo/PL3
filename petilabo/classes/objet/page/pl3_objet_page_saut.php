@@ -15,6 +15,6 @@ class pl3_objet_page_saut extends pl3_outil_objet_xml {
 	
 	public function afficher() {
 		$html_id = $this->get_html_id();
-		echo "<p id=\"".$html_id."\" class=\"saut\">&nbsp;</p>\n";
+		echo "<div class=\"container_saut\"><p id=\"".$html_id."\" class=\"saut objet_editable\">&nbsp;</p></div>\n";
 	}
 }

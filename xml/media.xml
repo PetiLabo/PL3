@@ -12,5 +12,6 @@
 	</style_legende>
 	<image nom="vignette_actu">
 		<fichier>actu_petilabo.jpg</fichier>
+		<alt>Alternative</alt>
 	</image>
 </petilabo>

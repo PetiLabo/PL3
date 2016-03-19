@@ -14,8 +14,8 @@
 			<saut>1</saut>
 		</bloc>
 		<bloc style="entete" taille="6">
-			<titre style="sous_titre_gris" niveau="1">titre_page</titre>
-			<paragraphe>toto</paragraphe>
+			<titre style="sous_titre_gris" niveau="1">titre_actu</titre>
+			<paragraphe>texte_actu</paragraphe>
 			<image>vignette_actu</image>
 		</bloc>
 		<bloc taille="3">

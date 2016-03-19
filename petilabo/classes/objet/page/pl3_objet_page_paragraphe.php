@@ -17,6 +17,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	
 	public function afficher() {
 		$html_id = $this->get_html_id();
-		echo "<p id=\"".$html_id."\" class=\"paragraphe\">Paragraphe</p>\n";
+		$valeur = $this->get_valeur();
+		echo "<div class=\"container_paragraphe\"><p id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur."</p></div>\n";
 	}
 }

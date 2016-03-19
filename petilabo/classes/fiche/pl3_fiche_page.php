@@ -47,7 +47,10 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 	
 	public function fermer_head() {
-		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"petilabo/css/pl3.css\" />\n";
+		echo "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3.css\" />\n";
+		echo "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.12.0.min.js\"></script>\n";
+		echo "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-migrate-1.2.1.min.js\"></script>\n";
+		echo "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3.js\"></script>\n";
 		echo "</head>\n";
 	}
 	

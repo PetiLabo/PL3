@@ -60,8 +60,6 @@ class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	}
 	
 	public function afficher() {
-		echo "<!-- Début meta -->\n";
 		$this->afficher_elements_xml();
-		echo "<!-- Fin meta -->\n";
 	}
 }

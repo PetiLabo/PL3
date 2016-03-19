@@ -3,10 +3,14 @@
 /* Définition de la version PetiLabo */
 define("_VERSION_PETILABO", "3.0.0");
 
-/* Chemins */
+/* Chemins PetiLabo */
 define("_CHEMIN_PETILABO", "petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
+define("_CHEMIN_CSS", _CHEMIN_PETILABO."css/");
+define("_CHEMIN_JS", _CHEMIN_PETILABO."js/");
+
+/* Chemins XML */
 define("_CHEMIN_XML", "xml/");
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
 define("_CHEMIN_IMAGES_XML", _CHEMIN_XML."images/");
