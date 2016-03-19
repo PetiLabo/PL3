@@ -17,8 +17,8 @@ class pl3_outil_fiche_xml {
 	private $petilabo = null;
 	
 	/* Constructeur */
-	public function __construct($chemin) {
-		$this->id = uniqid();
+	public function __construct($chemin, $id) {
+		$this->id = $id;
 		$this->nom_fichier_xml = $chemin.(static::NOM_FICHE)._SUFFIXE_XML;
 		$this->dom = new DOMDocument();
 	}
@@ -32,7 +32,7 @@ class pl3_outil_fiche_xml {
 	
 	public function nouvel_objet($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe(static::NOM_FICHE, $this->id);
+			$objet = new $nom_classe(static::NOM_FICHE, 1 + count($this->liste_objets[$nom_classe]), $this);
 			return $objet;
 		}
 		else {
@@ -82,7 +82,7 @@ class pl3_outil_fiche_xml {
 	
 	/* Parser */
 	protected function parser_balise($nom_balise) {
-		$ret = pl3_outil_parser_xml::Parser_balise(static::NOM_FICHE, $this->id, $nom_balise, $this->noeud);
+		$ret = pl3_outil_parser_xml::Parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	
@@ -131,6 +131,15 @@ class pl3_outil_fiche_xml {
 	}
 	
 	/* Recherches */
+	public function chercher_objet_classe_par_id($nom_classe, $id) {
+		if (isset($this->liste_objets[$nom_classe])) {
+			foreach($this->liste_objets[$nom_classe] as $instance) {
+				$valeur_id = $instance->lire_id();
+				if (!(strcmp($valeur_id, $id))) {return $instance;}
+			}
+		}
+		return null;
+	}
 	public function chercher_objet_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut) {
 		if (isset($this->liste_objets[$nom_classe])) {
 			foreach($this->liste_objets[$nom_classe] as $instance) {

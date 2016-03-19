@@ -42,10 +42,10 @@ class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	const NOM_BALISE = "meta";
 	public static $Noms_attributs = array();
 	
-	public function __construct($nom_fiche, $id_parent, &$noeud = null) {
+	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_page_meta_titre::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_description::NOM_BALISE);
-		parent::__construct($nom_fiche, $id_parent, $noeud);
+		parent::__construct($nom_fiche, $id, $parent, $noeud);
 	}
 
 	public function charger_xml() {

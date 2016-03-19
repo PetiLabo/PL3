@@ -3,7 +3,8 @@
 class pl3_outil_liste_fiches_xml {
 	public static function Nouvelle_fiche($chemin) {
 		$nom_classe = static::NOM_CLASSE;
-		$fiche = new $nom_classe($chemin);
+		$id_fiche = 1 + count(static::$Liste_fiches);
+		$fiche = new $nom_classe($chemin, $id_fiche);
 		static::$Liste_fiches[] = $fiche;
 		return $fiche;
 	}

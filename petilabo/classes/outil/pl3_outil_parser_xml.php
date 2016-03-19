@@ -6,7 +6,7 @@
 
 class pl3_outil_parser_xml {
 
-	public static function Parser_balise($fiche, $id, $nom_balise, &$noeud) {
+	public static function Parser_balise($fiche, &$objet_parent, $nom_balise, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$nom_classe = _PREFIXE_OBJET.$fiche."_".$nom_balise;
@@ -16,7 +16,7 @@ class pl3_outil_parser_xml {
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array($fiche, $id, &$element));	
+				$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$element));	
 				foreach($attributs as $attribut) {
 					$avec_attribut = $element->hasAttribute($attribut);
 					if ($avec_attribut) {
@@ -30,7 +30,7 @@ class pl3_outil_parser_xml {
 		return $ret;
 	}
 	
-	public static function Parser_balise_fille($fiche, $id, $nom_classe, $nom_balise, &$noeud) {
+	public static function Parser_balise_fille($fiche, &$objet_parent, $nom_classe, $nom_balise, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$nom_classe = $nom_classe."_".$nom_balise;
@@ -40,7 +40,7 @@ class pl3_outil_parser_xml {
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array($fiche, $id, &$element));	
+				$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$element));	
 				
 				/* Traitement des attributs */
 				foreach($attributs as $attribut) {
@@ -64,7 +64,7 @@ class pl3_outil_parser_xml {
 		return $ret;
 	}
 	
-	public static function Parser_toute_balise($fiche, $id, &$noeud) {
+	public static function Parser_toute_balise($fiche, &$objet_parent, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$liste_objets = $noeud->childNodes;
@@ -77,7 +77,7 @@ class pl3_outil_parser_xml {
 				$fichier_existe = @file_exists($nom_fichier);
 				if ($fichier_existe) {
 					$reflection = new ReflectionClass($nom_classe);
-					$instance = $reflection->newInstanceArgs(array($fiche, $id, &$objet));
+					$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$objet));
 					/* Traitement des attributs */
 					$attributs = $reflection->getStaticPropertyValue("Noms_attributs");
 					foreach($attributs as $attribut) {

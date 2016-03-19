@@ -12,7 +12,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_meta");
 		$this->declarer_objet("pl3_objet_page_contenu");
-		parent::__construct(_CHEMIN_PAGE_COURANTE);
+		parent::__construct(_CHEMIN_PAGE_COURANTE, 1);
 	}
 
 	/* Afficher */
@@ -59,7 +59,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 	
 	public function ecrire_body() {
-		echo "<div class=\"page\">\n";
+		echo "<div class=\"page\" name=\""._PAGE_COURANTE."\">\n";
 		$this->afficher_objets("pl3_objet_page_contenu");
 		echo "</div>\n";
 	}

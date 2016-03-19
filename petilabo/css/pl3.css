@@ -5,7 +5,7 @@
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
 .bloc{background:#08f;margin:10px;padding:10px;}
 .bloc > div{margin:0;padding:3px;text-align:center;background:#8f8;}
-.bloc > div > p, .bloc > div > h1, .bloc > div > h2, .bloc > div > img {margin:0;padding:2px;border: 2px solid transparent;}
+.bloc > div > p, .bloc > div > h1, .bloc > div > h2, .bloc > div > img {margin:0;padding:1px;border: 3px solid transparent;}
 
 /* Small screens */
 @media all and (max-width: 600px) {

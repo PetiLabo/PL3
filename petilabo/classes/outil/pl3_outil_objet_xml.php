@@ -6,7 +6,7 @@
  
 abstract class pl3_outil_objet_xml {
 	protected $id = 0;
-	protected $id_parent = 0;
+	protected $objet_parent = null;
 	protected $noeud = null;
 	protected $attributs = array();
 	protected $liste_noms_objets = array();
@@ -16,10 +16,10 @@ abstract class pl3_outil_objet_xml {
 	protected $nom_fiche;
 	
 	/* Constructeur */
-	public function __construct($nom_fiche, $id_parent, &$noeud = null) {
-		$this->id = uniqid();
+	public function __construct($nom_fiche, $id, &$objet_parent, &$noeud = null) {
 		$this->nom_fiche = $nom_fiche;
-		$this->id_parent = $id_parent;
+		$this->id = $id;
+		$this->objet_parent = $objet_parent;
 		$this->noeud = $noeud;
 	}
 	
@@ -32,7 +32,7 @@ abstract class pl3_outil_objet_xml {
 
 	public function nouvel_objet($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe($this->nom_fiche, $this->id);
+			$objet = new $nom_classe($this->nom_fiche, 1 + count($this->liste_objets[$nom_classe]), $this);
 			return $objet;
 		}
 		else {
@@ -46,7 +46,7 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Accesseurs */
 	public function lire_id() {return $this->id;}
-	
+	public function lire_id_parent() {return $this->objet_parent->lire_id();}	
 	
 	/* Ajouts "inline" */
 	public function ajouter_objet(&$objet) {
@@ -59,11 +59,11 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Parsing des balises */
 	public function parser_balise($nom_balise) {
-		$ret = pl3_outil_parser_xml::Parser_balise($this->nom_fiche, $this->id, $nom_balise, $this->noeud);
+		$ret = pl3_outil_parser_xml::Parser_balise($this->nom_fiche, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	public function parser_balise_fille($nom_balise, $unique = true) {
-		$tab_ret = pl3_outil_parser_xml::Parser_balise_fille($this->nom_fiche, $this->id, get_called_class(), $nom_balise, $this->noeud);
+		$tab_ret = pl3_outil_parser_xml::Parser_balise_fille($this->nom_fiche, $this, get_called_class(), $nom_balise, $this->noeud);
 		if ($unique) {
 			$nb_ret = (int) count($tab_ret);
 			$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;
@@ -81,6 +81,7 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Gestion du noeud */
 	public function &get_noeud() {return $this->noeud;}
+	public function &get_parent() {return $this->objet_parent;}
 
 	/* Gestion des attributs */
 	public function set_attribut($nom_attribut, $valeur_attribut) {
@@ -137,10 +138,15 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Afficher */
 	protected function get_html_id() {
+		$objet_parent = $this->get_parent();
+		$ret = $objet_parent->lire_id_parent()."-".$this->lire_id_parent()."-".$this->lire_id();
+		return $this->get_html_name()."-".$ret;
+	}
+	protected function get_html_name() {
 		$nom_classe = get_called_class();
-		$nom_id = str_replace(_PREFIXE_OBJET, "", $nom_classe);
-		$ret = (strlen($nom_id) > 0)?$nom_id."-".$this->id:$this->id;
-		return $ret;
+		$nom = str_replace(_PREFIXE_OBJET, "", $nom_classe);
+		$nom = str_replace(pl3_fiche_page::NOM_FICHE."_", "", $nom);
+		return $nom;
 	}
 	
 	/* Méthodes de service pour l'affichage des balises XML */

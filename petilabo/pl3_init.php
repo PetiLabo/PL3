@@ -38,6 +38,7 @@ if (isset($_SERVER["PHP_SELF"])) {
 				$nom_get_en_cours = htmlentities(trim($_GET["p"]));
 				if (strlen($nom_get_en_cours) == 0) {$nom_get_en_cours = _PAGE_PRINCIPALE;}
 				$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);
+				define("_PAGE_COURANTE", $nom_page_en_cours);
 				define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");
 			}
 			else {

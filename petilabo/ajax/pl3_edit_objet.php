@@ -10,5 +10,6 @@ $balise_id = post("balise_id");
 $nom_balise = post("nom_balise");
 
 if ((strlen($contenu_id) > 0) && (strlen($bloc_id) > 0) && (strlen($balise_id) > 0) && (strlen($nom_balise) > 0)) {
+	// $contenu = chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 	echo $contenu_id." ".$bloc_id." ".$nom_balise." ".$balise_id;
 }

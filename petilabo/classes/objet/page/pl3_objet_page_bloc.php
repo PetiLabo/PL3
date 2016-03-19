@@ -13,7 +13,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	private $objets = array();
 
 	public function charger_xml() {
-		$this->objets = pl3_outil_parser_xml::Parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this->id, $this->noeud);
+		$this->objets = pl3_outil_parser_xml::Parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
 	}
 
 	public function ecrire_xml($niveau) {
@@ -29,8 +29,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	
 	public function afficher() {
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
-		$html_id = $this->get_html_id();
-		echo "<div id=\"".$html_id."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
+		echo "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
 		echo "<p>".$taille."</p>\n";
 		foreach($this->objets as $objet) {
 			$objet->afficher();

@@ -9,9 +9,9 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	const NOM_ATTRIBUT_STYLE = "style";
 	public static $Noms_attributs = array(self::NOM_ATTRIBUT_STYLE);
 	
-	public function __construct($nom_fiche, $id_parent, &$noeud = null) {
+	public function __construct($nom_fiche, $id, $objet_parent, &$noeud = null) {
 		$this->declarer_objet("pl3_objet_page_bloc");
-		parent::__construct($nom_fiche, $id_parent, $noeud);
+		parent::__construct($nom_fiche, $id, $objet_parent, $noeud);
 	}
 
 	public function charger_xml() {
@@ -36,8 +36,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
-		$html_id = $this->get_html_id();
-		echo "<div id=\"".$html_id."\" class=\"contenu\">\n";
+		echo "<div id=\"contenu-".$this->id."\" class=\"contenu\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
 		foreach ($liste_blocs as $bloc) {
 			$bloc->afficher();

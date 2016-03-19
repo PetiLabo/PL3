@@ -38,9 +38,9 @@ $(document).ready(function() {
 		}
 	});
 	$("div.page").on("mouseenter", ".objet_editable", function() {
-		$(this).css("cursor", "pointer").css("border-color", "#a00");
+		$(this).css("cursor", "pointer").css("border-color", "#f00").css("opacity", "0.7");
 	});
 	$("div.page").on("mouseleave", ".objet_editable", function() {
-		$(this).css("cursor", "default").css("border-color", "transparent");
+		$(this).css("cursor", "default").css("border-color", "transparent").css("opacity", "1");
 	});
 });

@@ -37,10 +37,10 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	const NOM_ATTRIBUT_NOM = "nom";
 	public static $Noms_attributs = array(self::NOM_ATTRIBUT_NOM);
 	
-	public function __construct($nom_fiche, $id_parent, &$noeud = null) {
+	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);
 		$this->declarer_element(pl3_objet_media_image_alt::NOM_BALISE);
-		parent::__construct($nom_fiche, $id_parent, $noeud);
+		parent::__construct($nom_fiche, $id, $parent, $noeud);
 	}
 
 	public function charger_xml() {
