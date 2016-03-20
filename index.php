@@ -14,8 +14,17 @@ pl3_fiche_liste_medias::Nouvelle_fiche(_CHEMIN_PAGE_COURANTE);
 pl3_fiche_liste_medias::Charger_xml();
 
 /* Fichier page */
-$page = new pl3_fiche_page();
+$page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
 $page->charger_xml();
+/*
+$contenu = $page->charger_objet_xml("pl3_objet_page_contenu", 2);
+var_dump(get_class($contenu));echo "<br>\n";
+echo "ID *".(int) $contenu->lire_id()."*<br>\n";
+$bloc = $contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", 4);
+var_dump(get_class($bloc));echo "<br>\n";
+echo "ID *".(int) $bloc->lire_id()."*<br>\n";
+die();
+*/
 
 $page->afficher_head();
 $page->ouvrir_body();

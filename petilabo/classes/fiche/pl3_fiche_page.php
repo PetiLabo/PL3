@@ -8,11 +8,11 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "page";
 	
 	/* Constructeur */
-	public function __construct() {
+	public function __construct($chemin) {
 		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_meta");
 		$this->declarer_objet("pl3_objet_page_contenu");
-		parent::__construct(_CHEMIN_PAGE_COURANTE, 1);
+		parent::__construct($chemin, 1);
 	}
 
 	/* Afficher */

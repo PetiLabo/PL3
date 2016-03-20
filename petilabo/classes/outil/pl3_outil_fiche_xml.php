@@ -50,6 +50,24 @@ class pl3_outil_fiche_xml {
 		if ($ret) {$this->charger_objets(); }
 		else if ($this->obligatoire) {die("ERREUR : Fichier XML obligatoire introuvable");}
 	}
+	public function charger_objet_xml($nom_classe, $id) {
+		$index = ((int) $id) - 1;
+		if (isset($this->liste_noms_objets[$nom_classe])) {
+			$nom_balise = $this->liste_noms_objets[$nom_classe];
+			$ret = $this->charger();
+			if ($ret) {
+				$liste_objets = $this->parser_balise($nom_balise);
+				if (isset($liste_objets[$index])) {
+					$objet = $liste_objets[$index];
+					$objet->charger_xml();
+					$this->liste_objets[$nom_classe] = array($objet);
+					return $objet;
+				}
+				else {return null;}
+			}
+		}
+		else {die("ERREUR : Objet XML à charger non déclaré");}
+	}
 
 	protected function charger() {
 		$ret = false;
@@ -131,15 +149,6 @@ class pl3_outil_fiche_xml {
 	}
 	
 	/* Recherches */
-	public function chercher_objet_classe_par_id($nom_classe, $id) {
-		if (isset($this->liste_objets[$nom_classe])) {
-			foreach($this->liste_objets[$nom_classe] as $instance) {
-				$valeur_id = $instance->lire_id();
-				if (!(strcmp($valeur_id, $id))) {return $instance;}
-			}
-		}
-		return null;
-	}
 	public function chercher_objet_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut) {
 		if (isset($this->liste_objets[$nom_classe])) {
 			foreach($this->liste_objets[$nom_classe] as $instance) {

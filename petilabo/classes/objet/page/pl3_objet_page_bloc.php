@@ -36,4 +36,13 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		}
 		echo "</div>\n";
 	}
+	
+	/* Recherches */
+	public function chercher_objet_par_id($id) {
+		foreach($this->objets as $instance) {
+			$valeur_id = $instance->lire_id();
+			if (!(strcmp($valeur_id, $id))) {return $instance;}
+		}
+		return null;
+	}
 }
