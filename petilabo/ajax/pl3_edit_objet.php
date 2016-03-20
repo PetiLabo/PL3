@@ -47,7 +47,9 @@ if ($edit_objet_valide) {
 /* Traitement de l'édition des objets */
 $html = "";
 if ($edit_objet_valide) {
-	$html = $objet->ecrire_xml(0);
+	$html .= afficher_ligne_xml($objet);
+	$html .= afficher_valeur($objet);
+	$html .= afficher_attributs($objet);
 }
 
 

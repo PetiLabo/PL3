@@ -6,7 +6,7 @@
  
 class pl3_objet_style_style_puce_icone extends pl3_outil_objet_xml {
 	const NOM_BALISE = "icone";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -20,7 +20,7 @@ class pl3_objet_style_style_puce_icone extends pl3_outil_objet_xml {
 
 class pl3_objet_style_style_puce_taille extends pl3_outil_objet_xml {
 	const NOM_BALISE = "taille";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -34,7 +34,7 @@ class pl3_objet_style_style_puce_taille extends pl3_outil_objet_xml {
 
 class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
 	const NOM_BALISE = "ombre";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -50,7 +50,8 @@ class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
 class pl3_objet_style_style_puce extends pl3_outil_objet_xml {
 	const NOM_BALISE = "style_puce";
 	const NOM_ATTRIBUT_NOM = "nom";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_NOM);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	public static $Noms_elements = array(
 		pl3_objet_style_style_puce_icone::NOM_BALISE,
 		pl3_objet_style_style_puce_taille::NOM_BALISE,

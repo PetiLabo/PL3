@@ -7,7 +7,8 @@
 class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	const NOM_BALISE = "paragraphe";
 	const NOM_ATTRIBUT_STYLE = "style";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_STYLE);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"));
 
 	public function ecrire_xml($niveau) {
 		$attr_style = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_STYLE);

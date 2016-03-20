@@ -8,7 +8,9 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	const NOM_BALISE = "titre";
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_NIVEAU = "niveau";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_STYLE, self::NOM_ATTRIBUT_NIVEAU);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"),
+		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER));
 
 	public function ecrire_xml($niveau) {
 		$attr_style = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_STYLE);

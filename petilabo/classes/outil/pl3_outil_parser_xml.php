@@ -12,16 +12,17 @@ class pl3_outil_parser_xml {
 			$nom_classe = _PREFIXE_OBJET.$fiche."_".$nom_balise;
 			$reflection = new ReflectionClass($nom_classe);
 			$balise = $reflection->getConstant("NOM_BALISE");
-			$attributs = $reflection->getStaticPropertyValue("Noms_attributs");
+			$attributs = $reflection->getStaticPropertyValue("Liste_attributs");
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
 				$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$element));	
 				foreach($attributs as $attribut) {
-					$avec_attribut = $element->hasAttribute($attribut);
+					$nom_attribut = $attribut["nom"];
+					$avec_attribut = $element->hasAttribute($nom_attribut);
 					if ($avec_attribut) {
-						$valeur_attribut = $element->getAttribute($attribut);
-						$instance->set_attribut($attribut, $valeur_attribut);
+						$valeur_attribut = $element->getAttribute($nom_attribut);
+						$instance->set_attribut($nom_attribut, $valeur_attribut);
 					}
 				}
 				$ret[] = $instance;
@@ -36,7 +37,7 @@ class pl3_outil_parser_xml {
 			$nom_classe = $nom_classe."_".$nom_balise;
 			$reflection = new ReflectionClass($nom_classe);
 			$balise = $reflection->getConstant("NOM_BALISE");
-			$attributs = $reflection->getStaticPropertyValue("Noms_attributs");
+			$attributs = $reflection->getStaticPropertyValue("Liste_attributs");
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
@@ -44,10 +45,11 @@ class pl3_outil_parser_xml {
 				
 				/* Traitement des attributs */
 				foreach($attributs as $attribut) {
-					$avec_attribut = $element->hasAttribute($attribut);
+					$nom_attribut = $attribut["nom"];
+					$avec_attribut = $element->hasAttribute($nom_attribut);
 					if ($avec_attribut) {
-						$valeur_attribut = $element->getAttribute($attribut);
-						$instance->set_attribut($attribut, $valeur_attribut);
+						$valeur_attribut = $element->getAttribute($nom_attribut);
+						$instance->set_attribut($nom_attribut, $valeur_attribut);
 					}
 				}
 				
@@ -79,12 +81,13 @@ class pl3_outil_parser_xml {
 					$reflection = new ReflectionClass($nom_classe);
 					$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$objet));
 					/* Traitement des attributs */
-					$attributs = $reflection->getStaticPropertyValue("Noms_attributs");
+					$attributs = $reflection->getStaticPropertyValue("Liste_attributs");
 					foreach($attributs as $attribut) {
-						$avec_attribut = $objet->hasAttribute($attribut);
+						$nom_attribut = $attribut["nom"];
+						$avec_attribut = $objet->hasAttribute($nom_attribut);
 						if ($avec_attribut) {
-							$valeur_attribut = $objet->getAttribute($attribut);
-							$instance->set_attribut($attribut, $valeur_attribut);
+							$valeur_attribut = $objet->getAttribute($nom_attribut);
+							$instance->set_attribut($nom_attribut, $valeur_attribut);
 						}
 					}
 					/* Traitement de la valeur si la balise doit en avoir une */

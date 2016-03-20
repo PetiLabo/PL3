@@ -6,7 +6,7 @@
  
 class pl3_objet_page_image extends pl3_outil_objet_xml {
 	const NOM_BALISE = "image";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);

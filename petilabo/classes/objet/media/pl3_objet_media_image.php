@@ -6,7 +6,7 @@
  
 class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 	const NOM_BALISE = "fichier";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -20,7 +20,7 @@ class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 
 class pl3_objet_media_image_alt extends pl3_outil_objet_xml { 
 	const NOM_BALISE = "alt";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -35,7 +35,8 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	const NOM_BALISE = "image";
 	const NOM_ATTRIBUT_NOM = "nom";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_NOM);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	
 	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);

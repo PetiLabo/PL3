@@ -63,6 +63,7 @@ function calculer_coord_editeur(objet) {
 
 /* Initialisations */
 $(document).ready(function() {
+	/* Gestion du clic sur un objet éditable */
 	$("div.page").on("click", ".objet_editable", function() {
 		var html_id = $(this).attr("id");
 		if (html_id.length > 0) {
@@ -75,17 +76,23 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
+	/* Gestion du survol d'un objet éditable */
 	$("div.page").on("mouseenter", ".objet_editable", function() {
 		$(this).css({"cursor": "pointer", "border-color": "#f00"});
 	});
 	$("div.page").on("mouseleave", ".objet_editable", function() {
 		$(this).css({"cursor": "default", "border-color": "transparent"});
 	});
+	
+	/* Gestion du clic sur le lien de fermeture d'un éditeur d'objet */
 	$("div.page").on("click", "p.editeur_objet_fermer a", function() {
 		var editeur = $(this).closest("div.editeur_objet");
 		if (editeur) {editeur.remove();}
 		return false;
 	});
+	
+	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
 	$(window).resize(function() {
 		$("div.page > div.editeur_objet").each(function() {
 			var editeur_id = $(this).attr("id");

@@ -6,7 +6,7 @@
  
 class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
 	const NOM_BALISE = "titre";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -23,7 +23,7 @@ class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
 
 class pl3_objet_page_meta_description extends pl3_outil_objet_xml { 
 	const NOM_BALISE = "description";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -40,7 +40,7 @@ class pl3_objet_page_meta_description extends pl3_outil_objet_xml {
 
 class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	const NOM_BALISE = "meta";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_page_meta_titre::NOM_BALISE);

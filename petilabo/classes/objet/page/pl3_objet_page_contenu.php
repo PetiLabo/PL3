@@ -7,7 +7,8 @@
 class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	const NOM_BALISE = "contenu";
 	const NOM_ATTRIBUT_STYLE = "style";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_STYLE);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_contenu"));
 	
 	public function __construct($nom_fiche, $id, $objet_parent, &$noeud = null) {
 		$this->declarer_objet("pl3_objet_page_bloc");

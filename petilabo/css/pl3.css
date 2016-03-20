@@ -1,7 +1,7 @@
 /*
  * CSS PL3
  */
-body, div.page, p{position:relative;margin:0;padding:0;}
+body, div.page, p {position:relative;margin:0;padding:0;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
 .bloc{background:#08f;margin:10px;padding:10px;}
 .bloc > div{margin:0;padding:3px;text-align:center;background:#8f8;}
@@ -12,6 +12,10 @@ body, div.page, p{position:relative;margin:0;padding:0;}
 .editeur_objet_fermer{font-family:Sans-Serif;text-align:right;}
 .editeur_objet_fermer a{font-weight:bold;color:#888;text-decoration:none;}
 .editeur_objet_fermer a:hover{color:#f00;}
+.editeur_objet_titre_attributs, .editeur_objet_titre_valeur, .editeur_objet_titre_xml{font-weight:bold;margin-top:3px;margin-bottom:3px;}
+.editeur_objet_valeur, .editeur_objet_ligne_xml{margin-top:3px;margin-bottom:3px;margin-left:1em;}
+.editeur_objet_liste_attributs{margin-top:3px;margin-bottom:3px;}
+.editeur_objet_liste_attributs li {}
 
 /* Petits écrans */
 @media all and (max-width: 600px) {

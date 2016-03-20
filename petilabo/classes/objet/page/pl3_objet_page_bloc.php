@@ -8,7 +8,9 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	const NOM_BALISE = "bloc";
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_TAILLE = "taille";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_STYLE, self::NOM_ATTRIBUT_TAILLE);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_bloc"),
+		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER));
 
 	private $objets = array();
 

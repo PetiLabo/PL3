@@ -6,7 +6,7 @@
  
 class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
 	const NOM_BALISE = "element";
-	public static $Noms_attributs = array();
+	public static $Liste_attributs = array();
 	
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
@@ -21,7 +21,8 @@ class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
 class pl3_objet_media_galerie extends pl3_outil_objet_xml {
 	const NOM_BALISE = "galerie";
 	const NOM_ATTRIBUT_NOM = "nom";
-	public static $Noms_attributs = array(self::NOM_ATTRIBUT_NOM);
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	private $elements = array();
 	
 	public function charger_xml() {

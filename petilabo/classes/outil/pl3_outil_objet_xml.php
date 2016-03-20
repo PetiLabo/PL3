@@ -5,6 +5,12 @@
  */
  
 abstract class pl3_outil_objet_xml {
+	const TYPE_ENTIER = 1;
+	const TYPE_CHAINE = 2;
+	const TYPE_ICONE = 3;
+	const TYPE_REFERENCE = 4;
+	const TYPE_FICHIER = 5;
+
 	protected $id = 0;
 	protected $objet_parent = null;
 	protected $noeud = null;
