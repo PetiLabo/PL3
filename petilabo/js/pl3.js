@@ -11,7 +11,8 @@ function editer_objet(nom_page, balise_id, nom_balise) {
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			alert(data["html"]);
+			var html = data["html"];
+			afficher_editeur(balise_id, nom_balise, html);
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");
@@ -20,6 +21,45 @@ function editer_objet(nom_page, balise_id, nom_balise) {
 		alert("ERREUR : Script AJAX introuvable");
 	});
 }
+
+/* Affichage du code attaché à l'objet */
+function afficher_editeur(balise_id, nom_balise, html) {
+	var objet_id = nom_balise+"-"+balise_id;
+	var objet = $("#"+objet_id);
+	if (objet) {
+		/* Constitution de l'éditeur */
+		var style = calculer_coord_editeur(objet);
+		var div = "<div id=\"editeur-"+objet_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
+		div += "<p class=\"editeur_objet_fermer\"><a href=\"#\" title=\"Fermer\">x</a></p>";
+		div += html;
+		div += "</div>";
+		
+		/* Affichage de l'éditeur */
+		$("div.page").append(div);
+	}
+}
+
+function calculer_coord_editeur(objet) {
+	/* Récupération de la position de l'objet */
+	var position = objet.position();
+	var pos_gauche = parseInt(position.left);
+	var pos_haut = parseInt(position.top);
+	var hauteur = parseInt(objet.height());
+	var largeur = parseInt(objet.width());
+	
+	/* Calcul de la position de l'éditeur */		
+	var pos_x = pos_gauche;
+	var pos_y = pos_haut + hauteur + 6;
+	var largeur_min = largeur - 6;
+
+	/* Elaboration du style */
+	var style = "top:"+pos_y+"px;";
+	style += "left:"+pos_x+"px;";
+	style += "min-width:"+largeur_min+"px;";
+	
+	return style;
+}
+		
 
 /* Initialisations */
 $(document).ready(function() {
@@ -40,5 +80,24 @@ $(document).ready(function() {
 	});
 	$("div.page").on("mouseleave", ".objet_editable", function() {
 		$(this).css({"cursor": "default", "border-color": "transparent"});
+	});
+	$("div.page").on("click", "p.editeur_objet_fermer a", function() {
+		var editeur = $(this).closest("div.editeur_objet");
+		if (editeur) {editeur.remove();}
+		return false;
+	});
+	$(window).resize(function() {
+		$("div.page > div.editeur_objet").each(function() {
+			var editeur_id = $(this).attr("id");
+			var editeur = $("#"+editeur_id);
+			if (editeur) {
+				var objet_id = editeur_id.replace("editeur-", "");
+				var objet = $("#"+objet_id);
+				if (objet) {
+					var style = calculer_coord_editeur(objet);
+					editeur.attr("style", style);
+				}
+			}
+		});
 	});
 });
