@@ -28,9 +28,12 @@ function afficher_editeur(balise_id, nom_balise, html) {
 	var objet = $("#"+objet_id);
 	if (objet) {
 		/* Constitution de l'éditeur */
-		var style = calculer_coord_editeur(objet);
+		var style = calculer_coord_editeur(objet, false);
 		var div = "<div id=\"editeur-"+objet_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
-		div += "<p class=\"editeur_objet_fermer\"><a href=\"#\" title=\"Fermer\">x</a></p>";
+		div += "<p class=\"editeur_objet_barre_outils\">";
+		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
+		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		div += "</p>";
 		div += html;
 		div += "</div>";
 		
@@ -39,27 +42,33 @@ function afficher_editeur(balise_id, nom_balise, html) {
 	}
 }
 
-function calculer_coord_editeur(objet) {
+function calculer_coord_editeur(objet, plein_ecran) {
 	/* Récupération de la position de l'objet */
 	var position = objet.position();
-	var pos_gauche = parseInt(position.left);
 	var pos_haut = parseInt(position.top);
 	var hauteur = parseInt(objet.height());
-	var largeur = parseInt(objet.width());
-	
-	/* Calcul de la position de l'éditeur */		
-	var pos_x = pos_gauche;
 	var pos_y = pos_haut + hauteur + 6;
-	var largeur_min = largeur - 6;
 
-	/* Elaboration du style */
-	var style = "top:"+pos_y+"px;";
-	style += "left:"+pos_x+"px;";
-	style += "min-width:"+largeur_min+"px;";
+	/* Calcul de la position de l'éditeur */	
+	if (plein_ecran) {
+		var pos_x = 5;
+		var largeur = $("div.page").innerWidth() - 25;
+		var style = "top:"+pos_y+"px;";
+		style += "left:"+pos_x+"px;";
+		style += "width:"+largeur+"px;";
+	}
+	else {	
+		var pos_x = parseInt(position.left);
+		var largeur_min = parseInt(objet.width()) - 6;
+
+		/* Elaboration du style */
+		var style = "top:"+pos_y+"px;";
+		style += "left:"+pos_x+"px;";
+		style += "min-width:"+largeur_min+"px;";
+	}
 	
 	return style;
 }
-		
 
 /* Initialisations */
 $(document).ready(function() {
@@ -85,10 +94,25 @@ $(document).ready(function() {
 		$(this).css({"cursor": "default", "border-color": "transparent"});
 	});
 	
-	/* Gestion du clic sur le lien de fermeture d'un éditeur d'objet */
-	$("div.page").on("click", "p.editeur_objet_fermer a", function() {
+	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */
+	$("div.page").on("click", "p.editeur_objet_barre_outils a.editeur_objet_bouton_fermer", function() {
 		var editeur = $(this).closest("div.editeur_objet");
 		if (editeur) {editeur.remove();}
+		return false;
+	});
+	$("div.page").on("click", "p.editeur_objet_barre_outils a.editeur_objet_bouton_agrandir", function() {
+		var editeur = $(this).closest("div.editeur_objet");
+		if (editeur) {
+			var editeur_id = editeur.attr("id");
+			var objet_id = editeur_id.replace("editeur-", "");
+			var objet = $("#"+objet_id);
+			if (objet) {
+				editeur.toggleClass("editeur_objet_plein_ecran");
+				var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
+				var style = calculer_coord_editeur(objet, plein_ecran);
+				editeur.attr("style", style);
+			}
+		}
 		return false;
 	});
 	
@@ -98,10 +122,11 @@ $(document).ready(function() {
 			var editeur_id = $(this).attr("id");
 			var editeur = $("#"+editeur_id);
 			if (editeur) {
+				var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
 				var objet_id = editeur_id.replace("editeur-", "");
 				var objet = $("#"+objet_id);
 				if (objet) {
-					var style = calculer_coord_editeur(objet);
+					var style = calculer_coord_editeur(objet, plein_ecran);
 					editeur.attr("style", style);
 				}
 			}

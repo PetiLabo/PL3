@@ -98,11 +98,8 @@ function array_post($nom_param) {
 }
 function nettoyer_param($str) {
 	if (!is_null($str)) {
-		// Protection contre le null byte poisonning
 		$str = str_replace("\0", '', $str);
-		// Traitement des magic quotes
 		if (get_magic_quotes_gpc()) {$str = stripslashes($str);}
-		// Suppression des espaces à gauche et à droite
 		$str = trim($str);
 	}
 	return $str;

@@ -9,9 +9,9 @@ body, div.page, p {position:relative;margin:0;padding:0;}
 
 /* Mode administration */
 .editeur_objet{position:absolute;background:#fff;border:2px solid #888;padding:1px 5px 3px 5px;}
-.editeur_objet_fermer{font-family:Sans-Serif;text-align:right;}
-.editeur_objet_fermer a{font-weight:bold;color:#888;text-decoration:none;}
-.editeur_objet_fermer a:hover{color:#f00;}
+.editeur_objet_barre_outils{font-family:Sans-Serif;text-align:right;margin:0;padding:0;margin-top:1px;margin-right:-5px;}
+.editeur_objet_barre_outils a{background:#888;font-weight:bold;color:#444;text-decoration:none;padding:3px 5px;margin-left:2px;}
+.editeur_objet_barre_outils a:hover{background:#444;color:#f00;}
 .editeur_objet_titre_attributs, .editeur_objet_titre_valeur, .editeur_objet_titre_xml{font-weight:bold;margin-top:3px;margin-bottom:3px;}
 .editeur_objet_valeur, .editeur_objet_ligne_xml{margin-top:3px;margin-bottom:3px;margin-left:1em;}
 .editeur_objet_liste_attributs{margin-top:3px;margin-bottom:3px;}
