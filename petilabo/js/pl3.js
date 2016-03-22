@@ -42,6 +42,20 @@ function afficher_editeur(balise_id, nom_balise, html) {
 	}
 }
 
+/* Déplacement (ou retaillage) d'un éditeur d'objets */
+function deplacer_editeur(editeur_id) {
+	var editeur = $("#"+editeur_id);
+	if (editeur) {
+		var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
+		var objet_id = editeur_id.replace("editeur-", "");
+		var objet = $("#"+objet_id);
+		if (objet) {
+			var style = calculer_coord_editeur(objet, plein_ecran);
+			editeur.attr("style", style);
+		}
+	}
+}
+
 function calculer_coord_editeur(objet, plein_ecran) {
 	/* Récupération de la position de l'objet */
 	var position = objet.position();
@@ -129,16 +143,20 @@ $(document).ready(function() {
 	$(window).resize(function() {
 		$("div.page > div.editeur_objet").each(function() {
 			var editeur_id = $(this).attr("id");
-			var editeur = $("#"+editeur_id);
-			if (editeur) {
-				var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
-				var objet_id = editeur_id.replace("editeur-", "");
-				var objet = $("#"+objet_id);
-				if (objet) {
-					var style = calculer_coord_editeur(objet, plein_ecran);
-					editeur.attr("style", style);
-				}
-			}
+			deplacer_editeur(editeur_id);
 		});
 	});
+	
+	/* Possibilité de changer l'ordre des éléments dans un bloc */
+	$(".bloc").sortable({
+		placeholder: 'highlight', // A FAIRE
+		update: function() {
+			$(this).find("*[id]").each(function() {
+				var elem_id = $(this).attr("id");
+				var editeur_id = "editeur-"+elem_id;
+				deplacer_editeur(editeur_id);
+			});	
+		}
+	});
+	$(".bloc").disableSelection();
 });
