@@ -107,9 +107,18 @@ $(document).ready(function() {
 			var objet_id = editeur_id.replace("editeur-", "");
 			var objet = $("#"+objet_id);
 			if (objet) {
-				editeur.toggleClass("editeur_objet_plein_ecran");
 				var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
-				var style = calculer_coord_editeur(objet, plein_ecran);
+				if (plein_ecran) {
+					editeur.removeClass("editeur_objet_plein_ecran");
+					$(this).attr("title", "Agrandir");
+					$(this).find("span").addClass("fa-expand").removeClass("fa-compress");
+				}
+				else {
+					editeur.addClass("editeur_objet_plein_ecran");
+					$(this).attr("title", "Réduire");
+					$(this).find("span").removeClass("fa-expand").addClass("fa-compress");
+				}
+				var style = calculer_coord_editeur(objet, !plein_ecran);
 				editeur.attr("style", style);
 			}
 		}
