@@ -139,6 +139,13 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	/* Soumission des formulaires dans les éditeurs d'objets */
+	$("div.page").on("submit", "form.editeur_formulaire", function() {
+		var form_id = $(this).attr("id");
+		alert("Soumission du formulaire "+form_id.replace("formulaire-", ""));
+		return false;
+	});
+	
 	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
 	$(window).resize(function() {
 		$("div.page > div.editeur_objet").each(function() {

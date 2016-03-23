@@ -11,6 +11,12 @@ $nom_page = pl3_post::Post("nom_page");
 $balise_id = pl3_post::Post("balise_id");
 $nom_balise = pl3_post::Post("nom_balise");
 
+/*
+$nom_page = "index";
+$balise_id = "2-2-1";
+$nom_balise = "titre";
+*/
+
 /* Validation des paramètres post */
 $edit_objet_valide = false;
 if ((strlen($nom_page) > 0) && (strlen($balise_id) > 0) && (strlen($nom_balise) > 0)) {
@@ -49,10 +55,8 @@ if ($edit_objet_valide) {
 /* Traitement de l'édition des objets */
 $html = "";
 if ($edit_objet_valide) {
-	$editeur_objet = new pl3_editeur_objet($objet);
-	$html .= $editeur_objet->afficher_ligne_xml();
-	$html .= $editeur_objet->afficher_valeur();
-	$html .= $editeur_objet->afficher_attributs();
+	$editeur_objet = new pl3_editeur_objet($objet, $nom_balise."-".$balise_id);
+	$html = $editeur_objet->editer();
 }
 
 
