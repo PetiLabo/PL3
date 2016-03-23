@@ -1,13 +1,15 @@
 <?php
 define("_CHEMIN_PETILABO", "../");
 define("_CHEMIN_XML", "../../xml/");
-require_once "pl3_fonctions_ajax.php";
+
+require_once "pl3_classe_ajax_post.php";
+require_once "pl3_classe_ajax_editeur_objet.php";
 require_once _CHEMIN_PETILABO."pl3_init.php";
 
 /* Récupération des paramètres post */
-$nom_page = post("nom_page");
-$balise_id = post("balise_id");
-$nom_balise = post("nom_balise");
+$nom_page = pl3_post::Post("nom_page");
+$balise_id = pl3_post::Post("balise_id");
+$nom_balise = pl3_post::Post("nom_balise");
 
 /* Validation des paramètres post */
 $edit_objet_valide = false;
@@ -47,9 +49,10 @@ if ($edit_objet_valide) {
 /* Traitement de l'édition des objets */
 $html = "";
 if ($edit_objet_valide) {
-	$html .= afficher_ligne_xml($objet);
-	$html .= afficher_valeur($objet);
-	$html .= afficher_attributs($objet);
+	$editeur_objet = new pl3_editeur_objet($objet);
+	$html .= $editeur_objet->afficher_ligne_xml();
+	$html .= $editeur_objet->afficher_valeur();
+	$html .= $editeur_objet->afficher_attributs();
 }
 
 
