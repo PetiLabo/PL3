@@ -6,6 +6,7 @@ define("_VERSION_PETILABO", "3.0.0");
 /* Chemins PetiLabo */
 // define("_CHEMIN_PETILABO", "petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
+define("_CHEMIN_AJAX", _CHEMIN_PETILABO."ajax/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
 define("_CHEMIN_CSS", _CHEMIN_PETILABO."css/");
 define("_CHEMIN_JS", _CHEMIN_PETILABO."js/");
@@ -76,6 +77,9 @@ function autochargement($nom_classe) {
 		else {
 			die("Erreur : la classe objet ".$nom_classe." porte sur une fiche inconnue");
 		}
+	}
+	else if (!(strcmp($categorie, "ajax_"))) {
+		$chemin = _CHEMIN_AJAX;
 	}
 	$fichier = $chemin.$nom_classe.".php";
     if (@file_exists($fichier)) {

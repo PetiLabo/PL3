@@ -4,7 +4,7 @@
  * Classe de gestion de l'éditeur d'objets
  */
  
-class pl3_editeur_objet {
+class pl3_ajax_editeur_objet {
 	
 	private $objet = null;
 	private $id_objet = null;
