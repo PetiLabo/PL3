@@ -32,8 +32,12 @@ function soumettre_objet(nom_page, balise_id, nom_balise, parametres) {
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			var html = data["html"];
-			alert("OK :\n"+html);
+			var maj = data["maj"];
+			if (maj) {
+				var html = data["html"];
+				$("#"+nom_balise+"-"+balise_id).parent().replaceWith(html);
+			}
+			$("#editeur-"+nom_balise+"-"+balise_id).remove();
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");

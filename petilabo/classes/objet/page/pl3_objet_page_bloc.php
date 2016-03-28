@@ -30,13 +30,15 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
+		$ret = "";
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
-		echo "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
-		echo "<p>".$taille."</p>\n";
+		$ret .= "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
+		$ret .= "<p>".$taille."</p>\n";
 		foreach($this->objets as $objet) {
-			$objet->afficher();
+			$ret .= $objet->afficher();
 		}
-		echo "</div>\n";
+		$ret .= "</div>\n";
+		return $ret;
 	}
 	
 	/* Recherches */

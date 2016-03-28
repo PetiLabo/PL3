@@ -14,7 +14,9 @@ class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
-		echo "<!-- Element -->\n";
+		$ret = "";
+		$ret .= "<!-- Element -->\n";
+		return $ret;
 	}
 }
 
@@ -40,9 +42,11 @@ class pl3_objet_media_galerie extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
-		echo "<!-- Galerie -->\n";
+		$ret = "";
+		$ret .= "<!-- Galerie -->\n";
 		foreach ($this->elements as $element) {
-			$element->afficher();
+			$ret .= $element->afficher();
 		}
+		return $ret;
 	}
 }

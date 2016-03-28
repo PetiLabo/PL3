@@ -14,10 +14,12 @@ class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
+		$ret = "";
 		$valeur_titre = $this->get_valeur();
 		if (strlen($valeur_titre) > 0) {
-			echo "<title>".$this->get_valeur()."</title>\n";
+			$ret .= "<title>".$this->get_valeur()."</title>\n";
 		}
+		return $ret;
 	}
 }
 
@@ -31,10 +33,12 @@ class pl3_objet_page_meta_description extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
+		$ret = "";
 		$valeur_descr = $this->get_valeur();
 		if (strlen($valeur_descr) > 0) {
-			echo "<meta name=\"description\" content=\"".$this->get_valeur()."\" />\n";
+			$ret .= "<meta name=\"description\" content=\"".$this->get_valeur()."\" />\n";
 		}
+		return $ret;
 	}
 }
 
@@ -60,6 +64,7 @@ class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	}
 	
 	public function afficher() {
-		$this->afficher_elements_xml();
+		$ret = $this->afficher_elements_xml();
+		return $ret;
 	}
 }

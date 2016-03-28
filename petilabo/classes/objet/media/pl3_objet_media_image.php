@@ -57,7 +57,9 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	}
 	
 	public function afficher() {
-		echo "<!-- Image -->\n";
-		$this->afficher_elements_xml();
+		$ret = "";
+		$ret .= "<!-- Image -->\n";
+		$ret .= $this->afficher_elements_xml();
+		return $ret;
 	}
 }

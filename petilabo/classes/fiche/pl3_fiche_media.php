@@ -16,6 +16,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	
 	/* Afficher */
 	public function afficher() {
-		$this->afficher_objets();
+		$ret = $this->afficher_objets();
+		return $ret;
 	}
 }

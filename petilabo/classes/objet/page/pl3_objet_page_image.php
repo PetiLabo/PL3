@@ -14,15 +14,17 @@ class pl3_objet_page_image extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher() {
+		$ret = "";
 		$nom_image = $this->get_valeur();
 		$image = pl3_fiche_liste_medias::Chercher_instance_balise_par_attribut(pl3_objet_media_image::NOM_BALISE, pl3_objet_media_image::NOM_ATTRIBUT_NOM, $nom_image);
 		if ($image != null) {
 			$fichier = $image->get_valeur_fichier();
 			$alt = $image->get_valeur_alt();
 			$html_id = $this->get_html_id();
-			echo "<div class=\"container_image\">";
-			echo "<img id=\"".$html_id."\" class=\"image objet_editable\" src=\""._CHEMIN_IMAGES_XML.$fichier."\" alt=\"".$alt."\" />";
-			echo "</div>\n";
+			$ret .= "<div class=\"container_image\">";
+			$ret .= "<img id=\"".$html_id."\" class=\"image objet_editable\" src=\""._CHEMIN_IMAGES_XML.$fichier."\" alt=\"".$alt."\" />";
+			$ret .= "</div>\n";
 		}
+		return $ret;
 	}
 }

@@ -134,18 +134,20 @@ class pl3_outil_fiche_xml {
 
 	/* Afficher */
 	protected function afficher_objets($nom_objet = null) {
+		$ret = "";
 		if ($nom_objet == null) {
 			foreach ($this->liste_objets as $liste_objets) {
 				foreach ($liste_objets as $objet) {
-					$objet->afficher();
+					$ret .= $objet->afficher();
 				}
 			}
 		}
 		else if (isset($this->liste_objets[$nom_objet])) {
 			foreach ($this->liste_objets[$nom_objet] as $objet) {
-				$objet->afficher();
+				$ret .= $objet->afficher();
 			}
 		}
+		return $ret;
 	}
 	
 	/* Recherches */

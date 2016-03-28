@@ -17,8 +17,8 @@ pl3_fiche_liste_medias::Charger_xml();
 $page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
 $page->charger_xml();
 
-$page->afficher_head();
-$page->ouvrir_body();
+echo $page->afficher_head();
+echo $page->ouvrir_body();
 
 echo "<h1>Tests PL3</h1>\n";
 
@@ -35,9 +35,10 @@ $bloc_3->set_attribut_taille(5);
 $contenu_1->ajouter_objet($bloc_3);
 $page->ajouter_objet($contenu_1);
 
-$page->ecrire_body();
+echo $page->ecrire_body();
+
 /*
 echo "<h2>Méthode ecrire_xml</h2>\n";
 echo nl2br($page->ecrire_xml());
 */
-$page->fermer_body();
+echo $page->fermer_body();

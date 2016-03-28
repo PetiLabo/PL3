@@ -92,7 +92,12 @@ abstract class pl3_outil_objet_xml {
 
 	/* Gestion des attributs */
 	public function set_attribut($nom_attribut, $valeur_attribut) {
+		$ret = true;
+		if (isset($this->attributs[$nom_attribut])) {
+			$ret = ($this->attributs[$nom_attribut] != $valeur_attribut);
+		}
 		$this->attributs[$nom_attribut] = $valeur_attribut;
+		return $ret;
 	}
 	public function get_attribut_chaine($nom_attribut) {
 		$ret = isset($this->attributs[$nom_attribut])?$this->attributs[$nom_attribut]:null;
