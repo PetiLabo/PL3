@@ -2,10 +2,12 @@
 define("_CHEMIN_PETILABO", "../");
 define("_CHEMIN_XML", "../../xml/");
 require_once _CHEMIN_PETILABO."pl3_init.php";
-require_once _CHEMIN_AJAX."pl3_ajax_init.php";
 
-/* Traitement de la soumission de l'objet */
+/* Initialisations */
 $html = "";
+$ajax_objet_valide = pl3_ajax_init::Init();
+
+/* Traitement des paramètres */
 if ($ajax_objet_valide) {
 	$parametres = pl3_ajax_post::Post("parametres");
 	if (strlen($parametres) > 0) {
