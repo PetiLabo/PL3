@@ -13,8 +13,8 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER));
 
 	public function ecrire_xml($niveau) {
-		$attr_style = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
-		$attr_niveau = $this->get_xml_attribut_entier(self::NOM_ATTRIBUT_NIVEAU);
+		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);
+		$attr_niveau = $this->get_xml_attribut(self::NOM_ATTRIBUT_NIVEAU);
 		$xml = $this->ouvrir_fermer_xml($niveau, array($attr_style, $attr_niveau));
 		return $xml;
 	}

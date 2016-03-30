@@ -49,7 +49,7 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	}
 
 	public function ecrire_xml($niveau) {
-		$attr_nom = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_NOM);
+		$attr_nom = $this->get_xml_attribut(self::NOM_ATTRIBUT_NOM);
 		$xml = $this->ouvrir_xml($niveau, array($attr_nom));
 		$xml .= $this->ecrire_elements_xml(1 + $niveau);
 		$xml .= $this->fermer_xml($niveau);

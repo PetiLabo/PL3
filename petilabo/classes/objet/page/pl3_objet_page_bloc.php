@@ -13,14 +13,30 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER));
 
 	private $objets = array();
+	
+	public function remplacer_objet(&$nouvel_objet) {
+		$nouvel_id = $nouvel_objet->lire_id();
+		$nb_objets = count($this->objets);
+		for ($cpt = 0;$cpt < $nb_objets;$cpt ++) {
+			$objet = $this->objets[$cpt];
+			if ($objet != null) {
+				$id = $objet->lire_id();
+				if ($id == $nouvel_id) {
+					$this->objets[$cpt] = $nouvel_objet;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	public function charger_xml() {
 		$this->objets = pl3_outil_parser_xml::Parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
 	}
 
 	public function ecrire_xml($niveau) {
-		$attr_style = $this->get_xml_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
-		$attr_taille = $this->get_xml_attribut_entier(self::NOM_ATTRIBUT_TAILLE);
+		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);
+		$attr_taille = $this->get_xml_attribut(self::NOM_ATTRIBUT_TAILLE);
 		$xml = $this->ouvrir_xml($niveau, array($attr_style, $attr_taille));
 		foreach ($this->objets as $objet) {
 			$xml .= $objet->ecrire_xml(1 + $niveau);

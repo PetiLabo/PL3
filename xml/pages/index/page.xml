@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-	<meta>
-		<titre>PL3 : Index</titre>
-		<description>Yet another PetiLabo :-)</description>
-	</meta>
-	<contenu style="initial">
-		<bloc>
-			<saut>1</saut>
-		</bloc>
-	</contenu>
-	<contenu>
-		<bloc>
-			<saut>1</saut>
-		</bloc>
-		<bloc style="entete" taille="6">
-			<titre style="sous_titre_gris" niveau="1">titre_actu</titre>
-			<paragraphe>texte_actu</paragraphe>
-			<image>vignette_actu</image>
-		</bloc>
-		<bloc taille="3">
-			<saut>1</saut>
-		</bloc>
-	</contenu>
+    <meta>
+        <titre>PL3 : Index</titre>
+        <description>Yet another PetiLabo :-)</description>
+    </meta>
+    <contenu style="initial">
+        <bloc>
+            <saut>1</saut>
+        </bloc>
+    </contenu>
+    <contenu>
+        <bloc>
+            <saut>1</saut>
+        </bloc>
+        <bloc style="entete" taille="6">
+            <titre style="sous_titre_gris" niveau="2">titre_actu</titre>
+            <paragraphe>texte_actu</paragraphe>
+            <image>vignette_actu</image>
+        </bloc>
+        <bloc taille="3">
+            <saut>1</saut>
+        </bloc>
+    </contenu>
 </petilabo>

@@ -112,39 +112,35 @@ abstract class pl3_outil_objet_xml {
 	}
 
 	/* Mise en forme XML des attributs */
-	public function get_xml_attribut_chaine($nom_attribut) {
+	public function get_xml_attribut($nom_attribut) {
 		$ret = ($this->has_attribut($nom_attribut))?($nom_attribut."=\"".$this->get_attribut_chaine($nom_attribut))."\"":"";
-		return $ret;
-	}
-	public function get_xml_attribut_entier($nom_attribut) {
-		$ret = ($this->has_attribut($nom_attribut))?($nom_attribut."=".((int) $this->get_attribut_chaine($nom_attribut))):"";
 		return $ret;
 	}
 	
 	/* Affichage des balises XML */
 	public function ouvrir_xml($niveau, $liste_attributs = null) {
 		$ret = $this->indenter_xml($niveau);
-		$ret .= "&lt;".static::NOM_BALISE;
+		$ret .= "<".static::NOM_BALISE;
 		$ret .= $this->ouvrir_attributs_xml($liste_attributs);
-		$ret .= "&gt;\n";
+		$ret .= ">\n";
 		return $ret;
 	}
 	public function fermer_xml($niveau) {
 		$ret = $this->indenter_xml($niveau);
-		$ret .= "&lt;/".static::NOM_BALISE."&gt;\n";
+		$ret .= "</".static::NOM_BALISE.">\n";
 		return $ret;
 	}
 	public function ouvrir_fermer_xml($niveau, $liste_attributs = null) {
 		$ret = $this->indenter_xml($niveau);
-		$ret .= "&lt;".static::NOM_BALISE;
+		$ret .= "<".static::NOM_BALISE;
 		$ret .= $this->ouvrir_attributs_xml($liste_attributs);
 		if ($this->avec_valeur) {
-			$ret .= "&gt;";
+			$ret .= ">";
 			$ret .= $this->valeur;
-			$ret .= "&lt;/".static::NOM_BALISE;
+			$ret .= "</".static::NOM_BALISE;
 		}
 		else {$ret .= "/";}
-		$ret .= "&gt;\n";
+		$ret .= ">\n";
 		return $ret;
 	}
 	
@@ -174,7 +170,7 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Méthodes de service pour l'affichage des balises XML */
 	protected function indenter_xml($niveau) {
-		$ret = str_repeat("&nbsp;", 5 * ((int) ($niveau)));
+		$ret = str_repeat(" ", 4 * ((int) ($niveau)));
 		return $ret;
 	}
 	protected function ouvrir_attributs_xml($liste_attributs) {

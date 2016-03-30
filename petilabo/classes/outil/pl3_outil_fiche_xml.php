@@ -89,6 +89,12 @@ class pl3_outil_fiche_xml {
 		}
 	}
 	
+	/* Sauvegarde */
+	public function enregistrer_xml() {
+		$ret = file_put_contents($this->nom_fichier_xml, $this->ecrire_xml());
+		return $ret;
+	}
+	
 	/* Ajouts "inline" */
 	public function ajouter_objet(&$objet) {
 		$nom_classe = get_class($objet);
@@ -113,13 +119,13 @@ class pl3_outil_fiche_xml {
 	}
 	
 	protected function ouvrir_fiche_xml() {
-		$ret = "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;\n";
-		$ret .= "&lt;".self::NOM_BALISE_GENERIQUE."&gt;\n";
+		$ret = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		$ret .= "<".self::NOM_BALISE_GENERIQUE.">\n";
 		return $ret;
 	}
 
 	protected function fermer_fiche_xml() {
-		$ret = "&lt;/".self::NOM_BALISE_GENERIQUE."&gt;\n";
+		$ret = "</".self::NOM_BALISE_GENERIQUE.">\n";
 		return $ret;
 	}
 	protected function ecrire_objets_xml() {
@@ -151,6 +157,15 @@ class pl3_outil_fiche_xml {
 	}
 	
 	/* Recherches */
+	public function chercher_objet_classe_par_id($nom_classe, $valeur_id) {
+		if (isset($this->liste_objets[$nom_classe])) {
+			foreach($this->liste_objets[$nom_classe] as $instance) {
+				$id = $instance->lire_id();
+				if ($valeur_id == $id) {return $instance;}
+			}
+		}
+		return null;
+	}
 	public function chercher_objet_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut) {
 		if (isset($this->liste_objets[$nom_classe])) {
 			foreach($this->liste_objets[$nom_classe] as $instance) {

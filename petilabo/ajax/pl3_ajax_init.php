@@ -4,6 +4,9 @@ class pl3_ajax_init {
 	private static $Nom_page = null;
 	private static $Nom_balise = null;
 	private static $Balise_id = null;
+	private static $Page = null;
+	private static $Contenu = null;
+	private static $Bloc = null;
 	private static $Objet = null;	
 		
 	public static function Init() {
@@ -38,12 +41,16 @@ class pl3_ajax_init {
 		/* Chargement des objets XML en fonction des paramètres */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			$page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
-			$contenu = $page->charger_objet_xml("pl3_objet_page_contenu", $contenu_id);
-			if ($contenu != null) {
-				$bloc = $contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $bloc_id);
-				if ($bloc != null) {
-					self::$Objet = $bloc->chercher_objet_par_id($objet_id);
+			self::$Page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
+			/*
+			self::$Contenu = self::$Page->charger_objet_xml("pl3_objet_page_contenu", $contenu_id);
+			*/
+			self::$Page->charger_xml();
+			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
+			if (self::$Contenu != null) {
+				self::$Bloc = self::$Contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $bloc_id);
+				if (self::$Bloc != null) {
+					self::$Objet = self::$Bloc->chercher_objet_par_id($objet_id);
 					if (self::$Objet != null) {$ajax_objet_valide = true;}
 				}
 			}
@@ -53,9 +60,11 @@ class pl3_ajax_init {
 	}
 	
 	/* Accesseurs */
-	public static function Get_nom_page() {return self::$Nom_page;}
 	public static function Get_nom_balise() {return self::$Nom_balise;}
 	public static function Get_balise_id() {return self::$Balise_id;}
 	public static function Get_nom_balise_id() {return self::$Nom_balise."-".self::$Balise_id;}
+	public static function Get_page() {return self::$Page;}
+	public static function Get_contenu() {return self::$Contenu;}
+	public static function Get_bloc() {return self::$Bloc;}
 	public static function Get_objet() {return self::$Objet;}
 }
