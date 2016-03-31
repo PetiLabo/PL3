@@ -5,9 +5,14 @@
  */
  
 class pl3_objet_page_image extends pl3_outil_objet_xml {
+	/* Balise */
 	const NOM_BALISE = "image";
+	public static $Balise = array("nom" => "Valeur", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
+	
+	/* Attributs */
 	public static $Liste_attributs = array();
 
+	/* Méthodes */
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
 		return $xml;

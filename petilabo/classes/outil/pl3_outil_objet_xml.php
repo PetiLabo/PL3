@@ -11,6 +11,7 @@ abstract class pl3_outil_objet_xml {
 	const TYPE_ICONE = 4;
 	const TYPE_REFERENCE = 5;
 	const TYPE_FICHIER = 6;
+	const TYPE_COMPOSITE = 7;
 
 	protected $id = 0;
 	protected $objet_parent = null;
@@ -85,12 +86,16 @@ abstract class pl3_outil_objet_xml {
 	public function avec_valeur() {return $this->avec_valeur;}
 	public function set_valeur($valeur) {$this->valeur = $valeur;}
 	public function get_valeur() {return $this->valeur;}
+	public function get_type_valeur() {return static::$Balise["type"];}
+	public function get_reference_valeur() {return (isset(static::$Balise["reference"]))?(static::$Balise["reference"]):null;}
+	public function get_balise() {return static::$Balise;}
 	
 	/* Gestion du noeud */
 	public function &get_noeud() {return $this->noeud;}
 	public function &get_parent() {return $this->objet_parent;}
 
 	/* Gestion des attributs */
+	public function get_liste_attributs() {return static::$Liste_attributs;}
 	public function set_attribut($nom_attribut, $valeur_attribut) {
 		$ret = true;
 		if (isset($this->attributs[$nom_attribut])) {

@@ -5,15 +5,21 @@
  */
  
 class pl3_objet_page_bloc extends pl3_outil_objet_xml {
+	/* Balise */
 	const NOM_BALISE = "bloc";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
+	
+	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_TAILLE = "taille";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_bloc"),
 		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER));
 
+	/* Autres propriétés */
 	private $objets = array();
 	
+	/* Méthode */
 	public function remplacer_objet(&$nouvel_objet) {
 		$nouvel_id = $nouvel_objet->lire_id();
 		$nb_objets = count($this->objets);

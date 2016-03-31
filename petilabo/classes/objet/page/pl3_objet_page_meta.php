@@ -5,9 +5,14 @@
  */
  
 class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
+	/* Balise */
 	const NOM_BALISE = "titre";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
+	
+	/* Attributs */
 	public static $Liste_attributs = array();
 	
+	/* Méthodes */
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
 		return $xml;
@@ -23,10 +28,15 @@ class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
 	}
 }
 
-class pl3_objet_page_meta_description extends pl3_outil_objet_xml { 
+class pl3_objet_page_meta_description extends pl3_outil_objet_xml {
+	/* Balise */
 	const NOM_BALISE = "description";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
+	
+	/* Attributs */
 	public static $Liste_attributs = array();
 	
+	/* Méthodes */
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
 		return $xml;
@@ -43,15 +53,21 @@ class pl3_objet_page_meta_description extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
+	/* Balise */
 	const NOM_BALISE = "meta";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
+	
+	/* Attributs */
 	public static $Liste_attributs = array();
 	
+	/* Constructeur */
 	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_page_meta_titre::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_description::NOM_BALISE);
 		parent::__construct($nom_fiche, $id, $parent, $noeud);
 	}
 
+	/* Méthodes */
 	public function charger_xml() {
 		$this->charger_elements_xml();
 	}

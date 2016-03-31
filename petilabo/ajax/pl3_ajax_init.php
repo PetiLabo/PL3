@@ -42,9 +42,6 @@ class pl3_ajax_init {
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
 			self::$Page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
-			/*
-			self::$Contenu = self::$Page->charger_objet_xml("pl3_objet_page_contenu", $contenu_id);
-			*/
 			self::$Page->charger_xml();
 			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 			if (self::$Contenu != null) {
