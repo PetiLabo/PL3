@@ -176,6 +176,11 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	/* Gestion du survol d'un input submit */
+	$("div.page").on("mouseover", "input[type='submit']", function() {
+		$(this).css("cursor", "pointer");
+	});
+	
 	/* Soumission des formulaires dans les éditeurs d'objets */
 	$("div.page").on("submit", "form.editeur_formulaire", function() {
 		var form_id = $(this).attr("id");

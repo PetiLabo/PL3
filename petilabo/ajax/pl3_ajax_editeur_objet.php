@@ -27,7 +27,7 @@ class pl3_ajax_editeur_objet {
 		$ret = "<form id=\"formulaire-".$this->id_objet."\" class=\"editeur_formulaire\" method=\"post\">\n";
 		$ret .= $this->editer_valeur();
 		$ret .= $this->editer_attributs();	
-		$ret .= "<input type=\"submit\" value=\"OK\" />\n";
+		$ret .= "<input type=\"submit\" value=\"OK\" title=\"Enregistrer et fermer\" />\n";
 		$ret .= "</form>\n";
 		return $ret;
 	}
