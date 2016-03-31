@@ -59,6 +59,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret = "";
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" />\n";
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3.css\" />\n";
+		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_objets.css\" />\n";
 		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.12.0.min.js\"></script>\n";
 		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.11.4/jquery-ui.js\"></script>\n";
 		$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3.js\"></script>\n";

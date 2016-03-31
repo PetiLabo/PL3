@@ -11,10 +11,10 @@
     </contenu>
     <contenu>
         <bloc>
-            <saut>1</saut>
+            <saut>4</saut>
         </bloc>
         <bloc style="entete" taille="6">
-            <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
+            <titre style="sous_titre_gris" niveau="2">titre_news</titre>
             <paragraphe style="">texte_actu</paragraphe>
             <image>vignette_actu</image>
         </bloc>

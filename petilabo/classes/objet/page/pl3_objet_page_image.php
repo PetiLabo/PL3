@@ -7,7 +7,7 @@
 class pl3_objet_page_image extends pl3_outil_objet_xml {
 	/* Balise */
 	const NOM_BALISE = "image";
-	public static $Balise = array("nom" => "Valeur", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
 	
 	/* Attributs */
 	public static $Liste_attributs = array();

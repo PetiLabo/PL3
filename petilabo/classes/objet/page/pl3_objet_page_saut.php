@@ -7,7 +7,7 @@
 class pl3_objet_page_saut extends pl3_outil_objet_xml {
 	/* Balise */
 	const NOM_BALISE = "saut";
-	public static $Balise = array("nom" => "Valeur", "type" => self::TYPE_ENTIER);
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_ENTIER);
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
@@ -21,8 +21,9 @@ class pl3_objet_page_saut extends pl3_outil_objet_xml {
 	public function afficher() {
 		$ret = "";
 		$html_id = $this->get_html_id();
+		$valeur = $this->get_valeur();
 		$ret .= "<div class=\"container_saut\">\n";
-		$ret .= "<p id=\"".$html_id."\" class=\"saut objet_editable\">&nbsp;</p>\n";
+		$ret .= "<p id=\"".$html_id."\" class=\"saut objet_editable\" style=\"line-height:".$valeur.";\">&nbsp;</p>\n";
 		$ret .= "</div>\n";
 		return $ret;
 	}

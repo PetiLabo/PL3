@@ -5,6 +5,7 @@
  */
  
 abstract class pl3_outil_objet_xml {
+	const NOM_VALEUR = "valeur";
 	const TYPE_ENTIER = 1;
 	const TYPE_CHAINE = 2;
 	const TYPE_TEXTE = 3;
@@ -84,8 +85,18 @@ abstract class pl3_outil_objet_xml {
 	
 	/* Gestion de la valeur */
 	public function avec_valeur() {return $this->avec_valeur;}
-	public function set_valeur($valeur) {$this->valeur = $valeur;}
+	public function set_valeur($valeur) {
+		$ret = false;
+		if ($this->avec_valeur) {
+			if ($this->valeur != $valeur) {
+				$this->valeur = $valeur;
+				$ret = true;
+			}
+		}
+		return $ret;
+	}
 	public function get_valeur() {return $this->valeur;}
+	public function get_nom_valeur() {return static::$Balise["nom"];}
 	public function get_type_valeur() {return static::$Balise["type"];}
 	public function get_reference_valeur() {return (isset(static::$Balise["reference"]))?(static::$Balise["reference"]):null;}
 	public function get_balise() {return static::$Balise;}

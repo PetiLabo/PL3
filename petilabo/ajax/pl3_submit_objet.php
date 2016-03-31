@@ -14,10 +14,17 @@ if ($ajax_objet_valide) {
 	if (strlen($parametres) > 0) {
 		$objet = pl3_ajax_init::Get_objet();
 		parse_str($parametres, $liste_parametres);
-		if (count($liste_parametres) > 0) {
+		if (($objet != null) && (count($liste_parametres) > 0)) {
+			$nom_valeur = $objet->get_nom_valeur();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
-				$attribut_maj = $objet->set_attribut($nom_parametre, $valeur_parametre);
-				$ajax_objet_maj = $ajax_objet_maj || $attribut_maj ;
+				if (strncmp($nom_parametre, $nom_valeur, strlen($nom_valeur))) {
+					$attribut_maj = $objet->set_attribut($nom_parametre, $valeur_parametre);
+					$ajax_objet_maj = $ajax_objet_maj || $attribut_maj ;
+				}
+				else {
+					$valeur_maj = $objet->set_valeur($valeur_parametre);
+					$ajax_objet_maj = $ajax_objet_maj || $valeur_maj ;
+				}
 			}
 			if ($ajax_objet_maj) {
 				$bloc = pl3_ajax_init::Get_bloc();
