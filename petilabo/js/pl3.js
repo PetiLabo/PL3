@@ -64,7 +64,20 @@ function deplacer_objet(nom_page, bloc_id, tab_ordre) {
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			alert(nom_page+" "+bloc_id+" : "+tab_ordre);
+			var re_id = 1;
+			var bloc = $("#bloc-"+bloc_id);
+			/* Renumérotation des id des éléments du bloc */
+			bloc.children("div").children(["id"]).each(function() {
+				var html_id = $(this).attr("id");
+				var parsing_objet_id = parser_html_id(html_id);
+				var erreur_parsing = parsing_objet_id["erreur"];
+				if (!erreur_parsing) {
+					var nom_balise = parsing_objet_id["nom_balise"];
+					var re_html_id = nom_balise+"-"+bloc_id+"-"+re_id;
+					$(this).attr("id", re_html_id);
+					re_id += 1;
+				}
+			});
 		}
 		else {
 			alert("ERREUR : Le déplacement d'objet n'a pas pu être enregistré");

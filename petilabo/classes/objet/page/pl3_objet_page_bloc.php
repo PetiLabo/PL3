@@ -55,12 +55,16 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		$ret = "";
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
 		$ret .= "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
-		$ret .= "<p>".$taille."</p>\n";
 		foreach($this->objets as $objet) {
 			$ret .= $objet->afficher();
 		}
 		$ret .= "</div>\n";
 		return $ret;
+	}
+	
+	/* Accesseur */
+	public function lire_nb_objets() {
+		return count($this->objets);
 	}
 	
 	/* Recherches */
@@ -70,5 +74,15 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 			if (!(strcmp($valeur_id, $id))) {return $instance;}
 		}
 		return null;
+	}
+	
+	/* Mutateur */
+	public function reordonner($tab_ordre) {
+		$nouveaux_objets = array();
+		foreach ($tab_ordre as $no_ordre) {
+			$index = ((int) $no_ordre) - 1;
+			$nouveaux_objets[] = &$this->objets[$index];
+		}
+		$this->objets = $nouveaux_objets;
 	}
 }

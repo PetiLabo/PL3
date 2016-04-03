@@ -5,7 +5,7 @@ require_once _CHEMIN_PETILABO."pl3_init.php";
 
 /* Initialisations */
 $html = "";
-$ajax_objet_valide = pl3_ajax_init::Init();
+$ajax_objet_valide = pl3_ajax_init::Init_objet();
 
 /* Traitement des paramètres */
 if ($ajax_objet_valide) {
