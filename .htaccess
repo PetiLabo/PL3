@@ -8,20 +8,20 @@ Options -Indexes
 RewriteEngine on
 
 # Redirection de la page d'accueil vers index.php
-RewriteRule ^$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
-RewriteRule ^/$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
-RewriteRule ^admin$ http://%{HTTP_HOST}%{REQUEST_URI}/index.pl3 [L,R=301]
-RewriteRule ^admin/$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
+RewriteRule ^$ http://%{HTTP_HOST}%{REQUEST_URI}index.php [L,R=301]
+RewriteRule ^/$ http://%{HTTP_HOST}%{REQUEST_URI}index.php [L,R=301]
+RewriteRule ^admin$ http://%{HTTP_HOST}%{REQUEST_URI}/index.php [L,R=301]
+RewriteRule ^admin/$ http://%{HTTP_HOST}%{REQUEST_URI}index.php [L,R=301]
 
 # Réécriture d'URL pour gérer les noms de page (AJAX exclu)
-RewriteCond %{REQUEST_URI} !/ajax/(.*)\.php$
-RewriteCond %{REQUEST_URI} !/admin/(.*)\.pl3$
-RewriteCond %{REQUEST_URI} !/admin\.pl3$
-RewriteRule ^(.*\.pl3)$ index.php?p=$1 [QSA,L]
+RewriteCond %{THE_REQUEST} !ajax/.*
+RewriteCond %{THE_REQUEST} !admin/.*
+RewriteCond %{THE_REQUEST} !admin\.php
+RewriteRule ^(.*\.php)$ index.php?p=$1 [L]
 
 # Réécriture d'URL pour gérer le mode administration
-RewriteCond %{REQUEST_URI} ^(.*)/admin/(.*)\.pl3$
-RewriteRule ^(.*\.pl3)$ admin.php?p=$1 [QSA,L]
+RewriteCond %{THE_REQUEST} admin/.*
+RewriteRule ^(.*)/(.*\.php)$ index-admin.php?p=$2 [L]
 
 # Doublon avec l'ini_set PHP pour les cookies de session
 <IfModule php5_module>
