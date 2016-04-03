@@ -21,12 +21,12 @@ define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 
 /* Suffixes */
 define("_SUFFIXE_PHP", ".php");
-define("_SUFFIXE_PL3", ".pl3");
+define("_SUFFIXE_PL3", ".php");
 define("_SUFFIXE_XML", ".xml");
 
 /* Page principale */
 define("_PAGE_PRINCIPALE", "index");
-define("_PAGE_PRINCIPALE_ADMIN", "admin");
+define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 
 /* Gestion des erreurs */
 error_reporting(E_ALL);
