@@ -20,12 +20,13 @@ define("_PREFIXE_PETILABO", "pl3_");
 define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 
 /* Suffixes */
-define("_SUFFIXE_PHP", ".pl3");
+define("_SUFFIXE_PHP", ".php");
+define("_SUFFIXE_PL3", ".pl3");
 define("_SUFFIXE_XML", ".xml");
 
 /* Page principale */
-define("_PAGE_PRINCIPALE", "index.php");
-define("_PAGE_PRINCIPALE_ADMIN", "admin.php");
+define("_PAGE_PRINCIPALE", "index");
+define("_PAGE_PRINCIPALE_ADMIN", "admin");
 
 /* Gestion des erreurs */
 error_reporting(E_ALL);
@@ -36,12 +37,14 @@ if (isset($_SERVER["PHP_SELF"])) {
 	$nom_php_en_cours = basename($php_self);
 	if (strstr($php_self, "/ajax/") === false) {
 		if (isset($_GET["p"])) {
-			if ( !(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE)) || !strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN)) {
-				$nom_get_en_cours = htmlentities(basename(trim($_GET["p"])));
-				if (strlen($nom_get_en_cours) == 0) {$nom_get_en_cours = _PAGE_PRINCIPALE;}
-				$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);
-				define("_PAGE_COURANTE", $nom_page_en_cours);
-				define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");
+			$nom_get_en_cours = htmlentities(basename(trim($_GET["p"])));
+			if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE._SUFFIXE_PHP))) {
+				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE;}
+				else {$nom_page_en_cours = str_replace(_SUFFIXE_PL3, "", $nom_get_en_cours);}
+			}
+			else if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN._SUFFIXE_PHP))) {
+				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE_ADMIN;}
+				else {$nom_page_en_cours = str_replace(_SUFFIXE_PL3, "", $nom_get_en_cours);}
 			}
 			else {
 				die("ERREUR : Page XML introuvable");
@@ -49,7 +52,9 @@ if (isset($_SERVER["PHP_SELF"])) {
 		}
 		else {
 			die("ERREUR : Page XML introuvable");
-		}			
+		}
+		define("_PAGE_COURANTE", $nom_page_en_cours);
+		define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");		
 	}
 }
 else {

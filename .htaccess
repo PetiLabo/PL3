@@ -8,9 +8,10 @@ Options -Indexes
 RewriteEngine on
 
 # Redirection de la page d'accueil vers index.php
-# afin d'éviter le duplicate content entre / et /index.php
-RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.pl3 [L,R=301]
+RewriteRule ^$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
+RewriteRule ^/$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
+RewriteRule ^admin$ http://%{HTTP_HOST}%{REQUEST_URI}/index.pl3 [L,R=301]
+RewriteRule ^admin/$ http://%{HTTP_HOST}%{REQUEST_URI}index.pl3 [L,R=301]
 
 # Réécriture d'URL pour gérer les noms de page (AJAX exclu)
 RewriteCond %{REQUEST_URI} !/ajax/(.*)\.php$
