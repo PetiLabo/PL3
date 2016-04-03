@@ -10,17 +10,17 @@ RewriteEngine on
 # Redirection de la page d'accueil vers index.php
 # afin d'éviter le duplicate content entre / et /index.php
 RewriteCond %{REQUEST_URI} ^/$
-RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.php [L,R=301]
+RewriteRule ^(.*)$ http://%{HTTP_HOST}/index.pl3 [L,R=301]
 
 # Réécriture d'URL pour gérer les noms de page (AJAX exclu)
 RewriteCond %{REQUEST_URI} !/ajax/(.*)\.php$
-RewriteCond %{REQUEST_URI} !/admin/(.*)\.php$
-RewriteCond %{REQUEST_URI} !/admin\.php$
-RewriteRule ^(.*\.php)$ index.php?p=$1 [QSA,L]
+RewriteCond %{REQUEST_URI} !/admin/(.*)\.pl3$
+RewriteCond %{REQUEST_URI} !/admin\.pl3$
+RewriteRule ^(.*\.pl3)$ index.php?p=$1 [QSA,L]
 
 # Réécriture d'URL pour gérer le mode administration
-RewriteCond %{REQUEST_URI} ^(.*)/admin/(.*)\.php$
-RewriteRule ^(.*\.php)$ admin.php?p=$1 [QSA,L]
+RewriteCond %{REQUEST_URI} ^(.*)/admin/(.*)\.pl3$
+RewriteRule ^(.*\.pl3)$ admin.php?p=$1 [QSA,L]
 
 # Doublon avec l'ini_set PHP pour les cookies de session
 <IfModule php5_module>

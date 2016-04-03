@@ -20,7 +20,7 @@ define("_PREFIXE_PETILABO", "pl3_");
 define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 
 /* Suffixes */
-define("_SUFFIXE_PHP", ".php");
+define("_SUFFIXE_PHP", ".pl3");
 define("_SUFFIXE_XML", ".xml");
 
 /* Page principale */
