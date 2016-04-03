@@ -167,6 +167,36 @@ function parser_html_id(html_id) {
 	return {"erreur": true};
 }
 
+function appliquer_sortable(selecteur) {
+	$(selecteur).sortable({
+		placeholder: 'deplaceur_objet',
+		update: function() {
+			var bloc_attr_id = $(this).attr("id");
+			var bloc_id = bloc_attr_id.replace("bloc-", "");
+			var tab_ordre = [];
+			$(this).find("*[id]").each(function() {
+				var elem_id = $(this).attr("id");
+				var editeur_id = "editeur-"+elem_id;
+				deplacer_editeur(editeur_id);
+				var parsing_objet_id = parser_html_id(elem_id);
+				var erreur_parsing = parsing_objet_id["erreur"];
+				if (!erreur_parsing) {
+					var balise_id = parsing_objet_id["balise_id"];
+					var ordre_id = balise_id.replace(bloc_id+"-", "");
+					tab_ordre.push(ordre_id);
+				}
+			});
+			if (tab_ordre.length > 0) {
+				var nom_page = parser_page();
+				deplacer_objet(nom_page, bloc_id, tab_ordre);
+			}
+		},
+		start: function (e, ui) {ui.placeholder.height(ui.item.children().height());},
+		opacity: 0.7
+	});
+	$(selecteur).disableSelection();
+}
+
 /* Initialisations */
 $(document).ready(function() {
 	/* Gestion du clic sur un objet éditable */
@@ -251,29 +281,5 @@ $(document).ready(function() {
 	});
 	
 	/* Possibilité de changer l'ordre des éléments dans un bloc */
-	$(".bloc").sortable({
-		placeholder: 'highlight', // A FAIRE
-		update: function() {
-			var bloc_attr_id = $(this).attr("id");
-			var bloc_id = bloc_attr_id.replace("bloc-", "");
-			var tab_ordre = [];
-			$(this).find("*[id]").each(function() {
-				var elem_id = $(this).attr("id");
-				var editeur_id = "editeur-"+elem_id;
-				deplacer_editeur(editeur_id);
-				var parsing_objet_id = parser_html_id(elem_id);
-				var erreur_parsing = parsing_objet_id["erreur"];
-				if (!erreur_parsing) {
-					var balise_id = parsing_objet_id["balise_id"];
-					var ordre_id = balise_id.replace(bloc_id+"-", "");
-					tab_ordre.push(ordre_id);
-				}
-			});
-			if (tab_ordre.length > 0) {
-				var nom_page = parser_page();
-				deplacer_objet(nom_page, bloc_id, tab_ordre);
-			}
-		}
-	});
-	$(".bloc").disableSelection();
+	appliquer_sortable(".bloc");
 });

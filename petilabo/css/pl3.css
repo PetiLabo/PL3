@@ -1,6 +1,8 @@
 /*
  * CSS PL3
  */
+ 
+/* Général *************************************************************************/
 body, div.page, p {position:relative;margin:0;padding:0;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
 .bloc{background:#08f;margin:10px;padding:10px;}
@@ -11,7 +13,9 @@ body, div.page, p {position:relative;margin:0;padding:0;}
 .bloc > div > h5, .bloc > div > h6, 
 .bloc > div > img {margin:0;padding:1px;border: 3px solid transparent;}
 
-/* Mode administration */
+/* Mode administration **************************************************************/
+
+/* Editeur d'objet */
 .editeur_objet{position:absolute;background:#fff;border:2px solid #888;padding:1px 5px 3px 5px;}
 .editeur_objet_barre_outils{font-family:Sans-Serif;text-align:right;margin:0;padding:0;margin-top:2px;margin-right:-5px;}
 .editeur_objet_barre_outils a{background:#888;font-weight:bold;color:#444;text-decoration:none;padding:3px 5px;margin-left:2px;}
@@ -26,6 +30,11 @@ body, div.page, p {position:relative;margin:0;padding:0;}
 .editeur_objet input[type="text"]{width:15em;}
 .editeur_objet input[type="number"]{width:4em;}
 .editeur_objet input[type="submit"]{width:4em;margin:6px 0 6px 6px;}
+
+/* JQuery UI */
+.deplaceur_objet{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
+
+/* Gestion responsive ***************************************************************/
 
 /* Petits écrans */
 @media all and (max-width: 600px) {
