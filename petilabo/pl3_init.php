@@ -25,6 +25,7 @@ define("_SUFFIXE_XML", ".xml");
 
 /* Page principale */
 define("_PAGE_PRINCIPALE", "index.php");
+define("_PAGE_PRINCIPALE_ADMIN", "admin.php");
 
 /* Gestion des erreurs */
 error_reporting(E_ALL);
@@ -35,8 +36,8 @@ if (isset($_SERVER["PHP_SELF"])) {
 	$nom_php_en_cours = basename($php_self);
 	if (strstr($php_self, "/ajax/") === false) {
 		if (isset($_GET["p"])) {
-			if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE))) {
-				$nom_get_en_cours = htmlentities(trim($_GET["p"]));
+			if ( !(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE)) || !strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN)) {
+				$nom_get_en_cours = htmlentities(basename(trim($_GET["p"])));
 				if (strlen($nom_get_en_cours) == 0) {$nom_get_en_cours = _PAGE_PRINCIPALE;}
 				$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);
 				define("_PAGE_COURANTE", $nom_page_en_cours);
@@ -86,7 +87,7 @@ function autochargement($nom_classe) {
         @require_once($fichier);
     }
 	else {
-		die("Impossible de charger le fichier ".$fichier);
+		die("ERREUR : Impossible de charger le fichier ".$fichier);
 	}
 }
 
