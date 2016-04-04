@@ -13,7 +13,7 @@ class pl3_objet_style_style_puce_icone extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Icone -->\n";
 	}
 }
@@ -27,7 +27,7 @@ class pl3_objet_style_style_puce_taille extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Taille -->\n";
 	}
 }
@@ -41,7 +41,7 @@ class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Ombre -->\n";
 	}
 }
@@ -75,10 +75,10 @@ class pl3_objet_style_style_puce extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Styles de puce -->\n";
 		foreach ($this->elements as $element) {
-			$element->afficher();
+			$element->afficher($mode);
 		}
 	}
 }

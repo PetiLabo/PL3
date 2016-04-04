@@ -21,7 +21,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$html_id = $this->get_html_id();
 		$valeur = $this->get_valeur();

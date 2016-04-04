@@ -51,12 +51,12 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
 		$ret .= "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
 		foreach($this->objets as $objet) {
-			$ret .= $objet->afficher();
+			$ret .= $objet->afficher($mode);
 		}
 		$ret .= "</div>\n";
 		return $ret;

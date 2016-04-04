@@ -12,15 +12,7 @@ class pl3_ajax_init {
 
 	public static function Init_objet() {
 		/* Récupération du nom de la page */
-		$ajax_objet_valide = false;
-		self::$Nom_page = pl3_ajax_post::Post("nom_page");
-		if (strlen(self::$Nom_page) > 0) {
-			$chemin_page = _CHEMIN_PAGES_XML.(self::$Nom_page)."/";
-			$fichier_page = (pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML;
-			define("_PAGE_COURANTE", self::$Nom_page);
-			define("_CHEMIN_PAGE_COURANTE", $chemin_page);
-			$ajax_objet_valide = @file_exists($chemin_page.$fichier_page);
-		}
+		$ajax_objet_valide = self::Init_page();
 
 		/* Récupération de la balise et de son id */
 		if ($ajax_objet_valide) {
@@ -59,15 +51,7 @@ class pl3_ajax_init {
 
 	public static function Init_bloc() {
 		/* Récupération du nom de la page */
-		$ajax_objet_valide = false;
-		self::$Nom_page = pl3_ajax_post::Post("nom_page");
-		if (strlen(self::$Nom_page) > 0) {
-			$chemin_page = _CHEMIN_PAGES_XML.(self::$Nom_page)."/";
-			$fichier_page = (pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML;
-			define("_PAGE_COURANTE", self::$Nom_page);
-			define("_CHEMIN_PAGE_COURANTE", $chemin_page);
-			$ajax_objet_valide = @file_exists($chemin_page.$fichier_page);
-		}
+		$ajax_objet_valide = self::Init_page();
 
 		/* Récupération du bloc et de son id */
 		if ($ajax_objet_valide) {
@@ -94,6 +78,23 @@ class pl3_ajax_init {
 			}
 		}
 		
+		return $ajax_objet_valide;
+	}
+
+	/* Récupération du nom de la page */	
+	public static function Init_page() {
+		$ajax_objet_valide = false;
+		self::$Nom_page = pl3_ajax_post::Post("nom_page");
+		if (strlen(self::$Nom_page) > 0) {
+			$chemin_page = _CHEMIN_PAGES_XML.(self::$Nom_page)."/";
+			$fichier_page = (pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML;
+			$ajax_objet_valide = @file_exists($chemin_page.$fichier_page);
+		}
+		/* Définition des constantes pour la page courante */
+		if ($ajax_objet_valide) {
+			define("_PAGE_COURANTE", self::$Nom_page);
+			define("_CHEMIN_PAGE_COURANTE", $chemin_page);
+		}
 		return $ajax_objet_valide;
 	}
 

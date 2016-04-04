@@ -35,10 +35,10 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	protected function afficher_elements_xml() {
+	protected function afficher_elements_xml($mode) {
 		$ret = "";
 		foreach ($this->elements as $element) {
-			$ret .= $element->afficher();
+			$ret .= $element->afficher($mode);
 		}
 		return $ret;
 	}

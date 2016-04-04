@@ -14,7 +14,7 @@ class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Fichier -->\n";
 	}
 }
@@ -29,7 +29,7 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Alt -->\n";
 	}
 }
@@ -59,10 +59,10 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$ret .= "<!-- Image -->\n";
-		$ret .= $this->afficher_elements_xml();
+		$ret .= $this->afficher_elements_xml($mode);
 		return $ret;
 	}
 }

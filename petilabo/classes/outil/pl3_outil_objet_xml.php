@@ -50,7 +50,7 @@ abstract class pl3_outil_objet_xml {
 	}
 
 	/* Méthodes abstraites */
-	abstract public function afficher();
+	abstract public function afficher($mode);
 	abstract public function ecrire_xml($niveau);
 	
 	/* Accesseurs */

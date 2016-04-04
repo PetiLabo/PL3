@@ -1,5 +1,5 @@
 <?php
-define("_CHEMIN_PETILABO", "../");
+define("_CHEMIN_PETILABO", "../../petilabo/");
 define("_CHEMIN_XML", "../../xml/");
 require_once _CHEMIN_PETILABO."pl3_init.php";
 
@@ -31,7 +31,7 @@ if ($ajax_objet_valide) {
 				$bloc->remplacer_objet($objet);
 				$page = pl3_ajax_init::Get_page();
 				$page->enregistrer_xml();
-				$html .= $objet->afficher();
+				$html .= $objet->afficher(_MODE_ADMIN);
 			}
 		}
 	}

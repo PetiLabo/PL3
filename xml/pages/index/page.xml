@@ -11,15 +11,15 @@
     </contenu>
     <contenu>
         <bloc>
-            <saut>4</saut>
+            <saut>2</saut>
         </bloc>
         <bloc style="entete" taille="6">
-            <titre style="sous_titre_gris" niveau="1">titre_news</titre>
-            <paragraphe style="">texte_actu</paragraphe>
+            <titre style="sous_titre_gris" niveau="1">titre_de_l_actu</titre>
+            <paragraphe style="style_tutu">paragraphe_de_l_actu</paragraphe>
             <image>vignette_actu</image>
         </bloc>
         <bloc taille="3">
-            <saut>5</saut>
+            <saut>4</saut>
         </bloc>
     </contenu>
 </petilabo>

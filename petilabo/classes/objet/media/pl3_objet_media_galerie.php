@@ -14,7 +14,7 @@ class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$ret .= "<!-- Element -->\n";
 		return $ret;
@@ -43,11 +43,11 @@ class pl3_objet_media_galerie extends pl3_outil_objet_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$ret .= "<!-- Galerie -->\n";
 		foreach ($this->elements as $element) {
-			$ret .= $element->afficher();
+			$ret .= $element->afficher($mode);
 		}
 		return $ret;
 	}

@@ -26,8 +26,8 @@ class pl3_objet_style_style_bloc extends pl3_outil_objet_composite_xml {
 		return $xml;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		echo "<!-- Style de bloc -->\n";
-		$this->afficher_elements_xml();
+		$this->afficher_elements_xml($mode);
 	}
 }

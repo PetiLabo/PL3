@@ -2,18 +2,18 @@
 <petilabo>
     <contenu style="initial">
         <bloc>
-            <saut>1</saut>
+            <saut>5</saut>
         </bloc>
     </contenu>
     <contenu>
         <bloc>
             <saut>1</saut>
-            <titre style="sous_titre_gris" niveau="1">titre_page</titre>
+            <titre style="sous_titre_gris" niveau="2">titre_du_bloc</titre>
             <saut>1</saut>
         </bloc>
         <bloc>
-            <paragraphe>toto</paragraphe>
             <saut>1</saut>
+            <paragraphe style="style_toto">toto</paragraphe>
             <saut>1</saut>
         </bloc>
     </contenu>

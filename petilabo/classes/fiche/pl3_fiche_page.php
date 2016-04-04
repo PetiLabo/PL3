@@ -16,30 +16,30 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 
 	/* Afficher */
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
-		$ret .= $this->afficher_head();
-		$ret .= $this->afficher_body();
+		$ret .= $this->afficher_head($mode);
+		$ret .= $this->afficher_body($mode);
 		return $ret;
 	}
 	
-	public function afficher_head() {
+	public function afficher_head($mode) {
 		$ret = "";
-		$ret .= $this->ouvrir_head();
-		$ret .= $this->ecrire_head();
-		$ret .= $this->fermer_head();
+		$ret .= $this->ouvrir_head($mode);
+		$ret .= $this->ecrire_head($mode);
+		$ret .= $this->fermer_head($mode);
 		return $ret;
 	}
 	
-	public function afficher_body() {
+	public function afficher_body($mode) {
 		$ret = "";
-		$ret .= $this->ouvrir_body();
-		$ret .= $this->ecrire_body();
-		$ret .= $this->fermer_body();
+		$ret .= $this->ouvrir_body($mode);
+		$ret .= $this->ecrire_body($mode);
+		$ret .= $this->fermer_body($mode);
 		return $ret;
 	}	
 	
-	public function ouvrir_head() {
+	public function ouvrir_head($mode) {
 		$ret = "";
 		$ret .= "<!doctype html>\n";
 		$ret .= "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" lang=\"fr\" dir=\"ltr\">\n";
@@ -50,38 +50,46 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
-	public function ecrire_head() {
-		$ret = $this->afficher_objets("pl3_objet_page_meta");
+	public function ecrire_head($mode) {
+		$ret = $this->afficher_objets($mode, "pl3_objet_page_meta");
 		return $ret;
 	}
 	
-	public function fermer_head() {
+	public function fermer_head($mode) {
 		$ret = "";
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" />\n";
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3.css\" />\n";
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_objets.css\" />\n";
+		if ($mode == _MODE_ADMIN) {
+			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_admin.css\" />\n";
+		}
 		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.12.0.min.js\"></script>\n";
-		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.11.4/jquery-ui.js\"></script>\n";
+		if ($mode == _MODE_ADMIN) {
+			$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.11.4/jquery-ui.js\"></script>\n";
+		}
 		$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3.js\"></script>\n";
+		if ($mode == _MODE_ADMIN) {
+			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3_admin.js\"></script>\n";
+		}
 		$ret .= "</head>\n";
 		return $ret;
 	}
 	
-	public function ouvrir_body() {
+	public function ouvrir_body($mode) {
 		$ret = "";
 		$ret .= "<body>\n";
 		return $ret;
 	}
 	
-	public function ecrire_body() {
+	public function ecrire_body($mode) {
 		$ret = "";
 		$ret .= "<div class=\"page\" name=\""._PAGE_COURANTE."\">\n";
-		$ret .= $this->afficher_objets("pl3_objet_page_contenu");
+		$ret .= $this->afficher_objets($mode, "pl3_objet_page_contenu");
 		$ret .= "</div>\n";
 		return $ret;
 	}
 	
-	public function fermer_body() {
+	public function fermer_body($mode) {
 		$ret = "";
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";

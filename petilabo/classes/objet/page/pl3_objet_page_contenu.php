@@ -42,12 +42,12 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$this->liste_objets["pl3_objet_page_bloc"][] = $bloc;
 	}
 	
-	public function afficher() {
+	public function afficher($mode) {
 		$ret = "";
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
 		foreach ($liste_blocs as $bloc) {
-			$ret .= $bloc->afficher();
+			$ret .= $bloc->afficher($mode);
 		}
 		$ret .= "</div>\n";
 		return $ret;

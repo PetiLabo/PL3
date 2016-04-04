@@ -1,5 +1,5 @@
 <?php
-define("_CHEMIN_PETILABO", "../");
+define("_CHEMIN_PETILABO", "../../petilabo/");
 define("_CHEMIN_XML", "../../xml/");
 require_once _CHEMIN_PETILABO."pl3_init.php";
 

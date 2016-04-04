@@ -17,13 +17,12 @@ pl3_fiche_liste_medias::Charger_xml();
 $page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
 $page->charger_xml();
 
-echo $page->afficher_head();
-echo $page->ouvrir_body();
+echo $page->afficher_head(_MODE_NORMAL);
+echo $page->ouvrir_body(_MODE_NORMAL);
 
-echo "<h1>Tests PL3</h1>\n";
+echo "<h1>Page "._PAGE_COURANTE." en mode normal</h1>\n";
 
-echo "<h2>Méthode afficher</h2>\n";
-
+/*
 $contenu_1 = $page->nouvel_objet("pl3_objet_page_contenu");
 $bloc_1 = $contenu_1->nouvel_objet("pl3_objet_page_bloc");
 $bloc_1->set_attribut_taille(2);
@@ -34,11 +33,8 @@ $bloc_3 = $contenu_1->nouvel_objet("pl3_objet_page_bloc");
 $bloc_3->set_attribut_taille(5);
 $contenu_1->ajouter_objet($bloc_3);
 $page->ajouter_objet($contenu_1);
-
-echo $page->ecrire_body();
-
-/*
-echo "<h2>Méthode ecrire_xml</h2>\n";
-echo nl2br($page->ecrire_xml());
 */
-echo $page->fermer_body();
+
+echo $page->ecrire_body(_MODE_NORMAL);
+echo "<h2><a href=\"admin/"._PAGE_COURANTE._SUFFIXE_PHP."\">Accès au mode administration</a></h2>\n";
+echo $page->fermer_body(_MODE_NORMAL);

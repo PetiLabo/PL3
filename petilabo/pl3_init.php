@@ -3,17 +3,22 @@
 /* Définition de la version PetiLabo */
 define("_VERSION_PETILABO", "3.0.0");
 
+/* Définitions complémentaires */
+if (!defined("_CHEMIN_RESSOURCES")) {define("_CHEMIN_RESSOURCES", _CHEMIN_PETILABO);}
+if (!defined("_CHEMIN_RESSOURCES_XML")) {define("_CHEMIN_RESSOURCES_XML", _CHEMIN_XML);}
+
 /* Chemins PetiLabo */
-// define("_CHEMIN_PETILABO", "petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
-define("_CHEMIN_AJAX", _CHEMIN_PETILABO."ajax/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
-define("_CHEMIN_CSS", _CHEMIN_PETILABO."css/");
-define("_CHEMIN_JS", _CHEMIN_PETILABO."js/");
+
+/* Chemins ressources */
+define("_CHEMIN_AJAX", _CHEMIN_RESSOURCES."ajax/");
+define("_CHEMIN_CSS", _CHEMIN_RESSOURCES."css/");
+define("_CHEMIN_JS", _CHEMIN_RESSOURCES."js/");
 
 /* Chemins XML */
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
-define("_CHEMIN_IMAGES_XML", _CHEMIN_XML."images/");
+define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 
 /* Préfixes */
 define("_PREFIXE_PETILABO", "pl3_");
@@ -21,12 +26,15 @@ define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 
 /* Suffixes */
 define("_SUFFIXE_PHP", ".php");
-define("_SUFFIXE_PL3", ".php");
 define("_SUFFIXE_XML", ".xml");
 
 /* Page principale */
 define("_PAGE_PRINCIPALE", "index");
 define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
+
+/* Modes PetiLabo */
+define("_MODE_NORMAL", 0);
+define("_MODE_ADMIN", 1);
 
 /* Gestion des erreurs */
 error_reporting(E_ALL);
@@ -40,11 +48,11 @@ if (isset($_SERVER["PHP_SELF"])) {
 			$nom_get_en_cours = htmlentities(basename(trim($_GET["p"])));
 			if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE._SUFFIXE_PHP))) {
 				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE;}
-				else {$nom_page_en_cours = str_replace(_SUFFIXE_PL3, "", $nom_get_en_cours);}
+				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
 			}
 			else if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN._SUFFIXE_PHP))) {
 				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE_ADMIN;}
-				else {$nom_page_en_cours = str_replace(_SUFFIXE_PL3, "", $nom_get_en_cours);}
+				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
 			}
 			else {
 				die("ERREUR : Page XML introuvable");
@@ -53,6 +61,7 @@ if (isset($_SERVER["PHP_SELF"])) {
 		else {
 			die("ERREUR : Page XML introuvable");
 		}
+		/* Définition des constantes pour la page courante */
 		define("_PAGE_COURANTE", $nom_page_en_cours);
 		define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");		
 	}
