@@ -4,7 +4,7 @@
  * Classe de gestion des fichiers XML
  */
  
-class pl3_outil_fiche_xml {
+class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	const NOM_BALISE_GENERIQUE = "petilabo";
 
 	protected $id = 0;
@@ -14,13 +14,13 @@ class pl3_outil_fiche_xml {
 	protected $liste_noms_objets = array();
 	protected $liste_objets = array();
 	private $dom = null;
-	private $petilabo = null;
 	
 	/* Constructeur */
-	public function __construct($chemin, $id) {
+	public function __construct(&$source_page, $chemin, $id) {
 		$this->id = $id;
 		$this->nom_fichier_xml = $chemin.(static::NOM_FICHE)._SUFFIXE_XML;
 		$this->dom = new DOMDocument();
+		parent::__construct($source_page);
 	}
 	
 	/* Gestion des objets */
@@ -106,7 +106,7 @@ class pl3_outil_fiche_xml {
 	
 	/* Parser */
 	protected function parser_balise($nom_balise) {
-		$ret = pl3_outil_parser_xml::Parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
+		$ret = $this->source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	

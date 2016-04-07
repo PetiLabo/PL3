@@ -8,9 +8,9 @@ class pl3_fiche_style extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "style";
 	
 	/* Constructeur */
-	public function __construct($chemin, $id) {
+	public function __construct(&$source_page, $chemin, $id) {
 		$this->declarer_objet("pl3_objet_style_style_puce");
-		parent::__construct($chemin, $id);
+		parent::__construct($source_page, $chemin, $id);
 	}
 	
 	/* Afficher */

@@ -8,11 +8,11 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "page";
 	
 	/* Constructeur */
-	public function __construct($chemin) {
+	public function __construct(&$source_page, $chemin) {
 		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_meta");
 		$this->declarer_objet("pl3_objet_page_contenu");
-		parent::__construct($chemin, 1);
+		parent::__construct($source_page, $chemin, 1);
 	}
 
 	/* Afficher */
@@ -91,6 +91,12 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	public function fermer_body($mode) {
 		$ret = "";
+		if ($mode == _MODE_ADMIN) {
+			$ret .= "<p style=\"margin-top:20px;\"><a href=\"../"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode normal</a></p>\n";
+		}
+		else {
+			$ret .= "<p style=\"margin-top:20px;\"><a href=\"admin/"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode admin</a></p>\n";
+		}
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;

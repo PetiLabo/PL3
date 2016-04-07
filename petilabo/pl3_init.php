@@ -36,6 +36,10 @@ define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 define("_MODE_NORMAL", 0);
 define("_MODE_ADMIN", 1);
 
+/* Sources PetiLabo */
+define("_NOM_SOURCE_GLOBAL", "global");
+define("_NOM_SOURCE_LOCAL", "local");
+
 /* Gestion des erreurs */
 error_reporting(E_ALL);
 

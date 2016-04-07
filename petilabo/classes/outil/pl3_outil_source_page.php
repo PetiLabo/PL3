@@ -1,12 +1,51 @@
 <?php
 
 /**
- * Classe de gestion du parser XML
+ * Classe de gestion d'une source page
  */
+ 
+class pl3_outil_source_page {
+	private $liste_styles = null;
+	private $liste_medias = null;
+	private $page = null;
 
-class pl3_outil_parser_xml {
+	public function __construct() {
+		/* Styles */
+		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 
-	public static function Parser_balise($fiche, &$objet_parent, $nom_balise, &$noeud) {
+		/* Media */
+		$this->liste_medias = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_media");
+		$this->liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$this->liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+
+		/* Fichier page */
+		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
+	}
+
+	public function charger_xml() {
+		$this->liste_styles->charger_xml();
+		$this->liste_medias->charger_xml();
+		$this->charger_page_xml();
+	}
+
+	public function charger_page_xml() {
+		$this->page->charger_xml();
+	}
+
+	public function afficher($mode) {
+		$html = $this->page->afficher($mode);
+		return $html;
+	}
+
+	/* Accesseurs */
+	public function get_liste_styles() {return $this->liste_styles;}
+	public function get_liste_medias() {return $this->liste_medias;}
+	public function get_page() {return $this->page;}
+
+	/* Méthodes de parsing */
+	public function parser_balise($fiche, &$objet_parent, $nom_balise, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$nom_classe = _PREFIXE_OBJET.$fiche."_".$nom_balise;
@@ -16,7 +55,7 @@ class pl3_outil_parser_xml {
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$element));	
+				$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$element));	
 				foreach($attributs as $attribut) {
 					$nom_attribut = $attribut["nom"];
 					$avec_attribut = $element->hasAttribute($nom_attribut);
@@ -31,7 +70,7 @@ class pl3_outil_parser_xml {
 		return $ret;
 	}
 	
-	public static function Parser_balise_fille($fiche, &$objet_parent, $nom_classe, $nom_balise, &$noeud) {
+	public function parser_balise_fille($fiche, &$objet_parent, $nom_classe, $nom_balise, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$nom_classe = $nom_classe."_".$nom_balise;
@@ -41,7 +80,7 @@ class pl3_outil_parser_xml {
 
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$element));	
+				$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$element));	
 				
 				/* Traitement des attributs */
 				foreach($attributs as $attribut) {
@@ -66,7 +105,7 @@ class pl3_outil_parser_xml {
 		return $ret;
 	}
 	
-	public static function Parser_toute_balise($fiche, &$objet_parent, &$noeud) {
+	public function parser_toute_balise($fiche, &$objet_parent, &$noeud) {
 		$ret = array();
 		if ($noeud != null) {
 			$liste_objets = $noeud->childNodes;
@@ -79,7 +118,7 @@ class pl3_outil_parser_xml {
 				$fichier_existe = @file_exists($nom_fichier);
 				if ($fichier_existe) {
 					$reflection = new ReflectionClass($nom_classe);
-					$instance = $reflection->newInstanceArgs(array($fiche, 1 + count($ret), $objet_parent, &$objet));
+					$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$objet));
 					/* Traitement des attributs */
 					$attributs = $reflection->getStaticPropertyValue("Liste_attributs");
 					foreach($attributs as $attribut) {

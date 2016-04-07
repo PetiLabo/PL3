@@ -9,10 +9,6 @@ class pl3_objet_style_style_texte extends pl3_outil_objet_composite_xml {
 	const NOM_ATTRIBUT_NOM = "nom";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
-	
-	public function __construct($nom_fiche, $id, &$parent, &$noeud = null) {
-		parent::__construct($nom_fiche, $id, $parent, $noeud);
-	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();

@@ -37,7 +37,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	}
 
 	public function charger_xml() {
-		$this->objets = pl3_outil_parser_xml::Parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
+		$this->objets = $this->source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
 	}
 
 	public function ecrire_xml($niveau) {

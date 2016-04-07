@@ -15,9 +15,9 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_contenu"));
 	
 	/* Constructeur */
-	public function __construct($nom_fiche, $id, $objet_parent, &$noeud = null) {
+	public function __construct(&$source_page, $nom_fiche, $id, $objet_parent, &$noeud = null) {
 		$this->declarer_objet("pl3_objet_page_bloc");
-		parent::__construct($nom_fiche, $id, $objet_parent, $noeud);
+		parent::__construct($source_page, $nom_fiche, $id, $objet_parent, $noeud);
 	}
 
 	/* Méthodes */

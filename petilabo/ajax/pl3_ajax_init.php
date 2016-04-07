@@ -1,6 +1,7 @@
 <?php
 
 class pl3_ajax_init {
+	private static $Source_page = null;
 	private static $Nom_page = null;
 	private static $Nom_balise = null;
 	private static $Balise_id = null;
@@ -34,8 +35,8 @@ class pl3_ajax_init {
 		/* Chargement des objets XML en fonction des paramètres */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			self::$Page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
-			self::$Page->charger_xml();
+			self::$Source_page->charger_page_xml();
+			self::$Page = self::$Source_page->get_page();
 			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 			if (self::$Contenu != null) {
 				self::$Bloc = self::$Contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $bloc_id);
@@ -69,8 +70,8 @@ class pl3_ajax_init {
 		/* Chargement des objets XML en fonction des paramètres */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			self::$Page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
-			self::$Page->charger_xml();
+			self::$Source_page->charger_page_xml();
+			self::$Page = self::$Source_page->get_page();
 			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 			if (self::$Contenu != null) {
 				self::$Bloc = self::$Contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $bloc_id);
@@ -94,6 +95,8 @@ class pl3_ajax_init {
 		if ($ajax_objet_valide) {
 			define("_PAGE_COURANTE", self::$Nom_page);
 			define("_CHEMIN_PAGE_COURANTE", $chemin_page);
+			
+			self::$Source_page = new pl3_outil_source_page();
 		}
 		return $ajax_objet_valide;
 	}
