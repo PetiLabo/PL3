@@ -1,7 +1,6 @@
 <?php
-define("_CHEMIN_PETILABO", "../../petilabo/");
-define("_CHEMIN_XML", "../../xml/");
-require_once _CHEMIN_PETILABO."pl3_init.php";
+define("_CHEMIN_BASE_URL", "../../");
+require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
 /* Initialisations */
 $ajax_objet_valide = pl3_ajax_init::Init_bloc();

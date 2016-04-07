@@ -1,9 +1,7 @@
 <?php
-define("_CHEMIN_PETILABO", "petilabo/");
-define("_CHEMIN_RESSOURCES", "../"._CHEMIN_PETILABO);
-define("_CHEMIN_XML", "xml/");
-define("_CHEMIN_RESSOURCES_XML", "../"._CHEMIN_XML);
-require_once("petilabo/pl3_init.php");
+define("_CHEMIN_BASE_URL", "./");
+define("_CHEMIN_BASE_FICHIER", "../");
+require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
 $source_page = new pl3_outil_source_page();
 $source_page->charger_xml();

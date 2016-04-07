@@ -4,19 +4,22 @@
 define("_VERSION_PETILABO", "3.0.0");
 
 /* Définitions complémentaires */
-if (!defined("_CHEMIN_RESSOURCES")) {define("_CHEMIN_RESSOURCES", _CHEMIN_PETILABO);}
-if (!defined("_CHEMIN_RESSOURCES_XML")) {define("_CHEMIN_RESSOURCES_XML", _CHEMIN_XML);}
+if (!defined("_CHEMIN_BASE_FICHIER")) {define("_CHEMIN_BASE_FICHIER", _CHEMIN_BASE_URL);}
 
 /* Chemins PetiLabo */
+define("_CHEMIN_PETILABO", _CHEMIN_BASE_URL."petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
 
 /* Chemins ressources */
+define("_CHEMIN_RESSOURCES", _CHEMIN_BASE_FICHIER."petilabo/");
 define("_CHEMIN_AJAX", _CHEMIN_RESSOURCES."ajax/");
 define("_CHEMIN_CSS", _CHEMIN_RESSOURCES."css/");
 define("_CHEMIN_JS", _CHEMIN_RESSOURCES."js/");
 
 /* Chemins XML */
+define("_CHEMIN_XML", _CHEMIN_BASE_URL."xml/");
+define("_CHEMIN_RESSOURCES_XML", _CHEMIN_BASE_FICHIER."xml/");
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
 define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 
