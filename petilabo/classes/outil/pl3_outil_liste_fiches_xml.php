@@ -21,19 +21,15 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 		}
 	}
 	
-	public function chercher_instance_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut) {
-		foreach ($this->liste_fiches as $fiche) {
-			$instance = $fiche->chercher_objet_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut);
-			if ($instance != null) {return $instance;}
-		}
-		return null;
-	}
-	
 	public function chercher_instance_balise_par_attribut($nom_balise, $nom_attribut, $valeur_attribut) {
 		foreach ($this->liste_fiches as $fiche) {
 			$instance = $fiche->chercher_objet_balise_par_attribut($nom_balise, $nom_attribut, $valeur_attribut);
 			if ($instance != null) {return $instance;}
 		}
 		return null;
+	}
+	
+	public function chercher_instance_balise_par_nom($nom_balise, $valeur) {
+		return $this->chercher_instance_balise_par_attribut($nom_balise, self::NOM_ATTRIBUT_NOM, $valeur);
 	}
 }

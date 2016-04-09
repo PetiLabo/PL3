@@ -36,7 +36,6 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 
 class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	const NOM_BALISE = "image";
-	const NOM_ATTRIBUT_NOM = "nom";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));

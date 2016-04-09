@@ -49,7 +49,6 @@ class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
  
 class pl3_objet_style_style_puce extends pl3_outil_objet_xml {
 	const NOM_BALISE = "style_puce";
-	const NOM_ATTRIBUT_NOM = "nom";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	public static $Noms_elements = array(

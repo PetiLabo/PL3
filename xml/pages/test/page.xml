@@ -7,8 +7,8 @@
     </contenu>
     <contenu>
         <bloc>
-            <saut>1</saut>
             <titre style="sous_titre_gris" niveau="2">titre_du_bloc</titre>
+            <saut>1</saut>
             <saut>1</saut>
         </bloc>
         <bloc>

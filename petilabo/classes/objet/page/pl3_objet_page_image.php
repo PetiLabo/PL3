@@ -22,7 +22,7 @@ class pl3_objet_page_image extends pl3_outil_objet_xml {
 		$ret = "";
 		$nom_image = $this->get_valeur();
 		$liste_images = $this->source_page->get_liste_medias();
-		$image = $liste_images->chercher_instance_balise_par_attribut(pl3_objet_media_image::NOM_BALISE, pl3_objet_media_image::NOM_ATTRIBUT_NOM, $nom_image);
+		$image = $liste_images->chercher_instance_balise_par_nom(pl3_objet_media_image::NOM_BALISE, $nom_image);
 		if ($image != null) {
 			$fichier = $image->get_valeur_fichier();
 			$alt = $image->get_valeur_alt();
