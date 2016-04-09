@@ -83,6 +83,25 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 		}
 		return $ret;
 	}
+	public function parser_attributs(&$dom_element) {
+		$attributs = $this->get_liste_attributs();
+		foreach($attributs as $attribut) {
+			$nom_attribut = $attribut["nom"];
+			$avec_attribut = $dom_element->hasAttribute($nom_attribut);
+			if ($avec_attribut) {
+				$valeur_attribut = $dom_element->getAttribute($nom_attribut);
+				$this->set_attribut($nom_attribut, $valeur_attribut);
+			}
+		}
+	}
+	public function parser_valeur(&$dom_element) {
+		$balise_avec_valeur = $this->avec_valeur();
+		if ($balise_avec_valeur) {
+			$valeur = $dom_element->nodeValue;
+			$this->set_valeur($valeur);
+		}
+	}
+
 	
 	/* Gestion de la valeur */
 	public function avec_valeur() {return $this->avec_valeur;}
