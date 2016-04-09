@@ -50,25 +50,6 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		if ($ret) {$this->charger_objets(); }
 		else if ($this->obligatoire) {die("ERREUR : Fichier XML obligatoire introuvable");}
 	}
-	public function charger_objet_xml($nom_classe, $id) {
-		$index = ((int) $id) - 1;
-		if (isset($this->liste_noms_objets[$nom_classe])) {
-			$nom_balise = $this->liste_noms_objets[$nom_classe];
-			$ret = $this->charger();
-			if ($ret) {
-				$liste_objets = $this->parser_balise($nom_balise);
-				if (isset($liste_objets[$index])) {
-					$objet = $liste_objets[$index];
-					$objet->charger_xml();
-					$this->liste_objets[$nom_classe] = array($objet);
-					return $objet;
-				}
-				else {return null;}
-			}
-		}
-		else {die("ERREUR : Objet XML à charger non déclaré");}
-	}
-
 	protected function charger() {
 		$ret = false;
 		$load = @$this->dom->load($this->nom_fichier_xml);

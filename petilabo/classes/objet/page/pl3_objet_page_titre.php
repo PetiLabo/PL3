@@ -26,13 +26,17 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$html_id = $this->get_html_id();
-		$valeur = $this->get_valeur();
-		$niveau = $this->get_attribut_entier(self::NOM_ATTRIBUT_NIVEAU);
-		$style = $this->get_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
-		$ret .= "<div class=\"container_titre\">\n";
-		$ret .= "<h".$niveau." id=\"".$html_id."\" class=\"titre objet_editable ".$style."\">".$valeur."</h".$niveau.">\n";
-		$ret .= "</div>\n";
+		$nom_texte = $this->get_valeur();
+		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		if ($texte != null) {
+			$html_id = $this->get_html_id();
+			$valeur_texte = $texte->get_valeur();
+			$niveau = $this->get_attribut_entier(self::NOM_ATTRIBUT_NIVEAU);
+			$style = $this->get_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
+			$ret .= "<div class=\"container_titre\">\n";
+			$ret .= "<h".$niveau." id=\"".$html_id."\" class=\"titre objet_editable ".$style."\">".$valeur_texte."</h".$niveau.">\n";
+			$ret .= "</div>\n";
+		}
 		return $ret;
 	}
 }

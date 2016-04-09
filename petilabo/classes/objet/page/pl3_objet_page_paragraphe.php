@@ -23,11 +23,15 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$html_id = $this->get_html_id();
-		$valeur = $this->get_valeur();
-		$ret .= "<div class=\"container_paragraphe\">\n";
-		$ret .= "<p id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur."</p>\n";
-		$ret .= "</div>\n";
+		$nom_texte = $this->get_valeur();
+		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		if ($texte != null) {
+			$html_id = $this->get_html_id();
+			$valeur_texte = $texte->get_valeur();
+			$ret .= "<div class=\"container_paragraphe\">\n";
+			$ret .= "<p id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur_texte."</p>\n";
+			$ret .= "</div>\n";
+		}
 		return $ret;
 	}
 }

@@ -5,28 +5,35 @@
  */
  
 class pl3_outil_source_page {
+	private $liste_textes = null;
 	private $liste_styles = null;
 	private $liste_medias = null;
 	private $page = null;
 
 	public function __construct() {
-		/* Styles */
-		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		/* Textes */
+		$this->liste_textes = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_texte");
+		$this->liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$this->liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 
 		/* Media */
 		$this->liste_medias = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_media");
 		$this->liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$this->liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 
+		/* Styles */
+		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+
 		/* Fichier page */
 		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
 	}
 
 	public function charger_xml() {
-		$this->liste_styles->charger_xml();
+		$this->liste_textes->charger_xml();
 		$this->liste_medias->charger_xml();
+		$this->liste_styles->charger_xml();
 		$this->charger_page_xml();
 	}
 
@@ -40,9 +47,21 @@ class pl3_outil_source_page {
 	}
 
 	/* Accesseurs */
-	public function get_liste_styles() {return $this->liste_styles;}
+	public function get_liste_textes() {return $this->liste_textes;}
 	public function get_liste_medias() {return $this->liste_medias;}
+	public function get_liste_styles() {return $this->liste_styles;}
 	public function get_page() {return $this->page;}
+	
+	/* Recherches */
+	public function chercher_liste_textes_par_nom($balise, $nom) {
+		return $this->liste_textes->chercher_instance_balise_par_nom($balise, $nom);
+	}
+	public function chercher_liste_medias_par_nom($balise, $nom) {
+		return $this->liste_medias->chercher_instance_balise_par_nom($balise, $nom);
+	}
+	public function chercher_liste_styles_par_nom($balise, $nom) {
+		return $this->liste_styles->chercher_instance_balise_par_nom($balise, $nom);
+	}
 
 	/* Méthodes de parsing */
 	public function parser_balise($fiche, &$objet_parent, $nom_balise, &$noeud) {
