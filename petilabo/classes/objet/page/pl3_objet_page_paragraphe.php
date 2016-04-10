@@ -5,10 +5,13 @@
  */
  
 class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "page";
+
 	/* Balise */
 	const NOM_BALISE = "paragraphe";
-	// public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_TEXTE);
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte");
+	// public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_TEXTE);
 
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";

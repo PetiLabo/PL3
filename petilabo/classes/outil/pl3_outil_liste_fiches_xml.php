@@ -2,12 +2,16 @@
 
 class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 	private $nom_classe_fiche;
+	private $nom_fiche;
 	private $liste_fiches;
 	
 	public function __construct(&$source_page, $nom_classe_fiche) {
 		$this->nom_classe_fiche = $nom_classe_fiche;
+		$this->nom_fiche = $nom_classe_fiche::NOM_FICHE;
 		parent::__construct($source_page);
 	}
+	
+	public function lire_nom_fiche() {return $this->nom_fiche;}
 	
 	public function ajouter_source($nom_source, $chemin_source) {
 		$id_fiche = 1 + count($this->liste_fiches);

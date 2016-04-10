@@ -11,8 +11,9 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	const TYPE_TEXTE = 3;
 	const TYPE_ICONE = 4;
 	const TYPE_REFERENCE = 5;
-	const TYPE_FICHIER = 6;
-	const TYPE_COMPOSITE = 7;
+	const TYPE_INDIRECTION = 6;
+	const TYPE_FICHIER = 7;
+	const TYPE_COMPOSITE = 8;
 
 	protected $id = 0;
 	protected $objet_parent = null;
@@ -22,11 +23,9 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	protected $liste_objets = array();
 	protected $avec_valeur = true;
 	protected $valeur;
-	protected $nom_fiche;
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $nom_fiche, $id, &$objet_parent, &$noeud = null) {
-		$this->nom_fiche = $nom_fiche;
+	public function __construct(&$source_page, $id, &$objet_parent, &$noeud = null) {
 		$this->id = $id;
 		$this->objet_parent = $objet_parent;
 		$this->noeud = $noeud;
@@ -42,7 +41,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 
 	public function nouvel_objet($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe($this->nom_fiche, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet = new $nom_classe(static::NOM_FICHE, 1 + count($this->liste_objets[$nom_classe]), $this);
 			return $objet;
 		}
 		else {
@@ -69,11 +68,11 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	
 	/* Parsing des balises */
 	public function parser_balise($nom_balise) {
-		$ret = $this->source_page->parser_balise($this->nom_fiche, $this, $nom_balise, $this->noeud);
+		$ret = $this->source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	public function parser_balise_fille($nom_balise, $unique = true) {
-		$tab_ret = $this->source_page->parser_balise_fille($this->nom_fiche, $this, get_called_class(), $nom_balise, $this->noeud);
+		$tab_ret = $this->source_page->parser_balise_fille(static::NOM_FICHE, $this, get_called_class(), $nom_balise, $this->noeud);
 		if ($unique) {
 			$nb_ret = (int) count($tab_ret);
 			$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;

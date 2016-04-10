@@ -5,6 +5,10 @@
  */
 
 class pl3_objet_style_style_bloc extends pl3_outil_objet_composite_xml {
+	/* Fiche */
+	const NOM_FICHE = "style";
+
+	/* Balise */
 	const NOM_BALISE = "style_bloc";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));

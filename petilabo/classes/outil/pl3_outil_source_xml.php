@@ -11,4 +11,6 @@ abstract class pl3_outil_source_xml {
 	protected function __construct(&$source_page) {
 		$this->source_page = $source_page;
 	}
+	
+	public function lire_source_page() {return $this->source_page;}
 }

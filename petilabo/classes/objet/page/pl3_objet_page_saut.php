@@ -5,6 +5,9 @@
  */
  
 class pl3_objet_page_saut extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "page";
+
 	/* Balise */
 	const NOM_BALISE = "saut";
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_ENTIER);

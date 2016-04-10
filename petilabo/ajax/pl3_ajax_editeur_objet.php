@@ -5,7 +5,6 @@
  */
  
 class pl3_ajax_editeur_objet {
-	
 	private $objet = null;
 	private $id_objet = null;
 
@@ -40,6 +39,7 @@ class pl3_ajax_editeur_objet {
 			$ret .= "<p class=\"editeur_objet_titre_valeur\">Balise &lt;".$nom_balise."&gt;</p>\n";
 			$valeur = $this->objet->get_valeur();
 			$balise = $this->objet->get_balise();
+			$ret .= $this->type_to_nom_type($balise)."<br>\n";
 			$ret .= $this->afficher_champ_form($balise, $valeur);
 		}
 		return $ret;
@@ -62,6 +62,8 @@ class pl3_ajax_editeur_objet {
 	private function afficher_champ_form($information, $valeur) {
 		$ret = "";
 		$nom_information = $information["nom"];
+		/* Traitement des indirections */
+		$this->traiter_indirection($information, $valeur);
 		$champ_form = $this->type_to_champ_form($information);
 		if (isset($champ_form["balise"])) {
 			$balise = $champ_form["balise"];
@@ -95,10 +97,20 @@ class pl3_ajax_editeur_objet {
 				if (isset($information["reference"])) {
 					$nom_classe = $information["reference"];
 					$nom_balise = $nom_classe::NOM_BALISE;
-					$ret = "référence à un objet ".$nom_balise;
+					$ret = "référence à un objet ".$nom_balise." <br><b>ATTENTION : Saisir un nom d'objet</b>";;
 				}
 				else {
 					$ret = "ERREUR : Référence à un objet inconnu";
+				}
+				break;
+			case pl3_outil_objet_xml::TYPE_INDIRECTION:
+				if (isset($information["reference"])) {
+					$nom_classe = $information["reference"];
+					$nom_balise = $nom_classe::NOM_BALISE;
+					$ret = "indirection vers un objet ".$nom_balise." <br><b>ATTENTION : Ne pas valider !!!</b>";
+				}
+				else {
+					$ret = "ERREUR : Indirection vers un objet inconnu";
 				}
 				break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:
@@ -121,6 +133,7 @@ class pl3_ajax_editeur_objet {
 			case pl3_outil_objet_xml::TYPE_ICONE:
 				$ret = array("balise" => "input", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
+			case pl3_outil_objet_xml::TYPE_INDIRECTION:
 				$ret = array("balise" => "input", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:
 				$ret = array("balise" => "input", "type" => "file");break;
@@ -140,5 +153,22 @@ class pl3_ajax_editeur_objet {
 			$ret = null;
 		}
 		return $ret;
+	}
+	
+	private function traiter_indirection(&$information, &$valeur) {
+		$type_information = $information["type"];
+		if ($type_information == pl3_outil_objet_xml::TYPE_INDIRECTION) {
+			if (isset($information["reference"])) {
+				$nom_classe = $information["reference"];
+				$nom_fiche = $nom_classe::NOM_FICHE;
+				$nom_balise = $nom_classe::NOM_BALISE;
+				$source_page = $this->objet->lire_source_page();
+				$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
+				if ($objet_indirection) {
+					$information = $objet_indirection->get_balise();
+					$valeur = $objet_indirection->get_valeur();
+				}
+			}
+		}
 	}
 }

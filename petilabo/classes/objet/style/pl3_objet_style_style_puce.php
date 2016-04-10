@@ -5,6 +5,10 @@
  */
  
 class pl3_objet_style_style_puce_icone extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "style";
+
+	/* Balise */
 	const NOM_BALISE = "icone";
 	public static $Liste_attributs = array();
 	
@@ -19,6 +23,10 @@ class pl3_objet_style_style_puce_icone extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_style_style_puce_taille extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "style";
+
+	/* Balise */
 	const NOM_BALISE = "taille";
 	public static $Liste_attributs = array();
 	
@@ -33,6 +41,10 @@ class pl3_objet_style_style_puce_taille extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "style";
+
+	/* Balise */
 	const NOM_BALISE = "ombre";
 	public static $Liste_attributs = array();
 	
@@ -48,6 +60,10 @@ class pl3_objet_style_style_puce_ombre extends pl3_outil_objet_xml {
 
  
 class pl3_objet_style_style_puce extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "style";
+
+	/* Balise */
 	const NOM_BALISE = "style_puce";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));

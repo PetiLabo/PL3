@@ -5,6 +5,9 @@
  */
  
 class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
 	/* Balise */
 	const NOM_BALISE = "fichier";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_FICHIER);
@@ -24,6 +27,9 @@ class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
 	/* Balise */
 	const NOM_BALISE = "alt";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
@@ -43,6 +49,9 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
 	/* Balise */
 	const NOM_BALISE = "image";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
@@ -52,10 +61,10 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	
 	/* Méthodes */
-	public function __construct(&$source_page, $nom_fiche, $id, &$parent, &$noeud = null) {
+	public function __construct(&$source_page, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);
 		$this->declarer_element(pl3_objet_media_image_alt::NOM_BALISE);
-		parent::__construct($source_page, $nom_fiche, $id, $parent, $noeud);
+		parent::__construct($source_page, $id, $parent, $noeud);
 	}
 
 	public function charger_xml() {

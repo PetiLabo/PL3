@@ -5,35 +5,36 @@
  */
  
 class pl3_outil_source_page {
-	private $liste_textes = null;
-	private $liste_styles = null;
-	private $liste_medias = null;
+	private $liste_sources = array();
 	private $page = null;
 
 	public function __construct() {
 		/* Textes */
-		$this->liste_textes = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_texte");
-		$this->liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
-		$this->liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$liste_textes = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_texte");
+		$liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$this->liste_sources[pl3_fiche_texte::NOM_FICHE] = $liste_textes;
 
 		/* Media */
-		$this->liste_medias = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_media");
-		$this->liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
-		$this->liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$liste_medias = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_media");
+		$liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$this->liste_sources[pl3_fiche_media::NOM_FICHE] = $liste_medias;
 
 		/* Styles */
-		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
+		$liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
+		$this->liste_sources[pl3_fiche_style::NOM_FICHE] = $liste_styles;
 
 		/* Fichier page */
 		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
 	}
 
 	public function charger_xml() {
-		$this->liste_textes->charger_xml();
-		$this->liste_medias->charger_xml();
-		$this->liste_styles->charger_xml();
+		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
+			$liste_fiches->charger_xml();
+		}
 		$this->charger_page_xml();
 	}
 
@@ -47,20 +48,23 @@ class pl3_outil_source_page {
 	}
 
 	/* Accesseurs */
-	public function get_liste_textes() {return $this->liste_textes;}
-	public function get_liste_medias() {return $this->liste_medias;}
-	public function get_liste_styles() {return $this->liste_styles;}
 	public function get_page() {return $this->page;}
 	
 	/* Recherches */
 	public function chercher_liste_textes_par_nom($balise, $nom) {
-		return $this->liste_textes->chercher_instance_balise_par_nom($balise, $nom);
+		return $this->chercher_liste_fiches_par_nom(pl3_fiche_texte::NOM_FICHE, $balise, $nom);
 	}
 	public function chercher_liste_medias_par_nom($balise, $nom) {
-		return $this->liste_medias->chercher_instance_balise_par_nom($balise, $nom);
+		return $this->chercher_liste_fiches_par_nom(pl3_fiche_media::NOM_FICHE, $balise, $nom);
 	}
 	public function chercher_liste_styles_par_nom($balise, $nom) {
-		return $this->liste_styles->chercher_instance_balise_par_nom($balise, $nom);
+		return $this->chercher_liste_fiches_par_nom(pl3_fiche_style::NOM_FICHE, $balise, $nom);
+	}
+	public function chercher_liste_fiches_par_nom($nom_fiche, $balise, $nom) {
+		if (isset($this->liste_sources[$nom_fiche])) {
+			return $this->liste_sources[$nom_fiche]->chercher_instance_balise_par_nom($balise, $nom);
+		}
+		else {return null;}
 	}
 
 	/* Méthodes de parsing */
@@ -72,7 +76,7 @@ class pl3_outil_source_page {
 			$balise = $reflection->getConstant("NOM_BALISE");
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$element));
+				$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$element));
 				$instance->parser_attributs($element);
 				$ret[] = $instance;
 			}
@@ -88,7 +92,7 @@ class pl3_outil_source_page {
 			$balise = $reflection->getConstant("NOM_BALISE");
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$element));
+				$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$element));
 				$instance->parser_attributs($element);
 				$instance->parser_valeur($element);
 				$ret[] = $instance;
@@ -110,13 +114,13 @@ class pl3_outil_source_page {
 				$fichier_existe = @file_exists($nom_fichier);
 				if ($fichier_existe) {
 					$reflection = new ReflectionClass($nom_classe);
-					$instance = $reflection->newInstanceArgs(array(&$this, $fiche, 1 + count($ret), &$objet_parent, &$objet));
+					$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$objet));
 					$instance->parser_attributs($objet);
 					$instance->parser_valeur($objet);
 					$ret[] = $instance;
 				}
 				else {
-					echo "L'objet ".$nom_balise." n'existe pas.<br>\n";
+					echo "ERREUR : L'objet ".$nom_balise." n'existe pas.<br>\n";
 				}
 			}
 		}

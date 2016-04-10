@@ -5,6 +5,9 @@
  */
  
 class pl3_objet_page_bloc extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "page";
+
 	/* Balise */
 	const NOM_BALISE = "bloc";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);

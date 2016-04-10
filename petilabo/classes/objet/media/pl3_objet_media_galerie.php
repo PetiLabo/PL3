@@ -5,6 +5,10 @@
  */
  
 class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
+	/* Balise */
 	const NOM_BALISE = "element";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
 	public static $Liste_attributs = array();
@@ -22,6 +26,10 @@ class pl3_objet_media_galerie_element extends pl3_outil_objet_xml {
 }
 
 class pl3_objet_media_galerie extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
+	/* Balise */
 	const NOM_BALISE = "galerie";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
 	public static $Liste_attributs = array(
