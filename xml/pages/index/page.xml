@@ -15,8 +15,8 @@
         </bloc>
         <bloc style="entete" taille="6">
             <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
+            <paragraphe style="style_tutu">texte_actu_2</paragraphe>
             <image>vignette_actu</image>
-            <paragraphe style="style_tutu">texte_actu</paragraphe>
         </bloc>
         <bloc taille="3">
             <saut>4</saut>

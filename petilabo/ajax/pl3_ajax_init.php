@@ -35,7 +35,9 @@ class pl3_ajax_init {
 		/* Chargement des objets XML en fonction des paramètres */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			self::$Source_page->charger_page_xml();
+			// TODO : Réfléchir sur la nécessité de tout recharcher..
+			// self::$Source_page->charger_page_xml();
+			self::$Source_page->charger_xml();
 			self::$Page = self::$Source_page->get_page();
 			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
 			if (self::$Contenu != null) {

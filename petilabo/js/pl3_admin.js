@@ -25,6 +25,16 @@ function editer_objet(nom_page, balise_id, nom_balise) {
 
 /* Appel AJAX pour soumission d'un éditeur d'objet */
 function soumettre_objet(nom_page, balise_id, nom_balise, parametres) {
+	var editeur_id = "editeur-"+nom_balise+"-"+balise_id;
+	var liste_trumbowyg = $("#"+editeur_id).find(".trumbowyg-editor");
+	if (liste_trumbowyg.length > 0) {
+		var elem_trumbowyg = liste_trumbowyg.first();
+		valeur_trumbowyg = elem_trumbowyg.html();
+		if (valeur_trumbowyg.length > 0) {
+			parametres += (parametres.length > 0)?"&":"";
+			parametres += "valeur="+encodeURI(valeur_trumbowyg);
+		}
+	}
 	$.ajax({
 		type: "POST",
 		url: "../petilabo/ajax/pl3_soumettre_objet.php",
@@ -95,7 +105,8 @@ function afficher_editeur(balise_id, nom_balise, html) {
 	if (objet) {
 		/* Constitution de l'éditeur */
 		var style = calculer_coord_editeur(objet, false);
-		var div = "<div id=\"editeur-"+objet_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
+		var div_id = "editeur-"+objet_id;
+		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
 		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
@@ -105,6 +116,12 @@ function afficher_editeur(balise_id, nom_balise, html) {
 		
 		/* Affichage de l'éditeur */
 		$("div.page").append(div);
+		
+		/* Déclenchement de trumbowyg */
+		$("#"+div_id).find(".editeur_trumbowyg").each(function() {
+			var elem_id = $(this).attr("id");
+			appliquer_editable("#"+elem_id);
+		});
 	}
 }
 
@@ -168,6 +185,7 @@ function parser_html_id(html_id) {
 	return {"erreur": true};
 }
 
+/* Application de plugins */
 function appliquer_sortable(selecteur) {
 	$(selecteur).sortable({
 		placeholder: 'deplaceur_objet',
@@ -198,6 +216,24 @@ function appliquer_sortable(selecteur) {
 	$(selecteur).disableSelection();
 }
 
+function appliquer_editable(selecteur, langue) {
+	if (langue === undefined) {langue = "fr";}
+	$(selecteur).trumbowyg({
+		lang: langue,
+		fullscreenable: false,
+		autogrow: true,
+		btns: [
+			'btnGrp-semantic',
+			'underline',
+			['link'],
+			'btnGrp-justify',
+			'btnGrp-lists',
+			['removeformat'],
+			['foreColor', 'backColor']
+		]
+	});
+}
+	
 /* Initialisations */
 $(document).ready(function() {
 	/* Gestion du clic sur un objet éditable */
@@ -274,10 +310,17 @@ $(document).ready(function() {
 	});
 	
 	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
-	$(window).resize(function() {
-		$("div.page > div.editeur_objet").each(function() {
+	$(window).on("resize", function() {
+		$("div.page div.editeur_objet").each(function() {
 			var editeur_id = $(this).attr("id");
 			deplacer_editeur(editeur_id);
+		});
+		$(".trumbowyg-box").each(function() {
+			var barre_outils = $(this).find(".trumbowyg-button-pane");
+			var hauteur_barre_outils = barre_outils.height();
+			var editeur = $(this).find(".trumbowyg-editor");
+			var marge_editeur = hauteur_barre_outils - 36;
+			editeur.css("margin-top", marge_editeur+"px");
 		});
 	});
 	

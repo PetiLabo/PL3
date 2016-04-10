@@ -62,6 +62,9 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_objets.css\" />\n";
 		if ($mode == _MODE_ADMIN) {
 			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_admin.css\" />\n";
+			
+			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_TIERS."/trumbo/ui/trumbowyg.min.css\" />\n";
+			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_TIERS."/trumbo/plugins/colors/ui/trumbowyg.colors.min.css\" />\n";
 		}
 		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.12.0.min.js\"></script>\n";
 		if ($mode == _MODE_ADMIN) {
@@ -93,6 +96,10 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret = "";
 		if ($mode == _MODE_ADMIN) {
 			$ret .= "<p style=\"margin-top:20px;\"><a href=\"../"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode normal</a></p>\n";
+			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/trumbowyg.min.js\"></script>\n";
+			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/langs/fr.min.js\"></script>\n";
+			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js\"></script>\n";
+			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js\"></script>\n";
 		}
 		else {
 			$ret .= "<p style=\"margin-top:20px;\"><a href=\"admin/"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode admin</a></p>\n";

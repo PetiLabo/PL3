@@ -7,13 +7,13 @@
     </contenu>
     <contenu>
         <bloc>
-            <titre style="sous_titre_gris" niveau="2">titre_du_bloc</titre>
             <saut>1</saut>
+            <paragraphe style="style_toto">texte_actu_1</paragraphe>
             <saut>1</saut>
         </bloc>
         <bloc>
             <saut>1</saut>
-            <paragraphe style="style_toto">toto</paragraphe>
+            <paragraphe style="style_toto">texte_actu_2</paragraphe>
             <saut>1</saut>
         </bloc>
     </contenu>

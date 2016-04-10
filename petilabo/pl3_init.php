@@ -16,6 +16,7 @@ define("_CHEMIN_RESSOURCES", _CHEMIN_BASE_FICHIER."petilabo/");
 define("_CHEMIN_AJAX", _CHEMIN_RESSOURCES."ajax/");
 define("_CHEMIN_CSS", _CHEMIN_RESSOURCES."css/");
 define("_CHEMIN_JS", _CHEMIN_RESSOURCES."js/");
+define("_CHEMIN_TIERS", _CHEMIN_RESSOURCES."tiers/");
 
 /* Chemins XML */
 define("_CHEMIN_XML", _CHEMIN_BASE_URL."xml/");

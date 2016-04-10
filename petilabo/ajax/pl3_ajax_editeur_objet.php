@@ -65,8 +65,8 @@ class pl3_ajax_editeur_objet {
 		$champ_form = $this->type_to_champ_form($information);
 		if (isset($champ_form["balise"])) {
 			$balise = $champ_form["balise"];
+			$id_form = $nom_information."-".$this->id_objet;
 			if (strcmp($balise, "textarea")) {
-				$id_form = $nom_information."-".$this->id_objet;
 				$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
 				$ret .= "<p class=\"editeur_champ_formulaire\">";
 				$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
@@ -74,7 +74,7 @@ class pl3_ajax_editeur_objet {
 				$ret .= "</p>\n";
 			}
 			else {
-				$ret .= "<textarea>".$valeur."</textarea>\n";
+				$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
 			}
 		}
 		return $ret;
