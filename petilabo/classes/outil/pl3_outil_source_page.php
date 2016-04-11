@@ -43,7 +43,8 @@ class pl3_outil_source_page {
 	}
 
 	public function afficher($mode) {
-		$html = $this->page->afficher($mode);
+		$this->page->set_mode($mode);
+		$html = $this->page->afficher();
 		return $html;
 	}
 

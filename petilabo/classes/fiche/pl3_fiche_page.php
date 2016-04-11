@@ -7,6 +7,9 @@
 class pl3_fiche_page extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "page";
 	
+	/* Propriétés */
+	private $mode = _MODE_NORMAL;
+	
 	/* Constructeur */
 	public function __construct(&$source_page, $chemin) {
 		$this->obligatoire = true;
@@ -14,32 +17,36 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$this->declarer_objet("pl3_objet_page_contenu");
 		parent::__construct($source_page, $chemin, 1);
 	}
+	
+	/* Accesseur/mutateur */
+	public function set_mode($mode) {$this->mode = $mode;}
+	public function get_mode() {return $this->mode;}
 
 	/* Afficher */
-	public function afficher($mode) {
+	public function afficher() {
 		$ret = "";
-		$ret .= $this->afficher_head($mode);
-		$ret .= $this->afficher_body($mode);
+		$ret .= $this->afficher_head();
+		$ret .= $this->afficher_body();
 		return $ret;
 	}
 	
-	public function afficher_head($mode) {
+	public function afficher_head() {
 		$ret = "";
-		$ret .= $this->ouvrir_head($mode);
-		$ret .= $this->ecrire_head($mode);
-		$ret .= $this->fermer_head($mode);
+		$ret .= $this->ouvrir_head();
+		$ret .= $this->ecrire_head();
+		$ret .= $this->fermer_head();
 		return $ret;
 	}
 	
-	public function afficher_body($mode) {
+	public function afficher_body() {
 		$ret = "";
-		$ret .= $this->ouvrir_body($mode);
-		$ret .= $this->ecrire_body($mode);
-		$ret .= $this->fermer_body($mode);
+		$ret .= $this->ouvrir_body();
+		$ret .= $this->ecrire_body();
+		$ret .= $this->fermer_body();
 		return $ret;
 	}	
 	
-	public function ouvrir_head($mode) {
+	public function ouvrir_head() {
 		$ret = "";
 		$ret .= "<!doctype html>\n";
 		$ret .= "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"fr\" lang=\"fr\" dir=\"ltr\">\n";
@@ -50,62 +57,76 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
-	public function ecrire_head($mode) {
-		$ret = $this->afficher_objets($mode, "pl3_objet_page_meta");
+	public function ecrire_head() {
+		$ret = $this->afficher_objets($this->mode, "pl3_objet_page_meta");
 		return $ret;
 	}
 	
-	public function fermer_head($mode) {
+	public function fermer_head() {
 		$ret = "";
-		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css\" />\n";
-		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3.css\" />\n";
-		$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_objets.css\" />\n";
-		if ($mode == _MODE_ADMIN) {
-			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_CSS."pl3_admin.css\" />\n";
-			
-			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_TIERS."/trumbo/ui/trumbowyg.min.css\" />\n";
-			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\""._CHEMIN_TIERS."/trumbo/plugins/colors/ui/trumbowyg.colors.min.css\" />\n";
-		}
-		$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-1.12.0.min.js\"></script>\n";
-		if ($mode == _MODE_ADMIN) {
-			$ret .= "<script type=\"text/javascript\" src=\"//code.jquery.com/ui/1.11.4/jquery-ui.js\"></script>\n";
-		}
-		$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3.js\"></script>\n";
-		if ($mode == _MODE_ADMIN) {
-			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3_admin.js\"></script>\n";
-		}
+		/* Partie CSS */
+		$ret .= $this->declarer_css("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3.css");
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_objets.css");
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css", _MODE_ADMIN);
+		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN);
+		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN);
+	
+		/* Partie JS */
+		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
+		$ret .= $this->declarer_js("//code.jquery.com/ui/1.11.4/jquery-ui.js", _MODE_ADMIN);
 		$ret .= "</head>\n";
 		return $ret;
 	}
 	
-	public function ouvrir_body($mode) {
+	public function ouvrir_body() {
 		$ret = "";
 		$ret .= "<body>\n";
 		return $ret;
 	}
 	
-	public function ecrire_body($mode) {
+	public function ecrire_body() {
 		$ret = "";
 		$ret .= "<div class=\"page\" name=\""._PAGE_COURANTE."\">\n";
-		$ret .= $this->afficher_objets($mode, "pl3_objet_page_contenu");
+		$ret .= $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
 		$ret .= "</div>\n";
 		return $ret;
 	}
 	
-	public function fermer_body($mode) {
+	public function fermer_body() {
 		$ret = "";
-		if ($mode == _MODE_ADMIN) {
+		/* TEMPORAIRE : Ajout d'un lien pour switcher le mode */
+		if ($this->mode == _MODE_ADMIN) {
 			$ret .= "<p style=\"margin-top:20px;\"><a href=\"../"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode normal</a></p>\n";
-			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/trumbowyg.min.js\"></script>\n";
-			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/langs/fr.min.js\"></script>\n";
-			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js\"></script>\n";
-			$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js\"></script>\n";
 		}
 		else {
 			$ret .= "<p style=\"margin-top:20px;\"><a href=\"admin/"._PAGE_COURANTE._SUFFIXE_PHP."\">Mode admin</a></p>\n";
 		}
+
+		/* Appel des outils javascript */
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3.js");
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin.js", _MODE_ADMIN);
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/trumbowyg.min.js", _MODE_ADMIN);
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/langs/fr.min.js", _MODE_ADMIN);
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js", _MODE_ADMIN);
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js", _MODE_ADMIN);
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
+		return $ret;
+	}
+	
+	private function declarer_css($fichier_css, $mode = -1) {
+		$ret = "";
+		if (($mode == -1) || ($mode == $this->mode)) {
+			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$fichier_css."\"/>\n";
+		}
+		return $ret;
+	}
+	private function declarer_js($fichier_js, $mode = -1) {
+		$ret = "";
+		if (($mode == -1) || ($mode == $this->mode)) {
+			$ret .= "<script type=\"text/javascript\" src=\"".$fichier_js."\"></script>\n";
+		}
 		return $ret;
 	}
 }
