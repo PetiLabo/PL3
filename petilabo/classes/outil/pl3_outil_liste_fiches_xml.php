@@ -25,6 +25,12 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 		}
 	}
 	
+	public function enregistrer_xml() {
+		foreach ($this->liste_fiches as $nom_source => $fiche) {
+			$fiche->enregistrer_xml();
+		}
+	}
+	
 	public function chercher_instance_balise_par_attribut($nom_balise, $nom_attribut, $valeur_attribut) {
 		foreach ($this->liste_fiches as $fiche) {
 			$instance = $fiche->chercher_objet_balise_par_attribut($nom_balise, $nom_attribut, $valeur_attribut);

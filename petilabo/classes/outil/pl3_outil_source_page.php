@@ -41,6 +41,17 @@ class pl3_outil_source_page {
 	public function charger_page_xml() {
 		$this->page->charger_xml();
 	}
+	
+	public function enregistrer_xml() {
+		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
+			$liste_fiches->enregistrer_xml();
+		}
+		$this->enregistrer_page_xml();
+	}
+	
+	public function enregistrer_page_xml() {
+		$this->page->enregistrer_xml();
+	}
 
 	public function afficher($mode) {
 		$this->page->set_mode($mode);

@@ -14,22 +14,36 @@ if ($ajax_objet_valide) {
 		$objet = pl3_ajax_init::Get_objet();
 		parse_str($parametres, $liste_parametres);
 		if (($objet != null) && (count($liste_parametres) > 0)) {
+			$source_page = $objet->lire_source_page();
 			$nom_valeur = $objet->get_nom_valeur();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
+				/* Cas où le paramètre est un attribut */
 				if (strncmp($nom_parametre, $nom_valeur, strlen($nom_valeur))) {
 					$attribut_maj = $objet->set_attribut($nom_parametre, $valeur_parametre);
 					$ajax_objet_maj = $ajax_objet_maj || $attribut_maj ;
 				}
+				/* Cas où le paramètre est la valeur */
 				else {
-					$valeur_maj = $objet->set_valeur($valeur_parametre);
-					$ajax_objet_maj = $ajax_objet_maj || $valeur_maj ;
+					$type_valeur = $objet->get_type_valeur();
+					/* Traitement de l'indirection */
+					if ($type_valeur == pl3_outil_objet_xml::TYPE_INDIRECTION) {
+						$valeur = $objet->get_valeur();
+						$nom_classe = $objet->get_reference_valeur();
+						$nom_fiche = $nom_classe::NOM_FICHE;
+						$nom_balise = $nom_classe::NOM_BALISE;
+						$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
+						$valeur_maj = $objet_indirection->set_valeur($valeur_parametre);
+					}
+					else {
+						$valeur_maj = $objet->set_valeur($valeur_parametre);
+					}
+					$ajax_objet_maj = $ajax_objet_maj || $valeur_maj;
 				}
 			}
 			if ($ajax_objet_maj) {
 				$bloc = pl3_ajax_init::Get_bloc();
 				$bloc->remplacer_objet($objet);
-				$page = pl3_ajax_init::Get_page();
-				$page->enregistrer_xml();
+				$source_page->enregistrer_xml();
 				$html .= $objet->afficher(_MODE_ADMIN);
 			}
 		}

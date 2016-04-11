@@ -14,12 +14,12 @@
             <saut>2</saut>
         </bloc>
         <bloc style="entete" taille="6">
-            <titre style="sous_titre_gris" niveau="2">titre_actu</titre>
+            <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
             <image>vignette_actu</image>
-            <paragraphe style="style_tutu">texte_actu_2</paragraphe>
+            <paragraphe style="style_tutu">texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">
-            <saut>3</saut>
+            <saut>4</saut>
         </bloc>
     </contenu>
 </petilabo>

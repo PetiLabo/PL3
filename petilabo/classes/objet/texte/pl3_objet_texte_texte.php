@@ -18,7 +18,8 @@ class pl3_objet_texte_texte extends pl3_outil_objet_xml {
 		
 	/* Méthodes */
 	public function ecrire_xml($niveau) {
-		$xml = $this->ouvrir_fermer_xml($niveau);
+		$attr_nom = $this->get_xml_attribut(self::NOM_ATTRIBUT_NOM);
+		$xml = $this->ouvrir_fermer_xml($niveau, array($attr_nom));
 		return $xml;
 	}
 	

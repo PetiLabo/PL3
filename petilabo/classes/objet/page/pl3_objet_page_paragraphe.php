@@ -31,9 +31,9 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
-			$valeur_texte = $texte->get_valeur();
+			$valeur_texte = html_entity_decode($texte->get_valeur(), ENT_QUOTES, "UTF-8");
 			$ret .= "<div class=\"container_paragraphe\">\n";
-			$ret .= "<p id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur_texte."</p>\n";
+			$ret .= "<div id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur_texte."</div>\n";
 			$ret .= "</div>\n";
 		}
 		return $ret;

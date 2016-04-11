@@ -107,6 +107,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	public function set_valeur($valeur) {
 		$ret = false;
 		if ($this->avec_valeur) {
+			$valeur = htmlspecialchars($valeur, ENT_QUOTES, "UTF-8");
 			if ($this->valeur != $valeur) {
 				$this->valeur = $valeur;
 				$ret = true;

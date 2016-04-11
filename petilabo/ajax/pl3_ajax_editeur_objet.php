@@ -107,7 +107,7 @@ class pl3_ajax_editeur_objet {
 				if (isset($information["reference"])) {
 					$nom_classe = $information["reference"];
 					$nom_balise = $nom_classe::NOM_BALISE;
-					$ret = "indirection vers un objet ".$nom_balise." <br><b>ATTENTION : Ne pas valider !!!</b>";
+					$ret = "indirection vers un objet ".$nom_balise;
 				}
 				else {
 					$ret = "ERREUR : Indirection vers un objet inconnu";

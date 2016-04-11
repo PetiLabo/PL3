@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-	<style_legende nom="legende_actu">
-		<marge_haut>90</marge_haut>
-		<marge_bas>0</marge_bas>
-		<marge_gauche>0</marge_gauche>
-		<marge_droite>0</marge_droite>
-		<couleur_fond>#113</couleur_fond>
-		<couleur_texte>#fff</couleur_texte>
-		<style_texte>texte_legende_chantier</style_texte>
-		<survol>oui</survol>
-	</style_legende>
-	<image nom="vignette_actu">
-		<fichier>actu_petilabo.jpg</fichier>
-		<alt>Alternative</alt>
-	</image>
+    <image nom="vignette_actu">
+        <fichier>actu_petilabo.jpg</fichier>
+        <alt>Alternative</alt>
+    </image>
 </petilabo>
