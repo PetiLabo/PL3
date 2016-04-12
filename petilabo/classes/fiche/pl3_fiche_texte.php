@@ -10,6 +10,7 @@ class pl3_fiche_texte extends pl3_outil_fiche_xml {
 	/* Constructeur */
 	public function __construct(&$source_page, $chemin, $id) {
 		$this->declarer_objet("pl3_objet_texte_texte");
+		$this->declarer_objet("pl3_objet_texte_texte_riche");
 		parent::__construct($source_page, $chemin, $id);
 	}
 	

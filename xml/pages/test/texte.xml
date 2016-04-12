@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-	<texte nom="texte_actu">Ceci est une actualité...</texte>
-	<texte nom="texte_actu_1">Voici l' actualité n°1</texte>
-	<texte nom="texte_actu_2">Voici l' actualité n°2</texte>
+	<texte_riche nom="texte_actu">Ceci est une actualité...</texte_riche>
+	<texte_riche nom="texte_actu_1">Voici l' actualité n°1</texte_riche>
+	<texte_riche nom="texte_actu_2">Voici l' actualité n°2</texte_riche>
 </petilabo>

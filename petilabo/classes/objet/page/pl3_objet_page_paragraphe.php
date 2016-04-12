@@ -5,12 +5,15 @@
  */
  
 class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
+	/* Icone */
+	const NOM_ICONE = "fa-file-text-o ";
+
 	/* Fiche */
 	const NOM_FICHE = "page";
 
 	/* Balise */
 	const NOM_BALISE = "paragraphe";
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte");
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte_riche");
 	// public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_TEXTE);
 
 	/* Attributs */
@@ -28,7 +31,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	public function afficher($mode) {
 		$ret = "";
 		$nom_texte = $this->get_valeur();
-		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte_riche::NOM_BALISE, $nom_texte);
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
 			$valeur_texte = html_entity_decode($texte->get_valeur(), ENT_QUOTES, "UTF-8");

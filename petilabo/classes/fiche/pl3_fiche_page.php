@@ -110,11 +110,35 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/langs/fr.min.js", _MODE_ADMIN);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js", _MODE_ADMIN);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js", _MODE_ADMIN);
+		$ret .= "<br><p><strong>Recherche des objets avec icone :</strong><p>.".$this->lire_objets_avec_icone();
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;
 	}
 	
+	public function lire_objets_avec_icone() {
+		$ret = "";
+		$liste = @glob(_CHEMIN_OBJET.self::NOM_FICHE."/"._PREFIXE_OBJET.self::NOM_FICHE."_*"._SUFFIXE_PHP);
+		foreach ($liste as $elem_liste) {
+			if (is_file($elem_liste)) {
+				$nom_fichier = basename($elem_liste);
+				$nom_classe = str_replace(_SUFFIXE_PHP, "", $nom_fichier);
+				$nom_constante_balise = $nom_classe."::NOM_BALISE";
+				$nom_constante_icone = $nom_classe."::NOM_ICONE";
+				$nom_constante_fiche = $nom_classe."::NOM_FICHE";
+				if ((defined($nom_constante_balise)) && (defined($nom_constante_icone)) && (defined($nom_constante_fiche)))  {
+					$nom_fiche = $nom_classe::NOM_FICHE;
+					if (!(strcmp($nom_fiche, "page"))) {
+						$nom_balise = $nom_classe::NOM_BALISE;
+						$nom_icone = $nom_classe::NOM_ICONE;
+						$ret .= "<p><span class=\"fa ".$nom_icone."\"></span> => ".$nom_balise."</p>\n";
+					}
+				}
+			}
+		}
+		return $ret;
+	}
+
 	private function declarer_css($fichier_css, $mode = -1) {
 		$ret = "";
 		if (($mode == -1) || ($mode == $this->mode)) {

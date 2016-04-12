@@ -5,12 +5,15 @@
  */
  
 class pl3_objet_page_titre extends pl3_outil_objet_xml {
+	/* Icone */
+	const NOM_ICONE = "fa-text-height";
+
 	/* Fiche */
 	const NOM_FICHE = "page";
 
 	/* Balise */
 	const NOM_BALISE = "titre";
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte");
 	
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";

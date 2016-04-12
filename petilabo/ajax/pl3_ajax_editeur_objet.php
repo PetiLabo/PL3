@@ -39,7 +39,6 @@ class pl3_ajax_editeur_objet {
 			$ret .= "<p class=\"editeur_objet_titre_valeur\">Balise &lt;".$nom_balise."&gt;</p>\n";
 			$valeur = $this->objet->get_valeur();
 			$balise = $this->objet->get_balise();
-			$ret .= $this->type_to_nom_type($balise)."<br>\n";
 			$ret .= $this->afficher_champ_form($balise, $valeur);
 		}
 		return $ret;
@@ -78,45 +77,6 @@ class pl3_ajax_editeur_objet {
 			else {
 				$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
 			}
-		}
-		return $ret;
-	}
-
-	private function type_to_nom_type(&$information) {
-		$type_information = $information["type"];
-		switch($type_information) {
-			case pl3_outil_objet_xml::TYPE_ENTIER:
-				$ret = "entier";break;
-			case pl3_outil_objet_xml::TYPE_CHAINE:
-				$ret = "chaîne de caractères";break;
-			case pl3_outil_objet_xml::TYPE_TEXTE:
-				$ret = "texte";break;
-			case pl3_outil_objet_xml::TYPE_ICONE:
-				$ret = "icone";break;
-			case pl3_outil_objet_xml::TYPE_REFERENCE:
-				if (isset($information["reference"])) {
-					$nom_classe = $information["reference"];
-					$nom_balise = $nom_classe::NOM_BALISE;
-					$ret = "référence à un objet ".$nom_balise." <br><b>ATTENTION : Saisir un nom d'objet</b>";;
-				}
-				else {
-					$ret = "ERREUR : Référence à un objet inconnu";
-				}
-				break;
-			case pl3_outil_objet_xml::TYPE_INDIRECTION:
-				if (isset($information["reference"])) {
-					$nom_classe = $information["reference"];
-					$nom_balise = $nom_classe::NOM_BALISE;
-					$ret = "indirection vers un objet ".$nom_balise;
-				}
-				else {
-					$ret = "ERREUR : Indirection vers un objet inconnu";
-				}
-				break;
-			case pl3_outil_objet_xml::TYPE_FICHIER:
-				$ret = "fichier";break;
-			default:
-				$ret = "ERREUR : Type d'information inexistant";
 		}
 		return $ret;
 	}

@@ -5,6 +5,9 @@
  */
  
 class pl3_objet_page_image extends pl3_outil_objet_xml {
+	/* Icone */
+	const NOM_ICONE = "fa-picture-o";
+
 	/* Fiche */
 	const NOM_FICHE = "page";
 

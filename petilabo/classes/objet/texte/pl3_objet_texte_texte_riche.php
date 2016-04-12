@@ -4,13 +4,13 @@
  * Classe de gestion des textes
  */
 
-class pl3_objet_texte_texte extends pl3_outil_objet_xml {
+class pl3_objet_texte_texte_riche extends pl3_outil_objet_xml {
 	/* Fiche */
 	const NOM_FICHE = "texte";
 
 	/* Balise */
-	const NOM_BALISE = "texte";
-	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_CHAINE);
+	const NOM_BALISE = "texte_riche";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_TEXTE);
 	
 	/* Attributs */
 	public static $Liste_attributs = array(

@@ -5,6 +5,9 @@
  */
  
 class pl3_objet_page_saut extends pl3_outil_objet_xml {
+	/* Icone */
+	const NOM_ICONE = "fa-arrows-v";
+	
 	/* Fiche */
 	const NOM_FICHE = "page";
 
