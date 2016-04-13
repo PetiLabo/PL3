@@ -5,7 +5,7 @@
 /* Général *************************************************************************/
 body, div.page, p {position:relative;margin:0;padding:0;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
-.bloc{background:#08f;margin:10px;padding:10px;}
+.bloc{background:#08f;margin:10px;padding:10px;width:0;}
 .bloc > div{margin:0;padding:3px;text-align:center;background:#8f8;}
 .bloc > div > div,
 .bloc > div > p, 
@@ -18,5 +18,6 @@ body, div.page, p {position:relative;margin:0;padding:0;}
 
 /* Petits écrans */
 @media all and (max-width: 600px) {
-  .contenu {flex-direction: column;}
+	.contenu {flex-direction: column;}
+	.bloc {width:100%;}
 }

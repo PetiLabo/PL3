@@ -56,10 +56,21 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$num_id_bloc = $this->lire_id_parent()."-".$this->lire_id();
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
-		$ret .= "<div id=\"bloc-".$this->lire_id_parent()."-".$this->lire_id()."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
+		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"bloc\" style=\"flex-grow:".$taille.";\">\n";
 		foreach($this->objets as $objet) {
 			$ret .= $objet->afficher($mode);
+		}
+		if ($mode == _MODE_ADMIN) {
+			$liste_objets_avec_icone = $this->source_page->get_page()->get_liste_objets_avec_icone();
+			if (count($liste_objets_avec_icone) > 0) {
+				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
+				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
+					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"#\" title=\"Ajouter une balise ".$nom_balise."\"></a>";
+				}
+				$ret .= "</p>\n";
+			}
 		}
 		$ret .= "</div>\n";
 		return $ret;

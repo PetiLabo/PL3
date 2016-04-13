@@ -9,18 +9,21 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	/* Propriétés */
 	private $mode = _MODE_NORMAL;
+	private $liste_objets_avec_icone = array();
 	
 	/* Constructeur */
 	public function __construct(&$source_page, $chemin) {
 		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_meta");
 		$this->declarer_objet("pl3_objet_page_contenu");
+		$this->lire_objets_avec_icone();
 		parent::__construct($source_page, $chemin, 1);
 	}
 	
 	/* Accesseur/mutateur */
 	public function set_mode($mode) {$this->mode = $mode;}
 	public function get_mode() {return $this->mode;}
+	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
 
 	/* Afficher */
 	public function afficher() {
@@ -110,14 +113,12 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/langs/fr.min.js", _MODE_ADMIN);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js", _MODE_ADMIN);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js", _MODE_ADMIN);
-		$ret .= "<br><p><strong>Recherche des objets avec icone :</strong><p>.".$this->lire_objets_avec_icone();
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;
 	}
 	
-	public function lire_objets_avec_icone() {
-		$ret = "";
+	private function lire_objets_avec_icone() {
 		$liste = @glob(_CHEMIN_OBJET.self::NOM_FICHE."/"._PREFIXE_OBJET.self::NOM_FICHE."_*"._SUFFIXE_PHP);
 		foreach ($liste as $elem_liste) {
 			if (is_file($elem_liste)) {
@@ -131,12 +132,11 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 					if (!(strcmp($nom_fiche, "page"))) {
 						$nom_balise = $nom_classe::NOM_BALISE;
 						$nom_icone = $nom_classe::NOM_ICONE;
-						$ret .= "<p><span class=\"fa ".$nom_icone."\"></span> => ".$nom_balise."</p>\n";
+						$this->liste_objets_avec_icone[$nom_balise] = $nom_icone;
 					}
 				}
 			}
 		}
-		return $ret;
 	}
 
 	private function declarer_css($fichier_css, $mode = -1) {

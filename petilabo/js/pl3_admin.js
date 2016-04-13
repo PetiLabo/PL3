@@ -195,7 +195,9 @@ function parser_html_id(html_id) {
 function appliquer_sortable(selecteur) {
 	$(selecteur).sortable({
 		placeholder: 'deplaceur_objet',
+		items: "div",
 		update: function() {
+			/* Gestion du déplacement d'un objet */
 			var bloc_attr_id = $(this).attr("id");
 			var bloc_id = bloc_attr_id.replace("bloc-", "");
 			var tab_ordre = [];
@@ -255,7 +257,17 @@ $(document).ready(function() {
 		}
 	});
 	
-	/* Gestion du survol d'un objet éditable */
+	/* Gestion du bouton "ajout" au survol d'un bloc */
+	$("div.page").on("mouseenter", ".bloc", function() {
+		var bloc_id = $(this).attr("id");
+		$("#poignee-"+bloc_id).slideDown(300);
+	});
+	$("div.page").on("mouseleave", ".bloc", function() {
+		var bloc_id = $(this).attr("id");
+		$("#poignee-"+bloc_id).slideUp(300);
+	});
+
+	/* Gestion de la bordure au survol d'un objet éditable */
 	$("div.page").on("mouseenter", ".objet_editable", function() {
 		$(this).css({"cursor": "pointer", "border-color": "#f00"});
 	});

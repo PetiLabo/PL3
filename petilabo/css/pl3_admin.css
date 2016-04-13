@@ -26,3 +26,9 @@
 
 /* JQuery UI */
 .deplaceur_objet{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
+
+/* Divers */
+.bloc > p.bloc_poignee_ajout{background:#7e7;display:none;}
+.bloc_poignee_ajout{font-size:133%;text-align:center;padding:4px 0;word-break: break-all;}
+.bloc_poignee_ajout a{color:#444;padding:0 3px;text-decoration:none;}
+.bloc_poignee_ajout a:hover{color:#800;}
