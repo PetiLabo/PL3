@@ -3,21 +3,22 @@
  */
  
 /* Général *************************************************************************/
-body, div.page, p {position:relative;margin:0;padding:0;}
+* {box-sizing:border-box;margin:0;padding:0;}
+body, div.page, p {position:relative;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
 .bloc{background:#08f;margin:10px;padding:10px;width:0;}
-.bloc > div{margin:0;padding:3px;text-align:center;background:#8f8;}
+.bloc > div{padding:3px;text-align:center;background:#8f8;}
 .bloc > div > div,
 .bloc > div > p, 
 .bloc > div > h1, .bloc > div > h2,
 .bloc > div > h3, .bloc > div > h4,
 .bloc > div > h5, .bloc > div > h6, 
-.bloc > div > img {margin:0;padding:1px;border: 3px solid transparent;}
+.bloc > div > img {padding:1px;border: 3px solid transparent;}
 
 /* Gestion responsive ***************************************************************/
 
 /* Petits écrans */
 @media all and (max-width: 600px) {
 	.contenu {flex-direction: column;}
-	.bloc {width:100%;}
+	.bloc {width:98%;margin:0 1%;}
 }

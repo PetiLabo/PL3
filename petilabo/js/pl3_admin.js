@@ -154,15 +154,15 @@ function calculer_coord_editeur(objet, plein_ecran) {
 
 	/* Calcul de la position de l'éditeur */	
 	if (plein_ecran) {
-		var pos_x = 5;
-		var largeur = $("div.page").innerWidth() - 25;
+		var pos_x = 9;
+		var largeur = $("div.page").innerWidth() - 19;
 		var style = "top:"+pos_y+"px;";
 		style += "left:"+pos_x+"px;";
 		style += "width:"+largeur+"px;";
 	}
 	else {	
-		var pos_x = parseInt(position.left);
-		var largeur_min = parseInt(objet.width()) - 6;
+		var pos_x = parseInt(position.left) + 1;
+		var largeur_min = parseInt(objet.width()) + 6;
 
 		/* Elaboration du style */
 		var style = "top:"+pos_y+"px;";
