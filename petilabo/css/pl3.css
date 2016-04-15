@@ -5,9 +5,9 @@
 /* Général *************************************************************************/
 * {box-sizing:border-box;margin:0;padding:0;}
 body, div.page, p {position:relative;}
-.contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#f80;}
-.bloc{background:#08f;margin:10px;padding:10px;width:0;}
-.bloc > div{padding:3px;text-align:center;background:#8f8;}
+.contenu{display:flex;flex-wrap:wrap;flex-direction:row;background:#888;}
+.bloc{background:#aaa;margin:10px;padding:10px;width:0;}
+.bloc > div{padding:3px;text-align:center;background:#ddd;}
 .bloc > div > div,
 .bloc > div > p, 
 .bloc > div > h1, .bloc > div > h2,

@@ -84,7 +84,7 @@ function deplacer_objet(nom_page, bloc_id, tab_ordre) {
 			var re_id = 1;
 			var bloc = $("#bloc-"+bloc_id);
 			/* Renumérotation des id des éléments du bloc */
-			bloc.children("div").children(["id"]).each(function() {
+			bloc.children("div").children("*[id]").each(function() {
 				var html_id = $(this).attr("id");
 				var parsing_objet_id = parser_html_id(html_id);
 				var erreur_parsing = parsing_objet_id["erreur"];
@@ -201,7 +201,7 @@ function appliquer_sortable(selecteur) {
 			var bloc_attr_id = $(this).attr("id");
 			var bloc_id = bloc_attr_id.replace("bloc-", "");
 			var tab_ordre = [];
-			$(this).find("*[id]").each(function() {
+			$(this).find("div[class^='container_'] *[id]").each(function() {
 				var elem_id = $(this).attr("id");
 				var editeur_id = "editeur-"+elem_id;
 				deplacer_editeur(editeur_id);
@@ -260,19 +260,19 @@ $(document).ready(function() {
 	/* Gestion du bouton "ajout" au survol d'un bloc */
 	$("div.page").on("mouseenter", ".bloc", function() {
 		var bloc_id = $(this).attr("id");
-		$("#poignee-"+bloc_id).slideDown(300);
+		$("#poignee-"+bloc_id).stop().slideDown(250);
 	});
 	$("div.page").on("mouseleave", ".bloc", function() {
 		var bloc_id = $(this).attr("id");
-		$("#poignee-"+bloc_id).slideUp(300);
+		$("#poignee-"+bloc_id).stop().slideUp(250);
 	});
 
 	/* Gestion de la bordure au survol d'un objet éditable */
 	$("div.page").on("mouseenter", ".objet_editable", function() {
-		$(this).css({"cursor": "pointer", "border-color": "#f00"});
+		$(this).addClass("admin_survol_objet");
 	});
 	$("div.page").on("mouseleave", ".objet_editable", function() {
-		$(this).css({"cursor": "default", "border-color": "transparent"});
+		$(this).removeClass("admin_survol_objet");
 	});
 	
 	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */
