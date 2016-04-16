@@ -76,7 +76,6 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
 					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"#\" title=\"Ajouter une balise ".$nom_balise."\"></a>";
 				}
-				$ret .= "<span class=\"fa fa-trash bloc_poignee_corbeille\"></span>";
 				$ret .= "</p>\n";
 			}
 		}

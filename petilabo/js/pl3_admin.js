@@ -195,13 +195,13 @@ function parser_html_id(html_id) {
 function appliquer_sortable(selecteur) {
 	$(selecteur).sortable({
 		placeholder: 'deplaceur_objet',
-		items: "div",
+		items: "div[class^='container_']",
 		update: function() {
 			/* Gestion du déplacement d'un objet */
 			var bloc_attr_id = $(this).attr("id");
 			var bloc_id = bloc_attr_id.replace("bloc-", "");
 			var tab_ordre = [];
-			$(this).find("div[class^='container_'] *[id]").each(function() {
+			$(this).find("div[class^='container_'] > *[id]").each(function() {
 				var elem_id = $(this).attr("id");
 				var editeur_id = "editeur-"+elem_id;
 				deplacer_editeur(editeur_id);
