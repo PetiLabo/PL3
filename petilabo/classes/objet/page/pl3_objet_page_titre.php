@@ -22,6 +22,20 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"),
 		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER));
 
+	/* Initialisation */
+	public function construire_nouveau() {
+		/* Création d'une instance de texte riche */
+		$objet_texte = $this->source_page->instancier_nouveau(self::$Balise["reference"]);
+		if ($objet_texte) {
+			$objet_texte->construire_nouveau();
+			$this->source_page->enregistrer_nouveau($objet_texte);
+
+			/* Ce nouveau texe riche est la valeur du nouveau paragraphe */
+			$this->set_valeur($objet_texte->get_attribut_nom());
+			$this->set_attribut_niveau(1);
+		}
+	}
+
 	/* Méthodes */
 	public function ecrire_xml($niveau) {
 		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);

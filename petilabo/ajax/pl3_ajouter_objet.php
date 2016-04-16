@@ -1,5 +1,6 @@
 <?php
 define("_CHEMIN_BASE_URL", "../../");
+define("_CHEMIN_BASE_RESSOURCES", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
 /* Initialisations */
@@ -21,7 +22,7 @@ if ($ajax_objet_valide) {
 			$objet = $source_page->instancier_nouveau($nom_classe, $id_contenu, $id_bloc);
 			$objet->construire_nouveau();
 			$source_page->enregistrer_nouveau($objet, $id_contenu, $id_bloc);
-			$source_page->enregistrer_xml();
+			$source_page->enregistrer_page_xml();
 			$html .= $bloc->afficher(_MODE_ADMIN);
 			$ajax_objet_valide = true;
 		}

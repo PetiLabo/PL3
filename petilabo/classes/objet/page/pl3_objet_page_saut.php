@@ -18,6 +18,11 @@ class pl3_objet_page_saut extends pl3_outil_objet_xml {
 	/* Attributs */
 	public static $Liste_attributs = array();
 
+	/* Initialisation */
+	public function construire_nouveau() {
+		$this->set_valeur(1);
+	}
+
 	/* Méthodes */
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);

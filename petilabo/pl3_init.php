@@ -5,6 +5,7 @@ define("_VERSION_PETILABO", "3.0.0");
 
 /* Définitions complémentaires */
 if (!defined("_CHEMIN_BASE_FICHIER")) {define("_CHEMIN_BASE_FICHIER", _CHEMIN_BASE_URL);}
+if (!defined("_CHEMIN_BASE_RESSOURCES")) {define("_CHEMIN_BASE_RESSOURCES", _CHEMIN_BASE_FICHIER);}
 
 /* Chemins PetiLabo */
 define("_CHEMIN_PETILABO", _CHEMIN_BASE_URL."petilabo/");
@@ -20,7 +21,7 @@ define("_CHEMIN_TIERS", _CHEMIN_RESSOURCES."tiers/");
 
 /* Chemins XML */
 define("_CHEMIN_XML", _CHEMIN_BASE_URL."xml/");
-define("_CHEMIN_RESSOURCES_XML", _CHEMIN_BASE_FICHIER."xml/");
+define("_CHEMIN_RESSOURCES_XML", _CHEMIN_BASE_RESSOURCES."xml/");
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
 define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 
