@@ -104,6 +104,29 @@ function deplacer_objet(nom_page, bloc_id, tab_ordre) {
 	});
 }
 
+/* Appel AJAX pour ajout d'un objet dans un bloc */
+function ajouter_objet(nom_page, bloc_id, classe_objet) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_ajouter_objet.php",
+		data: {nom_page: nom_page, bloc_id: bloc_id, classe_objet: classe_objet},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			var bloc = $("#bloc-"+bloc_id);
+			bloc.replaceWith(html);
+			appliquer_sortable("#bloc-"+bloc_id);
+		}
+		else {
+			alert("ERREUR : L'ajout d'un objet a échoué");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
 /* Affichage du code attaché à l'objet */
 function afficher_editeur(balise_id, nom_balise, html) {
 	var objet_id = nom_balise+"-"+balise_id;
@@ -273,6 +296,16 @@ $(document).ready(function() {
 	});
 	$("div.page").on("mouseleave", ".objet_editable", function() {
 		$(this).removeClass("admin_survol_objet");
+	});
+	
+	/* Gestion des boutons pour l'ajout d'objets */
+	$("div.page").on("click", "p.bloc_poignee_ajout a", function() {
+		var bloc_attr_id = $(this).parent().attr("id");
+		var bloc_id = bloc_attr_id.replace("poignee-bloc-", "");
+		var classe = $(this).attr("href");
+		var nom_page = parser_page();
+		ajouter_objet(nom_page, bloc_id, classe);
+		return false;
 	});
 	
 	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */

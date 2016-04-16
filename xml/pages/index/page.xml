@@ -6,7 +6,9 @@
     </meta>
     <contenu style="initial">
         <bloc>
+            <paragraphe style="">id_texte_riche_4</paragraphe>
             <saut>4</saut>
+            <paragraphe style="">id_texte_riche_5</paragraphe>
         </bloc>
     </contenu>
     <contenu>
@@ -14,9 +16,9 @@
             <saut>2</saut>
         </bloc>
         <bloc style="entete" taille="6">
-            <titre style="sous_titre_gris" niveau="2">titre_actu</titre>
-            <image>vignette_actu</image>
+            <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
             <paragraphe style="style_tutu">texte_actu_1</paragraphe>
+            <image>vignette_actu</image>
         </bloc>
         <bloc taille="3">
             <saut>4</saut>

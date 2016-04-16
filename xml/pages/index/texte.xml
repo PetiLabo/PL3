@@ -3,4 +3,6 @@
     <texte_riche nom="texte_actu">Ceci est une actualité...</texte_riche>
     <texte_riche nom="texte_actu_1">&lt;p&gt;Une astuce pour le display:flex des contenus : les blocs ont un flex-grow égal à la taille du bloc&lt;i&gt; (1, 2, 3...)&lt;/i&gt; - c&#039;est une taille proportionnelle - et un &lt;b&gt;&lt;font color=&quot;#953734&quot;&gt;width:0&lt;/font&gt;&lt;/b&gt; !&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong&gt;Il est désormais possible de saisir du texte enrichi !&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: right;&quot;&gt;&lt;em&gt;Signé : &lt;font color=&quot;#c0504d&quot;&gt;Philippe&lt;/font&gt;&lt;/em&gt;&lt;/p&gt;</texte_riche>
     <texte_riche nom="texte_actu_2">Voici l&#039; actualité n°2</texte_riche>
+    <texte_riche nom="id_texte_riche_4">Hello !</texte_riche>
+    <texte_riche nom="id_texte_riche_5">&lt;i&gt;Goodbye...&lt;/i&gt;</texte_riche>
 </petilabo>

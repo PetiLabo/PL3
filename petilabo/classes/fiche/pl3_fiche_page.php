@@ -127,7 +127,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 				$nom_constante_balise = $nom_classe."::NOM_BALISE";
 				$nom_constante_icone = $nom_classe."::NOM_ICONE";
 				$nom_constante_fiche = $nom_classe."::NOM_FICHE";
-				if ((defined($nom_constante_balise)) && (defined($nom_constante_icone)) && (defined($nom_constante_fiche)))  {
+				if ((@defined($nom_constante_balise)) && (@defined($nom_constante_icone)) && (@defined($nom_constante_fiche)))  {
 					$nom_fiche = $nom_classe::NOM_FICHE;
 					if (!(strcmp($nom_fiche, "page"))) {
 						$nom_balise = $nom_classe::NOM_BALISE;
