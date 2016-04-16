@@ -22,7 +22,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	/* Autres propriétés */
 	private $objets = array();
 	
-	/* Méthode */
+	/* Gestion des objet dans le bloc */
 	public function remplacer_objet(&$nouvel_objet) {
 		$nouvel_id = $nouvel_objet->lire_id();
 		$nb_objets = count($this->objets);
@@ -37,6 +37,13 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 			}
 		}
 		return false;
+	}
+	public function instancier_nouveau($nom_classe) {
+		$objet = new $nom_classe($this->source_page, 1 + count($this->objets), $this);
+		return $objet;
+	}
+	public function ajouter_objet(&$objet) {
+		$this->objets[] = $objet;
 	}
 
 	public function charger_xml() {

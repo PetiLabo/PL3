@@ -8,21 +8,22 @@ class pl3_outil_source_page {
 	private $liste_sources = array();
 	private $page = null;
 
+	/* Constructeur */
 	public function __construct() {
 		/* Textes */
-		$liste_textes = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_texte");
+		$liste_textes = new pl3_outil_liste_fiches_xml($this, "texte");
 		$liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_texte::NOM_FICHE] = $liste_textes;
 
 		/* Media */
-		$liste_medias = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_media");
+		$liste_medias = new pl3_outil_liste_fiches_xml($this, "media");
 		$liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_media::NOM_FICHE] = $liste_medias;
 
 		/* Styles */
-		$liste_styles = new pl3_outil_liste_fiches_xml($this, "pl3_fiche_style");
+		$liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
 		$liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_style::NOM_FICHE] = $liste_styles;
@@ -31,6 +32,56 @@ class pl3_outil_source_page {
 		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
 	}
 
+	/* Instanciation de nouveaux objets */
+	public function instancier_nouveau($classe_objet, $id_contenu = 0, $id_bloc = 0) {
+		$instance = null;
+		$nom_fiche = $classe_objet::NOM_FICHE;
+		/* Cas d'un objet hors page : on l'insère à la racine de la fiche */
+		if (strcmp($nom_fiche, "page")) {
+			if (isset($this->liste_sources[$nom_fiche])) {
+				$liste_fiches = $this->liste_sources[$nom_fiche];
+				$instance = $liste_fiches->instancier_nouveau(_NOM_SOURCE_LOCAL, $classe_objet);
+			}
+		}
+		/* Cas d'un objet page : on l'insère dans un bloc */
+		else {
+			$contenu = $this->page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $id_contenu);
+			if ($contenu != null) {
+				$bloc = $contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $id_bloc);
+				if ($bloc != null) {
+					$instance = $bloc->instancier_nouveau($classe_objet);
+				}
+			}
+		}
+		return $instance;
+	}
+	
+	/* Enregistrement de nouveaux objets */
+	public function enregistrer_nouveau(&$objet, $id_contenu = 0, $id_bloc = 0) {
+		$classe_objet = get_class($objet);
+		$nom_fiche = $classe_objet::NOM_FICHE;
+		/* Cas d'un objet hors page : on l'insère à la racine de la fiche */
+		if (strcmp($nom_fiche, "page")) {
+			if (isset($this->liste_sources[$nom_fiche])) {
+				$liste_fiches = $this->liste_sources[$nom_fiche];
+				$liste_fiches->ajouter_objet(_NOM_SOURCE_LOCAL, $objet);
+				$liste_fiches->enregistrer_xml(_NOM_SOURCE_LOCAL);
+			}
+		}
+		/* Cas d'un objet page : on l'insère dans un bloc */
+		else {
+			$contenu = $this->page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $id_contenu);
+			if ($contenu != null) {
+				$bloc = $contenu->chercher_objet_classe_par_id("pl3_objet_page_bloc", $id_bloc);
+				if ($bloc != null) {
+					$instance = $bloc->ajouter_objet($objet);
+					$this->enregistrer_page_xml();
+				}
+			}
+		}
+	}
+
+	/* Chargement et enregistrement XML */
 	public function charger_xml() {
 		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
 			$liste_fiches->charger_xml();
@@ -53,6 +104,7 @@ class pl3_outil_source_page {
 		$this->page->enregistrer_xml();
 	}
 
+	/* Affichage */
 	public function afficher($mode) {
 		$this->page->set_mode($mode);
 		$html = $this->page->afficher();

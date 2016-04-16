@@ -26,7 +26,9 @@ define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 
 /* Préfixes */
 define("_PREFIXE_PETILABO", "pl3_");
+define("_PREFIXE_FICHE", _PREFIXE_PETILABO."fiche_");
 define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
+define("_PREFIXE_ID_OBJET", "id_");
 
 /* Suffixes */
 define("_SUFFIXE_PHP", ".php");

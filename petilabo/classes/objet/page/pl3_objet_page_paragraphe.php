@@ -14,12 +14,24 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	/* Balise */
 	const NOM_BALISE = "paragraphe";
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte_riche");
-	// public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_TEXTE);
 
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"));
+
+	/* Initialisation */
+	public function construire_nouveau() {
+		/* Création d'une instance de texte riche */
+		$objet_texte_riche = $this->source_page->instancier_nouveau(self::$Balise["reference"]);
+		if ($objet_texte_riche) {
+			$objet_texte_riche->construire_nouveau();
+			$this->source_page->enregistrer_nouveau($objet_texte_riche);
+
+			/* Ce nouveau texe riche est la valeur du nouveau paragraphe */
+			$this->set_valeur($objet_texte_riche->get_attribut_nom());
+		}
+	}
 
 	/* Méthodes */
 	public function ecrire_xml($niveau) {

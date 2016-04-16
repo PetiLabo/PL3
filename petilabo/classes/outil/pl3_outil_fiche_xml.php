@@ -30,9 +30,10 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		$this->liste_objets[$nom_classe] = array();
 	}
 	
-	public function nouvel_objet($nom_classe) {
+	public function instancier_nouveau($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe(static::NOM_FICHE, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet = new $nom_classe($this->source_page, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet->construire_nouveau();
 			return $objet;
 		}
 		else {

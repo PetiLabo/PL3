@@ -32,24 +32,33 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 		parent::__construct($source_page);
 	}
 	
-	/* Gestion des objets */
+	/* Gestion des objets : déclaration d'un objet fils */
 	protected function declarer_objet($nom_classe) {
 		$nom_balise = $nom_classe::NOM_BALISE;
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
 		$this->liste_objets[$nom_classe] = array();
 	}
 
-	public function nouvel_objet($nom_classe) {
+	/* Gestion des objets : instanciation d'un objet fils */
+	public function instancier_nouveau($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe(static::NOM_FICHE, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet = new $nom_classe($this->source_page, 1 + count($this->liste_objets[$nom_classe]), $this);
 			return $objet;
 		}
 		else {
 			die("ERREUR : Instanciation d'un objet inexistant");
 		}
 	}
+	/* Gestion des objets : construction d'un nom pour une nouvelle instance */
+	public function construire_nouveau_nom() {
+		if (!(isset($this->attributs[self::NOM_ATTRIBUT_NOM]))) {
+			$attribut_nom = _PREFIXE_ID_OBJET.(static::NOM_BALISE)."_".($this->lire_id());
+			$this->attributs[self::NOM_ATTRIBUT_NOM] = $attribut_nom;
+		}
+	}
 
 	/* Méthodes abstraites */
+	// abstract public function construire_nouveau();
 	abstract public function afficher($mode);
 	abstract public function ecrire_xml($niveau);
 	
@@ -231,7 +240,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 			$nom_attribut = substr($methode, 13);
 			$this->set_attribut($nom_attribut, $args[0]);
 		}
-		else {die("ERREUR : Appel d'une méthode non définie dans un objet XML"); }
+		else {die("ERREUR : Appel d'une méthode ".$methode." non définie dans un objet XML"); }
 	}
 
 }
