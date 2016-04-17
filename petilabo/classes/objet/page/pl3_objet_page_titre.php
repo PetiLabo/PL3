@@ -25,10 +25,11 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	/* Initialisation */
 	public function construire_nouveau() {
 		/* Création d'une instance de texte riche */
-		$objet_texte = $this->source_page->instancier_nouveau(self::$Balise["reference"]);
+		$source_page = pl3_outil_racine_page::Get();
+		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte) {
 			$objet_texte->construire_nouveau();
-			$this->source_page->enregistrer_nouveau($objet_texte);
+			$source_page->enregistrer_nouveau($objet_texte);
 
 			/* Ce nouveau texe riche est la valeur du nouveau paragraphe */
 			$this->set_valeur($objet_texte->get_attribut_nom());
@@ -46,8 +47,9 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$source_page = pl3_outil_racine_page::Get();
 		$nom_texte = $this->get_valeur();
-		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
 			$valeur_texte = $texte->get_valeur();

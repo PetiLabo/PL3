@@ -61,10 +61,10 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 	
 	/* Méthodes */
-	public function __construct(&$source_page, $id, &$parent, &$noeud = null) {
+	public function __construct($id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);
 		$this->declarer_element(pl3_objet_media_image_alt::NOM_BALISE);
-		parent::__construct($source_page, $id, $parent, $noeud);
+		parent::__construct($id, $parent, $noeud);
 	}
 
 	public function charger_xml() {

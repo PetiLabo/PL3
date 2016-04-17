@@ -85,11 +85,11 @@ class pl3_objet_style_style_page extends pl3_outil_objet_composite_xml {
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
 
 	/* Méthodes */
-	public function __construct(&$source_page, $id, &$parent, &$noeud = null) {
+	public function __construct($id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_style_style_page_largeur::NOM_BALISE);
 		$this->declarer_element(pl3_objet_style_style_page_responsive::NOM_BALISE);
 		$this->declarer_element(pl3_objet_style_style_page_fond::NOM_BALISE);
-		parent::__construct($source_page, $id, $parent, $noeud);
+		parent::__construct($id, $parent, $noeud);
 	}
 
 	public function charger_xml() {
@@ -105,7 +105,8 @@ class pl3_objet_style_style_page extends pl3_outil_objet_composite_xml {
 	}
 	
 	public function afficher($mode) {
-		$theme = $this->source_page->get_theme();
+		$source_page = pl3_outil_racine_page::Get();
+		$theme = $source_page->get_nom_theme();
 		$nom = $this->get_attribut_nom();
 		$ret = ".".$theme."_page_".$nom."{";
 		$ret .= $this->afficher_elements_xml($mode);

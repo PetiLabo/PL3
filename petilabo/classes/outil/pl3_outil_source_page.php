@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Classe de gestion d'une source page
- */
- 
 class pl3_outil_source_page {
 	/* Ressources */
 	private $liste_sources = array();
@@ -21,19 +17,19 @@ class pl3_outil_source_page {
 	/* Constructeur */
 	public function __construct() {
 		/* Déclaration des textes */
-		$liste_textes = new pl3_outil_liste_fiches_xml($this, "texte");
+		$liste_textes = new pl3_outil_liste_fiches_xml("texte");
 		$liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_texte::NOM_FICHE] = $liste_textes;
 
 		/* Déclaration des media */
-		$liste_medias = new pl3_outil_liste_fiches_xml($this, "media");
+		$liste_medias = new pl3_outil_liste_fiches_xml("media");
 		$liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_media::NOM_FICHE] = $liste_medias;
 
 		/* Déclaration du fichier page */
-		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
+		$this->page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
 	}
 
 	/* Instanciation de nouveaux objets */
@@ -104,7 +100,7 @@ class pl3_outil_source_page {
 		$this->theme_a_jour = $this->verifier_theme_a_jour();
 
 		/* Déclaration du thème */
-		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
+		$this->liste_styles = new pl3_outil_liste_fiches_xml("style");
 		$this->liste_styles->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
 
 		/* Chargement du thème */
@@ -166,7 +162,7 @@ class pl3_outil_source_page {
 			$balise = $reflection->getConstant("NOM_BALISE");
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$element));
+				$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$element));
 				$instance->parser_attributs($element);
 				$ret[] = $instance;
 			}
@@ -182,7 +178,7 @@ class pl3_outil_source_page {
 			$balise = $reflection->getConstant("NOM_BALISE");
 			$liste = $noeud->getElementsByTagName($balise);
 			foreach($liste as $element) {
-				$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$element));
+				$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$element));
 				$instance->parser_attributs($element);
 				$instance->parser_valeur($element);
 				$ret[] = $instance;
@@ -204,7 +200,7 @@ class pl3_outil_source_page {
 				$fichier_existe = @file_exists($nom_fichier);
 				if ($fichier_existe) {
 					$reflection = new ReflectionClass($nom_classe);
-					$instance = $reflection->newInstanceArgs(array(&$this, 1 + count($ret), &$objet_parent, &$objet));
+					$instance = $reflection->newInstanceArgs(array(1 + count($ret), &$objet_parent, &$objet));
 					$instance->parser_attributs($objet);
 					$instance->parser_valeur($objet);
 					$ret[] = $instance;

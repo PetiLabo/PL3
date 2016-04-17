@@ -18,9 +18,9 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_contenu"));
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $id, $objet_parent, &$noeud = null) {
+	public function __construct($id, $objet_parent, &$noeud = null) {
 		$this->declarer_objet("pl3_objet_page_bloc");
-		parent::__construct($source_page, $id, $objet_parent, $noeud);
+		parent::__construct($id, $objet_parent, $noeud);
 	}
 
 	/* Méthodes */
@@ -47,9 +47,10 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$source_page = pl3_outil_racine_page::Get();
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
-		$classe = "contenu ".$this->source_page->get_nom_theme()."_contenu_".$style;
+		$classe = "contenu ".$source_page->get_nom_theme()."_contenu_".$style;
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"".$classe."\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
 		foreach ($liste_blocs as $bloc) {

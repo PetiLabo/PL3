@@ -122,7 +122,7 @@ class pl3_ajax_editeur_objet {
 				$nom_classe = $information["reference"];
 				$nom_fiche = $nom_classe::NOM_FICHE;
 				$nom_balise = $nom_classe::NOM_BALISE;
-				$source_page = $this->objet->lire_source_page();
+				$source_page = pl3_ajax_init::Get_source_page();
 				$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
 				if ($objet_indirection) {
 					$information = $objet_indirection->get_balise();

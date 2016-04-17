@@ -22,11 +22,12 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 
 	/* Initialisation */
 	public function construire_nouveau() {
+		$source_page = pl3_outil_racine_page::Get();
 		/* Création d'une instance de texte riche */
-		$objet_texte_riche = $this->source_page->instancier_nouveau(self::$Balise["reference"]);
+		$objet_texte_riche = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte_riche) {
 			$objet_texte_riche->construire_nouveau();
-			$this->source_page->enregistrer_nouveau($objet_texte_riche);
+			$source_page->enregistrer_nouveau($objet_texte_riche);
 
 			/* Ce nouveau texe riche est la valeur du nouveau paragraphe */
 			$this->set_valeur($objet_texte_riche->get_attribut_nom());
@@ -42,8 +43,9 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$source_page = pl3_outil_racine_page::Get();
 		$nom_texte = $this->get_valeur();
-		$texte = $this->source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte_riche::NOM_BALISE, $nom_texte);
+		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte_riche::NOM_BALISE, $nom_texte);
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
 			$valeur_texte = html_entity_decode($texte->get_valeur(), ENT_QUOTES, "UTF-8");

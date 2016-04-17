@@ -15,7 +15,7 @@ if ($ajax_objet_valide) {
 		$objet = pl3_ajax_init::Get_objet();
 		parse_str($parametres, $liste_parametres);
 		if (($objet != null) && (count($liste_parametres) > 0)) {
-			$source_page = $objet->lire_source_page();
+			$source_page = pl3_ajax_init::Get_source_page();
 			$nom_valeur = $objet->get_nom_valeur();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
 				/* Cas où le paramètre est un attribut */

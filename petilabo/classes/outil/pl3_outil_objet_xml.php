@@ -25,11 +25,10 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	protected $valeur;
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $id, &$objet_parent, &$noeud = null) {
+	public function __construct($id, &$objet_parent, &$noeud = null) {
 		$this->id = $id;
 		$this->objet_parent = $objet_parent;
 		$this->noeud = $noeud;
-		parent::__construct($source_page);
 	}
 	
 	/* Gestion des objets : déclaration d'un objet fils */
@@ -42,7 +41,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	/* Gestion des objets : instanciation d'un objet fils */
 	public function instancier_nouveau($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe($this->source_page, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet = new $nom_classe(1 + count($this->liste_objets[$nom_classe]), $this);
 			return $objet;
 		}
 		else {
@@ -77,11 +76,13 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	
 	/* Parsing des balises */
 	public function parser_balise($nom_balise) {
-		$ret = $this->source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
+		$source_page = pl3_outil_racine_page::Get();
+		$ret = $source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	public function parser_balise_fille($nom_balise, $unique = true) {
-		$tab_ret = $this->source_page->parser_balise_fille(static::NOM_FICHE, $this, get_called_class(), $nom_balise, $this->noeud);
+		$source_page = pl3_outil_racine_page::Get();
+		$tab_ret = $source_page->parser_balise_fille(static::NOM_FICHE, $this, get_called_class(), $nom_balise, $this->noeud);
 		if ($unique) {
 			$nb_ret = (int) count($tab_ret);
 			$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;

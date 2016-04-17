@@ -6,10 +6,9 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 	private $liste_fiches;
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $nom_fiche) {
+	public function __construct($nom_fiche) {
 		$this->nom_classe_fiche = _PREFIXE_FICHE.$nom_fiche;
 		$this->nom_fiche = $nom_fiche;
-		parent::__construct($source_page);
 	}
 	
 	public function instancier_nouveau($nom_source, $classe_objet) {
@@ -35,7 +34,7 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 	/* Ajout d'une fiche en provenance d'une source */
 	public function ajouter_source($nom_source, $chemin_source) {
 		$id_fiche = 1 + count($this->liste_fiches);
-		$this->liste_fiches[$nom_source] = new $this->nom_classe_fiche($this->source_page, $chemin_source, $id_fiche);
+		$this->liste_fiches[$nom_source] = new $this->nom_classe_fiche($chemin_source, $id_fiche);
 		return $id_fiche;
 	}
 	

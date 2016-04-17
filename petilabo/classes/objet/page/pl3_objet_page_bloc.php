@@ -39,7 +39,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		return false;
 	}
 	public function instancier_nouveau($nom_classe) {
-		$objet = new $nom_classe($this->source_page, 1 + count($this->objets), $this);
+		$objet = new $nom_classe(1 + count($this->objets), $this);
 		return $objet;
 	}
 	public function ajouter_objet(&$objet) {
@@ -47,7 +47,8 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	}
 
 	public function charger_xml() {
-		$this->objets = $this->source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
+		$source_page = pl3_outil_racine_page::Get();
+		$this->objets = $source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
 	}
 
 	public function ecrire_xml($niveau) {
@@ -63,17 +64,18 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$source_page = pl3_outil_racine_page::Get();
 		$num_id_bloc = $this->lire_id_parent()."-".$this->lire_id();
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
-		$classe = "bloc ".$this->source_page->get_nom_theme()."_bloc_".$style;
+		$classe = "bloc ".$source_page->get_nom_theme()."_bloc_".$style;
 		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"flex-grow:".$taille.";\">\n";
 		foreach($this->objets as $objet) {
 			$ret .= $objet->afficher($mode);
 		}
 		if ($mode == _MODE_ADMIN) {
-			$liste_objets_avec_icone = $this->source_page->get_page()->get_liste_objets_avec_icone();
+			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
 			if (count($liste_objets_avec_icone) > 0) {
 				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
 				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {

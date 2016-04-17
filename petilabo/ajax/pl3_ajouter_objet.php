@@ -18,7 +18,7 @@ if ($ajax_objet_valide) {
 			$bloc = pl3_ajax_init::Get_bloc();
 			$id_bloc = $bloc->lire_id();
 			$id_contenu = $bloc->lire_id_parent();
-			$source_page = $bloc->lire_source_page();
+			$source_page = pl3_ajax_init::Get_source_page();
 			$objet = $source_page->instancier_nouveau($nom_classe, $id_contenu, $id_bloc);
 			$objet->construire_nouveau();
 			$source_page->enregistrer_nouveau($objet, $id_contenu, $id_bloc);

@@ -99,8 +99,8 @@ class pl3_ajax_init {
 		if ($ajax_objet_valide) {
 			define("_PAGE_COURANTE", self::$Nom_page);
 			define("_CHEMIN_PAGE_COURANTE", $chemin_page);
-			
-			self::$Source_page = new pl3_outil_source_page();
+			pl3_outil_racine_page::Init();
+			self::$Source_page = pl3_outil_racine_page::Get();
 		}
 		return $ajax_objet_valide;
 	}

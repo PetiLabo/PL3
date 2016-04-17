@@ -108,12 +108,12 @@ class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	public static $Liste_attributs = array();
 
 	/* Constructeur */
-	public function __construct(&$source_page, $id, &$parent, &$noeud = null) {
+	public function __construct($id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_page_meta_titre::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_description::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_theme::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_style::NOM_BALISE);
-		parent::__construct($source_page, $id, $parent, $noeud);
+		parent::__construct($id, $parent, $noeud);
 	}
 
 	/* Méthodes */

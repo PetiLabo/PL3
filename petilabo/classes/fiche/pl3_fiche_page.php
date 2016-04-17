@@ -14,12 +14,12 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	private $liste_objets_avec_icone = array();
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $chemin) {
+	public function __construct($chemin) {
 		$this->obligatoire = true;
 		$this->declarer_objet("pl3_objet_page_meta");
 		$this->declarer_objet("pl3_objet_page_contenu");
 		$this->lire_objets_avec_icone();
-		parent::__construct($source_page, $chemin, 1);
+		parent::__construct($chemin, 1);
 	}
 	
 	/* Chargement */

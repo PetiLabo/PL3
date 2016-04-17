@@ -16,11 +16,10 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	private $dom = null;
 	
 	/* Constructeur */
-	public function __construct(&$source_page, $chemin, $id) {
+	public function __construct($chemin, $id) {
 		$this->id = $id;
 		$this->nom_fichier_xml = $chemin.(static::NOM_FICHE)._SUFFIXE_XML;
 		$this->dom = new DOMDocument();
-		parent::__construct($source_page);
 	}
 	
 	/* Gestion des objets */
@@ -32,7 +31,7 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	
 	public function instancier_nouveau($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
-			$objet = new $nom_classe($this->source_page, 1 + count($this->liste_objets[$nom_classe]), $this);
+			$objet = new $nom_classe(1 + count($this->liste_objets[$nom_classe]), $this);
 			$objet->construire_nouveau();
 			return $objet;
 		}
@@ -88,7 +87,8 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	
 	/* Parser */
 	protected function parser_balise($nom_balise) {
-		$ret = $this->source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
+		$source_page = pl3_outil_racine_page::Get();
+		$ret = $source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	
