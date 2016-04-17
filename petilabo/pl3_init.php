@@ -25,6 +25,10 @@ define("_CHEMIN_RESSOURCES_XML", _CHEMIN_BASE_RESSOURCES."xml/");
 define("_CHEMIN_PAGES_XML", _CHEMIN_XML."pages/");
 define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 
+/* Chemin thèmes */
+define("_CHEMIN_THEMES_XML", _CHEMIN_XML."themes/");
+define("_CHEMIN_THEMES_CSS", _CHEMIN_THEMES_XML."css/");
+
 /* Préfixes */
 define("_PREFIXE_PETILABO", "pl3_");
 define("_PREFIXE_FICHE", _PREFIXE_PETILABO."fiche_");
@@ -32,10 +36,11 @@ define("_PREFIXE_OBJET", _PREFIXE_PETILABO."objet_");
 define("_PREFIXE_ID_OBJET", "id_");
 
 /* Suffixes */
-define("_SUFFIXE_PHP", ".php");
+define("_SUFFIXE_CSS", ".css");
 define("_SUFFIXE_XML", ".xml");
+define("_SUFFIXE_PHP", ".php");
 
-/* Page principale */
+/* Pages principales */
 define("_PAGE_PRINCIPALE", "index");
 define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 
@@ -43,9 +48,14 @@ define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 define("_MODE_NORMAL", 0);
 define("_MODE_ADMIN", 1);
 
-/* Sources PetiLabo */
+/* Sources des fichiers XML */
 define("_NOM_SOURCE_GLOBAL", "global");
+define("_NOM_SOURCE_THEME", "theme");
 define("_NOM_SOURCE_LOCAL", "local");
+
+/* Thèmes et styles par défaut */
+define("_NOM_THEME_DEFAUT", "standard");
+define("_NOM_STYLE_DEFAUT", "defaut");
 
 /* Gestion des erreurs */
 error_reporting(E_ALL);

@@ -22,7 +22,6 @@ if ($ajax_objet_valide) {
 			$objet = $source_page->instancier_nouveau($nom_classe, $id_contenu, $id_bloc);
 			$objet->construire_nouveau();
 			$source_page->enregistrer_nouveau($objet, $id_contenu, $id_bloc);
-			$source_page->enregistrer_page_xml();
 			$html .= $bloc->afficher(_MODE_ADMIN);
 			$ajax_objet_valide = true;
 		}

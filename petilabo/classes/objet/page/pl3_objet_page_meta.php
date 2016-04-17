@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe de gestion des images
+ * Classe de gestion des balises meta
  */
  
 class pl3_objet_page_meta_titre extends pl3_outil_objet_xml {
@@ -58,6 +58,44 @@ class pl3_objet_page_meta_description extends pl3_outil_objet_xml {
 	}
 }
 
+class pl3_objet_page_meta_theme extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "page";
+
+	/* Balise */
+	const NOM_BALISE = "theme";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_CHAINE);
+	
+	/* Attributs */
+	public static $Liste_attributs = array();
+	
+	/* Méthodes */
+	public function ecrire_xml($niveau) {
+		$xml = $this->ouvrir_fermer_xml($niveau);
+		return $xml;
+	}
+	public function afficher($mode) {return null;}
+}
+ 
+class pl3_objet_page_meta_style extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "page";
+
+	/* Balise */
+	const NOM_BALISE = "style";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_CHAINE);
+
+	/* Attributs */
+	public static $Liste_attributs = array();
+
+	/* Méthodes */
+	public function ecrire_xml($niveau) {
+		$xml = $this->ouvrir_fermer_xml($niveau);
+		return $xml;
+	}
+	public function afficher($mode) {return null;}
+}
+
 class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	/* Fiche */
 	const NOM_FICHE = "page";
@@ -65,14 +103,16 @@ class pl3_objet_page_meta extends pl3_outil_objet_composite_xml {
 	/* Balise */
 	const NOM_BALISE = "meta";
 	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_COMPOSITE);
-	
+
 	/* Attributs */
 	public static $Liste_attributs = array();
-	
+
 	/* Constructeur */
 	public function __construct(&$source_page, $id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_page_meta_titre::NOM_BALISE);
 		$this->declarer_element(pl3_objet_page_meta_description::NOM_BALISE);
+		$this->declarer_element(pl3_objet_page_meta_theme::NOM_BALISE);
+		$this->declarer_element(pl3_objet_page_meta_style::NOM_BALISE);
 		parent::__construct($source_page, $id, $parent, $noeud);
 	}
 

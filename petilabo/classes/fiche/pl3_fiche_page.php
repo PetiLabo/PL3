@@ -20,10 +20,28 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		parent::__construct($source_page, $chemin, 1);
 	}
 	
-	/* Accesseur/mutateur */
+	/* Accesseurs / mutateurs */
 	public function set_mode($mode) {$this->mode = $mode;}
 	public function get_mode() {return $this->mode;}
 	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
+	public function get_meta() {
+		$ret = null;
+		$liste_meta = $this->liste_objets["pl3_objet_page_meta"];
+		if (count($liste_meta) > 0) {$ret = $liste_meta[0];}
+		return $ret;
+	}
+	public function get_nom_theme() {
+		$ret = _NOM_THEME_DEFAUT;
+		$meta = $this->get_meta();
+		if ($meta != null) {$ret = $meta->get_valeur_theme();}
+		return $ret;
+	}
+	public function get_nom_style() {
+		$ret = _NOM_STYLE_DEFAUT;
+		$meta = $this->get_meta();
+		if ($meta != null) {$ret = $meta->get_valeur_style();}
+		return $ret;
+	}
 
 	/* Afficher */
 	public function afficher() {

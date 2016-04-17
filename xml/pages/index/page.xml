@@ -7,11 +7,12 @@
     <contenu style="initial">
         <bloc>
             <paragraphe style="">id_texte_riche_4</paragraphe>
-            <saut>4</saut>
+            <saut>2</saut>
         </bloc>
     </contenu>
     <contenu>
         <bloc>
+            <saut>1</saut>
             <saut>2</saut>
         </bloc>
         <bloc style="entete" taille="6">

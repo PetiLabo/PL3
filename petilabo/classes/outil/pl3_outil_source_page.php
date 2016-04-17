@@ -5,31 +5,47 @@
  */
  
 class pl3_outil_source_page {
+	/* Ressources */
 	private $liste_sources = array();
+	private $liste_styles = array();
 	private $page = null;
+
+	/* Thèmes */
+	private $theme = null;
+	private $chemin_theme = null;
+	private $fichier_theme_css = null;
+	private $fichier_theme_style_xml = null;
+	private $fichier_theme_additionnel_css = null;
+	private $theme_a_jour = false;
 
 	/* Constructeur */
 	public function __construct() {
-		/* Textes */
+		/* Déclaration des textes */
 		$liste_textes = new pl3_outil_liste_fiches_xml($this, "texte");
 		$liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_textes->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_texte::NOM_FICHE] = $liste_textes;
 
-		/* Media */
+		/* Déclaration des media */
 		$liste_medias = new pl3_outil_liste_fiches_xml($this, "media");
 		$liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_media::NOM_FICHE] = $liste_medias;
 
-		/* Styles */
-		$liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
-		$liste_styles->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
-		$liste_styles->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
-		$this->liste_sources[pl3_fiche_style::NOM_FICHE] = $liste_styles;
-
-		/* Fichier page */
+		/* Déclaration du fichier page */
 		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
+
+		/* Identification du thème */
+		$this->theme = $this->page->get_nom_theme();
+		$this->chemin_theme = _CHEMIN_THEMES_XML.$this->theme."/";
+		$this->fichier_theme_css = _CHEMIN_THEMES_CSS."style_".$this->theme._SUFFIXE_CSS;
+		$this->fichier_theme_style_xml = $this->chemin_theme."style.xml";
+		$this->fichier_theme_additionnel_css = $this->chemin_theme."style.css";
+		$this->theme_a_jour = $this->verifier_theme_a_jour();
+
+		/* Déclaration du thème */
+		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
 	}
 
 	/* Instanciation de nouveaux objets */
@@ -86,12 +102,15 @@ class pl3_outil_source_page {
 		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
 			$liste_fiches->charger_xml();
 		}
+		$this->charger_style_xml();
 		$this->charger_page_xml();
 	}
-
-	public function charger_page_xml() {
-		$this->page->charger_xml();
+	public function charger_style_xml() {
+		if (!($this->theme_a_jour)) {
+			$this->liste_styles->charger_xml();
+		}
 	}
+	public function charger_page_xml() {$this->page->charger_xml();}
 	
 	public function enregistrer_xml() {
 		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
@@ -99,13 +118,14 @@ class pl3_outil_source_page {
 		}
 		$this->enregistrer_page_xml();
 	}
-	
-	public function enregistrer_page_xml() {
-		$this->page->enregistrer_xml();
-	}
+	public function enregistrer_page_xml() {$this->page->enregistrer_xml();}
 
 	/* Affichage */
 	public function afficher($mode) {
+		if (!($this->theme_a_jour)) {
+			$css = $this->liste_styles->afficher($mode);
+			$this->generer_theme_css($css);
+		}
 		$this->page->set_mode($mode);
 		$html = $this->page->afficher();
 		return $html;
@@ -113,6 +133,7 @@ class pl3_outil_source_page {
 
 	/* Accesseurs */
 	public function get_page() {return $this->page;}
+	public function get_theme() {return $this->theme;}
 	
 	/* Recherches */
 	public function chercher_liste_textes_par_nom($balise, $nom) {
@@ -122,7 +143,7 @@ class pl3_outil_source_page {
 		return $this->chercher_liste_fiches_par_nom(pl3_fiche_media::NOM_FICHE, $balise, $nom);
 	}
 	public function chercher_liste_styles_par_nom($balise, $nom) {
-		return $this->chercher_liste_fiches_par_nom(pl3_fiche_style::NOM_FICHE, $balise, $nom);
+		return $this->liste_styles->chercher_instance_balise_par_nom($balise, $nom);
 	}
 	public function chercher_liste_fiches_par_nom($nom_fiche, $balise, $nom) {
 		if (isset($this->liste_sources[$nom_fiche])) {
@@ -189,5 +210,33 @@ class pl3_outil_source_page {
 			}
 		}
 		return $ret;
+	}
+	
+	/* Vérification que le thème est à jour */
+	private function verifier_theme_a_jour() {
+		$ret = false;
+		if (@file_exists($this->fichier_theme_css)) {
+			$date_theme_css = @filemtime($this->fichier_theme_css);
+			$date_theme_style_xml = @filemtime($this->fichier_theme_style_xml);
+			if ($date_theme_css > $date_theme_style_xml) {
+				if (@file_exists($this->fichier_theme_additionnel_css)) {
+					$date_theme_additionnel_css = @filemtime($this->fichier_theme_additionnel_css);
+					$ret = ($date_theme_css > $date_theme_additionnel_css);
+				}
+				else {
+					$ret = true;
+				}
+			}
+		}
+		return $ret;
+	}
+
+	/* Generation du fichier CSS */
+	private function generer_theme_css($css) {
+		$css = "/* CSS thème ".$this->theme." */\n".$css;
+		if (file_exists($this->fichier_theme_additionnel_css)) {
+			$css .= "\n".@file_get_contents($this->fichier_theme_additionnel_css);
+		}
+		file_put_contents($this->fichier_theme_css, $css);
 	}
 }

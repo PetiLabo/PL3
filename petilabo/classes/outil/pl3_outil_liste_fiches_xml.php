@@ -62,6 +62,15 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 		}
 	}
 	
+	/* Affichage */
+	public function afficher($mode) {
+		$ret = "";
+		foreach ($this->liste_fiches as $nom_source => $fiche) {
+			$ret .= $fiche->afficher($mode);
+		}
+		return $ret;
+	}
+	
 	/* Recherches */
 	public function chercher_instance_balise_par_attribut($nom_balise, $nom_attribut, $valeur_attribut) {
 		foreach ($this->liste_fiches as $fiche) {
