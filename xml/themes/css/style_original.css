@@ -1,0 +1,7 @@
+/* CSS thème original */
+.original_page_defaut{width:90%;}
+.original_contenu_defaut{background:#800;}
+.original_bloc_defaut{background:#080;}
+
+/* CSS additionnel pour thème standard */
+.standard_clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}

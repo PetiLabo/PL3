@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petilabo>
+	<!-- Styles de page -->
+    <style_page nom="defaut">
+        <largeur>90%</largeur>
+        <responsive>700px</responsive>
+    </style_page>
+
+	<!-- Styles de contenu -->
+    <style_contenu nom="defaut">
+        <fond>#800</fond>
+    </style_contenu>
+
+	<!-- Styles de bloc -->
+    <style_bloc nom="defaut">
+        <fond>#080</fond>
+    </style_bloc>
+</petilabo>

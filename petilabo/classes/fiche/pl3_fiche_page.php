@@ -9,6 +9,8 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	/* Propriétés */
 	private $mode = _MODE_NORMAL;
+	private $nom_theme = _NOM_THEME_DEFAUT;
+	private $nom_style = _NOM_STYLE_DEFAUT;
 	private $liste_objets_avec_icone = array();
 	
 	/* Constructeur */
@@ -20,28 +22,24 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		parent::__construct($source_page, $chemin, 1);
 	}
 	
+	/* Chargement */
+	public function charger_xml() {
+		parent::charger_xml();
+		$meta = $this->get_meta();
+		if ($meta != null) {
+			$meta_theme = $meta->get_valeur_theme();
+			if (strlen($meta_theme) > 0) {$this->nom_theme = $meta_theme;}
+			$meta_style = $meta->get_valeur_style();
+			if (strlen($meta_style) > 0) {$this->nom_style = $meta_style;}
+		}
+	}
+
 	/* Accesseurs / mutateurs */
 	public function set_mode($mode) {$this->mode = $mode;}
 	public function get_mode() {return $this->mode;}
+	public function get_nom_theme() {return $this->nom_theme;}
+	public function get_nom_style() {return $this->nom_style;}
 	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
-	public function get_meta() {
-		$ret = null;
-		$liste_meta = $this->liste_objets["pl3_objet_page_meta"];
-		if (count($liste_meta) > 0) {$ret = $liste_meta[0];}
-		return $ret;
-	}
-	public function get_nom_theme() {
-		$ret = _NOM_THEME_DEFAUT;
-		$meta = $this->get_meta();
-		if ($meta != null) {$ret = $meta->get_valeur_theme();}
-		return $ret;
-	}
-	public function get_nom_style() {
-		$ret = _NOM_STYLE_DEFAUT;
-		$meta = $this->get_meta();
-		if ($meta != null) {$ret = $meta->get_valeur_style();}
-		return $ret;
-	}
 
 	/* Afficher */
 	public function afficher() {
@@ -92,7 +90,9 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css", _MODE_ADMIN);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN);
-	
+		$theme = $this->get_nom_theme();
+		$ret .= $this->declarer_css(_CHEMIN_RESSOURCES_CSS."style_".$theme.".css");
+		
 		/* Partie JS */
 		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
 		$ret .= $this->declarer_js("//code.jquery.com/ui/1.11.4/jquery-ui.js", _MODE_ADMIN);
@@ -108,6 +108,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	public function ecrire_body() {
 		$ret = "";
+		$ret .= "<br><h2 style=\"text-align:center;\"><span style=\"color:#888;\">Thème utilisé : </span><em>".$this->nom_theme."</em></h2><br/>\n";
 		$ret .= "<div class=\"page\" name=\""._PAGE_COURANTE."\">\n";
 		$ret .= $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
 		$ret .= "</div>\n";
@@ -133,6 +134,13 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/editlink/trumbowyg.editlink.min.js", _MODE_ADMIN);
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
+		return $ret;
+	}
+	
+	private function get_meta() {
+		$ret = null;
+		$liste_meta = $this->liste_objets["pl3_objet_page_meta"];
+		if (count($liste_meta) > 0) {$ret = $liste_meta[0];}
 		return $ret;
 	}
 	

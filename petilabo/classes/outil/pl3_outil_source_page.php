@@ -34,18 +34,6 @@ class pl3_outil_source_page {
 
 		/* Déclaration du fichier page */
 		$this->page = new pl3_fiche_page($this, _CHEMIN_PAGE_COURANTE);
-
-		/* Identification du thème */
-		$this->theme = $this->page->get_nom_theme();
-		$this->chemin_theme = _CHEMIN_THEMES_XML.$this->theme."/";
-		$this->fichier_theme_css = _CHEMIN_THEMES_CSS."style_".$this->theme._SUFFIXE_CSS;
-		$this->fichier_theme_style_xml = $this->chemin_theme."style.xml";
-		$this->fichier_theme_additionnel_css = $this->chemin_theme."style.css";
-		$this->theme_a_jour = $this->verifier_theme_a_jour();
-
-		/* Déclaration du thème */
-		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
 	}
 
 	/* Instanciation de nouveaux objets */
@@ -99,11 +87,28 @@ class pl3_outil_source_page {
 
 	/* Chargement et enregistrement XML */
 	public function charger_xml() {
+		/* Chargement des ressources */
 		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
 			$liste_fiches->charger_xml();
 		}
-		$this->charger_style_xml();
+		
+		/* Chargement de la page */
 		$this->charger_page_xml();
+
+		/* Identification du thème */
+		$this->theme = $this->page->get_nom_theme();
+		$this->chemin_theme = _CHEMIN_THEMES_XML.$this->theme."/";
+		$this->fichier_theme_css = _CHEMIN_THEMES_CSS."style_".$this->theme._SUFFIXE_CSS;
+		$this->fichier_theme_style_xml = $this->chemin_theme."style.xml";
+		$this->fichier_theme_additionnel_css = $this->chemin_theme."style.css";
+		$this->theme_a_jour = $this->verifier_theme_a_jour();
+
+		/* Déclaration du thème */
+		$this->liste_styles = new pl3_outil_liste_fiches_xml($this, "style");
+		$this->liste_styles->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
+
+		/* Chargement du thème */
+		$this->charger_style_xml();
 	}
 	public function charger_style_xml() {
 		if (!($this->theme_a_jour)) {
@@ -133,7 +138,7 @@ class pl3_outil_source_page {
 
 	/* Accesseurs */
 	public function get_page() {return $this->page;}
-	public function get_theme() {return $this->theme;}
+	public function get_nom_theme() {return $this->theme;}
 	
 	/* Recherches */
 	public function chercher_liste_textes_par_nom($balise, $nom) {

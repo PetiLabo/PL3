@@ -4,18 +4,16 @@
         <titre>PL3 : Index</titre>
         <description>Yet another PetiLabo :-)</description>
     </meta>
-    <contenu style="initial">
+    <contenu>
         <bloc>
-            <paragraphe style="">id_texte_riche_4</paragraphe>
-            <saut>2</saut>
+            <paragraphe>id_texte_riche_4</paragraphe>
         </bloc>
     </contenu>
     <contenu>
         <bloc>
-            <saut>1</saut>
             <saut>2</saut>
         </bloc>
-        <bloc style="entete" taille="6">
+        <bloc taille="6">
             <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
             <paragraphe style="style_tutu">texte_actu_1</paragraphe>
             <image>vignette_actu</image>

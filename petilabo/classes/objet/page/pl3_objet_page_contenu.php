@@ -47,7 +47,10 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu\">\n";
+		$style = $this->get_attribut_style();
+		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
+		$classe = "contenu ".$this->source_page->get_nom_theme()."_contenu_".$style;
+		$ret .= "<div id=\"contenu-".$this->id."\" class=\"".$classe."\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
 		foreach ($liste_blocs as $bloc) {
 			$ret .= $bloc->afficher($mode);
