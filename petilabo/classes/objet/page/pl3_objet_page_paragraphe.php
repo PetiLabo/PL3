@@ -22,7 +22,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 
 	/* Initialisation */
 	public function construire_nouveau() {
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		/* Création d'une instance de texte riche */
 		$objet_texte_riche = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte_riche) {
@@ -43,7 +43,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$nom_texte = $this->get_valeur();
 		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte_riche::NOM_BALISE, $nom_texte);
 		if ($texte != null) {

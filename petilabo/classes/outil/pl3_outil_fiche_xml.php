@@ -87,7 +87,7 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	
 	/* Parser */
 	protected function parser_balise($nom_balise) {
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$ret = $source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}

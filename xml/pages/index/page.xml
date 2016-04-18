@@ -3,6 +3,7 @@
     <meta>
         <titre>PL3 : Index</titre>
         <description>Yet another PetiLabo :-)</description>
+		<theme>original</theme>
     </meta>
     <contenu>
         <bloc>
@@ -15,6 +16,7 @@
         </bloc>
         <bloc taille="6">
             <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
+            <titre style="" niveau="2">id_texte_1</titre>
             <paragraphe style="style_tutu">texte_actu_1</paragraphe>
             <image>vignette_actu</image>
         </bloc>

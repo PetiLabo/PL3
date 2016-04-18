@@ -76,12 +76,12 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	
 	/* Parsing des balises */
 	public function parser_balise($nom_balise) {
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$ret = $source_page->parser_balise(static::NOM_FICHE, $this, $nom_balise, $this->noeud);
 		return $ret;
 	}
 	public function parser_balise_fille($nom_balise, $unique = true) {
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$tab_ret = $source_page->parser_balise_fille(static::NOM_FICHE, $this, get_called_class(), $nom_balise, $this->noeud);
 		if ($unique) {
 			$nb_ret = (int) count($tab_ret);

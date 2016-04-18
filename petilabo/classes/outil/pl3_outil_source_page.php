@@ -1,9 +1,12 @@
 <?php
 
 class pl3_outil_source_page {
+	/* Singleton */
+	private static $Source_page = null;
+
 	/* Ressources */
 	private $liste_sources = array();
-	private $liste_styles = array();
+	private $liste_themes = array();
 	private $page = null;
 
 	/* Thèmes */
@@ -14,8 +17,8 @@ class pl3_outil_source_page {
 	private $fichier_theme_additionnel_css = null;
 	private $theme_a_jour = false;
 
-	/* Constructeur */
-	public function __construct() {
+	/* Constructeur privé */
+	private function __construct() {
 		/* Déclaration des textes */
 		$liste_textes = new pl3_outil_liste_fiches_xml("texte");
 		$liste_textes->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
@@ -30,6 +33,12 @@ class pl3_outil_source_page {
 
 		/* Déclaration du fichier page */
 		$this->page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);
+	}
+	public static function &Get() {
+		if (is_null(self::$Source_page)) {
+			self::$Source_page = new pl3_outil_source_page();
+		}
+		return self::$Source_page;
 	}
 
 	/* Instanciation de nouveaux objets */
@@ -95,20 +104,20 @@ class pl3_outil_source_page {
 		$this->theme = $this->page->get_nom_theme();
 		$this->chemin_theme = _CHEMIN_THEMES_XML.$this->theme."/";
 		$this->fichier_theme_css = _CHEMIN_THEMES_CSS."style_".$this->theme._SUFFIXE_CSS;
-		$this->fichier_theme_style_xml = $this->chemin_theme."style.xml";
-		$this->fichier_theme_additionnel_css = $this->chemin_theme."style.css";
+		$this->fichier_theme_style_xml = $this->chemin_theme."theme.xml";
+		$this->fichier_theme_additionnel_css = $this->chemin_theme."theme.css";
 		$this->theme_a_jour = $this->verifier_theme_a_jour();
 
 		/* Déclaration du thème */
-		$this->liste_styles = new pl3_outil_liste_fiches_xml("style");
-		$this->liste_styles->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
+		$this->liste_themes = new pl3_outil_liste_fiches_xml("theme");
+		$this->liste_themes->ajouter_source(_NOM_SOURCE_THEME, $this->chemin_theme);
 
 		/* Chargement du thème */
-		$this->charger_style_xml();
+		$this->charger_theme_xml();
 	}
-	public function charger_style_xml() {
+	public function charger_theme_xml() {
 		if (!($this->theme_a_jour)) {
-			$this->liste_styles->charger_xml();
+			$this->liste_themes->charger_xml();
 		}
 	}
 	public function charger_page_xml() {$this->page->charger_xml();}
@@ -124,7 +133,7 @@ class pl3_outil_source_page {
 	/* Affichage */
 	public function afficher($mode) {
 		if (!($this->theme_a_jour)) {
-			$css = $this->liste_styles->afficher($mode);
+			$css = $this->liste_themes->afficher($mode);
 			$this->generer_theme_css($css);
 		}
 		$this->page->set_mode($mode);
@@ -143,8 +152,8 @@ class pl3_outil_source_page {
 	public function chercher_liste_medias_par_nom($balise, $nom) {
 		return $this->chercher_liste_fiches_par_nom(pl3_fiche_media::NOM_FICHE, $balise, $nom);
 	}
-	public function chercher_liste_styles_par_nom($balise, $nom) {
-		return $this->liste_styles->chercher_instance_balise_par_nom($balise, $nom);
+	public function chercher_liste_themes_par_nom($balise, $nom) {
+		return $this->liste_themes->chercher_instance_balise_par_nom($balise, $nom);
 	}
 	public function chercher_liste_fiches_par_nom($nom_fiche, $balise, $nom) {
 		if (isset($this->liste_sources[$nom_fiche])) {

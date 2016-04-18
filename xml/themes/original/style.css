@@ -1,2 +1,3 @@
 /* CSS additionnel pour thème standard */
 .standard_clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}
+.bloc{border-radius:10px;}

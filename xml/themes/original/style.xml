@@ -8,11 +8,11 @@
 
 	<!-- Styles de contenu -->
     <style_contenu nom="defaut">
-        <fond>#800</fond>
+        <fond>#a00</fond>
     </style_contenu>
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">
-        <fond>#080</fond>
+        <fond>#0a0</fond>
     </style_bloc>
 </petilabo>

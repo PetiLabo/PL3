@@ -47,7 +47,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	}
 
 	public function charger_xml() {
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$this->objets = $source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);
 	}
 
@@ -64,12 +64,12 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$num_id_bloc = $this->lire_id_parent()."-".$this->lire_id();
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
-		$classe = "bloc ".$source_page->get_nom_theme()."_bloc_".$style;
+		$classe = "bloc bloc_".$style;
 		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"flex-grow:".$taille.";\">\n";
 		foreach($this->objets as $objet) {
 			$ret .= $objet->afficher($mode);

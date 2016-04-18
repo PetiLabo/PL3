@@ -26,7 +26,7 @@ class pl3_objet_page_image extends pl3_outil_objet_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$source_page = pl3_outil_racine_page::Get();
+		$source_page = $this->get_source_page();
 		$nom_image = $this->get_valeur();
 		$image = $source_page->chercher_liste_medias_par_nom(pl3_objet_media_image::NOM_BALISE, $nom_image);
 		if ($image != null) {
