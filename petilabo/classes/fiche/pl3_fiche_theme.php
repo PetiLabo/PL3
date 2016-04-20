@@ -12,6 +12,7 @@ class pl3_fiche_theme extends pl3_outil_fiche_xml {
 		$this->declarer_objet("pl3_objet_theme_style_page");
 		$this->declarer_objet("pl3_objet_theme_style_contenu");
 		$this->declarer_objet("pl3_objet_theme_style_bloc");
+		$this->declarer_objet("pl3_objet_theme_style_texte");
 		parent::__construct($chemin, $id);
 	}
 

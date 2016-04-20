@@ -3,25 +3,27 @@
     <meta>
         <titre>PL3 : Index</titre>
         <description>Yet another PetiLabo :-)</description>
-		<theme>original</theme>
+        <theme>original</theme>
     </meta>
     <contenu>
         <bloc>
-            <paragraphe>id_texte_riche_4</paragraphe>
+            <titre style="defaut" niveau="1">id_texte_1</titre>
+            <paragraphe style="grand">id_texte_riche_4</paragraphe>
         </bloc>
     </contenu>
     <contenu>
         <bloc>
-            <saut>2</saut>
+            <saut>1</saut>
         </bloc>
         <bloc taille="6">
-            <titre style="sous_titre_gris" niveau="1">titre_actu</titre>
-            <titre style="" niveau="2">id_texte_1</titre>
-            <paragraphe style="style_tutu">texte_actu_1</paragraphe>
+            <titre style="italique" niveau="1">titre_actu</titre>
+            <saut>1</saut>
             <image>vignette_actu</image>
+            <saut>1</saut>
+            <paragraphe>texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">
-            <saut>4</saut>
+            <saut>5</saut>
         </bloc>
     </contenu>
 </petilabo>

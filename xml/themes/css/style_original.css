@@ -1,8 +1,9 @@
 /* CSS thème original */
-.original_page_defaut{width:90%;}
-.original_contenu_defaut{background:#a00;}
-.original_bloc_defaut{background:#0a0;}
+.page_defaut{width:90%;}
+.contenu_defaut{background:#800;}
+.bloc_defaut{background:#080;}
+.texte_grand{font-size:150%;}
+.texte_italique{font-style:italic;}
 
 /* CSS additionnel pour thème standard */
-.standard_clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}
-.bloc{border-radius:10px;}
+.clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}

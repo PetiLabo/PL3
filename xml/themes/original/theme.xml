@@ -8,11 +8,19 @@
 
 	<!-- Styles de contenu -->
     <style_contenu nom="defaut">
-        <fond>#a00</fond>
+        <fond>#800</fond>
     </style_contenu>
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">
-        <fond>#0a0</fond>
+        <fond>#080</fond>
     </style_bloc>
+
+	<!-- Styles de texte -->
+    <style_texte nom="grand">
+        <taille>150%</taille>
+    </style_texte>
+    <style_texte nom="italique">
+        <css>font-style:italic;</css>
+    </style_texte>
 </petilabo>

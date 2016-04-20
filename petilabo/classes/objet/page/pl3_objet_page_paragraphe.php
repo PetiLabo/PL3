@@ -18,7 +18,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";
 	public static $Liste_attributs = array(
-		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"));
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"));
 
 	/* Initialisation */
 	public function construire_nouveau() {
@@ -49,8 +49,10 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
 			$valeur_texte = html_entity_decode($texte->get_valeur(), ENT_QUOTES, "UTF-8");
+			$style = $this->get_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
+			if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
 			$ret .= "<div class=\"container_paragraphe\">\n";
-			$ret .= "<div id=\"".$html_id."\" class=\"paragraphe objet_editable\">".$valeur_texte."</div>\n";
+			$ret .= "<div id=\"".$html_id."\" class=\"paragraphe objet_editable texte_".$style."\">".$valeur_texte."</div>\n";
 			$ret .= "</div>\n";
 		}
 		return $ret;

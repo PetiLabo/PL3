@@ -116,9 +116,7 @@ class pl3_outil_source_page {
 		$this->charger_theme_xml();
 	}
 	public function charger_theme_xml() {
-		if (!($this->theme_a_jour)) {
-			$this->liste_themes->charger_xml();
-		}
+		$this->liste_themes->charger_xml();
 	}
 	public function charger_page_xml() {$this->page->charger_xml();}
 	
@@ -158,6 +156,15 @@ class pl3_outil_source_page {
 	public function chercher_liste_fiches_par_nom($nom_fiche, $balise, $nom) {
 		if (isset($this->liste_sources[$nom_fiche])) {
 			return $this->liste_sources[$nom_fiche]->chercher_instance_balise_par_nom($balise, $nom);
+		}
+		else {return null;}
+	}
+	public function chercher_liste_noms_par_fiche($nom_fiche, $nom_classe) {
+		if (isset($this->liste_sources[$nom_fiche])) {
+			return $this->liste_sources[$nom_fiche]->chercher_liste_noms_par_classe($nom_classe);
+		}
+		else if (!(strcmp($nom_fiche, "theme"))) {
+			return $this->liste_themes->chercher_liste_noms_par_classe($nom_classe);
 		}
 		else {return null;}
 	}

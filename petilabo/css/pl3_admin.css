@@ -18,8 +18,9 @@
 .editeur_champ_formulaire{margin:3px 0 3px 1em;}
 .editeur_champ_formulaire label{display:inline-block;width:70px;font-weight:bold;}
 .editeur_objet_valeur, .editeur_objet_ligne_xml{margin-top:3px;margin-bottom:3px;margin-left:1em;}
-.editeur_objet input, .editeur_objet textarea{padding:3px;margin-right:3px;}
-.editeur_objet input[type="text"]{width:15em;}
+.editeur_objet input, .editeur_objet select, .editeur_objet textarea{padding:3px;margin-right:3px;}
+.editeur_objet select{min-width:8em;}
+.editeur_objet input[type="text"]{min-width:15em;}
 .editeur_objet input[type="number"]{width:4em;}
 .editeur_objet input[type="submit"]{width:4em;margin:6px 0 6px 6px;}
 

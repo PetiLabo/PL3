@@ -162,6 +162,16 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		if ($nom_classe != null) {return $this->chercher_objet_classe_par_attribut($nom_classe, $nom_attribut, $valeur_attribut);}
 		else {return null;}
 	}
+	public function chercher_liste_noms_par_classe($nom_classe) {
+		$ret = array();
+		if (isset($this->liste_objets[$nom_classe])) {
+			foreach($this->liste_objets[$nom_classe] as $instance) {
+				$nom = $instance->get_attribut_chaine(self::NOM_ATTRIBUT_NOM);
+				$ret[] = $nom;
+			}
+		}
+		return $ret;
+	}
 	
 	/* Debug */
 	public function dump() {

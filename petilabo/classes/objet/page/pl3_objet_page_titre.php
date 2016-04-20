@@ -19,7 +19,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_NIVEAU = "niveau";
 	public static $Liste_attributs = array(
-		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_texte"),
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"),
 		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER));
 
 	/* Initialisation */
@@ -55,8 +55,9 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 			$valeur_texte = $texte->get_valeur();
 			$niveau = $this->get_attribut_entier(self::NOM_ATTRIBUT_NIVEAU);
 			$style = $this->get_attribut_chaine(self::NOM_ATTRIBUT_STYLE);
+			if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
 			$ret .= "<div class=\"container_titre\">\n";
-			$ret .= "<h".$niveau." id=\"".$html_id."\" class=\"titre objet_editable ".$style."\">".$valeur_texte."</h".$niveau.">\n";
+			$ret .= "<h".$niveau." id=\"".$html_id."\" class=\"titre objet_editable texte_".$style."\">".$valeur_texte."</h".$niveau.">\n";
 			$ret .= "</div>\n";
 		}
 		return $ret;

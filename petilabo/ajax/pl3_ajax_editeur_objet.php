@@ -67,15 +67,34 @@ class pl3_ajax_editeur_objet {
 		if (isset($champ_form["balise"])) {
 			$balise = $champ_form["balise"];
 			$id_form = $nom_information."-".$this->id_objet;
-			if (strcmp($balise, "textarea")) {
-				$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
-				$ret .= "<p class=\"editeur_champ_formulaire\">";
-				$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
-				$ret .= "<".$balise." id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur."\" />";
-				$ret .= "</p>\n";
-			}
-			else {
-				$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
+			switch ($balise) {
+				case "textarea":
+					$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
+					break;
+				case "select":
+					$liste_noms = $this->traiter_reference($information, $valeur);
+					if (count($liste_noms) > 0) {
+						$ret .= "<p class=\"editeur_champ_formulaire\">";
+						$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
+						$ret .= "<select id=\"".$id_form."\" name=\"".$nom_information."\">";
+						if (!(in_array(_NOM_STYLE_DEFAUT, $liste_noms))) {$liste_noms = array_merge(array(_NOM_STYLE_DEFAUT),$liste_noms);}
+						foreach($liste_noms as $nom) {
+							$selected = strcmp($nom, $valeur)?"":" selected=\"selected\"";
+							$ret .= "<option value=\"".$nom."\"".$selected.">".$nom."</option>";
+						}
+						$ret .= "</select>\n";
+						$ret .= "</p>\n";
+					}
+					break;
+				case "input":
+					$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
+					$ret .= "<p class=\"editeur_champ_formulaire\">";
+					$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
+					$ret .= "<".$balise." id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur."\" />";
+					$ret .= "</p>\n";
+					break;
+				default:
+					break;
 			}
 		}
 		return $ret;
@@ -93,6 +112,7 @@ class pl3_ajax_editeur_objet {
 			case pl3_outil_objet_xml::TYPE_ICONE:
 				$ret = array("balise" => "input", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
+				$ret = array("balise" => "select", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_INDIRECTION:
 				$ret = array("balise" => "input", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:
@@ -115,18 +135,36 @@ class pl3_ajax_editeur_objet {
 		return $ret;
 	}
 	
+	private function traiter_reference($information, $valeur) {
+		$liste_noms = array();
+		$type_information = $information["type"];
+		if ($type_information == pl3_outil_objet_xml::TYPE_REFERENCE) {
+			if (isset($information["reference"])) {
+				$nom_classe = $information["reference"];
+				if (class_exists($nom_classe)) {
+					$nom_fiche = $nom_classe::NOM_FICHE;
+					$source_page = pl3_ajax_init::Get_source_page();
+					$liste_noms = $source_page->chercher_liste_noms_par_fiche($nom_fiche, $nom_classe);
+				}
+			}
+		}
+		return $liste_noms;
+	}
+	
 	private function traiter_indirection(&$information, &$valeur) {
 		$type_information = $information["type"];
 		if ($type_information == pl3_outil_objet_xml::TYPE_INDIRECTION) {
 			if (isset($information["reference"])) {
 				$nom_classe = $information["reference"];
-				$nom_fiche = $nom_classe::NOM_FICHE;
-				$nom_balise = $nom_classe::NOM_BALISE;
-				$source_page = pl3_ajax_init::Get_source_page();
-				$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
-				if ($objet_indirection) {
-					$information = $objet_indirection->get_balise();
-					$valeur = $objet_indirection->get_valeur();
+				if (class_exists($nom_classe)) {
+					$nom_fiche = $nom_classe::NOM_FICHE;
+					$nom_balise = $nom_classe::NOM_BALISE;
+					$source_page = pl3_ajax_init::Get_source_page();
+					$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
+					if ($objet_indirection) {
+						$information = $objet_indirection->get_balise();
+						$valeur = $objet_indirection->get_valeur();
+					}
 				}
 			}
 		}
