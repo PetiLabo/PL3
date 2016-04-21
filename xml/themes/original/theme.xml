@@ -13,7 +13,10 @@
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">
+		<marge>10px</marge>
+		<retrait>10px</retrait>
         <fond>#080</fond>
+		<css>border-radius:10px;</css>
     </style_bloc>
 
 	<!-- Styles de texte -->

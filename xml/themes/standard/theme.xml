@@ -8,11 +8,16 @@
 
 	<!-- Styles de contenu -->
     <style_contenu nom="defaut">
+		<marge>15px</marge>
+		<retrait>10px</retrait>
         <fond>#888</fond>
     </style_contenu>
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">
+		<marge>15px 5px</marge>
+		<retrait>10px</retrait>
         <fond>#aaa</fond>
+		<bordure>2px solid #444;</bordure>
     </style_bloc>
 </petilabo>

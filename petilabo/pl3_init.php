@@ -7,10 +7,11 @@ define("_VERSION_PETILABO", "3.0.0");
 if (!defined("_CHEMIN_BASE_FICHIER")) {define("_CHEMIN_BASE_FICHIER", _CHEMIN_BASE_URL);}
 if (!defined("_CHEMIN_BASE_RESSOURCES")) {define("_CHEMIN_BASE_RESSOURCES", _CHEMIN_BASE_FICHIER);}
 
-/* Chemins PetiLabo */
+/* Chemins PHP */
 define("_CHEMIN_PETILABO", _CHEMIN_BASE_URL."petilabo/");
 define("_CHEMIN_CLASSES", _CHEMIN_PETILABO."classes/");
 define("_CHEMIN_OBJET", _CHEMIN_CLASSES."objet/");
+define("_STYLE_COMMUN_CSS", "pl3_objet_theme_style_commun_css.php");
 
 /* Chemins ressources */
 define("_CHEMIN_RESSOURCES", _CHEMIN_BASE_FICHIER."petilabo/");

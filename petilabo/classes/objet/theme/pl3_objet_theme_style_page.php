@@ -1,28 +1,17 @@
 <?php
+require_once _CHEMIN_OBJET."theme/"._STYLE_COMMUN_CSS;
 
 /**
  * Classe de gestion des styles de page
  */
- 
-class pl3_objet_theme_style_page_largeur extends pl3_outil_element_theme_xml {
-	const NOM_BALISE = "largeur";
-	const TYPE_BALISE = self::TYPE_CHAINE;
-	const PROPRIETE_CSS = "width";
-}
 
-class pl3_objet_theme_style_page_responsive extends pl3_outil_element_theme_xml {
+class pl3_objet_theme_style_responsive extends pl3_outil_element_theme_xml {
 	const NOM_BALISE = "responsive";
 	const TYPE_BALISE = self::TYPE_CHAINE;
 
 	public function afficher($mode) {
 		return null;
 	}
-}
-
-class pl3_objet_theme_style_page_fond extends pl3_outil_element_theme_xml {
-	const NOM_BALISE = "fond";
-	const TYPE_BALISE = self::TYPE_CHAINE;
-	const PROPRIETE_CSS = "background";
 }
 
 class pl3_objet_theme_style_page extends pl3_outil_objet_composite_xml {
@@ -39,14 +28,25 @@ class pl3_objet_theme_style_page extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_theme_style_page_largeur::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_page_responsive::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_page_fond::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_responsive::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_largeur::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_marge::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_retrait::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_fond::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_css::NOM_BALISE);
 		parent::__construct($id, $parent, $noeud);
 	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();
+	}
+	
+	public function parser_balise_fille($nom_balise) {
+		$source_page = $this->get_source_page();
+		$tab_ret = $source_page->parser_balise_fille(self::NOM_FICHE, $this, "pl3_objet_theme_style", $nom_balise, $this->noeud);
+		$nb_ret = (int) count($tab_ret);
+		$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;
+		return $ret;
 	}
 
 	public function ecrire_xml($niveau) {

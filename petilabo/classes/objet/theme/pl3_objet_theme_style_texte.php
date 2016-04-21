@@ -4,35 +4,6 @@
  * Classe de gestion des styles de texte
  */
  
-class pl3_objet_theme_style_texte_css extends pl3_outil_objet_xml {
-	/* Fiche */
-	const NOM_FICHE = "theme";
-	
-	/* Balise */
-	const NOM_BALISE = "css";
-	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_CHAINE);
-
-	/* Attributs */
-	public static $Liste_attributs = array();
-
-	/* Méthodes */
-	public function ecrire_xml($niveau) {
-		$xml = $this->ouvrir_fermer_xml($niveau);
-		return $xml;
-	}
-	
-	public function afficher($mode) {
-		$ret = $this->get_valeur();
-		return $ret;
-	}
-}
-
-class pl3_objet_theme_style_texte_taille extends pl3_outil_element_theme_xml {
-	const NOM_BALISE = "taille";
-	const TYPE_BALISE = self::TYPE_CHAINE;
-	const PROPRIETE_CSS = "font-size";
-}
-
 class pl3_objet_theme_style_texte extends pl3_outil_objet_composite_xml {
 	/* Fiche */
 	const NOM_FICHE = "theme";
@@ -47,13 +18,24 @@ class pl3_objet_theme_style_texte extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_theme_style_texte_taille::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_texte_css::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_marge::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_retrait::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_couleur::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_taille::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_css::NOM_BALISE);
 		parent::__construct($id, $parent, $noeud);
 	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();
+	}
+	
+	public function parser_balise_fille($nom_balise) {
+		$source_page = $this->get_source_page();
+		$tab_ret = $source_page->parser_balise_fille(self::NOM_FICHE, $this, "pl3_objet_theme_style", $nom_balise, $this->noeud);
+		$nb_ret = (int) count($tab_ret);
+		$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;
+		return $ret;
 	}
 
 	public function ecrire_xml($niveau) {

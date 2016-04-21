@@ -6,7 +6,7 @@
 * {box-sizing:border-box;margin:0;padding:0;}
 body, div.page, p {position:relative;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;align-items:flex-start;} /* align-items:stretch => Même hauteur */
-.bloc{margin:10px;padding:10px;width:0;}
+.bloc{width:0;}
 .bloc > div{padding:3px;text-align:center;}
 .bloc > div > div,
 .bloc > div > p, 
@@ -20,5 +20,5 @@ body, div.page, p {position:relative;}
 /* Petits écrans */
 @media all and (max-width: 600px) {
 	.contenu {flex-direction: column;}
-	.bloc {width:98%;margin:0 1%;}
+	.bloc {width:95%;margin:0 auto;}
 }

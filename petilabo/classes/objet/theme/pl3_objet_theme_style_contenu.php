@@ -1,14 +1,9 @@
 <?php
+require_once _CHEMIN_OBJET."theme/"._STYLE_COMMUN_CSS;
 
 /**
  * Classe de gestion des styles de contenu
  */
- 
-class pl3_objet_theme_style_contenu_fond extends pl3_outil_element_theme_xml {
-	const NOM_BALISE = "fond";
-	const TYPE_BALISE = self::TYPE_CHAINE;
-	const PROPRIETE_CSS = "background";
-}
 
 class pl3_objet_theme_style_contenu extends pl3_outil_objet_composite_xml {
 	/* Fiche */
@@ -24,12 +19,24 @@ class pl3_objet_theme_style_contenu extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_theme_style_contenu_fond::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_marge::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_retrait::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_bordure::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_fond::NOM_BALISE);
+		$this->declarer_element(pl3_objet_theme_style_css::NOM_BALISE);
 		parent::__construct($id, $parent, $noeud);
 	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();
+	}
+	
+	public function parser_balise_fille($nom_balise) {
+		$source_page = $this->get_source_page();
+		$tab_ret = $source_page->parser_balise_fille(self::NOM_FICHE, $this, "pl3_objet_theme_style", $nom_balise, $this->noeud);
+		$nb_ret = (int) count($tab_ret);
+		$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;
+		return $ret;
 	}
 
 	public function ecrire_xml($niveau) {
