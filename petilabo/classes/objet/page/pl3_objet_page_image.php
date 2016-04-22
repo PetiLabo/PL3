@@ -4,7 +4,7 @@
  * Classe de gestion des images
  */
  
-class pl3_objet_page_image extends pl3_outil_objet_xml {
+class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 	/* Icone */
 	const NOM_ICONE = "fa-picture-o";
 
@@ -17,13 +17,8 @@ class pl3_objet_page_image extends pl3_outil_objet_xml {
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
-
-	/* Méthodes */
-	public function ecrire_xml($niveau) {
-		$xml = $this->ouvrir_fermer_xml($niveau);
-		return $xml;
-	}
 	
+	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
 		$source_page = $this->get_source_page();

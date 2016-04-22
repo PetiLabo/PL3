@@ -4,7 +4,7 @@
  * Classe de gestion des paragraphes
  */
  
-class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
+class pl3_objet_page_paragraphe extends pl3_outil_objet_simple_xml {
 	/* Icone */
 	const NOM_ICONE = "fa-file-text-o ";
 
@@ -34,13 +34,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_xml {
 		}
 	}
 
-	/* Méthodes */
-	public function ecrire_xml($niveau) {
-		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);
-		$xml = $this->ouvrir_fermer_xml($niveau, array($attr_style));
-		return $xml;
-	}
-	
+	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
 		$source_page = $this->get_source_page();

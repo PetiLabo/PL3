@@ -4,7 +4,7 @@
  * Classe de gestion des titres
  */
  
-class pl3_objet_page_titre extends pl3_outil_objet_xml {
+class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 	/* Icone */
 	const NOM_ICONE = "fa-text-height";
 
@@ -36,15 +36,8 @@ class pl3_objet_page_titre extends pl3_outil_objet_xml {
 			$this->set_attribut_niveau(1);
 		}
 	}
-
-	/* Méthodes */
-	public function ecrire_xml($niveau) {
-		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);
-		$attr_niveau = $this->get_xml_attribut(self::NOM_ATTRIBUT_NIVEAU);
-		$xml = $this->ouvrir_fermer_xml($niveau, array($attr_style, $attr_niveau));
-		return $xml;
-	}
 	
+	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
 		$source_page = $this->get_source_page();

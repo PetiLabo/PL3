@@ -16,14 +16,12 @@
             <saut>1</saut>
         </bloc>
         <bloc taille="6">
-            <titre style="italique" niveau="1">titre_actu</titre>
-            <saut>1</saut>
+            <titre style="defaut" niveau="1">titre_actu</titre>
             <image>vignette_actu</image>
-            <saut>1</saut>
             <paragraphe>texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">
-            <saut>5</saut>
+            <saut>8</saut>
         </bloc>
     </contenu>
 </petilabo>

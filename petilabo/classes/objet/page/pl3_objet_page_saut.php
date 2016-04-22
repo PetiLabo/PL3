@@ -4,7 +4,7 @@
  * Classe de gestion des sauts
  */
  
-class pl3_objet_page_saut extends pl3_outil_objet_xml {
+class pl3_objet_page_saut extends pl3_outil_objet_simple_xml {
 	/* Icone */
 	const NOM_ICONE = "fa-arrows-v";
 	
@@ -23,12 +23,7 @@ class pl3_objet_page_saut extends pl3_outil_objet_xml {
 		$this->set_valeur(1);
 	}
 
-	/* Méthodes */
-	public function ecrire_xml($niveau) {
-		$xml = $this->ouvrir_fermer_xml($niveau);
-		return $xml;
-	}
-	
+	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
 		$html_id = $this->get_html_id();
