@@ -80,7 +80,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
 				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
 					$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
-					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter une balise ".$nom_balise."\"></a>";
+					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
 				}
 				$ret .= "</p>\n";
 			}

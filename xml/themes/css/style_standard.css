@@ -1,7 +1,7 @@
 /* CSS thème standard */
 .page_defaut{width:90%;}
-.contenu_defaut{margin:15px;padding:10px;background:#888;}
-.bloc_defaut{margin:15px 5px;padding:10px;border:2px solid #444;;background:#aaa;}
+.contenu_defaut{margin:15px;padding:10px;background:url('../images/standard/texture-contenu.png');}
+.bloc_defaut{margin:15px 5px;padding:10px;border:2px solid #444;;background:url('../images/standard/texture-bloc.png');}
 
 /* CSS additionnel pour thème standard */
 .clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}

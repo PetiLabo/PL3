@@ -27,7 +27,8 @@ abstract class pl3_outil_element_theme_xml extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher($mode) {
-		$ret = static::PROPRIETE_CSS.":".$this->get_valeur().";";
+		$valeur_texte = html_entity_decode($this->get_valeur(), ENT_QUOTES, "UTF-8");
+		$ret = static::PROPRIETE_CSS.":".$valeur_texte.";";
 		return $ret;
 	}
 }
