@@ -20,7 +20,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 	const NOM_ATTRIBUT_NIVEAU = "niveau";
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_texte"),
-		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER));
+		array("nom" => self::NOM_ATTRIBUT_NIVEAU, "type" => self::TYPE_ENTIER, "min" => 1, "max" => 6));
 
 	/* Initialisation */
 	public function construire_nouveau() {

@@ -90,7 +90,7 @@ class pl3_ajax_editeur_objet {
 					$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
 					$ret .= "<p class=\"editeur_champ_formulaire\">";
 					$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
-					$ret .= "<".$balise." id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur."\" />";
+					$ret .= "<".$balise." id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur."\"".$champ_form["attr"]."/>";
 					$ret .= "</p>\n";
 					break;
 				default:
@@ -101,22 +101,26 @@ class pl3_ajax_editeur_objet {
 	}
 
 	private function type_to_champ_form(&$information) {
+		$attr = "";
 		$type_information = $information["type"];
 		switch($type_information) {
 			case pl3_outil_objet_xml::TYPE_ENTIER:
-				$ret = array("balise" => "input", "type" => "number");break;
+				if (isset($information["min"])) {$attr .= " min=\"".(int) $information["min"]."\"";}
+				if (isset($information["max"])) {$attr .= " max=\"".(int) $information["max"]."\"";}
+				$ret = array("balise" => "input", "type" => "number", "attr" => $attr);
+				break;
 			case pl3_outil_objet_xml::TYPE_CHAINE:
-				$ret = array("balise" => "input", "type" => "text");break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
 			case pl3_outil_objet_xml::TYPE_TEXTE:
 				$ret = array("balise" => "textarea");break;
 			case pl3_outil_objet_xml::TYPE_ICONE:
-				$ret = array("balise" => "input", "type" => "text");break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
 				$ret = array("balise" => "select", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_INDIRECTION:
-				$ret = array("balise" => "input", "type" => "text");break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:
-				$ret = array("balise" => "input", "type" => "file");break;
+				$ret = array("balise" => "input", "type" => "file", "attr" => $attr);break;
 			default:
 				$ret = array();
 		}

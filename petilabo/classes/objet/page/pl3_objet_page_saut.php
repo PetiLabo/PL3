@@ -13,7 +13,7 @@ class pl3_objet_page_saut extends pl3_outil_objet_simple_xml {
 
 	/* Balise */
 	const NOM_BALISE = "saut";
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_ENTIER);
+	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_ENTIER, "min" => 1);
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
