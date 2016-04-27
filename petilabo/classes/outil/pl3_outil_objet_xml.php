@@ -10,10 +10,11 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	const TYPE_CHAINE = 2;
 	const TYPE_TEXTE = 3;
 	const TYPE_ICONE = 4;
-	const TYPE_REFERENCE = 5;
-	const TYPE_INDIRECTION = 6;
-	const TYPE_FICHIER = 7;
-	const TYPE_COMPOSITE = 8;
+	const TYPE_LIEN = 5;
+	const TYPE_REFERENCE = 6;
+	const TYPE_INDIRECTION = 7;
+	const TYPE_FICHIER = 8;
+	const TYPE_COMPOSITE = 9;
 
 	protected $id = 0;
 	protected $objet_parent = null;
@@ -61,8 +62,9 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	abstract public function afficher($mode);
 	abstract public function ecrire_xml($niveau);
 	
-	/* Accesseurs */
+	/* Mutateurs / accesseurs */
 	public function lire_id() {return $this->id;}
+	public function ecrire_id($id) {$this->id = $id;}
 	public function lire_id_parent() {return $this->objet_parent->lire_id();}	
 	
 	/* Ajouts "inline" */

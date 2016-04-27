@@ -16,7 +16,12 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
 	
 	/* Attributs */
-	public static $Liste_attributs = array();
+	const NOM_ATTRIBUT_LIEN = "lien";
+	const NOM_ATTRIBUT_SURVOL = "survol";
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_LIEN, "type" => self::TYPE_CHAINE),
+		array("nom" => self::NOM_ATTRIBUT_SURVOL, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
+	);
 	
 	/* Affichage */
 	public function afficher($mode) {

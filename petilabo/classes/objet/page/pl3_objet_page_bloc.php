@@ -45,6 +45,22 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	public function ajouter_objet(&$objet) {
 		$this->objets[] = $objet;
 	}
+	public function supprimer_objet($objet_id) {
+		$liste_objets = array();
+		$nb_objets = count($this->objets);
+		$id_cpt = 1;
+		for ($cpt = 0;$cpt < $nb_objets;$cpt ++) {
+			$objet = &$this->objets[$cpt];
+			if ($objet != null) {
+				if ($objet->lire_id() != $objet_id) {
+					$objet->ecrire_id($id_cpt);
+					$liste_objets[] = $objet;
+					$id_cpt += 1;
+				}
+			}
+		}
+		$this->objets = $liste_objets;
+	}
 
 	public function charger_xml() {
 		$source_page = $this->get_source_page();

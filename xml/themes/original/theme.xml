@@ -26,4 +26,9 @@
     <style_texte nom="italique">
         <css>font-style:italic;</css>
     </style_texte>
+
+	<!-- Styles de survol -->
+    <style_survol nom="fond_gris">
+		<couleur_fond>#333</couleur_fond>
+	</style_survol>
 </petilabo>

@@ -26,7 +26,10 @@ class pl3_ajax_editeur_objet {
 		$ret = "<form id=\"formulaire-".$this->id_objet."\" class=\"editeur_formulaire\" method=\"post\">\n";
 		$ret .= $this->editer_valeur();
 		$ret .= $this->editer_attributs();	
-		$ret .= "<input type=\"submit\" value=\"OK\" title=\"Enregistrer et fermer\" />\n";
+		$ret .= "<p class=\"boutons_formulaire\">\n";
+		$ret .= "<input id=\"soumettre-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"OK\" title=\"Enregistrer et fermer\" />";
+		$ret .= "<input id=\"supprimer-".$this->id_objet."\" class=\"supprimer_formulaire\" type=\"button\" value=\"Supprimer\" title=\"Supprimer cet objet\" />";
+		$ret .= "</p>\n";
 		$ret .= "</form>\n";
 		return $ret;
 	}
@@ -36,7 +39,7 @@ class pl3_ajax_editeur_objet {
 		if ($this->objet->avec_valeur()) {
 			$nom_classe = get_class($this->objet);
 			$nom_balise = $nom_classe::NOM_BALISE;
-			$ret .= "<p class=\"editeur_objet_titre_valeur\">Balise &lt;".$nom_balise."&gt;</p>\n";
+			$ret .= "<p class=\"editeur_objet_titre_valeur\">Objet ".$nom_balise."</p>\n";
 			$valeur = $this->objet->get_valeur();
 			$balise = $this->objet->get_balise();
 			$ret .= $this->afficher_champ_form($balise, $valeur);

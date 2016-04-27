@@ -127,6 +127,29 @@ function ajouter_objet(nom_page, bloc_id, classe_objet) {
 	});
 }
 
+/* Appel AJAX pour soumission d'un éditeur d'objet */
+function supprimer_objet(nom_page, balise_id, nom_balise) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_supprimer_objet.php",
+		data: {nom_page: nom_page, balise_id: balise_id, nom_balise: nom_balise},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			var bloc_id = data["bloc_id"];
+			var bloc = $("#bloc-"+bloc_id);
+			bloc.replaceWith(html);
+			appliquer_sortable("#bloc-"+bloc_id);
+			$("#editeur-"+nom_balise+"-"+balise_id).remove();
+		}
+		else {
+			alert("NOK");
+		}
+	});
+}
+
 /* Affichage du code attaché à l'objet */
 function afficher_editeur(balise_id, nom_balise, html) {
 	var objet_id = nom_balise+"-"+balise_id;
@@ -339,8 +362,11 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	/* Gestion du survol d'un input submit */
+	/* Gestion du survol d'un input submit ou button */
 	$("div.page").on("mouseover", "input[type='submit']", function() {
+		$(this).css("cursor", "pointer");
+	});
+	$("div.page").on("mouseover", "input[type='button']", function() {
 		$(this).css("cursor", "pointer");
 	});
 	
@@ -356,6 +382,25 @@ $(document).ready(function() {
 			var balise_id = parsing_objet_id["balise_id"];
 			var parametres = $(this).serialize();
 			soumettre_objet(nom_page, balise_id, nom_balise, parametres);
+		}
+		return false;
+	});
+	
+	
+	/* Boutons de suppression dans les éditeurs d'objets */
+	$("div.page").on("click", "form.editeur_formulaire input.supprimer_formulaire", function() {
+		var form_id = $(this).attr("id");
+		var html_id = form_id.replace("supprimer-", "");
+		var parsing_objet_id = parser_html_id(html_id);
+		var erreur_parsing = parsing_objet_id["erreur"];
+		if (!erreur_parsing) {
+			var nom_page = parsing_objet_id["nom_page"];
+			var nom_balise = parsing_objet_id["nom_balise"];
+			var balise_id = parsing_objet_id["balise_id"];
+			var confirmation = confirm("Confirmez-vous la suppression de cet objet "+nom_balise+" ?");
+			if (confirmation) {
+				supprimer_objet(nom_page, balise_id, nom_balise);
+			}
 		}
 		return false;
 	});

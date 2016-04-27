@@ -2,6 +2,7 @@
 <petilabo>
     <contenu>
         <bloc>
+            <titre niveau="1">id_texte_1</titre>
             <saut>5</saut>
         </bloc>
     </contenu>
