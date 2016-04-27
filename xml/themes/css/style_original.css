@@ -4,6 +4,7 @@
 .bloc_defaut{margin:10px;padding:10px;background:#080;border-radius:10px;}
 .texte_grand{font-size:150%;}
 .texte_italique{font-style:italic;}
+.survol_fond_gris{}
 
 /* CSS additionnel pour thème standard */
 .clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}

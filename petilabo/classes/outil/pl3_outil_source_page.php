@@ -130,17 +130,22 @@ class pl3_outil_source_page {
 
 	/* Affichage */
 	public function afficher($mode) {
-		if (!($this->theme_a_jour)) {
-			$css = $this->liste_themes->afficher($mode);
-			$this->generer_theme_css($css);
-		}
+		$this->generer_theme($mode);
 		$this->page->set_mode($mode);
 		$html = $this->page->afficher();
 		return $html;
 	}
+	
+	/* Génération du CSS */
+	public function generer_theme($mode) {
+		if (!($this->theme_a_jour)) {
+			$css = $this->liste_themes->afficher($mode);
+			$this->generer_theme_css($css);
+		}
+	}
 
 	/* Accesseurs */
-	public function get_page() {return $this->page;}
+	public function &get_page() {return $this->page;}
 	public function get_nom_theme() {return $this->theme;}
 	
 	/* Recherches */

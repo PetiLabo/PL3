@@ -4,6 +4,11 @@
 
 /* Mode administration **************************************************************/
 
+/* Barre d'outils */
+div.page_mode_admin{margin-top:50px;}
+.admin_barre_outils{position:fixed;top:0;left:0;width:100%;background:#000;opacity:0.85;z-index:999;}
+.admin_barre_outils a{color:#fff;line-height:40px;margin:5px 10px;}
+
 /* Survol des objets */
 .admin_survol_objet{cursor:pointer;border-color:#c00!important;}
 

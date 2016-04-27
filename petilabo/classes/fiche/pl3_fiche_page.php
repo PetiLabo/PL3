@@ -107,9 +107,9 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 	
 	public function ecrire_body() {
+		$classe = "page ".(($this->mode == _MODE_ADMIN)?"page_mode_admin":"");
 		$ret = "";
-		$ret .= "<br><h2 style=\"text-align:center;\"><span style=\"color:#888;\">Thème utilisé : </span><em>".$this->nom_theme."</em></h2><br/>\n";
-		$ret .= "<div class=\"page\" name=\""._PAGE_COURANTE."\">\n";
+		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
 		$ret .= $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
 		$ret .= "</div>\n";
 		return $ret;

@@ -17,11 +17,12 @@
         </bloc>
         <bloc taille="6">
             <titre style="defaut" niveau="1">titre_actu</titre>
-            <paragraphe style="defaut">texte_actu_1</paragraphe>
             <image lien="toto">vignette_actu</image>
+            <paragraphe style="defaut">texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">
-            <saut>8</saut>
+            <titre niveau="1">id_texte_21</titre>
+            <saut>4</saut>
         </bloc>
     </contenu>
 </petilabo>

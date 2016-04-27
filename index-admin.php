@@ -1,13 +1,37 @@
 <?php
+/* Initialisations */
 $memoire_avant = memory_get_usage() / 1024;
 define("_CHEMIN_BASE_URL", "./");
 define("_CHEMIN_BASE_FICHIER", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
+/* Ouverture de la session */
+$id_session = pl3_outil_session::Ouvrir_session();
+if (strlen($id_session) == 0) {die("ERREUR : Impossible d'ouvrir la session");}
+$mode_admin = (int) pl3_outil_mode_admin::Lire_mode();
+
+/* Chargement de la page et du thème */
 $source_page = pl3_outil_source_page::Get();
 $source_page->charger_xml();
+$source_page->generer_theme($mode_admin);
 
-$html = $source_page->afficher(_MODE_ADMIN);
+/* Constitution du code HTML */
+$html = "";
+$page = $source_page->get_page();
+$page->set_mode($mode_admin);
+$html .= $page->afficher_head();
+$html .= $page->ouvrir_body();
+$html .= "<p class=\"admin_barre_outils\">";
+$html .= "<a href=\"page\">Page</a>";
+$html .= "<a href=\"media\">Media</a>";
+$html .= "<a href=\"grille\">Grille</a>";
+$html .= "<a href=\"objets\">Objets</a>";
+$html .= "<a href=\"xml\">XML</a>";
+$html .= "</p>\n";
+$html .= $page->ecrire_body();
+$html .= $page->fermer_body();
+
+/* Affichage */
 echo $html;
 
 $memoire_apres = memory_get_usage() / 1024;
