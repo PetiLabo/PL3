@@ -57,6 +57,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 					$liste_objets[] = $objet;
 					$id_cpt += 1;
 				}
+				else {unset($objet);}
 			}
 		}
 		$this->objets = $liste_objets;
