@@ -49,6 +49,11 @@ define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 /* Modes PetiLabo */
 define("_MODE_NORMAL", 0);
 define("_MODE_ADMIN", 1);
+define("_MODE_ADMIN_PAGE", 1);
+define("_MODE_ADMIN_MEDIA", 2);
+define("_MODE_ADMIN_GRILLE", 3);
+define("_MODE_ADMIN_OBJETS", 4);
+define("_MODE_ADMIN_XML", 5);
 
 /* Sources des fichiers XML */
 define("_NOM_SOURCE_GLOBAL", "global");

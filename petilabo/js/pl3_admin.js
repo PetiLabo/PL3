@@ -290,6 +290,12 @@ function appliquer_editable(selecteur, langue) {
 	
 /* Initialisations */
 $(document).ready(function() {
+	/* Items de la barre d'outils "admin" */
+	$(".admin_item_barre_outils").click(function() {
+		var item_id = $(this).attr("id");
+		alert(item_id);
+	});
+
 	/* Gestion du clic sur un objet éditable */
 	$("div.page").on("click", ".objet_editable", function() {
 		var html_id = $(this).attr("id");
@@ -362,15 +368,12 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	/* Gestion du survol d'un input submit ou button */
-	$("div.page").on("mouseover", "input[type='submit']", function() {
-		$(this).css("cursor", "pointer");
-	});
-	$("div.page").on("mouseover", "input[type='button']", function() {
+	/* Gestion du survol d'un bouton */
+	$("div.page").on("mouseover", "button", function() {
 		$(this).css("cursor", "pointer");
 	});
 	
-	/* Soumission des formulaires dans les éditeurs d'objets */
+	/* Bouton "soumettre" dans les éditeurs d'objets */
 	$("div.page").on("submit", "form.editeur_formulaire", function() {
 		var form_id = $(this).attr("id");
 		var html_id = form_id.replace("formulaire-", "");
@@ -387,8 +390,17 @@ $(document).ready(function() {
 	});
 	
 	
-	/* Boutons de suppression dans les éditeurs d'objets */
-	$("div.page").on("click", "form.editeur_formulaire input.supprimer_formulaire", function() {
+	/* Bouton "annuler" dans les éditeurs d'objets */
+	$("div.page").on("click", "form.editeur_formulaire button.annuler_formulaire", function() {
+		var form_id = $(this).attr("id");
+		var html_id = form_id.replace("annuler-", "editeur-");
+		$("#"+html_id).remove();
+		return false;
+	});
+	
+	
+	/* Boutons "supprimer" dans les éditeurs d'objets */
+	$("div.page").on("click", "form.editeur_formulaire button.supprimer_formulaire", function() {
 		var form_id = $(this).attr("id");
 		var html_id = form_id.replace("supprimer-", "");
 		var parsing_objet_id = parser_html_id(html_id);

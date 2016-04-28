@@ -6,9 +6,9 @@ define("_CHEMIN_BASE_FICHIER", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
 /* Ouverture de la session */
-$id_session = pl3_outil_session::Ouvrir_session();
+$id_session = pl3_admin_session::Ouvrir_session();
 if (strlen($id_session) == 0) {die("ERREUR : Impossible d'ouvrir la session");}
-$mode_admin = (int) pl3_outil_mode_admin::Lire_mode();
+$mode_admin = pl3_admin_mode::Lire_mode();
 
 /* Chargement de la page et du thème */
 $source_page = pl3_outil_source_page::Get();
@@ -22,11 +22,11 @@ $page->set_mode($mode_admin);
 $html .= $page->afficher_head();
 $html .= $page->ouvrir_body();
 $html .= "<p class=\"admin_barre_outils\">";
-$html .= "<a href=\"page\">Page</a>";
-$html .= "<a href=\"media\">Media</a>";
-$html .= "<a href=\"grille\">Grille</a>";
-$html .= "<a href=\"objets\">Objets</a>";
-$html .= "<a href=\"xml\">XML</a>";
+$html .= "<a id=\"admin-mode-"._MODE_ADMIN_PAGE."\" class=\"admin_item_barre_outils\" href=\"#\">Page</a>";
+$html .= "<a id=\"admin-mode-"._MODE_ADMIN_MEDIA."\" class=\"admin_item_barre_outils\" href=\"#\">Media</a>";
+$html .= "<a id=\"admin-mode-"._MODE_ADMIN_GRILLE."\" class=\"admin_item_barre_outils\" href=\"#\">Grille</a>";
+$html .= "<a id=\"admin-mode-"._MODE_ADMIN_OBJETS."\" class=\"admin_item_barre_outils\" href=\"#\">Objets</a>";
+$html .= "<a id=\"admin-mode-"._MODE_ADMIN_XML."\" class=\"admin_item_barre_outils\" href=\"#\">XML</a>";
 $html .= "</p>\n";
 $html .= $page->ecrire_body();
 $html .= $page->fermer_body();

@@ -4,7 +4,7 @@
  * Classe de gestion des sessions
  */
  
-class pl3_outil_session {
+class pl3_admin_session {
 	const SESSION_PREFIXE = "session_";
 	const SESSION_TIMEOUT = 14400;
 	const SESSION_URL_SORTIE = "index.php";

@@ -27,7 +27,12 @@ div.page_mode_admin{margin-top:50px;}
 .editeur_objet select{min-width:8em;}
 .editeur_objet input[type="text"]{min-width:15em;}
 .editeur_objet input[type="number"]{width:4em;}
-.editeur_objet input[type="submit"]{width:4em;margin:6px 0 6px 6px;}
+.editeur_objet button.soumettre_formulaire, .editeur_objet button.annuler_formulaire {min-width:4em;margin:6px 0 6px 6px;padding:3px 6px;vertical-align:middle;color:#444;}
+.editeur_objet button.supprimer_formulaire {min-width:4em;margin:6px 0 6px 24px;padding:3px 6px;vertical-align:middle;color:#444;}
+.editeur_formulaire_icone_bouton{font-size:133%;margin-right:0.5em;}
+.editeur_objet button.soumettre_formulaire span.editeur_formulaire_icone_bouton{color:#0a0;}
+.editeur_objet button.annuler_formulaire span.editeur_formulaire_icone_bouton{color:#888;}
+.editeur_objet button.supprimer_formulaire span.editeur_formulaire_icone_bouton{color:#a00;}
 
 /* Trumbowyg */
 .trumbowyg-editor, .trumbowyg-textarea, .trumbowyg-box{min-height:4em!important;z-index:3;}
