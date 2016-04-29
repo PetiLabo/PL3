@@ -91,7 +91,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		foreach($this->objets as $objet) {
 			$ret .= $objet->afficher($mode);
 		}
-		if ($mode == _MODE_ADMIN) {
+		if ($mode == _MODE_ADMIN_OBJETS) {
 			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
 			if (count($liste_objets_avec_icone) > 0) {
 				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";

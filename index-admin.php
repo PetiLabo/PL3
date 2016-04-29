@@ -11,9 +11,6 @@ if (strlen($id_session) == 0) {die("ERREUR : Impossible d'ouvrir la session");}
 $admin_interface = pl3_admin_interface::Get();
 $mode_admin = $admin_interface->lire_mode_actuel();
 
-/* Hack temporaire car les objets XML ne gèrent que ce mode actuellement */
-$mode_admin = _MODE_ADMIN;
-
 /* Chargement de la page et du thème */
 $source_page = pl3_outil_source_page::Get();
 $source_page->charger_xml();

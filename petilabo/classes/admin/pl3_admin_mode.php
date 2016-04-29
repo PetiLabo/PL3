@@ -5,7 +5,7 @@
  */
  
 class pl3_admin_mode {
-	const MODE_ADMIN_PAR_DEFAUT = _MODE_ADMIN;
+	const MODE_ADMIN_PAR_DEFAUT = _MODE_ADMIN_PAGE;
 
 	/* Accesseur au mode */
 	public static function Lire_mode() {

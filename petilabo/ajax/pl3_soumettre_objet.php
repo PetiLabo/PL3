@@ -45,7 +45,7 @@ if ($ajax_objet_valide) {
 				$bloc = pl3_ajax_init::Get_bloc();
 				$bloc->remplacer_objet($objet);
 				$source_page->enregistrer_xml();
-				$html .= $objet->afficher(_MODE_ADMIN);
+				$html .= $objet->afficher(_MODE_ADMIN_OBJETS);
 			}
 		}
 	}

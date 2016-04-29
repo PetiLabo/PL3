@@ -13,49 +13,14 @@ div.page_mode_admin{margin-top:50px;}
 .admin_barre_outils a.admin_item_barre_outils:hover{background:#333;text-decoration:none;}
 a.admin_item_mode_actuel{background:#a00;}
 
-/* Survol des objets */
-.admin_survol_objet{cursor:pointer;border-color:#c00!important;}
-
-/* Editeur d'objet */
-.editeur_objet{position:absolute;background:#fff;border:2px solid #888;padding:1px 5px 3px 5px;z-index:2;}
-.editeur_objet_barre_outils{font-family:Sans-Serif;text-align:right;margin:0;padding:0;margin-top:2px;margin-right:-5px;}
-.editeur_objet_barre_outils a{background:#888;font-weight:bold;color:#444;text-decoration:none;padding:3px 5px;margin-left:2px;}
-.editeur_objet_barre_outils a:hover{background:#444;color:#f00;}
-.editeur_objet_titre_attributs, .editeur_objet_titre_xml, .editeur_objet_titre_valeur{font-weight:bold;color:#666;}
-.editeur_objet_titre_attributs, .editeur_objet_titre_xml{margin-top:6px;margin-bottom:6px;}
-.editeur_objet_titre_valeur{margin-top:0;margin-bottom:6px;}
-.editeur_champ_formulaire{margin:3px 0 3px 1em;}
-.editeur_champ_formulaire label{display:inline-block;width:70px;font-weight:bold;}
-.editeur_objet_valeur, .editeur_objet_ligne_xml{margin-top:3px;margin-bottom:3px;margin-left:1em;}
-.editeur_objet input, .editeur_objet select, .editeur_objet textarea{padding:3px;margin-right:3px;}
-.editeur_objet select{min-width:8em;}
-.editeur_objet input[type="text"]{min-width:15em;}
-.editeur_objet input[type="number"]{width:4em;}
-.editeur_objet button.soumettre_formulaire, .editeur_objet button.annuler_formulaire {min-width:4em;margin:6px 0 6px 6px;padding:3px 6px;vertical-align:middle;color:#444;}
-.editeur_objet button.supprimer_formulaire {min-width:4em;margin:6px 0 6px 24px;padding:3px 6px;vertical-align:middle;color:#444;}
-.editeur_formulaire_icone_bouton{font-size:133%;margin-right:0.5em;}
-.editeur_objet button.soumettre_formulaire span.editeur_formulaire_icone_bouton{color:#0a0;}
-.editeur_objet button.annuler_formulaire span.editeur_formulaire_icone_bouton{color:#888;}
-.editeur_objet button.supprimer_formulaire span.editeur_formulaire_icone_bouton{color:#a00;}
-
-/* Trumbowyg */
-.trumbowyg-editor, .trumbowyg-textarea, .trumbowyg-box{min-height:4em!important;z-index:3;}
-.trumbowyg-dropdown{z-index:4;}
-
-/* JQuery UI */
-.deplaceur_objet{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
-
-/* Boutons pour l'ajout d'objets */
-.bloc > p.bloc_poignee_ajout{display:none;}
-.bloc_poignee_ajout{font-size:16px;text-align:center;padding:4px 8px;word-break: break-all;}
-.bloc_poignee_ajout a{background:#333;color:#fff;min-width:30px;padding:8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
-.bloc_poignee_ajout a:hover{background:#a00;color:#fff;}
-
+/* Containers */
+.page_xml{font-family:monospace;padding:6px 12px;}
 
 /* Gestion responsive ***************************************************************/
 
 /* Petits écrans */
 @media all and (max-width: 500px) {
+	div.page_mode_admin{margin-top:62px;}
 	.admin_barre_outils a {font-size:26px;line-height:52px;}
 	.admin_barre_outils a span.admin_item_label{display:none;}
 }
