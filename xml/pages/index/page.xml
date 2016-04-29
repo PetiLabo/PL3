@@ -22,7 +22,7 @@
         </bloc>
         <bloc taille="3">
             <titre niveau="1">id_texte_21</titre>
-            <saut>4</saut>
+            <saut>2</saut>
         </bloc>
     </contenu>
 </petilabo>

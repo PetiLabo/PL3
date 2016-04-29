@@ -2,6 +2,22 @@
  * JS PL3 mode administration
  */
  
+/* Appel AJAX pour le changement de mode d'administration */
+function changer_mode_admin(mode_admin) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_changer_mode_admin.php",
+		data: {mode_admin: mode_admin},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {location.reload();}
+		else {alert("ERREUR : Changement de mode d'administration impossible");}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+ 
 /* Appel AJAX pour ouverture d'un éditeur d'objet */
 function editer_objet(nom_page, balise_id, nom_balise) {
 	var editeur_id = "editeur-"+nom_balise+"-"+balise_id;
@@ -291,9 +307,11 @@ function appliquer_editable(selecteur, langue) {
 /* Initialisations */
 $(document).ready(function() {
 	/* Items de la barre d'outils "admin" */
-	$(".admin_item_barre_outils").click(function() {
+	$("a.admin_item_barre_outils").click(function() {
 		var item_id = $(this).attr("id");
-		alert(item_id);
+		var mode_id = item_id.replace("admin-mode-", "");
+		var mode_admin = parseInt(mode_id);
+		changer_mode_admin(mode_admin);
 	});
 
 	/* Gestion du clic sur un objet éditable */
