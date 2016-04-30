@@ -29,6 +29,7 @@ class pl3_admin_interface {
 	public function ecrire_barre_outils() {
 		$html = "";
 		$html .= "<p class=\"admin_barre_outils\">";
+		$html .= $this->ecrire_logo_barre_outils();
 		$html .= $this->ecrire_item_barre_outils(_MODE_ADMIN_PAGE, "fa-file-text", "Page");
 		$html .= $this->ecrire_item_barre_outils(_MODE_ADMIN_MEDIA, "fa-picture-o", "Media");
 		$html .= $this->ecrire_item_barre_outils(_MODE_ADMIN_GRILLE, "fa-th", "Grille");
@@ -36,6 +37,14 @@ class pl3_admin_interface {
 		$html .= $this->ecrire_item_barre_outils(_MODE_ADMIN_XML, "fa-code", "XML");
 		$html .= "</p>\n";
 
+		return $html;
+	}
+	
+	private function ecrire_logo_barre_outils() {
+		$html = "";
+		$html .= "<a class=\"admin_item_logo\">";
+		$html .= "<span class=\"fa fa-flask admin_item_icone\"></span>";
+		$html .= "</a>";
 		return $html;
 	}
 	

@@ -6,12 +6,13 @@
 
 /* Barre d'outils */
 div.page_mode_admin{margin-top:50px;}
-.admin_barre_outils{position:fixed;top:0;left:0;width:100%;background:#000;opacity:0.85;z-index:999;}
-.admin_barre_outils a{font-size:16px;line-height:40px;padding:12px;text-decoration:none;}
-.admin_barre_outils a span.admin_item_icone{color:#eee;margin-right:6px;}
+.admin_barre_outils{position:fixed;top:0;left:0;width:100%;background:#000;z-index:999;}
+.admin_barre_outils a{display:inline-block;font-size:16px;padding:12px;text-decoration:none;}
+.admin_barre_outils a span.admin_item_icone{color:#fff;margin-right:6px;}
 .admin_barre_outils a span.admin_item_label{color:#fff;}
-.admin_barre_outils a.admin_item_barre_outils:hover{background:#333;text-decoration:none;}
+.admin_barre_outils a.admin_item_barre_outils:hover{background:#777;text-decoration:none;}
 a.admin_item_mode_actuel{background:#a00;}
+a.admin_item_logo{background:#555;margin-right:18px;}
 
 /* Containers */
 .page_xml{font-family:monospace;padding:6px 12px;}
@@ -19,8 +20,11 @@ a.admin_item_mode_actuel{background:#a00;}
 /* Gestion responsive ***************************************************************/
 
 /* Petits écrans */
-@media all and (max-width: 500px) {
-	div.page_mode_admin{margin-top:62px;}
-	.admin_barre_outils a {font-size:26px;line-height:52px;}
+@media all and (max-width: 540px) {
+	div.page_mode_admin{margin-top:114px;}
+	.admin_barre_outils{text-align:center;}
+	.admin_barre_outils a span.admin_item_icone{font-size:26px;margin-left:3px;margin-right:3px;}
 	.admin_barre_outils a span.admin_item_label{display:none;}
+	a.admin_item_logo{width:100%;padding:6px;}
+	a.admin_item_logo span.admin_item_icone{font-size:18px!important;}
 }
