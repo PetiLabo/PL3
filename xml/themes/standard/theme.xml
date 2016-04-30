@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
+	<!-- Tailles d'images -->
+	<taille_image nom="Panoramique">
+		<largeur>1200</largeur>
+		<hauteur>320</hauteur>
+		<compression>70</compression>
+	</taille_image>
+	<taille_image nom="Paysage">
+		<largeur>640</largeur>
+		<hauteur>480</hauteur>
+		<compression>75</compression>
+	</taille_image>
+	<taille_image nom="Portrait">
+		<largeur>480</largeur>
+		<hauteur>640</hauteur>
+		<compression>75</compression>
+	</taille_image>
+	<taille_image nom="Carré">
+		<largeur>300</largeur>
+		<hauteur>300</hauteur>
+		<compression>80</compression>
+	</taille_image>
+	<taille_image nom="Ardoise">
+		<largeur>430</largeur>
+		<hauteur>325</hauteur>
+		<compression>80</compression>
+	</taille_image>
+
 	<!-- Styles de page -->
     <style_page nom="defaut">
         <largeur>90%</largeur>

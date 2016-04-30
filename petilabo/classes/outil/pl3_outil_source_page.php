@@ -151,6 +151,10 @@ class pl3_outil_source_page {
 		$source_media = $liste_medias->get_source($nom_source);
 		return $source_media;
 	}
+	public function &get_theme() {
+		$theme = $this->liste_themes->get_source(_NOM_SOURCE_THEME);
+		return $theme;
+	}
 	public function get_nom_theme() {return $this->theme;}
 	
 	/* Recherches */

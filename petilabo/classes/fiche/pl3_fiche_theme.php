@@ -9,6 +9,7 @@ class pl3_fiche_theme extends pl3_outil_fiche_xml {
 	
 	/* Constructeur */
 	public function __construct($chemin, $id) {
+		$this->declarer_objet("pl3_objet_theme_taille_image");
 		$this->declarer_objet("pl3_objet_theme_style_page");
 		$this->declarer_objet("pl3_objet_theme_style_contenu");
 		$this->declarer_objet("pl3_objet_theme_style_bloc");

@@ -52,6 +52,28 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	}
 }
 
+class pl3_objet_media_image_taille extends pl3_outil_objet_xml {
+	/* Fiche */
+	const NOM_FICHE = "media";
+
+	/* Balise */
+	const NOM_BALISE = "taille";
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_taille_image");
+	
+	/* Attributs */
+	public static $Liste_attributs = array();
+	
+	/* Méthodes */
+	public function ecrire_xml($niveau) {
+		$xml = $this->ouvrir_fermer_xml($niveau);
+		return $xml;
+	}
+	
+	public function afficher($mode) {
+		return null;
+	}
+}
+
 class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	/* Fiche */
 	const NOM_FICHE = "media";
@@ -68,6 +90,7 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	public function __construct($id, &$parent, &$noeud = null) {
 		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);
 		$this->declarer_element(pl3_objet_media_image_alt::NOM_BALISE);
+		$this->declarer_element(pl3_objet_media_image_taille::NOM_BALISE);
 		parent::__construct($id, $parent, $noeud);
 	}
 

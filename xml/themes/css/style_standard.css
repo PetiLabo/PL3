@@ -1,4 +1,9 @@
 /* CSS thème standard */
+.page_Panoramique{width:1200;}
+.page_Paysage{width:640;}
+.page_Portrait{width:480;}
+.page_Carré{width:300;}
+.page_Ardoise{width:430;}
 .page_defaut{width:90%;}
 .contenu_defaut{margin:15px;padding:10px;background:url('../images/standard/texture-contenu.png');}
 .bloc_defaut{margin:15px 5px;padding:10px;border:2px solid #444;;background:url('../images/standard/texture-bloc.png');}
