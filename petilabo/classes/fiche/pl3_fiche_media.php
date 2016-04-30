@@ -15,8 +15,12 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	}
 	
 	/* Afficher */
-	public function afficher($mode) {
-		$ret = $this->afficher_objets($mode);
+	public function afficher() {
+		$ret = "";
+		$classe = "page_media".((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
+		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
+		$ret .= $this->afficher_objets($this->mode);
+		$ret .= "</div>\n";
 		return $ret;
 	}
 }

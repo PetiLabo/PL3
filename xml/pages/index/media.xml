@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
     <image nom="carrousel_1">
-        <fichier>carrousel-1.jpg</fichier>
+        <fichier>carrousel-1.png</fichier>
         <alt>alt_carrousel_1</alt>
     </image>
     <image nom="carrousel_2">
-        <fichier>carrousel-2.jpg</fichier>
+        <fichier>carrousel-2.png</fichier>
         <alt>alt_carrousel_2</alt>
     </image>
     <image nom="carrousel_3">
-        <fichier>carrousel-3.jpg</fichier>
+        <fichier>carrousel-3.png</fichier>
         <alt>alt_carrousel_3</alt>
     </image>
     <image nom="carrousel_4">
-        <fichier>carrousel-4.jpg</fichier>
+        <fichier>carrousel-4.png</fichier>
         <alt>alt_carrousel_4</alt>
     </image>
     <galerie nom="carrousel">

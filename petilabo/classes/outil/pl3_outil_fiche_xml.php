@@ -7,6 +7,8 @@
 class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	const NOM_BALISE_GENERIQUE = "petilabo";
 
+	/* Propriétés */
+	protected $mode = _MODE_NORMAL;
 	protected $id = 0;
 	protected $noeud = null;
 	protected $obligatoire = false;
@@ -40,7 +42,9 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		}
 	}
 
-	/* Accesseurs */
+	/* Accesseurs / mutateurs */
+	public function set_mode($mode) {$this->mode = $mode;}
+	public function get_mode() {return $this->mode;}
 	public function lire_id() {return $this->id;}
 	public function lire_nom_fichier_xml() {return $this->nom_fichier_xml;}
 

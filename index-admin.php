@@ -16,14 +16,23 @@ $source_page = pl3_outil_source_page::Get();
 $source_page->charger_xml();
 $source_page->generer_theme($mode_admin);
 
-/* Constitution du code HTML */
-$html = "";
+/* Récupération des éléments pour affichage */
 $page = $source_page->get_page();
 $page->set_mode($mode_admin);
+$media_local = $source_page->get_media(_NOM_SOURCE_LOCAL);
+$media_local->set_mode($mode_admin);
+
+/* Constitution du code HTML */
+$html = "";
 $html .= $page->afficher_head();
 $html .= $page->ouvrir_body();
 $html .= $admin_interface->ecrire_barre_outils();
-$html .= $page->ecrire_body();
+if ($mode_admin == _MODE_ADMIN_MEDIA) {
+	$html .= $media_local->afficher();
+}
+else {
+	$html .= $page->ecrire_body();
+}
 $html .= $page->fermer_body();
 
 /* Affichage */

@@ -146,6 +146,11 @@ class pl3_outil_source_page {
 
 	/* Accesseurs */
 	public function &get_page() {return $this->page;}
+	public function &get_media($nom_source) {
+		$liste_medias = $this->liste_sources[pl3_fiche_media::NOM_FICHE];
+		$source_media = $liste_medias->get_source($nom_source);
+		return $source_media;
+	}
 	public function get_nom_theme() {return $this->theme;}
 	
 	/* Recherches */

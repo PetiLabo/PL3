@@ -30,6 +30,7 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 	/* Accesseurs */
 	public function lire_nom_fiche() {return $this->nom_fiche;}
 	public function lire_classe_fiche() {return $this->nom_classe_fiche;}
+	public function &get_source($nom_source) {return $this->liste_fiches[$nom_source];}
 	
 	/* Ajout d'une fiche en provenance d'une source */
 	public function ajouter_source($nom_source, $chemin_source) {

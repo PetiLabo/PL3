@@ -22,7 +22,9 @@ class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher($mode) {
-		echo "<!-- Fichier -->\n";
+		$valeur_fichier = html_entity_decode($this->get_valeur(), ENT_QUOTES, "UTF-8");
+		$ret = " src=\""._CHEMIN_IMAGES_XML.$valeur_fichier."\"";
+		return $ret;
 	}
 }
 
@@ -44,7 +46,9 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher($mode) {
-		echo "<!-- Alt -->\n";
+		$valeur_alt = html_entity_decode($this->get_valeur(), ENT_QUOTES, "UTF-8");
+		$ret = " alt=\"".$valeur_alt."\"";
+		return $ret;
 	}
 }
 
@@ -81,8 +85,9 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$ret .= "<!-- Image -->\n";
+		$ret .= "<img width=\"180\"";
 		$ret .= $this->afficher_elements_xml($mode);
+		$ret .= " />\n";
 		return $ret;
 	}
 }

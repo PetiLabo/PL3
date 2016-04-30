@@ -8,7 +8,6 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	const NOM_FICHE = "page";
 	
 	/* Propriétés */
-	private $mode = _MODE_NORMAL;
 	private $nom_theme = _NOM_THEME_DEFAUT;
 	private $nom_style = _NOM_STYLE_DEFAUT;
 	private $liste_objets_avec_icone = array();
@@ -35,8 +34,6 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 
 	/* Accesseurs / mutateurs */
-	public function set_mode($mode) {$this->mode = $mode;}
-	public function get_mode() {return $this->mode;}
 	public function get_nom_theme() {return $this->nom_theme;}
 	public function get_nom_style() {return $this->nom_style;}
 	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
