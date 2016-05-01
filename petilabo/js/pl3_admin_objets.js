@@ -1,5 +1,5 @@
 /*
- * JS PL3 mode administration
+ * JS PL3 mode administration objets
  */
  
 /* Appel AJAX pour ouverture d'un éditeur d'objet */

@@ -20,8 +20,8 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$source_page = pl3_outil_source_page::Get();
 		$liste_tailles = $source_page->chercher_liste_noms_par_fiche("theme", "pl3_objet_theme_taille_image");
 		$liste_medias_par_taille = array();
-		foreach($liste_tailles as $nom_taille) {
-			$liste_medias_par_taille[$nom_taille] = array();
+		foreach($liste_tailles as $id_taille => $nom_taille) {
+			$liste_medias_par_taille[$nom_taille] = array("id" => $id_taille, "medias" => array());
 		}
 		
 		/* Classement des images selon les tailles */
@@ -29,7 +29,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		foreach($liste_medias as $media) {
 			$nom_taille = $media->get_valeur_taille();
 			if (in_array($nom_taille, $liste_tailles)) {
-				$liste_medias_par_taille[$nom_taille][] = $media;
+				$liste_medias_par_taille[$nom_taille]["medias"][] = $media;
 			}
 		}
 		
@@ -37,19 +37,22 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
 		/* Liste des images taille par taille */
 		foreach($liste_tailles as $nom_taille) {
+			$info_media = $liste_medias_par_taille[$nom_taille];
+			$id_taille = $info_media["id"];
+			$liste_medias = $info_media["medias"];
 			$ret .= "<h2>".$nom_taille."</h2>\n";
-			$ret .= "<div class=\"taille_container\">\n";
-			foreach($liste_medias_par_taille[$nom_taille] as $media) {
+			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";
+			foreach($liste_medias as $media) {
 				$nom = $media->get_attribut_nom();
 				$ret .= "<div class=\"vignette_container\">";
-				$ret .= "<a class=\"vignette_apercu_lien\" href=\"\" title=\"Editer l'image ".$nom."\">";
+				$ret .= "<a id=\"media-".$media->lire_id()."\" class=\"vignette_apercu_lien\" href=\"#\" title=\"Editer l'image ".$nom."\">";
 				$ret .= $media->afficher($this->mode);
 				$ret .= "</a>";
 				$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
 				$ret .= "</div>\n";
 			}
 			$ret .= "<div class=\"vignette_container\">";
-			$ret .= "<a class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+			$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
 			$ret .= "</div>\n";
 			$ret .= "<div class=\"clearfix\"></div>\n";
 			$ret .= "</div>\n";

@@ -171,7 +171,8 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		if (isset($this->liste_objets[$nom_classe])) {
 			foreach($this->liste_objets[$nom_classe] as $instance) {
 				$nom = $instance->get_attribut_chaine(self::NOM_ATTRIBUT_NOM);
-				$ret[] = $nom;
+				$id = (int) $instance->lire_id();
+				$ret[$id] = $nom;
 			}
 		}
 		return $ret;
