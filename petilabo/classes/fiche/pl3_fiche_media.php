@@ -35,18 +35,24 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		
 		$classe = "page_media".((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
 		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
+		/* Liste des images taille par taille */
 		foreach($liste_tailles as $nom_taille) {
 			$ret .= "<h2>".$nom_taille."</h2>\n";
-			if (count($liste_medias_par_taille[$nom_taille]) == 0) {
-				$ret .= "<p style=\"font-style:italic;\">Pas d'images enregistrées sous cette taille</p>\n";
-			}
+			$ret .= "<div class=\"taille_container\">\n";
 			foreach($liste_medias_par_taille[$nom_taille] as $media) {
-				$ret .= "<div style=\"float:left;text-align:center;\">";
-				$ret .= $media->afficher($this->mode)."<br>";
-				$ret .= $media->get_attribut_nom()."<br>";
+				$nom = $media->get_attribut_nom();
+				$ret .= "<div class=\"vignette_container\">";
+				$ret .= "<a class=\"vignette_apercu_lien\" href=\"\" title=\"Editer l'image ".$nom."\">";
+				$ret .= $media->afficher($this->mode);
+				$ret .= "</a>";
+				$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
 				$ret .= "</div>\n";
 			}
-			$ret .= "<div style=\"clear:both;\"></div>\n";
+			$ret .= "<div class=\"vignette_container\">";
+			$ret .= "<a class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+			$ret .= "</div>\n";
+			$ret .= "<div class=\"clearfix\"></div>\n";
+			$ret .= "</div>\n";
 		}
 		$ret .= "</div>\n";
 		return $ret;

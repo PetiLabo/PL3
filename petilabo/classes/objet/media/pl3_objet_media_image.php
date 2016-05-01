@@ -108,7 +108,7 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
-		$ret .= "<img width=\"180\"";
+		$ret .= "<img class=\"vignette_apercu_image\"";
 		$ret .= $this->afficher_elements_xml($mode);
 		$ret .= " />\n";
 		return $ret;

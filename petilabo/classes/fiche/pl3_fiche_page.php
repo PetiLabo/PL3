@@ -85,6 +85,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_objets.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css", _MODE_ADMIN);
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_media.css", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_objets.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN_OBJETS);
