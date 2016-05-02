@@ -12,8 +12,9 @@ body, div.page, p {position:relative;}
 .bloc > div > p, 
 .bloc > div > h1, .bloc > div > h2,
 .bloc > div > h3, .bloc > div > h4,
-.bloc > div > h5, .bloc > div > h6, 
-.bloc > div > img {padding:1px;border: 3px solid transparent;}
+.bloc > div > h5, .bloc > div > h6{padding:1px;border:3px solid transparent;}
+/* Exception pour les images du fait de la classe image_responsive : A SURVEILLER */
+.bloc > div > img {box-sizing:content-box;padding:1px;border:3px solid transparent;}
 
 /* Gestion responsive ***************************************************************/
 

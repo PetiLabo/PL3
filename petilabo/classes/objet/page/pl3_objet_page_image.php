@@ -32,9 +32,14 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 		if ($image != null) {
 			$fichier = $image->get_valeur_fichier();
 			$alt = $image->get_valeur_alt();
+			$taille = "";
+			$largeur = $image->get_valeur_largeur_reelle();
+			if ($largeur > 0) {$taille .= " width=\"".$largeur."\"";}
+			$hauteur = $image->get_valeur_hauteur_reelle();
+			if ($hauteur > 0) {$taille .= " height=\"".$hauteur."\"";}
 			$html_id = $this->get_html_id();
 			$ret .= "<div class=\"container_image\">";
-			$ret .= "<img id=\"".$html_id."\" class=\"image objet_editable\" src=\""._CHEMIN_IMAGES_XML.$fichier."\" alt=\"".$alt."\" />";
+			$ret .= "<img id=\"".$html_id."\" class=\"image_responsive objet_editable\" src=\""._CHEMIN_IMAGES_XML.$fichier."\" alt=\"".$alt."\"".$taille." />";
 			$ret .= "</div>\n";
 		}
 		return $ret;

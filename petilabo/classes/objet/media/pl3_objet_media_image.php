@@ -131,9 +131,6 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	/* Attributs */
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE));
-		
-	/* Propriétés */
-	private $a_jour = true;
 	
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
@@ -157,13 +154,13 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 				$element_largeur_reelle = new pl3_objet_media_image_largeur_reelle(1+$this->nb_elements_charges(), $this);
 				$element_largeur_reelle->set_valeur($largeur_reelle);
 				$this->ajouter_element_xml($element_largeur_reelle);
-				$this->a_jour = false;
+				$this->objet_a_jour = false;
 			}
 			if ((!($est_h)) && ($hauteur_reelle > 0)) {
 				$element_hauteur_reelle = new pl3_objet_media_image_hauteur_reelle(1+$this->nb_elements_charges(), $this);
 				$element_hauteur_reelle->set_valeur($hauteur_reelle);
 				$this->ajouter_element_xml($element_hauteur_reelle);
-				$this->a_jour = false;
+				$this->objet_a_jour = false;
 			}
 		}
 	}

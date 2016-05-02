@@ -15,6 +15,7 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	protected $nom_fichier_xml = null;
 	protected $liste_noms_objets = array();
 	protected $liste_objets = array();
+	protected $fiche_a_jour = true;
 	private $dom = null;
 	
 	/* Constructeur */
@@ -47,12 +48,17 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	public function get_mode() {return $this->mode;}
 	public function lire_id() {return $this->id;}
 	public function lire_nom_fichier_xml() {return $this->nom_fichier_xml;}
+	public function fiche_a_jour() {return $this->fiche_a_jour;}
 
 	/* Chargement */
 	public function charger_xml() {
 		$ret = $this->charger();
 		if ($ret) {$this->charger_objets(); }
 		else if ($this->obligatoire) {die("ERREUR : Fichier XML obligatoire introuvable");}
+		if (!($this->fiche_a_jour)) {
+			$this->enregistrer_xml();
+			$this->fiche_a_jour = true;
+		}
 	}
 	protected function charger() {
 		$ret = false;
@@ -69,7 +75,10 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	protected function charger_objets() {
 		foreach ($this->liste_noms_objets as $nom_classe => $nom_balise) {
 			$liste_objets = $this->parser_balise($nom_balise);
-			foreach($liste_objets as $objet) {$objet->charger_xml();}
+			foreach($liste_objets as $objet) {
+				$objet->charger_xml();
+				if (!($objet->objet_a_jour())) {$this->fiche_a_jour = false;}
+			}
 			$this->liste_objets[$nom_classe] = $liste_objets;
 		}
 	}

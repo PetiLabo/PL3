@@ -3,5 +3,7 @@
     <image nom="vignette_actu">
         <fichier>actu_petilabo.jpg</fichier>
         <alt>Alternative</alt>
+        <largeur_reelle>200</largeur_reelle>
+        <hauteur_reelle>131</hauteur_reelle>
     </image>
 </petilabo>

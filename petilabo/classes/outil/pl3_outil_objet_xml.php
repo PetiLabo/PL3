@@ -24,6 +24,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	protected $liste_objets = array();
 	protected $avec_valeur = true;
 	protected $valeur;
+	protected $objet_a_jour = true;
 	
 	/* Constructeur */
 	public function __construct($id, &$objet_parent, &$noeud = null) {
@@ -65,7 +66,8 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	/* Mutateurs / accesseurs */
 	public function lire_id() {return $this->id;}
 	public function ecrire_id($id) {$this->id = $id;}
-	public function lire_id_parent() {return $this->objet_parent->lire_id();}	
+	public function lire_id_parent() {return $this->objet_parent->lire_id();}
+	public function objet_a_jour() {return $this->objet_a_jour;}
 	
 	/* Ajouts "inline" */
 	public function ajouter_objet(&$objet) {
