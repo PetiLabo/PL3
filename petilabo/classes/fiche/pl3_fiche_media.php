@@ -21,7 +21,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$liste_tailles = $source_page->chercher_liste_noms_par_fiche("theme", "pl3_objet_theme_taille_image");
 		$liste_medias_par_taille = array();
 		foreach($liste_tailles as $id_taille => $nom_taille) {
-			$liste_medias_par_taille[$nom_taille] = array("id" => $id_taille, "medias" => array());
+			$liste_medias_par_taille[$nom_taille] = array("id" => 1 + $id_taille, "medias" => array());
 		}
 		
 		/* Classement des images selon les tailles */
@@ -53,6 +53,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			}
 			$ret .= "<div class=\"vignette_container\">";
 			$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+			$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"\"/>\n";
 			$ret .= "</div>\n";
 			$ret .= "<div class=\"clearfix\"></div>\n";
 			$ret .= "</div>\n";
