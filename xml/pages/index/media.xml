@@ -3,22 +3,26 @@
     <image nom="carrousel_1">
         <fichier>carrousel-1.png</fichier>
         <alt>alt_carrousel_1</alt>
-        <taille>Ardoise</taille>
+        <taille_standard>Ardoise</taille_standard>
+		<largeur_reelle>430</largeur_reelle>
+		<hauteur_reelle>325</hauteur_reelle>
     </image>
     <image nom="carrousel_2">
         <fichier>carrousel-2.png</fichier>
         <alt>alt_carrousel_2</alt>
-        <taille>Ardoise</taille>
+        <taille_standard>Ardoise</taille_standard>
+		<hauteur_reelle>325</hauteur_reelle>
     </image>
     <image nom="carrousel_3">
         <fichier>carrousel-3.png</fichier>
         <alt>alt_carrousel_3</alt>
-        <taille>Ardoise</taille>
+        <taille_standard>Ardoise</taille_standard>
+		<largeur_reelle>430</largeur_reelle>
     </image>
     <image nom="carrousel_4">
         <fichier>carrousel-4.png</fichier>
         <alt>alt_carrousel_4</alt>
-        <taille>Ardoise</taille>
+        <taille_standard>Ardoise</taille_standard>
     </image>
     <galerie nom="carrousel">
         <element>carrousel_1</element>

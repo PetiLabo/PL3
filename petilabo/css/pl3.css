@@ -17,6 +17,9 @@ body, div.page, p {position:relative;}
 
 /* Gestion responsive ***************************************************************/
 
+/* Images responsive */
+.image_responsive{max-width:100%;height:auto;}
+
 /* Petits écrans */
 @media all and (max-width: 600px) {
 	.contenu {flex-direction: column;}

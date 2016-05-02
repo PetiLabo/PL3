@@ -19,7 +19,7 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 	protected function declarer_element($nom_balise) {
 		$this->noms_elements[] = $nom_balise;
 	}
-	
+
 	protected function charger_elements_xml() {
 		foreach ($this->noms_elements as $nom_element) {
 			$element = $this->parser_balise_fille($nom_element);
@@ -27,6 +27,25 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		}
 	}
 	
+	public function ajouter_element_xml(&$element) {
+		$nom_balise = $element::NOM_BALISE;
+		if (in_array($nom_balise, $this->noms_elements)) {
+			$this->elements[$nom_balise] = $element;
+		}
+	}
+	
+	protected function nb_elements_charges() {
+		return count($this->elements);
+	}
+
+	protected function est_charge_element_xml($nom_element) {
+		$ret = false;
+		if (isset($this->elements[$nom_element])) {
+			$ret = ($this->elements[$nom_element] != null);
+		}
+		return $ret;
+	}
+
 	protected function ecrire_elements_xml($niveau) {
 		$xml = "";
 		foreach ($this->elements as $element) {

@@ -27,7 +27,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		/* Classement des images selon les tailles */
 		$liste_medias = $this->liste_objets["pl3_objet_media_image"];
 		foreach($liste_medias as $media) {
-			$nom_taille = $media->get_valeur_taille();
+			$nom_taille = $media->get_valeur_taille_standard();
 			if (in_array($nom_taille, $liste_tailles)) {
 				$liste_medias_par_taille[$nom_taille]["medias"][] = $media;
 			}
@@ -44,7 +44,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";
 			foreach($liste_medias as $media) {
 				$nom = $media->get_attribut_nom();
-				$ret .= "<div class=\"vignette_container\">";
+				$ret .= "<div class=\"vignette_container\">\n";
 				$ret .= "<a id=\"media-".$media->lire_id()."\" class=\"vignette_apercu_lien\" href=\"#\" title=\"Editer l'image ".$nom."\">";
 				$ret .= $media->afficher($this->mode);
 				$ret .= "</a>";
