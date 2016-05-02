@@ -86,7 +86,7 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 		$ret = array();
 		foreach ($this->liste_fiches as $fiche) {
 			$fiche_ret = $fiche->chercher_liste_noms_par_classe($nom_classe);
-			$ret = $ret + $fiche_ret;
+			$ret = array_merge($ret, $fiche_ret);
 		}
 		return $ret;
 	}

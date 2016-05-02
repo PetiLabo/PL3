@@ -2,8 +2,8 @@
 <petilabo>
 	<!-- Tailles d'images -->
 	<taille_image nom="Panoramique">
-		<largeur>1200</largeur>
-		<hauteur>320</hauteur>
+		<largeur>1600</largeur>
+		<hauteur>335</hauteur>
 		<compression>70</compression>
 	</taille_image>
 	<taille_image nom="Paysage">

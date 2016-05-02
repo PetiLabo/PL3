@@ -17,7 +17,7 @@
         </bloc>
         <bloc taille="6">
             <titre style="defaut" niveau="1">titre_actu</titre>
-            <image lien="toto">vignette_actu</image>
+            <image lien="toto" survol="defaut">vignette_actu</image>
             <paragraphe style="defaut">texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
-	<meta>
-		<theme>original</theme>
-	</meta>
     <contenu>
         <bloc>
+            <image lien="">bandeau</image>
             <titre niveau="1">id_texte_1</titre>
-            <saut>5</saut>
         </bloc>
     </contenu>
     <contenu>
