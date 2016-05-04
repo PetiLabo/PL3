@@ -23,20 +23,20 @@
                 var percent = Math.round(loaded * 100 / total);
                 $this.html(percent + '%');
             },
-            name: 'img'
+            taille: 0
         }, options);
 
         $('#'+settings.inputId).bind('change', function() {
             $this.css('backgroundImage', 'none');
             var fd = new FormData();
-            fd.append($('#'+settings.inputId).attr('name'), $('#'+settings.inputId).get(0).files[0]);
-            fd.append("name", settings.name);
+            fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
+            fd.append("taille", settings.taille);
 
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function(ev) {
                 $this.html('');
                 var res = eval("("+ev.target.responseText+")");
-                if (res.code != 0) {
+                if (!res.code) {
                     settings.onError(res.code);
                     return;
                 }
@@ -89,7 +89,7 @@ $(document).ready(function() {
 			$(this).singleupload({
 				action: "../petilabo/ajax/pl3_charger_image.php",
 				inputId: "input-"+taille_id,
-				name: "img-"+taille_id,
+				taille: taille_id,
 				onError: function(code) {
 					// console.debug('error code '+res.code);
 					alert("ERREUR : Code "+res.code);
@@ -97,10 +97,10 @@ $(document).ready(function() {
 				onSuccess: function(url, data) {
 					// $('#return_url_text').val(url);
 					alert("URL : "+url);
-				},
+				}/*,
 				onProgress: function(loaded, total) {
 					$('#uploadinfo').html(loaded+"/"+total);
-				}
+				}*/
 			});
 		}
 	});
