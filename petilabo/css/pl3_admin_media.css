@@ -7,9 +7,11 @@
 /* Vignettes pour l'aperçu des images */
 div.taille_container{display:inline-block;border:1px solid #888;border-radius:15px;padding:15px;margin:15px;}
 div.vignette_container{float:left;text-align:center;margin:5px;width:150px;}
+div.vignette_container_progression{width:90%;height:60px;margin:20px auto;border:1px dotted #aaa;background:#e8e8e8;position:relative;}
+div.vignette_container_progression div.vignette_barre_progression{width:0;height:100%;background:#060;}
 a.vignette_apercu_lien{display:block;margin:0 auto;padding:3px;border:3px solid transparent;}
 a.vignette_apercu_lien:hover{border-color:#c00;opacity:0.85;}
-a.vignette_plus{font-size:60px;padding:20px 30px;color:#888;text-decoration:none;}
+a.vignette_plus{font-size:60px;padding:20px 0;color:#888;text-decoration:none;}
 a.vignette_plus:hover{color:#a00;text-decoration:none;}
 p.vignette_legende_image{color:#333;font-style:italic;}
 .clearfix{visibility:hidden;display:block;height:0;clear:both;}
