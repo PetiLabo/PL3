@@ -59,6 +59,7 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 			$this->enregistrer_xml();
 			$this->fiche_a_jour = true;
 		}
+		return $ret;
 	}
 	protected function charger() {
 		$ret = false;

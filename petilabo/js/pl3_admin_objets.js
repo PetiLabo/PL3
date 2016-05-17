@@ -219,11 +219,6 @@ function calculer_coord_editeur(objet, plein_ecran) {
 	return style;
 }
 
-function parser_page() {
-	var nom_page = $("div.page").attr("name");
-	return nom_page;
-}
-
 function parser_html_id(html_id) {
 	if (html_id.length > 0) {
 		var pos_separateur = html_id.indexOf("-");
@@ -235,6 +230,12 @@ function parser_html_id(html_id) {
 		}
 	}
 	return {"erreur": true};
+}
+
+/* Récupération du nom de la page */
+function parser_page() {
+	var nom_page = $("div.page").attr("name");
+	return nom_page;
 }
 
 /* Application de plugins */

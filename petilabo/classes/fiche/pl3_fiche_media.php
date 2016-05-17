@@ -42,22 +42,32 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$liste_medias = $info_media["medias"];
 			$ret .= "<h2>".$nom_taille."</h2>\n";
 			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";
-			foreach($liste_medias as $media) {
-				$nom = $media->get_attribut_nom();
-				$ret .= "<div class=\"vignette_container\">\n";
-				$ret .= "<a id=\"media-".$media->lire_id()."\" class=\"vignette_apercu_lien\" href=\"#\" title=\"Editer l'image ".$nom."\">";
-				$ret .= $media->afficher($this->mode);
-				$ret .= "</a>";
-				$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
-				$ret .= "</div>\n";
-			}
-			$ret .= "<div class=\"vignette_container\">";
-			$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
-			$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"\"/>\n";
-			$ret .= "</div>\n";
+			foreach($liste_medias as $media) {$ret .= $this->afficher_vignette_media($media);}
+			$ret .= $this->afficher_ajout_media($id_taille, $nom_taille);
 			$ret .= "<div class=\"clearfix\"></div>\n";
 			$ret .= "</div>\n";
 		}
+		$ret .= "</div>\n";
+		return $ret;
+	}
+	
+	public function afficher_vignette_media(&$media) {
+		$ret = "";
+		$nom = $media->get_attribut_nom();
+		$ret .= "<div class=\"vignette_container\">\n";
+		$ret .= "<a id=\"media-".$media->lire_id()."\" class=\"vignette_apercu_lien\" href=\"#\" title=\"Editer l'image ".$nom."\">";
+		$ret .= $media->afficher($this->mode);
+		$ret .= "</a>";
+		$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
+		$ret .= "</div>\n";
+		return $ret;
+	}
+	
+	public function afficher_ajout_media($id_taille, $nom_taille) {
+		$ret = "";
+		$ret .= "<div class=\"vignette_container\">";
+		$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+		$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"\"/>\n";
 		$ret .= "</div>\n";
 		return $ret;
 	}

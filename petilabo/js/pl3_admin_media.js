@@ -1,14 +1,16 @@
 /*
  * JS PL3 mode administration media
  */
- 
- $.fn.replaceWithPush = function(a) {
+
+/* ReplaceWith avec renvoi du nouvel objet */
+$.fn.replaceWithPush = function(a) {
     var $a = $(a);
     this.replaceWith($a);
     return $a;
 };
  
 /*
+ * Adapté de :
  * singleuploadimage - jQuery plugin for upload a image, simple and elegant.
  * Copyright (c) 2014 Langwan Luo
  * Licensed under the MIT license
@@ -30,7 +32,8 @@
 				var barre = $("#barre-progression-"+index);
 				if (barre) {barre.css("width", progression+"%");}
             },
-            taille: 0
+            taille: 0,
+			page: 'index'
         }, options);
 
         $('#'+settings.inputId).bind('change', function() {
@@ -39,6 +42,7 @@
             var fd = new FormData();
             fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
             fd.append("taille", settings.taille);
+            fd.append("page", settings.page);
 
             var xhr = new XMLHttpRequest();
             xhr.addEventListener("load", function(ev) {
@@ -65,6 +69,13 @@
     	return this;
     }
 }( jQuery ));
+
+
+/* Récupération du nom de la page */
+function parser_page() {
+	var nom_page = $("div.page_media").attr("name");
+	return nom_page;
+}
 
 /* Initialisations */
 $(document).ready(function() {
@@ -97,6 +108,7 @@ $(document).ready(function() {
 				action: "../petilabo/ajax/pl3_charger_image.php",
 				inputId: "input-"+taille_id,
 				taille: taille_id,
+				page: parser_page(),
 				onError: function(code) {
 					// console.debug('error code '+res.code);
 					alert("ERREUR : Code "+res.code);

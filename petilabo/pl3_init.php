@@ -91,7 +91,7 @@ if (isset($_SERVER["PHP_SELF"])) {
 		}
 		/* Définition des constantes pour la page courante */
 		define("_PAGE_COURANTE", $nom_page_en_cours);
-		define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");		
+		define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_en_cours."/");
 	}
 }
 else {

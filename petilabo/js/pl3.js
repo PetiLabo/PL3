@@ -5,7 +5,6 @@
 /* Blocage des mises en cache */
 $.ajaxSetup ({cache: false});
 
- 
 /* Appel AJAX pour le changement de mode d'administration */
 function changer_mode_admin(mode_admin) {
 	$.ajax({
