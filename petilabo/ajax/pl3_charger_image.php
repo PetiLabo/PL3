@@ -42,9 +42,9 @@ function traduire_erreur_upload($erreur) {
 $info_sortie = "ERREUR : Le serveur n'a pas pu recevoir de fichiers.";
 $retour_valide = false;
 $index_taille = (int) (isset($_POST["taille"])?$_POST["taille"]:0);
-	
+$nom_taille = isset($_POST["nom_taille"])?$_POST["nom_taille"]:null;
 $nom_champ_post = "img-".$index_taille;
-if (isset($_FILES[$nom_champ_post])) {
+if (($index_taille > 0) && (strlen($nom_taille) > 0) && (isset($_FILES[$nom_champ_post]))) {
 	$ret_chargement = $_FILES[$nom_champ_post]["error"];
 	if ($ret_chargement == UPLOAD_ERR_OK) {
 		$fichier_temporaire = $_FILES[$nom_champ_post]["tmp_name"];
@@ -64,7 +64,7 @@ if (isset($_FILES[$nom_champ_post])) {
 			$retour_valide = move_uploaded_file($fichier_temporaire, $cible);
 			if ($retour_valide) {
 				list($largeur, $hauteur) = getimagesize($cible);
-				$image = $fiche_media->instancier_image($nom_destination, $largeur, $hauteur);
+				$image = $fiche_media->instancier_image($nom_destination, $nom_taille, $largeur, $hauteur);
 				if ($image) {
 					$fiche_media->ajouter_objet($image);
 					$fiche_media->enregistrer_xml();
@@ -85,6 +85,9 @@ if (isset($_FILES[$nom_champ_post])) {
 	else {
 		$info_sortie = traduire_erreur_upload($ret_chargement);
 	}
+}
+else {
+	$info_sortie = "ERREUR : Les informations envoyées sont incorrectes.";
 }
 
 echo json_encode(array("code" => $retour_valide, "info" => $info_sortie));

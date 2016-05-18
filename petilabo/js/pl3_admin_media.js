@@ -33,6 +33,7 @@ $.fn.replaceWithPush = function(a) {
 				if (barre) {barre.css("width", progression+"%");}
             },
             taille: 0,
+            nom_taille: "",
 			page: 'index'
         }, options);
 
@@ -42,6 +43,7 @@ $.fn.replaceWithPush = function(a) {
             var fd = new FormData();
             fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
             fd.append("taille", settings.taille);
+            fd.append("nom_taille", settings.nom_taille);
             fd.append("page", settings.page);
 
             var xhr = new XMLHttpRequest();
@@ -103,11 +105,13 @@ $(document).ready(function() {
 	$("a.vignette_plus").each(function() {
 		var plus_id = $(this).attr("id");
 		var taille_id = parseInt(plus_id.replace("ajout-", ""));
-		if (taille_id > 0) {
+		var nom_taille = $(this).attr("name");
+		if ((taille_id > 0) && (nom_taille.length > 0)) {
 			$(this).singleupload({
 				action: "../petilabo/ajax/pl3_charger_image.php",
 				inputId: "input-"+taille_id,
 				taille: taille_id,
+				nom_taille: nom_taille,
 				page: parser_page(),
 				onError: function(message) {
 					// console.debug('error code '+res.code);

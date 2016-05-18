@@ -14,10 +14,11 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		parent::__construct($chemin, $id);
 	}
 	
-	public function instancier_image($fichier, $largeur, $hauteur) {
+	public function instancier_image($fichier, $taille, $largeur, $hauteur) {
 		$objet = parent::instancier_nouveau("pl3_objet_media_image");
 		if ($objet) {
 			$objet->set_valeur_fichier($fichier);
+			$objet->set_valeur_taille_standard($taille);
 			$objet->set_valeur_largeur_reelle($largeur);
 			$objet->set_valeur_hauteur_reelle($hauteur);
 			$nom = substr($fichier, 0, strpos($fichier,  "."));
@@ -77,7 +78,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	public function afficher_ajout_media($id_taille, $nom_taille) {
 		$ret = "";
 		$ret .= "<div class=\"vignette_container\">";
-		$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+		$ret .= "<a id=\"ajout-".$id_taille."\" name=\"".$nom_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
 		$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"\"/>\n";
 		$ret .= "</div>\n";
 		return $ret;
