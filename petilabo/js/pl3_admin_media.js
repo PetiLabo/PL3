@@ -25,8 +25,8 @@ $.fn.replaceWithPush = function(a) {
         var inputfile = null;
         var settings = $.extend({
             action: '#',
-            onSuccess: function(url, data) {},
-            onError: function(code){},
+            onSuccess: function(url) {},
+            onError: function(message){},
             onProgress: function(index, loaded, total) {
                 var progression = Math.round(loaded * 100 / total);
 				var barre = $("#barre-progression-"+index);
@@ -48,15 +48,15 @@ $.fn.replaceWithPush = function(a) {
             xhr.addEventListener("load", function(ev) {
                 var res = eval("("+ev.target.responseText+")");
                 if (!res.code) {
-                    settings.onError(res.code);
+                    settings.onError(res.info);
                     return;
                 }
 				var d = new Date();
 				var t = d.getTime();
-				var src = res.url+"?t="+t;
+				var src = res.info+"?t="+t;
                 var html_vignette = "<a class='vignette_apercu_lien' href='#'><img class='image_responsive' src='"+src+"' /></a>";
 				vignette = vignette.replaceWithPush(html_vignette);
-                settings.onSuccess(res.url, res.data);
+                settings.onSuccess(res.info);
             },
             false);
             xhr.upload.addEventListener("progress", function(ev) {
@@ -109,11 +109,11 @@ $(document).ready(function() {
 				inputId: "input-"+taille_id,
 				taille: taille_id,
 				page: parser_page(),
-				onError: function(code) {
+				onError: function(message) {
 					// console.debug('error code '+res.code);
-					alert("ERREUR : Code "+res.code);
+					alert(message);
 				},
-				onSuccess: function(url, data) {
+				onSuccess: function(url) {
 					// $('#return_url_text').val(url);
 					alert("URL : "+url);
 				}
