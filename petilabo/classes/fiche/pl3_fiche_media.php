@@ -14,6 +14,17 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		parent::__construct($chemin, $id);
 	}
 	
+	public function instancier_image($fichier, $largeur, $hauteur) {
+		$objet = parent::instancier_nouveau("pl3_objet_media_image");
+		if ($objet) {
+			$objet->set_valeur_fichier($fichier);
+			$objet->set_valeur_largeur_reelle($largeur);
+			$objet->set_valeur_hauteur_reelle($hauteur);
+			$nom = substr($fichier, 0, strpos($fichier,  "."));
+			$objet->set_attribut_nom($nom);
+		}
+		return $objet;
+	}
 	/* Afficher */
 	public function afficher() {
 		$ret = "";

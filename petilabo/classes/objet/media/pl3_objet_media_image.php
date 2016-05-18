@@ -134,13 +134,14 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_media_image_fichier::NOM_BALISE);
-		$this->declarer_element(pl3_objet_media_image_alt::NOM_BALISE);
-		$this->declarer_element(pl3_objet_media_image_taille_standard::NOM_BALISE);
-		$this->declarer_element(pl3_objet_media_image_largeur_reelle::NOM_BALISE);
-		$this->declarer_element(pl3_objet_media_image_hauteur_reelle::NOM_BALISE);
+		$this->declarer_element("pl3_objet_media_image_fichier");
+		$this->declarer_element("pl3_objet_media_image_alt");
+		$this->declarer_element("pl3_objet_media_image_taille_standard");
+		$this->declarer_element("pl3_objet_media_image_largeur_reelle");
+		$this->declarer_element("pl3_objet_media_image_hauteur_reelle");
 		parent::__construct($id, $parent, $noeud);
 	}
+	public function construire_nouveau() {}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();

@@ -62,7 +62,19 @@ if (isset($_FILES[$nom_champ_post])) {
 			$nom_destination = nettoyer_nom_fichier($nom_origine);
 			$cible = _CHEMIN_XML."images/".$nom_destination;
 			$retour_valide = move_uploaded_file($fichier_temporaire, $cible);
-			if ($retour_valide) {$info_sortie = _CHEMIN_IMAGES_XML.$nom_destination;}
+			if ($retour_valide) {
+				list($largeur, $hauteur) = getimagesize($cible);
+				$image = $fiche_media->instancier_image($nom_destination, $largeur, $hauteur);
+				if ($image) {
+					$fiche_media->ajouter_objet($image);
+					$fiche_media->enregistrer_xml();
+					$info_sortie = _CHEMIN_IMAGES_XML.$nom_destination;
+				}
+				else {
+					$retour_valide = false;
+					$info_sortie = "ERREUR : Impossible de créer l'élément XML pour ce média.";
+				}
+			}
 			else {$info_sortie = "ERREUR : Le fichier téléchargé n'a pas pu être installé sur le site.";}
 		}
 		else {

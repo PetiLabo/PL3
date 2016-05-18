@@ -28,12 +28,12 @@ class pl3_objet_theme_style_page extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_theme_style_responsive::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_largeur::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_marge::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_retrait::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_fond::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_css::NOM_BALISE);
+		$this->declarer_element("pl3_objet_theme_style_responsive");
+		$this->declarer_element("pl3_objet_theme_style_largeur");
+		$this->declarer_element("pl3_objet_theme_style_marge");
+		$this->declarer_element("pl3_objet_theme_style_retrait");
+		$this->declarer_element("pl3_objet_theme_style_fond");
+		$this->declarer_element("pl3_objet_theme_style_css");
 		parent::__construct($id, $parent, $noeud);
 	}
 

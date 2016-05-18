@@ -5,6 +5,7 @@
  */
  
 abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
+	protected $classes_elements = array();
 	protected $noms_elements = array();
 	protected $elements = array();
 
@@ -15,8 +16,26 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		}
 		return null;
 	}
+
+	public function ecrire_element_valeur($nom_balise, $valeur) {
+		$ret = false;
+		if (in_array($nom_balise, $this->noms_elements)) {
+			if (!(isset($this->elements[$nom_balise]))) {
+				$nom_classe = $this->classes_elements[$nom_balise];
+				$element = new $nom_classe(1, $this);
+				$this->ajouter_element_xml($element);
+			}
+			else {
+				$element = $this->elements[$nom_balise];
+			}
+			$ret = $element->set_valeur($valeur);
+		}
+		return $ret;
+	}
 	
-	protected function declarer_element($nom_balise) {
+	protected function declarer_element($nom_classe) {
+		$nom_balise = $nom_classe::NOM_BALISE;
+		$this->classes_elements[$nom_balise] = $nom_classe;
 		$this->noms_elements[] = $nom_balise;
 	}
 
@@ -66,6 +85,10 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		if (!(strncmp($methode, "get_valeur_", 11))) {
 			$nom_balise = substr($methode, 11);
 			return $this->lire_element_valeur($nom_balise);
+		}
+		else if (!(strncmp($methode, "set_valeur_", 11))) {
+			$nom_balise = substr($methode, 11);
+			$this->ecrire_element_valeur($nom_balise, $args[0]);
 		}
 		else if (!(strncmp($methode, "get_attribut_", 13))) {
 			$nom_attribut = substr($methode, 13);

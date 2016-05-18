@@ -19,11 +19,11 @@ class pl3_objet_theme_style_contenu extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element(pl3_objet_theme_style_marge::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_retrait::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_bordure::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_fond::NOM_BALISE);
-		$this->declarer_element(pl3_objet_theme_style_css::NOM_BALISE);
+		$this->declarer_element("pl3_objet_theme_style_marge");
+		$this->declarer_element("pl3_objet_theme_style_retrait");
+		$this->declarer_element("pl3_objet_theme_style_bordure");
+		$this->declarer_element("pl3_objet_theme_style_fond");
+		$this->declarer_element("pl3_objet_theme_style_css");
 		parent::__construct($id, $parent, $noeud);
 	}
 
