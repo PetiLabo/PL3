@@ -39,20 +39,20 @@ function traduire_erreur_upload($erreur) {
 }
 
 /* Traitement de l'upload */
-$info_sortie = "ERREUR : Le serveur n'a pas pu recevoir de fichiers.";
 $retour_valide = false;
-$index_taille = (int) (isset($_POST["taille"])?$_POST["taille"]:0);
-$nom_taille = isset($_POST["nom_taille"])?$_POST["nom_taille"]:null;
+$index_taille = (int) pl3_ajax_post::Post("taille");
+$nom_taille = pl3_ajax_post::Post("nom_taille");
+$nom_page = pl3_ajax_post::Post("page");
 $nom_champ_post = "img-".$index_taille;
-if (($index_taille > 0) && (strlen($nom_taille) > 0) && (isset($_FILES[$nom_champ_post]))) {
+if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) && (isset($_FILES[$nom_champ_post]))) {
+	define("_PAGE_COURANTE", $nom_page);
+	define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page."/");
+
 	$ret_chargement = $_FILES[$nom_champ_post]["error"];
 	if ($ret_chargement == UPLOAD_ERR_OK) {
 		$fichier_temporaire = $_FILES[$nom_champ_post]["tmp_name"];
 
 		/* Chargement de la fiche média locale */
-		$nom_page = isset($_POST["page"])?$_POST["page"]:_PAGE_PRINCIPALE;
-		define("_PAGE_COURANTE", $nom_page);
-		define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page."/");
 		$fiche_media = new pl3_fiche_media(_CHEMIN_PAGE_COURANTE, 1);
 		$retour_valide = $fiche_media->charger_xml();
 		
@@ -64,7 +64,8 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (isset($_FILES[$nom_cham
 			$retour_valide = move_uploaded_file($fichier_temporaire, $cible);
 			if ($retour_valide) {
 				list($largeur, $hauteur) = getimagesize($cible);
-				$image = $fiche_media->instancier_image($nom_destination, $nom_taille, $largeur, $hauteur);
+				$taille = htmlspecialchars($nom_taille, ENT_QUOTES, "UTF-8");
+				$image = $fiche_media->instancier_image($nom_destination, $taille, $largeur, $hauteur);
 				if ($image) {
 					$fiche_media->ajouter_objet($image);
 					$fiche_media->enregistrer_xml();

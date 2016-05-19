@@ -2,11 +2,7 @@
 define("_CHEMIN_BASE_URL", "../../");
 define("_CHEMIN_BASE_RESSOURCES", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
-/*
-$_POST["nom_page"] = "index";
-$_POST["balise_id"] = "1-1-3";
-$_POST["nom_balise"] = "titre";
-*/
+
 /* Initialisations */
 $html = "";
 $bloc_id = null;

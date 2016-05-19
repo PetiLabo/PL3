@@ -21,8 +21,9 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$objet->set_valeur_taille_standard($taille);
 			$objet->set_valeur_largeur_reelle($largeur);
 			$objet->set_valeur_hauteur_reelle($hauteur);
-			$nom = substr($fichier, 0, strpos($fichier,  "."));
-			$objet->set_attribut_nom($nom);
+			$fichier_sans_prefixe = substr($fichier, 0, strpos($fichier,  "."));
+			$nom_image = htmlspecialchars($fichier_sans_prefixe, ENT_QUOTES, "UTF-8");
+			$objet->set_attribut_nom($nom_image);
 		}
 		return $objet;
 	}
