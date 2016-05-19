@@ -69,7 +69,8 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 				if ($image) {
 					$fiche_media->ajouter_objet($image);
 					$fiche_media->enregistrer_xml();
-					$info_sortie = _CHEMIN_IMAGES_XML.$nom_destination;
+					$info_sortie = $fiche_media->afficher_vignette_media($image);
+					$info_sortie .= $fiche_media->afficher_ajout_media($index_taille, $taille);
 				}
 				else {
 					$retour_valide = false;

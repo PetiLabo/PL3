@@ -25,7 +25,7 @@ $.fn.replaceWithPush = function(a) {
         var inputfile = null;
         var settings = $.extend({
             action: '#',
-            onSuccess: function(url) {},
+            onSuccess: function(html) {},
             onError: function(message){},
             onProgress: function(index, loaded, total) {
                 var progression = Math.round(loaded * 100 / total);
@@ -53,11 +53,12 @@ $.fn.replaceWithPush = function(a) {
                     settings.onError(res.info);
                     return;
                 }
-				var d = new Date();
-				var t = d.getTime();
-				var src = res.info+"?t="+t;
-                var html_vignette = "<a class='vignette_apercu_lien' href='#'><img class='image_responsive' src='"+src+"' /></a>";
-				vignette = vignette.replaceWithPush(html_vignette);
+				/* Ajout de la nouvelle image et du nouveau bouton d'ajout */
+				var vignette_parent = vignette.parent().replaceWithPush(res.info);
+				/* Le nouveau bouton d'ajout reçoit à son tour le plugin d'upload */
+				vignette_parent.find("a.vignette_plus").each(function() {
+					installer_single_image_upload($(this));
+				});
                 settings.onSuccess(res.info);
             },
             false);
@@ -77,6 +78,23 @@ $.fn.replaceWithPush = function(a) {
 function parser_page() {
 	var nom_page = $("div.page_media").attr("name");
 	return nom_page;
+}
+
+/* Installation du plugin single image upload sur un bouton ajout media */
+function installer_single_image_upload(bouton) {
+	var plus_id = bouton.attr("id");
+	var taille_id = parseInt(plus_id.replace("ajout-", ""));
+	var nom_taille = bouton.attr("name");
+	if ((taille_id > 0) && (nom_taille.length > 0)) {
+		bouton.singleupload({
+			action: "../petilabo/ajax/pl3_charger_image.php",
+			inputId: "input-"+taille_id,
+			taille: taille_id,
+			nom_taille: nom_taille,
+			page: parser_page(),
+			onError: function(message) {alert(message);	}
+		});
+	}
 }
 
 /* Initialisations */
@@ -103,25 +121,6 @@ $(document).ready(function() {
 
 	/* Attachement du plugin single image upload aux boutons d'ajout media */
 	$("a.vignette_plus").each(function() {
-		var plus_id = $(this).attr("id");
-		var taille_id = parseInt(plus_id.replace("ajout-", ""));
-		var nom_taille = $(this).attr("name");
-		if ((taille_id > 0) && (nom_taille.length > 0)) {
-			$(this).singleupload({
-				action: "../petilabo/ajax/pl3_charger_image.php",
-				inputId: "input-"+taille_id,
-				taille: taille_id,
-				nom_taille: nom_taille,
-				page: parser_page(),
-				onError: function(message) {
-					// console.debug('error code '+res.code);
-					alert(message);
-				},
-				onSuccess: function(url) {
-					// $('#return_url_text').val(url);
-					alert("URL : "+url);
-				}
-			});
-		}
+		installer_single_image_upload($(this));
 	});
 });
