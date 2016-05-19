@@ -6,7 +6,7 @@
 
 /* Vignettes pour l'aperçu des images */
 div.taille_container{display:inline-block;border:1px solid #888;border-radius:15px;padding:15px;margin:15px;}
-div.vignette_container{float:left;text-align:center;margin:5px;width:150px;}
+div.vignette_container{float:left;text-align:center;margin:5px;width:150px;word-wrap: break-word;overflow:hidden;}
 div.vignette_container_progression{width:90%;height:60px;margin:20px auto;border:1px dotted #aaa;background:#e8e8e8;position:relative;}
 div.vignette_container_progression div.vignette_barre_progression{width:0;height:100%;background:#060;}
 a.vignette_apercu_lien{display:block;margin:0 auto;padding:3px;border:3px solid transparent;}
