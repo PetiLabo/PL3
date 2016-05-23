@@ -51,15 +51,16 @@ $.fn.replaceWithPush = function(a) {
                 var res = eval("("+ev.target.responseText+")");
                 if (!res.code) {
                     settings.onError(res.info);
-                    return;
                 }
-				/* Ajout de la nouvelle image et du nouveau bouton d'ajout */
-				var vignette_parent = vignette.parent().replaceWithPush(res.info);
+				/* Ajout de la nouvelle image et/ou du nouveau bouton d'ajout */
+				var vignette_parent = vignette.parent().replaceWithPush(res.html);
 				/* Le nouveau bouton d'ajout reçoit à son tour le plugin d'upload */
 				vignette_parent.find("a.vignette_plus").each(function() {
 					installer_single_image_upload($(this));
 				});
-                settings.onSuccess(res.info);
+                if (res.code) {
+					settings.onSuccess(res.html);
+				}
             },
             false);
             xhr.upload.addEventListener("progress", function(ev) {

@@ -39,11 +39,14 @@ function traduire_erreur_upload($erreur) {
 }
 
 /* Traitement de l'upload */
+$info_sortie = "";
 $retour_valide = false;
 $index_taille = (int) pl3_ajax_post::Post("taille");
 $nom_taille = pl3_ajax_post::Post("nom_taille");
+$taille = htmlspecialchars($nom_taille, ENT_QUOTES, "UTF-8");
 $nom_page = pl3_ajax_post::Post("page");
 $nom_champ_post = "img-".$index_taille;
+$html = pl3_fiche_media::Afficher_ajout_media($index_taille, $taille);
 if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) && (isset($_FILES[$nom_champ_post]))) {
 	define("_PAGE_COURANTE", $nom_page);
 	define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page."/");
@@ -64,13 +67,11 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 			$retour_valide = move_uploaded_file($fichier_temporaire, $cible);
 			if ($retour_valide) {
 				list($largeur, $hauteur) = getimagesize($cible);
-				$taille = htmlspecialchars($nom_taille, ENT_QUOTES, "UTF-8");
 				$image = $fiche_media->instancier_image($nom_destination, $taille, $largeur, $hauteur);
 				if ($image) {
 					$fiche_media->ajouter_objet($image);
 					$fiche_media->enregistrer_xml();
-					$info_sortie = $fiche_media->afficher_vignette_media($image);
-					$info_sortie .= $fiche_media->afficher_ajout_media($index_taille, $taille);
+					$html = ($fiche_media->afficher_vignette_media($image)).$html;
 				}
 				else {
 					$retour_valide = false;
@@ -92,4 +93,4 @@ else {
 	$info_sortie = "ERREUR : Les informations envoyées sont incorrectes.";
 }
 
-echo json_encode(array("code" => $retour_valide, "info" => $info_sortie));
+echo json_encode(array("code" => $retour_valide, "info" => $info_sortie, "html" => $html));

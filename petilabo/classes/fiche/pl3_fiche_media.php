@@ -56,7 +56,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$ret .= "<h2>".$nom_taille."</h2>\n";
 			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";
 			foreach($liste_medias as $media) {$ret .= $this->afficher_vignette_media($media);}
-			$ret .= $this->afficher_ajout_media($id_taille, $nom_taille);
+			$ret .= self::Afficher_ajout_media($id_taille, $nom_taille);
 			$ret .= "<div class=\"clearfix\"></div>\n";
 			$ret .= "</div>\n";
 		}
@@ -76,7 +76,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
-	public function afficher_ajout_media($id_taille, $nom_taille) {
+	public static function Afficher_ajout_media($id_taille, $nom_taille) {
 		$ret = "";
 		$ret .= "<div class=\"vignette_container\">";
 		$ret .= "<a id=\"ajout-".$id_taille."\" name=\"".$nom_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
