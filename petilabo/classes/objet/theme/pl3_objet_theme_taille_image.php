@@ -40,9 +40,9 @@ class pl3_objet_theme_taille_image extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
-		$this->declarer_element("pl3_objet_theme_style_responsive");
-		$this->declarer_element("pl3_objet_theme_style_largeur");
-		$this->declarer_element("pl3_objet_theme_style_marge");
+		$this->declarer_element("pl3_objet_theme_taille_image_largeur");
+		$this->declarer_element("pl3_objet_theme_taille_image_hauteur");
+		$this->declarer_element("pl3_objet_theme_taille_image_compression");
 		parent::__construct($id, $parent, $noeud);
 	}
 
@@ -52,7 +52,7 @@ class pl3_objet_theme_taille_image extends pl3_outil_objet_composite_xml {
 	
 	public function parser_balise_fille($nom_balise) {
 		$source_page = $this->get_source_page();
-		$tab_ret = $source_page->parser_balise_fille(self::NOM_FICHE, $this, "pl3_objet_theme_style", $nom_balise, $this->noeud);
+		$tab_ret = $source_page->parser_balise_fille(self::NOM_FICHE, $this, "pl3_objet_theme_taille_image", $nom_balise, $this->noeud);
 		$nb_ret = (int) count($tab_ret);
 		$ret = ($nb_ret > 0)?$tab_ret[$nb_ret - 1]:null;
 		return $ret;

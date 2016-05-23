@@ -38,6 +38,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		}
 		
 		/* Classement des images selon les tailles */
+		$theme = $source_page->get_theme();
 		$liste_medias = $this->liste_objets["pl3_objet_media_image"];
 		foreach($liste_medias as $media) {
 			$nom_taille = $media->get_valeur_taille_standard();
@@ -53,7 +54,10 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$info_media = $liste_medias_par_taille[$nom_taille];
 			$id_taille = $info_media["id"];
 			$liste_medias = $info_media["medias"];
-			$ret .= "<h2>".$nom_taille."</h2>\n";
+			$taille = $theme->chercher_objet_classe_par_attribut("pl3_objet_theme_taille_image", self::NOM_ATTRIBUT_NOM, $nom_taille);
+			$largeur = $taille->get_valeur_largeur();
+			$hauteur = $taille->get_valeur_hauteur();
+			$ret .= "<h2>".$nom_taille." <span class=\"indication_taille_image\">(".$largeur."x".$hauteur.")</span></h2>\n";
 			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";
 			foreach($liste_medias as $media) {$ret .= $this->afficher_vignette_media($media);}
 			$ret .= self::Afficher_ajout_media($id_taille, $nom_taille);
