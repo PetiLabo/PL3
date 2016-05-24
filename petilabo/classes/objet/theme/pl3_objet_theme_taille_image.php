@@ -66,11 +66,5 @@ class pl3_objet_theme_taille_image extends pl3_outil_objet_composite_xml {
 		return $xml;
 	}
 	
-	public function afficher($mode) {
-		$nom = $this->get_attribut_nom();
-		$ret = ".page_".$nom."{";
-		$ret .= $this->afficher_elements_xml($mode);
-		$ret .= "}\n";
-		return $ret;
-	}
+	public function afficher($mode) {return null;}
 }

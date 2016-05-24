@@ -34,6 +34,8 @@ $.fn.replaceWithPush = function(a) {
             },
             taille: 0,
             nom_taille: "",
+			largeur_taille: 0,
+			hauteur_taille: 0,
 			page: 'index'
         }, options);
 
@@ -44,6 +46,8 @@ $.fn.replaceWithPush = function(a) {
             fd.append($('#'+settings.inputId).attr("name"), $('#'+settings.inputId).get(0).files[0]);
             fd.append("taille", settings.taille);
             fd.append("nom_taille", settings.nom_taille);
+            fd.append("largeur_taille", settings.largeur_taille);
+            fd.append("hauteur_taille", settings.hauteur_taille);
             fd.append("page", settings.page);
 
             var xhr = new XMLHttpRequest();
@@ -86,12 +90,23 @@ function installer_single_image_upload(bouton) {
 	var plus_id = bouton.attr("id");
 	var taille_id = parseInt(plus_id.replace("ajout-", ""));
 	var nom_taille = bouton.attr("name");
+	var titre_taille = $("#titre-taille-"+taille_id);
+	if (titre_taille !== undefined) {
+		var largeur = parseInt(titre_taille.data("largeur"));
+		var hauteur = parseInt(titre_taille.data("hauteur"));
+	}
+	else {
+		var largeur = 0;
+		var hauteur = 0;
+	}
 	if ((taille_id > 0) && (nom_taille.length > 0)) {
 		bouton.singleupload({
 			action: "../petilabo/ajax/pl3_charger_image.php",
 			inputId: "input-"+taille_id,
 			taille: taille_id,
 			nom_taille: nom_taille,
+			largeur_taille: largeur,
+			hauteur_taille: hauteur,
 			page: parser_page(),
 			onError: function(message) {alert(message);	}
 		});
