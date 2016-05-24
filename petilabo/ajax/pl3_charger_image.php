@@ -6,6 +6,11 @@ define("_CHEMIN_BASE_RESSOURCES", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
 /* Fonctions de service */
+function get_extension_fichier($fichier) {
+	$ret = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
+	return $ret;
+}
+	
 function nettoyer_nom_fichier($nom_fichier) {
 	$ret = trim(strtolower($nom_fichier));
 	$ret = str_replace(" ", "-", $ret);
@@ -38,6 +43,24 @@ function traduire_erreur_upload($erreur) {
 	return $ret;
 }
 
+function move_and_resize_uploaded_file($src, $dest, &$message) {
+	$ret = false;
+	if (@file_exists($src)) {
+		$ext = get_extension_fichier($dest);
+		if (!(strcmp($ext, "jpg") && strcmp($ext, "png") && strcmp($ext, "gif"))) {
+			$ret = move_uploaded_file($src, $dest);
+			if (!($ret)) {$message = "ERREUR : Impossible d'installer le fichier téléchargé.";}
+		}
+		else {
+			$message = "ERREUR : Les fichiers au format ".$ext." ne peuvent pas être gérés comme des médias.";
+		}
+	}
+	else {
+		$message = "ERREUR : Le fichier téléchargé est inacessible";
+	}
+	return $ret;
+}
+
 /* Traitement de l'upload */
 $info_sortie = "";
 $retour_valide = false;
@@ -66,7 +89,7 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 			$nom_origine = $_FILES[$nom_champ_post]["name"];
 			$nom_destination = nettoyer_nom_fichier($nom_origine);
 			$cible = _CHEMIN_XML."images/".$nom_destination;
-			$retour_valide = move_uploaded_file($fichier_temporaire, $cible);
+			$retour_valide = move_and_resize_uploaded_file($fichier_temporaire, $cible, $info_sortie);
 			if ($retour_valide) {
 				list($largeur, $hauteur) = getimagesize($cible);
 				$image = $fiche_media->instancier_image($nom_destination, $taille, $largeur, $hauteur);
@@ -80,7 +103,6 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 					$info_sortie = "ERREUR : Impossible de créer l'élément XML pour ce média.";
 				}
 			}
-			else {$info_sortie = "ERREUR : Le fichier téléchargé n'a pas pu être installé sur le site.";}
 		}
 		else {
 			@unlink($fichier_temporaire);
