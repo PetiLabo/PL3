@@ -36,6 +36,7 @@ $.fn.replaceWithPush = function(a) {
             nom_taille: "",
 			largeur_taille: 0,
 			hauteur_taille: 0,
+			compression: 75,
 			page: 'index'
         }, options);
 
@@ -48,6 +49,7 @@ $.fn.replaceWithPush = function(a) {
             fd.append("nom_taille", settings.nom_taille);
             fd.append("largeur_taille", settings.largeur_taille);
             fd.append("hauteur_taille", settings.hauteur_taille);
+            fd.append("compression", settings.compression);
             fd.append("page", settings.page);
 
             var xhr = new XMLHttpRequest();
@@ -94,10 +96,12 @@ function installer_single_image_upload(bouton) {
 	if (titre_taille !== undefined) {
 		var largeur = parseInt(titre_taille.data("largeur"));
 		var hauteur = parseInt(titre_taille.data("hauteur"));
+		var compression = parseInt(titre_taille.data("compression"));
 	}
 	else {
 		var largeur = 0;
 		var hauteur = 0;
+		var compression = 75;
 	}
 	if ((taille_id > 0) && (nom_taille.length > 0)) {
 		bouton.singleupload({
@@ -107,6 +111,7 @@ function installer_single_image_upload(bouton) {
 			nom_taille: nom_taille,
 			largeur_taille: largeur,
 			hauteur_taille: hauteur,
+			compression: compression,
 			page: parser_page(),
 			onError: function(message) {alert(message);	}
 		});

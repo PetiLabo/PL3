@@ -15,16 +15,22 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	}
 	
 	public function instancier_image($fichier, $taille, $largeur, $hauteur) {
-		$objet = parent::instancier_nouveau("pl3_objet_media_image");
-		if ($objet) {
-			$objet->set_valeur_fichier($fichier);
-			$objet->set_valeur_taille_standard($taille);
-			$objet->set_valeur_largeur_reelle($largeur);
-			$objet->set_valeur_hauteur_reelle($hauteur);
-			$fichier_sans_prefixe = substr($fichier, 0, strpos($fichier,  "."));
-			$nom_image = htmlspecialchars($fichier_sans_prefixe, ENT_QUOTES, "UTF-8");
-			$objet->set_attribut_nom($nom_image);
+		$fichier_sans_prefixe = substr($fichier, 0, strpos($fichier,  "."));
+		$nom_image = htmlspecialchars($fichier_sans_prefixe, ENT_QUOTES, "UTF-8");
+		$doublon = $this->chercher_objet_classe_par_attribut("pl3_objet_media_image", self::NOM_ATTRIBUT_NOM, $nom_image);
+		if (is_null($doublon)) {
+			$objet = parent::instancier_nouveau("pl3_objet_media_image");
+			if ($objet) {
+				$objet->set_valeur_fichier($fichier);
+				$objet->set_valeur_taille_standard($taille);
+				$objet->set_valeur_largeur_reelle($largeur);
+				$objet->set_valeur_hauteur_reelle($hauteur);
+				$fichier_sans_prefixe = substr($fichier, 0, strpos($fichier,  "."));
+				$nom_image = htmlspecialchars($fichier_sans_prefixe, ENT_QUOTES, "UTF-8");
+				$objet->set_attribut_nom($nom_image);
+			}
 		}
+		else {$objet = null;}
 		return $objet;
 	}
 	/* Afficher */
@@ -56,8 +62,11 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$liste_medias = $info_media["medias"];
 			$taille = $theme->chercher_objet_classe_par_attribut("pl3_objet_theme_taille_image", self::NOM_ATTRIBUT_NOM, $nom_taille);
 			$largeur = $taille->get_valeur_largeur();
+			if (((int) $largeur) == 0) {$largeur = "...";}
 			$hauteur = $taille->get_valeur_hauteur();
-			$ret .= "<h2 id=\"titre-taille-".$id_taille."\" data-largeur=\"".$largeur."\" data-hauteur=\"".$hauteur."\">".$nom_taille." ";
+			if (((int) $hauteur) == 0) {$hauteur = "...";}
+			$compression = (int) $taille->get_valeur_compression();
+			$ret .= "<h2 id=\"titre-taille-".$id_taille."\" data-largeur=\"".$largeur."\" data-hauteur=\"".$hauteur."\" data-compression=\"".$compression."\" >".$nom_taille." ";
 			$ret .= "<span class=\"indication_taille_image\">(".$largeur."x".$hauteur.")</span>";
 			$ret .= "</h2>\n";
 			$ret .= "<div id=\"taille-".$id_taille."\" class=\"taille_container\">\n";

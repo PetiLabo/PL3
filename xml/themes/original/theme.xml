@@ -16,7 +16,18 @@
 		<hauteur>640</hauteur>
 		<compression>75</compression>
 	</taille_image>
-
+	<taille_image nom="Largeur fixe">
+		<largeur>300</largeur>
+		<compression>75</compression>
+	</taille_image>
+	<taille_image nom="Hauteur fixe">
+		<hauteur>300</hauteur>
+		<compression>75</compression>
+	</taille_image>
+	<taille_image nom="Taille libre">
+		<compression>75</compression>
+	</taille_image>
+	
 	<!-- Styles de page -->
     <style_page nom="defaut">
         <largeur>90%</largeur>

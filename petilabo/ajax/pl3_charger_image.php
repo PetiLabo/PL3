@@ -43,7 +43,7 @@ function traduire_erreur_upload($erreur) {
 	return $ret;
 }
 
-function move_and_resize_uploaded_file($src, $dest, &$message) {
+function move_and_resize_uploaded_file($src, $dest, $largeur, $hauteur, $compression, &$message) {
 	$ret = false;
 	if (@file_exists($src)) {
 		$ext = get_extension_fichier($dest);
@@ -68,6 +68,7 @@ $index_taille = (int) pl3_ajax_post::Post("taille");
 $nom_taille = pl3_ajax_post::Post("nom_taille");
 $largeur_taille = (int) pl3_ajax_post::Post("largeur_taille");
 $hauteur_taille = (int) pl3_ajax_post::Post("hauteur_taille");
+$compression = (int) pl3_ajax_post::Post("compression");
 $taille = htmlspecialchars($nom_taille, ENT_QUOTES, "UTF-8");
 $nom_page = pl3_ajax_post::Post("page");
 $nom_champ_post = "img-".$index_taille;
@@ -89,7 +90,7 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 			$nom_origine = $_FILES[$nom_champ_post]["name"];
 			$nom_destination = nettoyer_nom_fichier($nom_origine);
 			$cible = _CHEMIN_XML."images/".$nom_destination;
-			$retour_valide = move_and_resize_uploaded_file($fichier_temporaire, $cible, $info_sortie);
+			$retour_valide = move_and_resize_uploaded_file($fichier_temporaire, $cible, $largeur_taille, $hauteur_taille, $compression, $info_sortie);
 			if ($retour_valide) {
 				list($largeur, $hauteur) = getimagesize($cible);
 				$image = $fiche_media->instancier_image($nom_destination, $taille, $largeur, $hauteur);
@@ -100,7 +101,8 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 				}
 				else {
 					$retour_valide = false;
-					$info_sortie = "ERREUR : Impossible de créer l'élément XML pour ce média.";
+					$info_sortie = "ERREUR : Une image du même nom existe déjà.";
+					/* TODO : Gérer les doublons dans les noms de fichier par rapport au unlink */
 				}
 			}
 		}
