@@ -121,6 +121,7 @@ class pl3_telechargement_image {
 	public function get_nom_image() {return $this->nom_dest;}
 	
 	private function resize_uploaded_file() {
+		$ret = true;
 		list($largeur_image, $hauteur_image) = getimagesize($this->src);
 		// Taille standard
 		if (($this->largeur > 0) && ($this->hauteur > 0)) {
@@ -138,7 +139,10 @@ class pl3_telechargement_image {
 		if (($this->largeur > 0) || ($this->hauteur > 0)) {
 			$this->retailler($largeur_image, $hauteur_image, $largeur, $hauteur, $delta_l, $delta_h);
 		}
-		return true;
+		else {
+			$ret = move_uploaded_file($this->src, $this->dest);
+		}
+		return $ret;
 	}
 
 	private function calculer_delta($largeur_image, $hauteur_image) {
