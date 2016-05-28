@@ -60,9 +60,15 @@ class pl3_telechargement_post {
 
 /* Classe de service pour le traitement du fichier image */
 class pl3_telechargement_image {
+	const EXTENSION_IMAGE_JPEG = "jpeg";
+	const EXTENSION_IMAGE_JPG = "jpg";
+	const EXTENSION_IMAGE_PNG = "png";
+	const EXTENSION_IMAGE_GIF = "gif";
+
 	private $src = null;
 	private $nom_dest = null;
 	private $dest = null;
+	private $ext = null;
 	private $largeur = 0;
 	private $hauteur = 0;
 	private $compression = 0;
@@ -77,6 +83,7 @@ class pl3_telechargement_image {
 	public function set_destination($nom_origine) {
 		$this->nom_dest = $this->nettoyer_nom_fichier($nom_origine);
 		$this->dest = _CHEMIN_XML."images/".$this->nom_dest;
+		$this->ext = $this->get_extension_fichier($this->nom_dest);
 	}
 
 	public function move_and_resize_uploaded_file(&$message) {
@@ -86,13 +93,12 @@ class pl3_telechargement_image {
 				$message = "ERREUR : Un fichier portant le même nom existe déjà.";
 			}
 			else {
-				$ext = $this->get_extension_fichier($this->dest);
-				if (!(strcmp($ext, "jpg") && strcmp($ext, "png") && strcmp($ext, "gif"))) {
+				if ($this->is_extension_media($this->ext)) {
 					$ret = move_uploaded_file($this->src, $this->dest);
 					if (!($ret)) {$message = "ERREUR : Impossible d'installer le fichier téléchargé.";}
 				}
 				else {
-					$message = "ERREUR : Les fichiers au format ".$ext." ne peuvent pas être gérés comme des médias.";
+					$message = "ERREUR : Les fichiers au format ".$this->ext." ne peuvent pas être gérés comme des médias.";
 				}
 			}
 		}
@@ -117,12 +123,19 @@ class pl3_telechargement_image {
 	private function nettoyer_nom_fichier($nom_fichier) {
 		$ret = trim(strtolower($nom_fichier));
 		$ret = str_replace(" ", "-", $ret);
-		$ret = str_replace(".jpeg", ".jpg", $ret);
+		$ret = str_replace(".".self::EXTENSION_IMAGE_JPEG, ".".self::EXTENSION_IMAGE_JPG, $ret);
 		return $ret;
 	}
 	
 	private function get_extension_fichier($fichier) {
 		$ret = strtolower(pathinfo($fichier, PATHINFO_EXTENSION));
+		return $ret;
+	}
+	
+	private function is_extension_media($ext) {
+		$ret = (!(strcmp($ext, self::EXTENSION_IMAGE_JPG)));
+		$ret = $ret || (!(strcmp($ext, self::EXTENSION_IMAGE_PNG)));
+		$ret = $ret || (!(strcmp($ext, self::EXTENSION_IMAGE_GIF)));
 		return $ret;
 	}
 }
