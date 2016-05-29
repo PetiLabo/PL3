@@ -88,7 +88,7 @@ class pl3_telechargement_image {
 
 	public function move_and_resize_uploaded_file(&$message) {
 		$ret = false;
-		if (@file_exists($this->src)) {
+		if ((@file_exists($this->src)) && is_uploaded_file($this->src)){
 			if (@file_exists($this->dest)) {
 				$message = "ERREUR : Un fichier portant le même nom existe déjà.";
 			}
@@ -104,7 +104,7 @@ class pl3_telechargement_image {
 			@unlink($this->src);
 		}
 		else {
-			$message = "ERREUR : Le fichier téléchargé est inacessible";
+			$message = "ERREUR : Le fichier téléchargé est inaccessible";
 		}
 		return $ret;
 	}

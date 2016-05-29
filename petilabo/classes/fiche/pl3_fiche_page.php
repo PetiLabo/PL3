@@ -132,7 +132,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		}
 
 		/* Appel des outils javascript */
-		$ret .= $this->declarer_js(_CHEMIN_JS."pl3.js");
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin.js", _MODE_ADMIN);
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_media.js", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_objets.js", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/trumbowyg.min.js", _MODE_ADMIN_OBJETS);

@@ -28,6 +28,18 @@
         <largeur_reelle>430</largeur_reelle>
         <hauteur_reelle>325</hauteur_reelle>
     </image>
+    <image nom="1024px-colorful_spring_garden">
+        <fichier>1024px-colorful_spring_garden.jpg</fichier>
+        <taille_standard>Ardoise</taille_standard>
+        <largeur_reelle>430</largeur_reelle>
+        <hauteur_reelle>325</hauteur_reelle>
+    </image>
+    <image nom="wp_20160514_002">
+        <fichier>wp_20160514_002.jpg</fichier>
+        <taille_standard>Portrait</taille_standard>
+        <largeur_reelle>480</largeur_reelle>
+        <hauteur_reelle>640</hauteur_reelle>
+    </image>
     <galerie nom="carrousel">
         <element>carrousel_1</element>
         <element>carrousel_2</element>

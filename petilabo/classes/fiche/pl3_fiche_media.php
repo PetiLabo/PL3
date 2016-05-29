@@ -53,7 +53,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			}
 		}
 		
-		$classe = "page_media".((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
+		$classe = "page page_media".((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
 		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
 		/* Liste des images taille par taille */
 		foreach($liste_tailles as $nom_taille) {

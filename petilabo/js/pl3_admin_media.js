@@ -80,11 +80,51 @@ $.fn.replaceWithPush = function(a) {
     }
 }( jQuery ));
 
+/* AJAX */
+function editer_image(nom_page, media_id) {
+	var editeur_id = "editeur-"+media_id;
+	var editeur = $("#"+editeur_id);
+	if (editeur.length > 0) {
+		alert("ERREUR : L'éditeur est déjà ouvert pour ce média !");
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_editer_image.php",
+		data: {nom_page: nom_page, media_id: media_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			afficher_editeur(media_id, html);
+		}
+		else {
+			alert("ERREUR : Origine de l'objet éditable introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
 
-/* Récupération du nom de la page */
-function parser_page() {
-	var nom_page = $("div.page_media").attr("name");
-	return nom_page;
+/* Affichage du code attaché à l'éditeur d'image */
+function afficher_editeur(media_id, html) {
+	var media = $("#media-"+media_id);
+	if (media) {
+		/* Constitution de l'éditeur */
+		var style = calculer_coord_editeur(media, false);
+		var div_id = "editeur-"+media_id;
+		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
+		div += "<p class=\"editeur_objet_barre_outils\">";
+		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
+		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		div += "</p>";
+		div += html;
+		div += "</div>";
+		
+		/* Affichage de l'éditeur */
+		$("div.page_media").append(div);
+	}
 }
 
 /* Installation du plugin single image upload sur un bouton ajout media */
@@ -125,7 +165,8 @@ $(document).ready(function() {
 		var vignette_id = $(this).attr("id");
 		var media_id = parseInt(vignette_id.replace("media-", ""));
 		if (media_id > 0) {
-			alert("Edition de l'image index "+media_id);
+			var nom_page = parser_page();
+			editer_image(nom_page, media_id);
 		}
 		return false;
 	});
