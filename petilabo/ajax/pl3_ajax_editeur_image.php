@@ -12,13 +12,13 @@ class pl3_ajax_editeur_image extends pl3_outil_editeur {
 		$ret .= $this->editer_valeur();
 		$ret .= $this->editer_attributs();	
 		$ret .= "<p class=\"boutons_formulaire\">\n";
-		$ret .= "<button id=\"soumettre-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"ok\" title=\"Enregistrer et fermer\">";
+		$ret .= "<button id=\"soumettre-media-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"ok\" title=\"Enregistrer et fermer\">";
 		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>OK";
 		$ret .= "</button>";
-		$ret .= "<button id=\"annuler-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\">";
+		$ret .= "<button id=\"annuler-media-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\">";
 		$ret .= "<span class=\"fa fa-times editeur_formulaire_icone_bouton\"></span>Annuler";
 		$ret .= "</button>";
-		$ret .= "<button id=\"supprimer-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cet objet\">";
+		$ret .= "<button id=\"supprimer-media-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cet objet\">";
 		$ret .= "<span class=\"fa fa-trash editeur_formulaire_icone_bouton\"></span>Supprimer";
 		$ret .= "</button>";
 		$ret .= "</p>\n";

@@ -28,7 +28,7 @@ function calculer_coord_editeur(objet, plein_ecran) {
 	var hauteur = parseInt(objet.height());
 	var pos_y = pos_haut + hauteur + 6;
 
-	/* Calcul de la position de l'éditeur */	
+	/* Calcul de la position de l'éditeur */
 	if (plein_ecran) {
 		var pos_x = 9;
 		var largeur = $("div.page").innerWidth() - 19;

@@ -113,7 +113,7 @@ function afficher_editeur(media_id, html) {
 	if (media) {
 		/* Constitution de l'éditeur */
 		var style = calculer_coord_editeur(media, false);
-		var div_id = "editeur-"+media_id;
+		var div_id = "editeur-media-"+media_id;
 		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
