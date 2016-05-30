@@ -9,8 +9,8 @@ class pl3_ajax_editeur_image extends pl3_outil_editeur {
 	/* Fonctions d'édition */
 	public function editer() {
 		$ret = "<form id=\"formulaire-".$this->id_objet."\" class=\"editeur_formulaire\" method=\"post\">\n";
-		$ret .= $this->editer_valeur();
-		$ret .= $this->editer_attributs();	
+		$ret .= $this->editer_attributs();
+		$ret .= $this->editer_valeurs();
 		$ret .= "<p class=\"boutons_formulaire\">\n";
 		$ret .= "<button id=\"soumettre-media-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"ok\" title=\"Enregistrer et fermer\">";
 		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>OK";
@@ -18,24 +18,20 @@ class pl3_ajax_editeur_image extends pl3_outil_editeur {
 		$ret .= "<button id=\"annuler-media-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\">";
 		$ret .= "<span class=\"fa fa-times editeur_formulaire_icone_bouton\"></span>Annuler";
 		$ret .= "</button>";
-		$ret .= "<button id=\"supprimer-media-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cet objet\">";
+		$ret .= "<button id=\"supprimer-media-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cette image\">";
 		$ret .= "<span class=\"fa fa-trash editeur_formulaire_icone_bouton\"></span>Supprimer";
 		$ret .= "</button>";
 		$ret .= "</p>\n";
 		$ret .= "</form>\n";
 		return $ret;
 	}
-
-	private function editer_valeur() {
+	
+	private function editer_valeurs() {
 		$ret = "";
-		if ($this->objet->avec_valeur()) {
-			$nom_classe = get_class($this->objet);
-			$nom_balise = $nom_classe::NOM_BALISE;
-			$ret .= "<p class=\"editeur_objet_titre_valeur\">Objet ".$nom_balise."</p>\n";
-			$valeur = $this->objet->get_valeur();
-			$balise = $this->objet->get_balise();
-			$ret .= $this->afficher_champ_form($balise, $valeur);
-		}
+		$ret .= "<p class=\"editeur_objet_titre_valeur\">Valeurs</p>\n";
+		$balise_alt = pl3_objet_media_image_alt::$Balise;
+		$valeur_alt = $this->objet->lire_element_valeur(pl3_objet_media_image_alt::NOM_BALISE);
+		$ret .= $this->afficher_champ_form($balise_alt, $valeur_alt);
 		return $ret;
 	}
 
