@@ -10,7 +10,7 @@ $ajax_objet_valide = pl3_ajax_init::Init_objet();
 
 /* Traitement des paramètres */
 if ($ajax_objet_valide) {
-	$parametres = pl3_ajax_post::Post("parametres");
+	$parametres = pl3_admin_post::Post("parametres");
 	if (strlen($parametres) > 0) {
 		$objet = pl3_ajax_init::Get_objet();
 		parse_str($parametres, $liste_parametres);

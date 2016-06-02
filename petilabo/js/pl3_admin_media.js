@@ -107,6 +107,39 @@ function editer_image(nom_page, media_id) {
 	});
 }
 
+
+/* Appel AJAX pour soumission d'un éditeur d'image */
+function soumettre_image(nom_page, media_id, parametres) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_soumettre_image.php",
+		data: {nom_page: nom_page, media_id: media_id, parametres: parametres},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var maj = data["maj"];
+			if (maj) {
+				var html = data["html"];
+				var balise = $("#media-"+media_id);
+				if (balise) {
+					var parent_balise = balise.parent();
+					if (parent_balise) {
+						parent_balise.replaceWith(html);
+					}
+				}
+			}
+			$("#editeur-media-"+media_id).remove();
+		}
+		else {
+			alert("ERREUR : Origine de l'image introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(media_id, html) {
 	var media = $("#media-"+media_id);
@@ -184,5 +217,15 @@ $(document).ready(function() {
 	/* Attachement du plugin single image upload aux boutons d'ajout media */
 	$("a.vignette_plus").each(function() {
 		installer_single_image_upload($(this));
+	});
+	
+	/* Bouton "soumettre" dans les éditeurs d'images */
+	$("div.page").on("submit", "form.editeur_formulaire", function() {
+		var form_id = $(this).attr("id");
+		var media_id = parseInt(form_id.replace("formulaire-", ""));
+		var nom_page = parser_page();
+		var parametres = $(this).serialize();
+		soumettre_image(nom_page, media_id, parametres);
+		return false;
 	});
 });

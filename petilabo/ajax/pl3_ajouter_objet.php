@@ -10,7 +10,7 @@ $ajax_objet_valide = pl3_ajax_init::Init_bloc();
 $html = "";
 if ($ajax_objet_valide) {
 	$ajax_objet_valide = false;
-	$nom_classe = pl3_ajax_post::Post("classe_objet");
+	$nom_classe = pl3_admin_post::Post("classe_objet");
 	if (strlen($nom_classe) > 0) {
 		$nom_constante_balise = $nom_classe."::NOM_BALISE";
 		$nom_constante_fiche = $nom_classe."::NOM_FICHE";

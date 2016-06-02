@@ -243,7 +243,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 		}
 		else if (!(strncmp($methode, "set_attribut_", 13))) {
 			$nom_attribut = substr($methode, 13);
-			$this->set_attribut($nom_attribut, $args[0]);
+			return $this->set_attribut($nom_attribut, $args[0]);
 		}
 		else {die("ERREUR : Appel d'une méthode ".$methode." non définie dans un objet XML"); }
 	}

@@ -4,7 +4,7 @@
  * Classe de gestion des éditeurs
  */
  
-abstract class pl3_outil_editeur {
+abstract class pl3_admin_editeur {
 	protected $objet = null;
 	protected $id_objet = null;
 

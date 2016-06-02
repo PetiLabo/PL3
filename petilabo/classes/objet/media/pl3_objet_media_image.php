@@ -34,7 +34,7 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 
 	/* Balise */
 	const NOM_BALISE = "alt";
-	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_texte_texte");
+	public static $Balise = array("nom" => self::NOM_BALISE, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte");
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
@@ -46,8 +46,13 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	}
 	
 	public function afficher($mode) {
-		$valeur_alt = html_entity_decode($this->get_valeur(), ENT_QUOTES, "UTF-8");
-		$ret = " alt=\"".$valeur_alt."\"";
+		$source_page = pl3_outil_source_page::Get();
+		$nom_alt = $this->get_valeur();
+		if (strlen($nom_alt) > 0) {
+			$texte_alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_alt);
+			if ($texte_alt != null) {$nom_alt = $texte_alt->get_valeur();}
+		}
+		$ret = (strlen($nom_alt) > 0)?" alt=\"".$nom_alt."\"":"";
 		return $ret;
 	}
 }

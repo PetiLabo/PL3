@@ -7,7 +7,7 @@
     </meta>
     <contenu>
         <bloc>
-            <titre niveau="1">id_texte_1</titre>
+            <titre style="defaut" niveau="1">id_texte_1</titre>
             <paragraphe style="defaut">id_texte_riche_4</paragraphe>
         </bloc>
     </contenu>
@@ -21,8 +21,8 @@
             <paragraphe style="defaut">texte_actu_1</paragraphe>
         </bloc>
         <bloc taille="3">
+            <saut>3</saut>
             <titre niveau="1">id_texte_2</titre>
-            <saut>2</saut>
         </bloc>
     </contenu>
 </petilabo>

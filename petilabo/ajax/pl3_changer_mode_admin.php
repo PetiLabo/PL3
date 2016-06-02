@@ -9,7 +9,7 @@ if (strlen($id_session) > 0) {
 	$mode_actuel = pl3_admin_mode::Lire_mode();
 
 	/* Initialisations */
-	$mode_admin = pl3_ajax_post::Post("mode_admin");
+	$mode_admin = pl3_admin_post::Post("mode_admin");
 	if ($mode_admin) {
 		$nouveau_mode = (int) $mode_admin;
 		if (($nouveau_mode > _MODE_NORMAL) && ($nouveau_mode <= _MODE_ADMIN_XML) && ($nouveau_mode != $mode_actuel)) {

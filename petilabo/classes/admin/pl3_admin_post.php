@@ -4,7 +4,7 @@
  * Classe de gestion des paramètres post
  */
  
-class pl3_ajax_post {
+class pl3_admin_post {
 	/* Fonctions d'accès aux paramètres post */
 	public static function Post($nom_param) {
 		$ret = null;

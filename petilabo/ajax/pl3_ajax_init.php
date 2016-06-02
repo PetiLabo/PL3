@@ -21,8 +21,8 @@ class pl3_ajax_init {
 		/* Récupération de la balise et de son id */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			self::$Balise_id = pl3_ajax_post::Post("balise_id");
-			self::$Nom_balise = pl3_ajax_post::Post("nom_balise");
+			self::$Balise_id = pl3_admin_post::Post("balise_id");
+			self::$Nom_balise = pl3_admin_post::Post("nom_balise");
 			if ((strlen(self::$Balise_id) > 0) && (strlen(self::$Nom_balise) > 0)) {
 				$liste_id = explode("-", self::$Balise_id);
 				if (count($liste_id) == 3) {
@@ -62,7 +62,7 @@ class pl3_ajax_init {
 		/* Récupération du bloc et de son id */
 		if ($ajax_objet_valide) {
 			$ajax_objet_valide = false;
-			self::$Bloc_id = pl3_ajax_post::Post("bloc_id");
+			self::$Bloc_id = pl3_admin_post::Post("bloc_id");
 			$liste_id = explode("-", self::$Bloc_id);
 			if (count($liste_id) == 2) {
 				list($contenu_param, $bloc_param) = $liste_id;
@@ -96,7 +96,7 @@ class pl3_ajax_init {
 		/* Récupération du bloc et de son id */
 		if ($ajax_media_valide) {
 			$ajax_media_valide = false;
-			self::$Media_id = pl3_ajax_post::Post("media_id");
+			self::$Media_id = pl3_admin_post::Post("media_id");
 			// TODO : Réfléchir sur la nécessité de tout recharger..
 			// self::$Source_page->charger_page_xml();
 			self::$Source_page->charger_xml();
@@ -113,7 +113,7 @@ class pl3_ajax_init {
 	/* Récupération du nom de la page */	
 	public static function Init_page() {
 		$ajax_page_valide = false;
-		self::$Nom_page = pl3_ajax_post::Post("nom_page");
+		self::$Nom_page = pl3_admin_post::Post("nom_page");
 		if (strlen(self::$Nom_page) > 0) {
 			$chemin_page = _CHEMIN_PAGES_XML.(self::$Nom_page)."/";
 			$fichier_page = (pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML;
@@ -136,6 +136,7 @@ class pl3_ajax_init {
 	public static function Get_page() {return self::$Page;}
 	public static function Get_contenu() {return self::$Contenu;}
 	public static function Get_bloc() {return self::$Bloc;}
+	public static function Get_fiche_media() {return self::$Fiche_media_local;}
 	public static function Get_media_id() {return self::$Media_id;}
 	public static function Get_media() {return self::$Media;}
 	public static function Get_objet() {return self::$Objet;}

@@ -10,7 +10,7 @@ $ajax_objet_valide = pl3_ajax_init::Init_objet();
 if ($ajax_objet_valide) {
 	$objet = pl3_ajax_init::Get_objet();
 	$nom_balise_id = pl3_ajax_init::Get_nom_balise_id();
-	$editeur_objet = new pl3_ajax_editeur_objet($objet, $nom_balise_id);
+	$editeur_objet = new pl3_admin_editeur_objet($objet, $nom_balise_id);
 	$html = $editeur_objet->editer();
 }
 

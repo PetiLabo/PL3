@@ -277,13 +277,13 @@ class pl3_telechargement_image {
 /* Préparation des données */
 $info_sortie = "";
 $retour_valide = false;
-$index_taille = (int) pl3_ajax_post::Post("taille");
-$nom_taille = pl3_ajax_post::Post("nom_taille");
-$largeur_taille = (int) pl3_ajax_post::Post("largeur_taille");
-$hauteur_taille = (int) pl3_ajax_post::Post("hauteur_taille");
-$compression = (int) pl3_ajax_post::Post("compression");
+$index_taille = (int) pl3_admin_post::Post("taille");
+$nom_taille = pl3_admin_post::Post("nom_taille");
+$largeur_taille = (int) pl3_admin_post::Post("largeur_taille");
+$hauteur_taille = (int) pl3_admin_post::Post("hauteur_taille");
+$compression = (int) pl3_admin_post::Post("compression");
 $taille = htmlspecialchars($nom_taille, ENT_QUOTES, "UTF-8");
-$nom_page = pl3_ajax_post::Post("page");
+$nom_page = pl3_admin_post::Post("page");
 $nom_champ_post = "img-".$index_taille;
 $html = pl3_fiche_media::Afficher_ajout_media($index_taille, $taille);
 

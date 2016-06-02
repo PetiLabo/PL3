@@ -10,7 +10,7 @@ $ajax_media_valide = pl3_ajax_init::Init_media();
 if ($ajax_media_valide) {
 	$media = pl3_ajax_init::Get_media();
 	$media_id = $media->lire_id();
-	$editeur_media = new pl3_ajax_editeur_image($media, $media_id);
+	$editeur_media = new pl3_admin_editeur_image($media, $media_id);
 	$html = $editeur_media->editer();
 }
 
