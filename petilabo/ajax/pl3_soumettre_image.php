@@ -18,7 +18,8 @@ if ($ajax_media_valide) {
 			$source_page = pl3_ajax_init::Get_source_page();
 			foreach ($liste_parametres as $nom_parametre => $valeur_parametre) {
 				if (!(strcmp($nom_parametre, pl3_outil_source_xml::NOM_ATTRIBUT_NOM))) {
-					$ajax_media_maj = $ajax_media_maj || $media->set_attribut_nom($valeur_parametre);
+					$attribut_nom_maj = $media->set_attribut_nom($valeur_parametre);
+					$ajax_media_maj = $ajax_media_maj || $attribut_nom_maj;
 				}
 				else {
 					$type_valeur = $media->lire_element_type_valeur($nom_parametre);
@@ -29,17 +30,21 @@ if ($ajax_media_valide) {
 						$nom_balise = $nom_classe::NOM_BALISE;
 						$objet_indirection = $source_page->chercher_liste_fiches_par_nom($nom_fiche, $nom_balise, $valeur);
 						if ($objet_indirection) {
-							$ajax_media_maj = $ajax_media_maj || $objet_indirection->set_valeur($valeur_parametre);
+							$valeur_maj = $objet_indirection->set_valeur($valeur_parametre);
+							$ajax_media_maj = $ajax_media_maj || $valeur_maj;
 						}
 					}
 					else {
-						$ajax_media_maj = $ajax_media_maj || $media->ecrire_element_valeur($nom_parametre, $valeur_parametre);
+						$valeur_maj = $media->ecrire_element_valeur($nom_parametre, $valeur_parametre);
+						$ajax_media_maj = $ajax_media_maj || $valeur_maj;
 					}
 				}
 			}
-			$source_page->enregistrer_xml();
-			$fiche_media = pl3_ajax_init::Get_fiche_media();
-			$html = "<!-- ".$parametres." -->\n".$fiche_media->afficher_vignette_media($media); // $media->afficher(_MODE_ADMIN_MEDIA);
+			if ($ajax_media_maj) {
+				$source_page->enregistrer_xml();
+				$fiche_media = pl3_ajax_init::Get_fiche_media();
+				$html .= $fiche_media->afficher_vignette_media($media); // $media->afficher(_MODE_ADMIN_MEDIA);
+			}
 		}
 	}
 }
