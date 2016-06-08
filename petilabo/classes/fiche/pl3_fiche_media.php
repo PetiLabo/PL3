@@ -36,7 +36,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	/* Afficher */
 	public function afficher() {
 		$ret = "";
-		$source_page = pl3_outil_source_page::Get();
+		$source_page = $this->get_source_page();
 		$liste_tailles = $source_page->chercher_liste_noms_par_fiche("theme", "pl3_objet_theme_taille_image");
 		$liste_medias_par_taille = array();
 		foreach($liste_tailles as $id_taille => $nom_taille) {

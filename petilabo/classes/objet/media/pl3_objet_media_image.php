@@ -40,13 +40,25 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	public static $Liste_attributs = array();
 	
 	/* Méthodes */
+	public function construire_nouveau() {
+		/* Création d'une instance de texte */
+		$nom_alt = null;
+		$source_page = $this->get_source_page();
+		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
+		if ($objet_texte) {
+			$source_page->enregistrer_nouveau($objet_texte);
+			$nom_alt = $objet_texte->get_attribut_nom();
+		}
+		return $nom_alt;
+	}
+
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
 		return $xml;
 	}
 	
 	public function afficher($mode) {
-		$source_page = pl3_outil_source_page::Get();
+		$source_page = $this->get_source_page();
 		$nom_alt = $this->get_valeur();
 		if (strlen($nom_alt) > 0) {
 			$texte_alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_alt);
@@ -146,7 +158,14 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 		$this->declarer_element("pl3_objet_media_image_hauteur_reelle");
 		parent::__construct($id, $parent, $noeud);
 	}
-	public function construire_nouveau() {}
+	public function construire_nouveau() {
+		$alt = new pl3_objet_media_image_alt(1, $this);
+		$nom_alt = $alt->construire_nouveau();
+		if (strlen($nom_alt) > 0) {
+			$this->ajouter_element_xml($alt);
+			$this->set_valeur_alt($nom_alt);
+		}
+	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();

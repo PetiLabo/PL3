@@ -20,7 +20,7 @@ if ($ajax_objet_valide) {
 			$id_contenu = $bloc->lire_id_parent();
 			$source_page = pl3_ajax_init::Get_source_page();
 			$objet = $source_page->instancier_nouveau($nom_classe, $id_contenu, $id_bloc);
-			$objet->construire_nouveau();
+			$objet->construire_nouveau(); // TODO : Pourquoi cet appel est-il nécessaire ???
 			$source_page->enregistrer_nouveau($objet, $id_contenu, $id_bloc);
 			$html .= $bloc->afficher(_MODE_ADMIN_OBJETS);
 			$ajax_objet_valide = true;

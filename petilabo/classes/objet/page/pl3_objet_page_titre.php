@@ -24,7 +24,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 
 	/* Initialisation */
 	public function construire_nouveau() {
-		/* Création d'une instance de texte riche */
+		/* Création d'une instance de texte */
 		$source_page = $this->get_source_page();
 		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte) {

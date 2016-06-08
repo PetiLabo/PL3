@@ -9,7 +9,7 @@
     </image>
     <image nom="carrousel_2">
         <fichier>carrousel-2.png</fichier>
-        <alt>Do you code english ?</alt>
+        <alt>alt_carrousel_2</alt>
         <taille_standard>Ardoise</taille_standard>
         <largeur_reelle>430</largeur_reelle>
         <hauteur_reelle>325</hauteur_reelle>

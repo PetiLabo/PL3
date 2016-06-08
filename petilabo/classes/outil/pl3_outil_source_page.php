@@ -90,14 +90,9 @@ class pl3_outil_source_page {
 		}
 	}
 
-	/* Chargement et enregistrement XML */
+	/* Chargement XML */
 	public function charger_xml() {
-		/* Chargement des ressources */
-		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
-			$liste_fiches->charger_xml();
-		}
-		
-		/* Chargement de la page */
+		$this->charger_ressources_xml();
 		$this->charger_page_xml();
 
 		/* Identification du thème */
@@ -115,16 +110,25 @@ class pl3_outil_source_page {
 		/* Chargement du thème */
 		$this->charger_theme_xml();
 	}
+	public function charger_ressources_xml() {
+		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
+			$liste_fiches->charger_xml();
+		}
+	}
 	public function charger_theme_xml() {
 		$this->liste_themes->charger_xml();
 	}
 	public function charger_page_xml() {$this->page->charger_xml();}
-	
+
+	/* Enregistrement XML */
 	public function enregistrer_xml() {
+		$this->enregistrer_ressources_xml();
+		$this->enregistrer_page_xml();
+	}
+	public function enregistrer_ressources_xml() {
 		foreach ($this->liste_sources as $nom_fiche => $liste_fiches) {
 			$liste_fiches->enregistrer_xml();
 		}
-		$this->enregistrer_page_xml();
 	}
 	public function enregistrer_page_xml() {$this->page->enregistrer_xml();}
 

@@ -279,6 +279,7 @@ $info_sortie = "";
 $retour_valide = false;
 $index_taille = (int) pl3_admin_post::Post("taille");
 $nom_taille = pl3_admin_post::Post("nom_taille");
+$nom_taille = "Ardoise";
 $largeur_taille = (int) pl3_admin_post::Post("largeur_taille");
 $hauteur_taille = (int) pl3_admin_post::Post("hauteur_taille");
 $compression = (int) pl3_admin_post::Post("compression");
@@ -299,9 +300,11 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 		$fichier_temporaire = $fichier_post->get_tmp_name();
 
 		/* Chargement de la fiche média locale */
-		$fiche_media = new pl3_fiche_media(_CHEMIN_PAGE_COURANTE, 1);
-		$retour_valide = $fiche_media->charger_xml();
-		
+		$source_page = pl3_outil_source_page::Get();
+		$source_page->charger_ressources_xml();
+		$fiche_media = $source_page->get_media(_NOM_SOURCE_LOCAL);
+		$retour_valide = ($fiche_media != null);
+
 		/* Rapatriement de l'image uploadée si la fiche média est disponible */
 		if ($retour_valide) {
 			$telechargement = new pl3_telechargement_image($fichier_temporaire, $largeur_taille, $hauteur_taille, $compression);
@@ -313,7 +316,7 @@ if (($index_taille > 0) && (strlen($nom_taille) > 0) && (strlen($nom_page) > 0) 
 				$image = $fiche_media->instancier_image($nom_image, $taille, $largeur, $hauteur);
 				if ($image) {
 					$fiche_media->ajouter_objet($image);
-					$fiche_media->enregistrer_xml();
+					$source_page->enregistrer_ressources_xml();
 					$html = ($fiche_media->afficher_vignette_media($image)).$html;
 				}
 				else {
