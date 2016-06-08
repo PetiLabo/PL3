@@ -16,6 +16,22 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		}
 		return null;
 	}
+	
+	public function lire_element_type_valeur($nom_balise) {
+		if (isset($this->elements[$nom_balise])) {
+			$element = $this->elements[$nom_balise];
+			return $element->get_type_valeur();
+		}
+		return null;
+	}
+	
+	public function lire_element_reference_valeur($nom_balise) {
+		if (isset($this->elements[$nom_balise])) {
+			$element = $this->elements[$nom_balise];
+			return $element->get_reference_valeur();
+		}
+		return null;
+	}
 
 	public function ecrire_element_valeur($nom_balise, $valeur) {
 		$ret = false;
