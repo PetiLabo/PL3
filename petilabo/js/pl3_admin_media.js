@@ -107,7 +107,6 @@ function editer_image(nom_page, media_id) {
 	});
 }
 
-
 /* Appel AJAX pour soumission d'un éditeur d'image */
 function soumettre_image(nom_page, media_id, parametres) {
 	$.ajax({
@@ -139,6 +138,24 @@ function soumettre_image(nom_page, media_id, parametres) {
 	});
 }
 
+/* Appel AJAX pour suppression d'une image */
+function supprimer_image(nom_page, media_id) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_supprimer_image.php",
+		data: {nom_page: nom_page, media_id: media_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			alert(html);
+		}
+		else {
+			alert("NOK");
+		}
+	});
+}
 
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(media_id, html) {
@@ -228,4 +245,17 @@ $(document).ready(function() {
 		soumettre_image(nom_page, media_id, parametres);
 		return false;
 	});
+	
+	/* Boutons "supprimer" dans les éditeurs d'images */
+	$("div.page").on("click", "form.editeur_formulaire button.supprimer_formulaire", function() {
+		var form_id = $(this).attr("id");
+		var media_id = parseInt(form_id.replace("supprimer-media-", ""));
+		var nom_page = parser_page();
+		var confirmation = confirm("Confirmez-vous la suppression de cette image ?");
+		if (confirmation) {
+			supprimer_image(nom_page, media_id);
+		}
+		return false;
+	});
+
 });

@@ -13,7 +13,6 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$this->declarer_objet("pl3_objet_media_galerie");
 		parent::__construct($chemin, $id);
 	}
-	
 	public function instancier_image($fichier, $taille, $largeur, $hauteur) {
 		$fichier_sans_prefixe = substr($fichier, 0, strpos($fichier,  "."));
 		$nom_image = htmlspecialchars($fichier_sans_prefixe, ENT_QUOTES, "UTF-8");
@@ -33,6 +32,30 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		else {$objet = null;}
 		return $objet;
 	}
+	
+	/* Suppression d'une image */
+	public function supprimer_image($image_id) {
+		$ret = -1;
+		$liste_images = array();
+		$nb_images = count($this->liste_objets["pl3_objet_media_image"]);
+		$id_cpt = 1;
+		for ($cpt = 0;$cpt < $nb_images;$cpt ++) {
+			$image = &$this->liste_objets["pl3_objet_media_image"][$cpt];
+			if ($image != null) {
+				if ($image->lire_id() != $image_id) {
+					$image->ecrire_id($id_cpt);
+					$liste_images[] = $image;
+					$id_cpt += 1;
+				}
+				else {
+					$ret = $image_id;
+					unset($image);
+				}
+			}
+		}
+		$this->liste_objets["pl3_objet_media_image"] = $liste_images;
+	}
+
 	/* Afficher */
 	public function afficher() {
 		$ret = "";
