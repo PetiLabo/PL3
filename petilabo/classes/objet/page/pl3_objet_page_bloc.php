@@ -97,16 +97,18 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 			$nom = $this->get_attribut_nom();
 			$ret .= "<p class=\"bloc_legende_nom\">".$nom."</p>\n";
 		}
-		else if ($mode == _MODE_ADMIN_OBJETS) {
+		else {
 			foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
-			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
-			if (count($liste_objets_avec_icone) > 0) {
-				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
-				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
-					$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
-					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
+			if ($mode == _MODE_ADMIN_OBJETS) {
+				$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
+				if (count($liste_objets_avec_icone) > 0) {
+					$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
+					foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
+						$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
+						$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
+					}
+					$ret .= "</p>\n";
 				}
-				$ret .= "</p>\n";
 			}
 		}
 		$ret .= "</div>\n";

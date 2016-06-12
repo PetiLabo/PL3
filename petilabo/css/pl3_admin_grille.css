@@ -15,4 +15,6 @@
 .bloc_poignee_ajout a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
 .bloc_poignee_ajout a:hover{background:#a00;color:#fff;}
 
-.bloc_legende_nom{text-align:center;margin:3px auto 8px auto;}
+/* Légende du bloc */
+.bloc_legende_nom{text-align:center;margin:0 auto;border:3px solid transparent;padding:5px 0;}
+.bloc_legende_survol{cursor:pointer;border-color:#c00;}
