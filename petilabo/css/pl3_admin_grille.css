@@ -4,19 +4,15 @@
 
 /* Mode administration grille *******************************************************/
 
-/* Survol des objets */
-.admin_survol_objet{cursor:pointer;border-color:#c00!important;}
-
-/* JQuery UI */
-.deplaceur_objet{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
-
 /* Boutons pour l'ajout de contenus */
-.contenu_poignee_ajout{font-size:16px;text-align:center;padding:4px;word-break: break-all;flex-grow:1;}
-.contenu_poignee_ajout a{background:#888;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
+.contenu_poignee_ajout{font-size:16px;text-align:center;padding:4px;word-break: break-all;flex-grow:1;align-self:flex-start;}
+.contenu_poignee_ajout a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
 .contenu_poignee_ajout a:hover{background:#a00;color:#fff;}
 
 /* Boutons pour l'ajout de blocs */
-.bloc_ajout{width:50px;}
+.bloc_ajout{width:50px;align-self:center;}
 .bloc_poignee_ajout{font-size:16px;text-align:center;padding:4px;word-break: break-all;}
-.bloc_poignee_ajout a{background:#888;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
+.bloc_poignee_ajout a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
 .bloc_poignee_ajout a:hover{background:#a00;color:#fff;}
+
+.bloc_legende_nom{text-align:center;margin:3px auto 8px auto;}

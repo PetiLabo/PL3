@@ -17,5 +17,5 @@
 /* Boutons pour l'ajout d'objets */
 .bloc > p.bloc_poignee_ajout{display:none;}
 .bloc_poignee_ajout{font-size:16px;text-align:center;padding:4px 8px;word-break: break-all;}
-.bloc_poignee_ajout a{background:#333;color:#fff;min-width:30px;padding:8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.bloc_poignee_ajout a{background:#666;color:#fff;min-width:30px;padding:8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
 .bloc_poignee_ajout a:hover{background:#a00;color:#fff;}

@@ -16,6 +16,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_TAILLE = "taille";
 	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE),
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_bloc"),
 		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER));
 
@@ -72,9 +73,10 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	}
 
 	public function ecrire_xml($niveau) {
+		$attr_nom = $this->get_xml_attribut(self::NOM_ATTRIBUT_NOM);
 		$attr_style = $this->get_xml_attribut(self::NOM_ATTRIBUT_STYLE);
 		$attr_taille = $this->get_xml_attribut(self::NOM_ATTRIBUT_TAILLE);
-		$xml = $this->ouvrir_xml($niveau, array($attr_style, $attr_taille));
+		$xml = $this->ouvrir_xml($niveau, array($attr_nom, $attr_style, $attr_taille));
 		foreach ($this->objets as $objet) {
 			$xml .= $objet->ecrire_xml(1 + $niveau);
 		}
@@ -91,7 +93,11 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
 		$classe = "bloc bloc_".$style;
 		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"flex-grow:".$taille.";\">\n";
-		if ($mode == _MODE_ADMIN_OBJETS) {
+		if ($mode == _MODE_ADMIN_GRILLE) {
+			$nom = $this->get_attribut_nom();
+			$ret .= "<p class=\"bloc_legende_nom\">".$nom."</p>\n";
+		}
+		else if ($mode == _MODE_ADMIN_OBJETS) {
 			foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
 			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
 			if (count($liste_objets_avec_icone) > 0) {
