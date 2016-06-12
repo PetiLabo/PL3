@@ -45,7 +45,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	public function ajouter_objet(&$objet) {
 		$this->objets[] = $objet;
 	}
-	public function supprimer_objet($objet_id) {
+	public function retirer_objet($objet_id) {
 		$liste_objets = array();
 		$nb_objets = count($this->objets);
 		$id_cpt = 1;
@@ -57,7 +57,10 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 					$liste_objets[] = $objet;
 					$id_cpt += 1;
 				}
-				else {unset($objet);}
+				else {
+					$objet->detruire();
+					unset($objet);
+				}
 			}
 		}
 		$this->objets = $liste_objets;

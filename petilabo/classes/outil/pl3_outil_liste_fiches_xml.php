@@ -26,6 +26,13 @@ class pl3_outil_liste_fiches_xml extends pl3_outil_source_xml {
 			$instance = $fiche->ajouter_objet($objet);
 		}
 	}
+	
+	public function enlever_objet($nom_source, &$objet) {
+		if (isset($this->liste_fiches[$nom_source])) {
+			$fiche = $this->liste_fiches[$nom_source];
+			$instance = $fiche->enlever_objet($objet);
+		}
+	}
 
 	/* Accesseurs */
 	public function lire_nom_fiche() {return $this->nom_fiche;}

@@ -166,6 +166,15 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 			$this->set_valeur_alt($nom_alt);
 		}
 	}
+	/* Destruction */
+	public function detruire() {
+		$source_page = $this->get_source_page();
+		$nom_alt = $this->get_valeur_alt();
+		$alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_alt);
+		if ($alt != null) {
+			$source_page->supprimer($alt);
+		}
+	}
 
 	public function charger_xml() {
 		$this->charger_elements_xml();

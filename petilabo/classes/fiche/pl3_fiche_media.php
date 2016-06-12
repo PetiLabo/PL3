@@ -34,8 +34,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	}
 	
 	/* Suppression d'une image */
-	public function supprimer_image($image_id) {
-		$ret = -1;
+	public function retirer_image($image_id) {
 		$liste_images = array();
 		$nb_images = count($this->liste_objets["pl3_objet_media_image"]);
 		$id_cpt = 1;
@@ -48,7 +47,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 					$id_cpt += 1;
 				}
 				else {
-					$ret = $image_id;
+					$image->detruire();
 					unset($image);
 				}
 			}

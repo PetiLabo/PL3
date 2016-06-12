@@ -37,6 +37,16 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 		}
 	}
 	
+	/* Destruction */
+	public function detruire() {
+		$source_page = $this->get_source_page();
+		$nom_texte = $this->get_valeur();
+		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		if ($texte != null) {
+			$source_page->supprimer($texte);
+		}
+	}
+	
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";

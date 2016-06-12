@@ -89,6 +89,17 @@ class pl3_outil_source_page {
 			}
 		}
 	}
+	
+	/* Suppression d'objets */
+	public function supprimer(&$objet) {
+		$classe_objet = get_class($objet);
+		$nom_fiche = $classe_objet::NOM_FICHE;
+		if (isset($this->liste_sources[$nom_fiche])) {
+			$liste_fiches = $this->liste_sources[$nom_fiche];
+			$liste_fiches->enlever_objet(_NOM_SOURCE_LOCAL, $objet);
+			$liste_fiches->enregistrer_xml(_NOM_SOURCE_LOCAL);
+		}
+	}
 
 	/* Chargement XML */
 	public function charger_xml() {

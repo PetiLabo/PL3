@@ -14,7 +14,7 @@ if ($ajax_media_valide) {
 	if ($media != null) {
 		$source_page = pl3_ajax_init::Get_source_page();
 		$fiche_media = pl3_ajax_init::Get_fiche_media();
-		$fiche_media->supprimer_image($media->lire_id());
+		$fiche_media->retirer_image($media->lire_id());
 		$source_page->enregistrer_xml();
 		$html = "Image ".$media->lire_id()." supprimée.";
 	}

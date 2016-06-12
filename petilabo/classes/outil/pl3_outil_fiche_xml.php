@@ -99,6 +99,20 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		else {die("ERREUR : Tentative d'ajout d'un objet dans une classe non déclarée.");}
 	}
 	
+	/* Suppressions "inline" */
+	public function enlever_objet(&$objet_enleve) {
+		$nom_classe = get_class($objet_enleve);
+		if (isset($this->liste_noms_objets[$nom_classe])) {
+			$index_enleve = -1;
+			$objet_enleve_id = $objet_enleve->lire_id();
+			foreach($this->liste_objets[$nom_classe] as $index => $objet) {
+				if (!(strcmp($objet->lire_id(), $objet_enleve_id))) {$index_enleve = $index;}
+			}
+			if ($index_enleve >= 0) {unset($this->liste_objets[$nom_classe][$index_enleve]);}
+		}
+		else {die("ERREUR : Tentative d'ajout d'un objet dans une classe non déclarée.");}
+	}
+		
 	/* Parser */
 	protected function parser_balise($nom_balise) {
 		$source_page = $this->get_source_page();

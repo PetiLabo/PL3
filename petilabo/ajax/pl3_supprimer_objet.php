@@ -14,7 +14,7 @@ if ($ajax_objet_valide) {
 		$contenu = pl3_ajax_init::Get_contenu();
 		$bloc = pl3_ajax_init::Get_bloc();
 		$bloc_id = $contenu->lire_id()."-".$bloc->lire_id();
-		$bloc->supprimer_objet($objet->lire_id());
+		$bloc->retirer_objet($objet->lire_id());
 		$source_page->enregistrer_xml();
 		$html .= $bloc->afficher(_MODE_ADMIN_OBJETS);
 	}

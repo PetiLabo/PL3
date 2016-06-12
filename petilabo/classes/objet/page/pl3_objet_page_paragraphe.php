@@ -33,6 +33,16 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_simple_xml {
 			$this->set_valeur($objet_texte_riche->get_attribut_nom());
 		}
 	}
+	
+	/* Destruction */
+	public function detruire() {
+		$source_page = $this->get_source_page();
+		$nom_texte = $this->get_valeur();
+		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte_riche::NOM_BALISE, $nom_texte);
+		if ($texte != null) {
+			$source_page->supprimer($texte);
+		}
+	}
 
 	/* Affichage */
 	public function afficher($mode) {
