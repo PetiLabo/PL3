@@ -97,6 +97,13 @@ abstract class pl3_outil_objet_composite_xml extends pl3_outil_objet_xml {
 		return $ret;
 	}
 	
+	public function &get_element($nom_balise) {
+		if (isset($this->elements[$nom_balise])) {
+			return $this->elements[$nom_balise];
+		}
+		return null;
+	}
+	
 	public function __call($methode, $args) {
 		if (!(strncmp($methode, "get_valeur_", 11))) {
 			$nom_balise = substr($methode, 11);

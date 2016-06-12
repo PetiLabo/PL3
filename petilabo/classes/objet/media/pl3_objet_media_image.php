@@ -14,8 +14,13 @@ class pl3_objet_media_image_fichier extends pl3_outil_objet_xml {
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
-	
+
 	/* Méthodes */
+	public function detruire() {
+		$valeur_fichier = html_entity_decode($this->get_valeur(), ENT_QUOTES, "UTF-8");
+		@unlink(_CHEMIN_XML."images/".$valeur_fichier);
+	}
+
 	public function ecrire_xml($niveau) {
 		$xml = $this->ouvrir_fermer_xml($niveau);
 		return $xml;
@@ -38,18 +43,24 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
+	private $nom_alt = null;
 	
 	/* Méthodes */
 	public function construire_nouveau() {
 		/* Création d'une instance de texte */
-		$nom_alt = null;
 		$source_page = $this->get_source_page();
 		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte) {
 			$source_page->enregistrer_nouveau($objet_texte);
-			$nom_alt = $objet_texte->get_attribut_nom();
+			$this->nom_alt = $objet_texte->get_attribut_nom();
 		}
-		return $nom_alt;
+		return $this->nom_alt;
+	}
+	
+	public function detruire() {
+		$source_page = $this->get_source_page();
+		$alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $this->nom_alt);
+		if ($alt != null) {$source_page->supprimer($alt);}
 	}
 
 	public function ecrire_xml($niveau) {
@@ -168,12 +179,10 @@ class pl3_objet_media_image extends pl3_outil_objet_composite_xml {
 	}
 	/* Destruction */
 	public function detruire() {
-		$source_page = $this->get_source_page();
-		$nom_alt = $this->get_valeur_alt();
-		$alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_alt);
-		if ($alt != null) {
-			$source_page->supprimer($alt);
-		}
+		$alt = $this->get_element(pl3_objet_media_image_alt::NOM_BALISE);
+		if ($alt) {$alt->detruire();}
+		$fichier = $this->get_element(pl3_objet_media_image_fichier::NOM_BALISE);
+		if ($fichier) {$fichier->detruire();}
 	}
 
 	public function charger_xml() {
