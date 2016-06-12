@@ -36,14 +36,14 @@
 
 	<!-- Styles de contenu -->
     <style_contenu nom="defaut">
-        <fond>#800</fond>
+        <fond>#bbb</fond>
     </style_contenu>
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">
 		<marge>10px</marge>
 		<retrait>10px</retrait>
-        <fond>#080</fond>
+        <fond>#ddf</fond>
 		<css>border-radius:10px;</css>
     </style_bloc>
 

@@ -52,8 +52,12 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$classe = "contenu contenu_".$style;
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"".$classe."\">\n";
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
-		foreach ($liste_blocs as $bloc) {
-			$ret .= $bloc->afficher($mode);
+		foreach ($liste_blocs as $bloc) {$ret .= $bloc->afficher($mode);}
+		if ($mode == _MODE_ADMIN_GRILLE) {
+			$ret .= "<div id=\"nouveau-bloc-".$this->id."\" class=\"bloc bloc_ajout\">";
+			$ret .= "<p id=\"poignee-bloc-".$this->id."\" class=\"bloc_poignee_ajout\">";
+			$ret .= "<a class=\"fa fa-plus\" href=\"#\" title=\"Ajouter un bloc\" style=\"height:100%;\"></a>";
+			$ret .= "</p></div>\n";
 		}
 		$ret .= "</div>\n";
 		return $ret;

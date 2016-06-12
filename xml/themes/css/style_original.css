@@ -1,7 +1,7 @@
 /* CSS thème original */
 .page_defaut{width:90%;}
-.contenu_defaut{background:#800;}
-.bloc_defaut{margin:10px;padding:10px;background:#080;border-radius:10px;}
+.contenu_defaut{background:#bbb;}
+.bloc_defaut{margin:10px;padding:10px;background:#ddf;border-radius:10px;}
 .texte_grand{font-size:150%;}
 .texte_italique{font-style:italic;}
 .survol_fond_gris{}

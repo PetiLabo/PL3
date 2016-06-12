@@ -91,10 +91,8 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
 		$classe = "bloc bloc_".$style;
 		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"flex-grow:".$taille.";\">\n";
-		foreach($this->objets as $objet) {
-			$ret .= $objet->afficher($mode);
-		}
 		if ($mode == _MODE_ADMIN_OBJETS) {
+			foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
 			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
 			if (count($liste_objets_avec_icone) > 0) {
 				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";

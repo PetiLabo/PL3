@@ -86,6 +86,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_objets.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css", _MODE_ADMIN);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_media.css", _MODE_ADMIN_MEDIA);
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_grille.css", _MODE_ADMIN_GRILLE);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_objets.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN_OBJETS);
@@ -114,6 +115,12 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		}
 		else {
 			$contenu_mode = $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
+			if ($this->mode & _MODE_ADMIN_GRILLE) {
+				$contenu_mode .= "<div class=\"contenu contenu_defaut contenu_ajout\">";
+				$contenu_mode .= "<p class=\"contenu_poignee_ajout\">";
+				$contenu_mode .= "<a class=\"fa fa-plus\" href=\"#\" title=\"Ajouter un contenu\" style=\"height:100%;\"></a>";
+				$contenu_mode .= "</p></div>\n";
+			}
 			$classe_mode = "page";
 		}
 		$classe = $classe_mode.((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
