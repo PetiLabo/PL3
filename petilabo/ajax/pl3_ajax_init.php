@@ -55,6 +55,25 @@ class pl3_ajax_init {
 		return $ajax_objet_valide;
 	}
 
+	public static function Init_contenu() {
+		/* Récupération du nom de la page */
+		$ajax_objet_valide = self::Init_page();
+
+		/* Récupération du contenu */
+		if ($ajax_objet_valide) {
+			$ajax_objet_valide = false;
+			$contenu_id = pl3_admin_post::Post("contenu_id");
+			// TODO : Réfléchir sur la nécessité de tout recharger..
+			// self::$Source_page->charger_page_xml();
+			self::$Source_page->charger_xml();
+			self::$Page = self::$Source_page->get_page();
+			self::$Contenu = self::$Page->chercher_objet_classe_par_id("pl3_objet_page_contenu", $contenu_id);
+			if (self::$Contenu != null) {$ajax_objet_valide = true;}
+		}
+		
+		return $ajax_objet_valide;
+	}
+	
 	public static function Init_bloc() {
 		/* Récupération du nom de la page */
 		$ajax_objet_valide = self::Init_page();

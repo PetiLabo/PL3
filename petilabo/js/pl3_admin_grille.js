@@ -6,8 +6,30 @@ function ajouter_contenu(nom_page) {
 	alert("Ajout d'un contenu dans la page "+nom_page);
 }
 
+function editer_contenu(nom_page, contenu_id) {
+	alert("Edition du contenu "+contenu_id+" dans la page "+nom_page);
+}
+
 function ajouter_bloc(nom_page, contenu_id) {
-	alert("Ajout d'un bloc dans le contenu "+contenu_id+" de la page "+nom_page);
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_ajouter_bloc.php",
+		data: {nom_page: nom_page, contenu_id: contenu_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			$("#contenu-"+contenu_id).replaceWith(html);
+		}
+		else {
+			alert("NOK");
+		}
+	});
+}
+
+function editer_bloc(nom_page, contenu_id, bloc_id) {
+	alert("Edition du bloc "+bloc_id+" dans le contenu "+contenu_id+" de la page "+nom_page);
 }
 
 /* Application de plugins */
@@ -27,7 +49,6 @@ function appliquer_sortable(selecteur, items) {
 	$(selecteur).disableSelection();
 }
 
-
 /* Initialisations */
 $(document).ready(function() {
 	/* Gestion de la bordure au survol d'une légende de bloc */
@@ -38,23 +59,31 @@ $(document).ready(function() {
 		$(this).removeClass("bloc_legende_survol");
 	});
 	
+	/* Gestion du clic sur un bloc */	
+	$("div.page").on("click", ".bloc_grille", function() {
+		var bloc_attr_id = $(this).attr("id");
+		var html_id = bloc_attr_id.replace("bloc-", "");
+		var pos_separateur = html_id.indexOf("-");
+		if (pos_separateur >= 0) {
+			var nom_page = parser_page();
+			var contenu_id = parseInt(html_id.substr(0, pos_separateur));
+			var bloc_id = parseInt(html_id.substr(1 + pos_separateur));
+			if ((contenu_id > 0) && (bloc_id > 0)) {
+				editer_bloc(nom_page, contenu_id, bloc_id);
+			}
+		}
+	});
+	
+	
 	/* Gestion du bouton pour l'édition de contenu */
-	$("div.page").on("mouseenter", "p.contenu_poignee_edit a", function() {
+	$("div.page").on("click", "p.contenu_poignee_edit a", function() {
 		var contenu_attr_id = $(this).parent().attr("id");
-		var contenu_id = contenu_attr_id.replace("poignee-", "");
-		$("#"+contenu_id).addClass("contenu_survol");
-	});
-	$("div.page").on("mouseleave", "p.contenu_poignee_edit a", function() {
-		var contenu_attr_id = $(this).parent().attr("id");
-		var contenu_id = contenu_attr_id.replace("poignee-", "");
-		$("#"+contenu_id).removeClass("contenu_survol");
-	});
-	$("div.page").on("click", "p.contenu_poignee_ajout a", function() {
+		var contenu_id = parseInt(contenu_attr_id.replace("poignee-contenu-", ""));
 		var nom_page = parser_page();
-		ajouter_contenu(nom_page);
+		editer_contenu(nom_page, contenu_id);
 		return false;
 	});
-
+	
 	/* Gestion du bouton pour l'ajout de contenu */
 	$("div.page").on("click", "p.contenu_poignee_ajout a", function() {
 		var nom_page = parser_page();

@@ -50,15 +50,15 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	public function afficher($mode) {
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
-		if ($mode == _MODE_ADMIN_GRILLE) {
-			$ret = $this->afficher_grille($style);
+		if (($mode == _MODE_ADMIN_GRILLE) || ($mode == _MODE_ADMIN_MAJ_GRILLE)) {
+			$ret = $this->afficher_grille($mode, $style);
 		}
 		else {
 			$ret = $this->afficher_standard($mode, $style);
 		}
 		return $ret;
 	}
-	
+
 	private function afficher_standard($mode, $style) {
 		$ret = "";
 		$classe = "contenu contenu_".$style;
@@ -68,33 +68,55 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		return $ret;
 	}
 	
-	private function afficher_grille($style) {
+	private function afficher_grille($mode, $style) {
 		$ret = "";
-		$ret .= "<div class=\"contenu_flex contenu_".$style."\" style=\"\">\n";
-		// Affichage de la poignée du contenu
-		$ret .= "<div class=\"contenu_flex_poignee\">";
-			$ret .= "<div class=\"bloc bloc_ajout\">";
-			$ret .= "<p id=\"poignee-contenu-".$this->id."\" class=\"contenu_poignee_edit\">";
-			$ret .= "<a class=\"fa fa-minus\" href=\"#\" title=\"Editer le contenu\" style=\"height:100%;\"></a>";
-			$ret .= "</p></div>\n";
-		$ret .= "</div>\n";
-		// Affichage des blocs		
-		$ret .= "<div class=\"contenu_flex_blocs\">\n";
-			$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu_grille\">\n";
-			foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher(_MODE_ADMIN_GRILLE);}
+		if ($mode == _MODE_ADMIN_GRILLE) {
+			$ret .= "<div class=\"contenu_flex contenu_".$style."\" style=\"\">\n";
+			// Affichage de la poignée du contenu
+			$ret .= "<div class=\"contenu_flex_poignee\">";
+			$ret .= $this->afficher_grille_poignee_contenu();
 			$ret .= "</div>\n";
-		$ret .= "</div>\n";
-		// Affichage du bouton d'ajout de contenu		
-		$ret .= "<div class=\"contenu_flex_poignee\">";
-			$ret .= "<div class=\"bloc bloc_ajout\">";
-			$ret .= "<p id=\"poignee-bloc-".$this->id."\" class=\"bloc_poignee_ajout\">";
-			$ret .= "<a class=\"fa fa-bars fa-rotate-90\" href=\"#\" title=\"Ajouter un bloc\" style=\"height:100%;\"></a>";
-			$ret .= "</p></div>\n";
-		$ret .= "</div>\n";
+			// Affichage des blocs		
+			$ret .= "<div class=\"contenu_flex_blocs\">\n";
+		}
+		$ret .= $this->afficher_grille_blocs();
+		if ($mode == _MODE_ADMIN_GRILLE) {
+			$ret .= "</div>\n";
+			// Affichage du bouton d'ajout de contenu		
+			$ret .= "<div class=\"contenu_flex_poignee\">";
+			$ret .= $this->afficher_grille_poignee_bloc();
+			$ret .= "</div>\n";
+			$ret .= "</div>\n";
+		}
+		return $ret;
+	}
+	
+	private function afficher_grille_blocs() {
+		$ret = "";		
+		$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu_grille\">\n";
+		foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher(_MODE_ADMIN_GRILLE);}
 		$ret .= "</div>\n";
 		return $ret;
 	}
 	
+	private function afficher_grille_poignee_contenu() {
+		$ret = "";		
+		$ret .= "<div class=\"bloc bloc_ajout\">";
+		$ret .= "<p id=\"poignee-contenu-".$this->id."\" class=\"contenu_poignee_edit\">";
+		$ret .= "<a class=\"fa fa-minus\" href=\"#\" title=\"Editer le contenu\"></a>";
+		$ret .= "</p></div>\n";
+		return $ret;
+	}
+	
+	private function afficher_grille_poignee_bloc() {
+		$ret = "";		
+		$ret .= "<div class=\"bloc bloc_ajout\">";
+		$ret .= "<p id=\"poignee-bloc-".$this->id."\" class=\"bloc_poignee_ajout\">";
+		$ret .= "<a class=\"fa fa-bars fa-rotate-90\" href=\"#\" title=\"Ajouter un bloc\"></a>";
+		$ret .= "</p></div>\n";
+		return $ret;
+	}
+
 	private function maj_cardinal_et_largeur() {
 		$nombre_total = 0;
 		$largeur_totale = 0;

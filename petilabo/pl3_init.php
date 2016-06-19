@@ -52,6 +52,7 @@ define("_MODE_ADMIN", 31);
 define("_MODE_ADMIN_PAGE", 1);
 define("_MODE_ADMIN_MEDIA", 2);
 define("_MODE_ADMIN_GRILLE", 4);
+define("_MODE_ADMIN_MAJ_GRILLE", 5);
 define("_MODE_ADMIN_OBJETS", 8);
 define("_MODE_ADMIN_XML", 16);
 
