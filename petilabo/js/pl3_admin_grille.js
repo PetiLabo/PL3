@@ -21,6 +21,7 @@ function ajouter_bloc(nom_page, contenu_id) {
 		if (valide) {
 			var html = data["html"];
 			$("#contenu-"+contenu_id).replaceWith(html);
+			appliquer_sortable_contenu("#contenu-"+contenu_id);
 		}
 		else {
 			alert("NOK");
@@ -33,16 +34,18 @@ function editer_bloc(nom_page, contenu_id, bloc_id) {
 }
 
 /* Application de plugins */
-function appliquer_sortable(selecteur, items) {
+function appliquer_sortable_contenu(selecteur) {
 	$(selecteur).sortable({
-		placeholder: "deplaceur_"+items,
-		items: "div[class^='"+items+"']",
+		items: ".bloc_grille",
+		placeholder: "deplaceur_bloc",
 		update: function() {
 			/* Gestion du déplacement d'un objet */
 		},
 		start: function (e, ui) {
-			ui.placeholder.height(ui.item.children().height());
-			ui.placeholder.width(100);
+			var elem = $(ui.item);
+			var hauteur = elem.height();
+			var largeur = elem.width();
+			ui.placeholder.height(hauteur).width(largeur);
 		},
 		opacity: 0.7
 	});
@@ -114,19 +117,5 @@ $(document).ready(function() {
 		opacity: 0.7
 	});
 	$(".page").disableSelection();
-	$(".contenu_grille").sortable({
-		items: ".bloc_grille",
-		placeholder: "deplaceur_bloc",
-		update: function() {
-			/* Gestion du déplacement d'un objet */
-		},
-		start: function (e, ui) {
-			var elem = $(ui.item);
-			var hauteur = elem.height();
-			var largeur = elem.width();
-			ui.placeholder.height(hauteur).width(largeur);
-		},
-		opacity: 0.7
-	});
-	$(".contenu_grille").disableSelection();
+	appliquer_sortable_contenu(".contenu_grille");
 });

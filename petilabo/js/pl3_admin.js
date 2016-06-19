@@ -5,6 +5,13 @@
 /* Blocage des mises en cache */
 $.ajaxSetup ({cache: false});
 
+/* ReplaceWith avec renvoi du nouvel objet */
+$.fn.replaceWithPush = function(a) {
+    var $a = $(a);
+    this.replaceWith($a);
+    return $a;
+};
+
 /* Appel AJAX pour le changement de mode d'administration */
 function changer_mode_admin(mode_admin) {
 	$.ajax({

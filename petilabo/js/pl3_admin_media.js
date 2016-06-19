@@ -2,13 +2,6 @@
  * JS PL3 mode administration media
  */
 
-/* ReplaceWith avec renvoi du nouvel objet */
-$.fn.replaceWithPush = function(a) {
-    var $a = $(a);
-    this.replaceWith($a);
-    return $a;
-};
- 
 /*
  * Adapté de :
  * singleuploadimage - jQuery plugin for upload a image, simple and elegant.
