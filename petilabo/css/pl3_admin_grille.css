@@ -3,18 +3,38 @@
  */
 
 /* Mode administration grille *******************************************************/
+.contenu_flex{display:flex;flex-wrap:wrap;flex-direction:row;align-items:center;width:100%;margin:0;padding:0;}
+.contenu_flex_poignee{flex:0 0 50px;}
+.contenu_flex_blocs{flex:1;}
+.contenu_grille{display:block;width:100%;position:relative;}
+.bloc_grille{display:inline-block;margin-left:1%!important;margin-right:1%!important;vertical-align:top;}
 
-/* Boutons pour l'ajout de contenus */
-.contenu_poignee_ajout{font-size:16px;text-align:center;padding:4px;word-break: break-all;flex-grow:1;align-self:flex-start;}
-.contenu_poignee_ajout a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
-.contenu_poignee_ajout a:hover{background:#a00;color:#fff;}
+/* JQuery UI */
+.deplaceur_contenu{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
+.deplaceur_bloc{display:inline-block;width:100px;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
+
+/* Survol du contenu */
+.contenu{border-width:3px!important;border-style:solid!important;border-color:transparent;}
+.contenu_survol{cursor:pointer;border-color:#c00!important;}
+
+/* Légende et survol du bloc */
+.bloc_legende_nom{text-align:center;margin:0 auto;border:3px solid transparent;padding:5px;word-break: break-all;}
+.bloc_legende_survol{cursor:pointer;border-color:#c00;}
+
+/* Boutons pour l'ajout et l'édition de contenus */
+.contenu_poignee_ajout, .contenu_poignee_edit{font-size:16px;text-align:center;padding:4px;word-break: break-all;flex-grow:1;align-self:flex-start;}
+.contenu_poignee_ajout a, .contenu_poignee_edit a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
+.contenu_poignee_ajout a:hover, .contenu_poignee_edit a:hover{background:#a00;color:#fff;}
 
 /* Boutons pour l'ajout de blocs */
-.bloc_ajout{width:50px;align-self:center;}
-.bloc_poignee_ajout{font-size:16px;text-align:center;padding:4px;word-break: break-all;}
+.bloc_ajout{width:40px;align-self:center;}
+.bloc_poignee_ajout{font-size:16px;text-align:center;padding:4px;}
 .bloc_poignee_ajout a{background:#666;color:#fff;width:30px;padding:8px 8px 6px 8px;margin:2px 3px;text-decoration:none;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;}
 .bloc_poignee_ajout a:hover{background:#a00;color:#fff;}
 
-/* Légende du bloc */
-.bloc_legende_nom{text-align:center;margin:0 auto;border:3px solid transparent;padding:5px 0;}
-.bloc_legende_survol{cursor:pointer;border-color:#c00;}
+
+/* Petits écrans */
+@media all and (max-width: 600px) {
+	.contenu_grille{padding:5px 0!important;}
+	.bloc_grille{display:block!important;width:96%!important;margin:10px auto!important;}
+}

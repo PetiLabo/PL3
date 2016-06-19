@@ -29,6 +29,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		foreach($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {
 			$bloc->charger_xml();
 		}
+		$this->maj_cardinal_et_largeur();
 	}
 	
 	public function ecrire_xml($niveau) {
@@ -43,23 +44,69 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 
 	public function ajouter_bloc(&$bloc) {
 		$this->liste_objets["pl3_objet_page_bloc"][] = $bloc;
+		$this->maj_cardinal_et_largeur();
 	}
 	
 	public function afficher($mode) {
-		$ret = "";
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
+		if ($mode == _MODE_ADMIN_GRILLE) {
+			$ret = $this->afficher_grille($style);
+		}
+		else {
+			$ret = $this->afficher_standard($mode, $style);
+		}
+		return $ret;
+	}
+	
+	private function afficher_standard($mode, $style) {
+		$ret = "";
 		$classe = "contenu contenu_".$style;
 		$ret .= "<div id=\"contenu-".$this->id."\" class=\"".$classe."\">\n";
-		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
-		foreach ($liste_blocs as $bloc) {$ret .= $bloc->afficher($mode);}
-		if ($mode == _MODE_ADMIN_GRILLE) {
-			$ret .= "<div id=\"nouveau-bloc-".$this->id."\" class=\"bloc bloc_ajout\">";
+		foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher($mode);}
+		$ret .= "</div>\n";
+		return $ret;
+	}
+	
+	private function afficher_grille($style) {
+		$ret = "";
+		$ret .= "<div class=\"contenu_flex contenu_".$style."\" style=\"\">\n";
+		// Affichage de la poignée du contenu
+		$ret .= "<div class=\"contenu_flex_poignee\">";
+			$ret .= "<div class=\"bloc bloc_ajout\">";
+			$ret .= "<p id=\"poignee-contenu-".$this->id."\" class=\"contenu_poignee_edit\">";
+			$ret .= "<a class=\"fa fa-minus\" href=\"#\" title=\"Editer le contenu\" style=\"height:100%;\"></a>";
+			$ret .= "</p></div>\n";
+		$ret .= "</div>\n";
+		// Affichage des blocs		
+		$ret .= "<div class=\"contenu_flex_blocs\">\n";
+			$ret .= "<div id=\"contenu-".$this->id."\" class=\"contenu_grille\">\n";
+			foreach ($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {$ret .= $bloc->afficher(_MODE_ADMIN_GRILLE);}
+			$ret .= "</div>\n";
+		$ret .= "</div>\n";
+		// Affichage du bouton d'ajout de contenu		
+		$ret .= "<div class=\"contenu_flex_poignee\">";
+			$ret .= "<div class=\"bloc bloc_ajout\">";
 			$ret .= "<p id=\"poignee-bloc-".$this->id."\" class=\"bloc_poignee_ajout\">";
 			$ret .= "<a class=\"fa fa-bars fa-rotate-90\" href=\"#\" title=\"Ajouter un bloc\" style=\"height:100%;\"></a>";
 			$ret .= "</p></div>\n";
-		}
+		$ret .= "</div>\n";
 		$ret .= "</div>\n";
 		return $ret;
+	}
+	
+	private function maj_cardinal_et_largeur() {
+		$nombre_total = 0;
+		$largeur_totale = 0;
+		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];
+		foreach($liste_blocs as $bloc) {
+			$largeur = (int) $bloc->get_attribut_taille();
+			$largeur_totale += ($largeur > 0)?$largeur:1;
+			$nombre_total += 1;
+		}
+		foreach($liste_blocs as $bloc) {
+			$bloc->set_largeur_parent($largeur_totale);
+			$bloc->set_cardinal_parent($nombre_total);
+		}
 	}
 }

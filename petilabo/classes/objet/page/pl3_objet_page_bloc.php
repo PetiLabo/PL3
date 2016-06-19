@@ -23,6 +23,16 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	/* Autres propriétés */
 	private $objets = array();
 	
+	/* Cardinal et largeur du parent (pour affichage en inline-block) */
+	private $largeur_parent = 1;
+	public function set_largeur_parent($largeur_parent) {
+		if ($largeur_parent > 0) {$this->largeur_parent = $largeur_parent;}
+	}
+	private $cardinal_parent = 1;
+	public function set_cardinal_parent($cardinal_parent) {
+		if ($cardinal_parent > 0) {$this->cardinal_parent = $cardinal_parent;}
+	}
+	
 	/* Gestion des objet dans le bloc */
 	public function remplacer_objet(&$nouvel_objet) {
 		$nouvel_id = $nouvel_objet->lire_id();
@@ -83,38 +93,57 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		$xml .= $this->fermer_xml($niveau);
 		return $xml;
 	}
-	
+
 	public function afficher($mode) {
-		$ret = "";
-		$source_page = $this->get_source_page();
 		$num_id_bloc = $this->lire_id_parent()."-".$this->lire_id();
 		$taille = $this->get_attribut_entier(self::NOM_ATTRIBUT_TAILLE, 1);
 		$style = $this->get_attribut_style();
 		if (strlen($style) == 0) {$style = _NOM_STYLE_DEFAUT;}
-		$classe = "bloc bloc_".$style;
-		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"flex-grow:".$taille.";\">\n";
 		if ($mode == _MODE_ADMIN_GRILLE) {
-			$nom = $this->get_attribut_nom();
-			$ret .= "<p class=\"bloc_legende_nom\">".$nom."</p>\n";
+			$ret = $this->afficher_grille($num_id_bloc, $taille, $style);
 		}
 		else {
-			foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
-			if ($mode == _MODE_ADMIN_OBJETS) {
-				$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
-				if (count($liste_objets_avec_icone) > 0) {
-					$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
-					foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
-						$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
-						$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
-					}
-					$ret .= "</p>\n";
-				}
-			}
+			$ret = $this->afficher_standard($mode, $num_id_bloc, $taille, $style);
 		}
-		$ret .= "</div>\n";
 		return $ret;
 	}
 	
+	private function afficher_standard($mode, $num_id_bloc, $taille, $style) {
+		$ret = "";
+		$source_page = $this->get_source_page();
+		$classe = "bloc bloc_".$style;
+		$style_bloc = "flex-grow:".$taille.";";
+		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"".$style_bloc."\">";
+		foreach($this->objets as $objet) {$ret .= $objet->afficher($mode);}
+		if ($mode == _MODE_ADMIN_OBJETS) {
+			$liste_objets_avec_icone = $source_page->get_page()->get_liste_objets_avec_icone();
+			if (count($liste_objets_avec_icone) > 0) {
+				$ret .= "<p id=\"poignee-bloc-".$num_id_bloc."\" class=\"bloc_poignee_ajout\">";
+				foreach ($liste_objets_avec_icone as $nom_balise => $nom_icone) {
+					$nom_classe = _PREFIXE_OBJET.(self::NOM_FICHE)."_".$nom_balise;
+					$ret .= "<a class=\"fa ".$nom_icone."\" href=\"".$nom_classe."\" title=\"Ajouter un objet ".$nom_balise."\"></a>";
+				}
+				$ret .= "</p>\n";
+			}
+		}
+		$ret .= "</div>";
+		return $ret;
+	}
+	
+	private function afficher_grille($num_id_bloc, $taille, $style) {
+		/* En mode grille on affiche en inline-block à cause des pbs JQuery UI Sortable / display flex */
+		$ret = "";
+		$classe = "bloc_grille bloc_".$style;
+		$taille_totale = 1000 - 20 * $this->cardinal_parent;
+		$largeur_bloc = floor(($taille_totale * $taille) / $this->largeur_parent) / 10;
+		$style_bloc = "width:".$largeur_bloc."%;";
+		$ret .= "<div id=\"bloc-".$num_id_bloc."\" class=\"".$classe."\" style=\"".$style_bloc."\">";
+		$nom = $this->get_attribut_nom();
+		$ret .= "<p class=\"bloc_legende_nom\">".$nom." ".$this->largeur_parent."</p>";
+		$ret .= "</div>";
+		return $ret;
+	}
+
 	/* Accesseur */
 	public function lire_nb_objets() {
 		return count($this->objets);

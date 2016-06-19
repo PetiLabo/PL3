@@ -116,9 +116,9 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		else {
 			$contenu_mode = $this->afficher_objets($this->mode, "pl3_objet_page_contenu");
 			if ($this->mode & _MODE_ADMIN_GRILLE) {
-				$contenu_mode .= "<div class=\"contenu contenu_defaut contenu_ajout\">";
+				$contenu_mode .= "<div class=\"contenu_ajout contenu_defaut\">";
 				$contenu_mode .= "<p class=\"contenu_poignee_ajout\">";
-				$contenu_mode .= "<a class=\"fa fa-bars\" href=\"#\" title=\"Ajouter un contenu\" style=\"height:100%;\"></a>";
+				$contenu_mode .= "<a class=\"fa fa-bars\" href=\"#\" title=\"Ajouter un contenu\"></a>";
 				$contenu_mode .= "</p></div>\n";
 			}
 			$classe_mode = "page";
