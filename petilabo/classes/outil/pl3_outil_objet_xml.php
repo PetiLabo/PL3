@@ -59,7 +59,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	}
 
 	/* Méthodes abstraites */
-	// abstract public function construire_nouveau();
+	// public function construire_nouveau() {};
 	abstract public function afficher($mode);
 	abstract public function ecrire_xml($niveau);
 	

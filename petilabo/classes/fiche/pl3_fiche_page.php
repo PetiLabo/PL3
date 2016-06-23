@@ -38,6 +38,11 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	public function get_nom_style() {return $this->nom_style;}
 	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
 
+	public function ajouter_contenu(&$contenu) {
+		$contenu->maj_cardinal_et_largeur();
+		$this->liste_objets["pl3_objet_page_contenu"][] = $contenu;
+	}
+
 	/* Afficher */
 	public function afficher() {
 		$ret = "";

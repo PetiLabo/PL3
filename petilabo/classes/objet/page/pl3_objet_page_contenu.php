@@ -22,6 +22,10 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$this->declarer_objet("pl3_objet_page_bloc");
 		parent::__construct($id, $objet_parent, $noeud);
 	}
+	public function construire_nouveau() {
+		$bloc = $this->instancier_nouveau("pl3_objet_page_bloc");
+		$this->ajouter_bloc($bloc);
+	}
 
 	/* Méthodes */
 	public function charger_xml() {
@@ -117,7 +121,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		return $ret;
 	}
 
-	private function maj_cardinal_et_largeur() {
+	public function maj_cardinal_et_largeur() {
 		$nombre_total = 0;
 		$largeur_totale = 0;
 		$liste_blocs = $this->liste_objets["pl3_objet_page_bloc"];

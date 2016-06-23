@@ -3,7 +3,21 @@
  */
 
 function ajouter_contenu(nom_page) {
-	alert("Ajout d'un contenu dans la page "+nom_page);
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_ajouter_contenu.php",
+		data: {nom_page: nom_page},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			$(".contenu_ajout").before(html);
+		}
+		else {
+			alert("NOK");
+		}
+	});
 }
 
 function editer_contenu(nom_page, contenu_id) {
