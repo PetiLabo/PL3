@@ -155,6 +155,7 @@ class pl3_ajax_init {
 	public static function Get_page() {return self::$Page;}
 	public static function Get_contenu() {return self::$Contenu;}
 	public static function Get_bloc() {return self::$Bloc;}
+	public static function Get_bloc_id() {return self::$Bloc_id;}
 	public static function Get_fiche_media() {return self::$Fiche_media_local;}
 	public static function Get_media_id() {return self::$Media_id;}
 	public static function Get_media() {return self::$Media;}

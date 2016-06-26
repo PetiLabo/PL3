@@ -75,7 +75,7 @@
 
 /* AJAX */
 function editer_image(nom_page, media_id) {
-	var editeur_id = "editeur-"+media_id;
+	var editeur_id = "editeur-media-"+media_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
 		alert("ERREUR : L'éditeur est déjà ouvert pour ce média !");
@@ -153,7 +153,7 @@ function supprimer_image(nom_page, media_id) {
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(media_id, html) {
 	var media = $("#media-"+media_id);
-	if (media) {
+	if (media.length > 0) {
 		/* Constitution de l'éditeur */
 		var style = calculer_coord_editeur(media, false);
 		var div_id = "editeur-media-"+media_id;

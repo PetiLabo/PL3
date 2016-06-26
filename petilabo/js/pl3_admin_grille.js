@@ -44,7 +44,50 @@ function ajouter_bloc(nom_page, contenu_id) {
 }
 
 function editer_bloc(nom_page, contenu_id, bloc_id) {
-	alert("Edition du bloc "+bloc_id+" dans le contenu "+contenu_id+" de la page "+nom_page);
+	var editeur_bloc_id = contenu_id+"-"+bloc_id;
+	var editeur_id = "editeur-bloc-"+editeur_bloc_id;
+	var editeur = $("#"+editeur_id);
+	if (editeur.length > 0) {
+		alert("ERREUR : L'éditeur est déjà ouvert pour ce bloc !");
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_editer_bloc.php",
+		data: {nom_page: nom_page, bloc_id: editeur_bloc_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			afficher_editeur(editeur_bloc_id, html);
+		}
+		else {
+			alert("ERREUR : Origine de l'objet éditable introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+/* Affichage du code attaché à l'éditeur d'image */
+function afficher_editeur(bloc_id, html) {
+	var bloc = $("#bloc-"+bloc_id);
+	if (bloc.length > 0) {
+		/* Constitution de l'éditeur */
+		var style = calculer_coord_editeur(bloc, false);
+		var div_id = "editeur-bloc-"+bloc_id;
+		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
+		div += "<p class=\"editeur_objet_barre_outils\">";
+		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
+		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		div += "</p>";
+		div += html;
+		div += "</div>";
+		
+		/* Affichage de l'éditeur */
+		$("div.page").append(div);
+	}
 }
 
 /* Application de plugins */

@@ -29,11 +29,19 @@ function changer_mode_admin(mode_admin) {
 }
 
 function calculer_coord_editeur(objet, plein_ecran) {
-	/* Récupération de la position de l'objet */
-	var position = objet.position();
-	var pos_haut = parseInt(position.top);
-	var hauteur = parseInt(objet.height());
-	var pos_y = pos_haut + hauteur + 6;
+	/* Détection de la position en fonction du scrolling */
+	var body = document.body;
+    var html = document.documentElement;
+    var scrollTop = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+    var scrollLeft = window.pageXOffset || html.scrollLeft || body.scrollLeft || 0;
+    var box = objet.get(0).getBoundingClientRect();
+    var pos_haut = box.top + scrollTop;
+    var pos_gauche = box.left + scrollLeft;
+	
+	/* Calcul de la position top en tenant compte de la position de la page */
+	var decalage_page = parseInt($("div.page").css("margin-top").replace("px", ""));
+	var hauteur = parseInt(objet.outerHeight());
+	var pos_y = pos_haut + hauteur - decalage_page;
 
 	/* Calcul de la position de l'éditeur */
 	if (plein_ecran) {
@@ -43,8 +51,8 @@ function calculer_coord_editeur(objet, plein_ecran) {
 		style += "left:"+pos_x+"px;";
 		style += "width:"+largeur+"px;";
 	}
-	else {	
-		var pos_x = parseInt(position.left) + 1;
+	else {
+		var pos_x = pos_gauche + 1;
 		var largeur_min = parseInt(objet.width()) + 6;
 
 		/* Elaboration du style */
