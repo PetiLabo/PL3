@@ -70,6 +70,33 @@ function editer_bloc(nom_page, contenu_id, bloc_id) {
 	});
 }
 
+/* Appel AJAX pour soumission d'un éditeur de bloc */
+function soumettre_bloc(nom_page, bloc_id, parametres) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_soumettre_bloc.php",
+		data: {nom_page: nom_page, bloc_id: bloc_id, parametres: parametres},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var maj = data["maj"];
+			if (maj) {
+				var html = data["html"];
+				var bloc = $("#bloc-"+bloc_id);
+				bloc.parent().replaceWith(html);
+			}
+			$("#editeur-bloc-"+bloc_id).remove();
+		}
+		else {
+			alert("ERREUR : Origine du bloc introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(bloc_id, html) {
 	var bloc = $("#bloc-"+bloc_id);
@@ -134,7 +161,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	
 	/* Gestion du bouton pour l'édition de contenu */
 	$("div.page").on("click", "p.contenu_poignee_edit a", function() {
 		var contenu_attr_id = $(this).parent().attr("id");
@@ -157,6 +183,17 @@ $(document).ready(function() {
 		var contenu_id = bloc_attr_id.replace("poignee-bloc-", "");
 		var nom_page = parser_page();
 		ajouter_bloc(nom_page, contenu_id);
+		return false;
+	});
+	
+	/* Bouton "soumettre" dans les éditeurs de bloc */
+	/* TODO : Reconnaître qu'il s'agit bien d'un éditeur de bloc !!! */
+	$("div.page").on("submit", "form.editeur_formulaire", function() {
+		var form_id = $(this).attr("id");
+		var bloc_id = form_id.replace("formulaire-bloc-", "");
+		var nom_page = parser_page();
+		var parametres = $(this).serialize();
+		soumettre_bloc(nom_page, bloc_id, parametres);
 		return false;
 	});
 	

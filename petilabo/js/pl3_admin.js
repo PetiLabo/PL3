@@ -106,7 +106,7 @@ $(document).ready(function() {
 			var editeur_id = editeur.attr("id");
 			var objet_id = editeur_id.replace("editeur-", "");
 			var objet = $("#"+objet_id);
-			if (objet) {
+			if (objet.length > 0) {
 				var plein_ecran = editeur.hasClass("editeur_objet_plein_ecran");
 				if (plein_ecran) {
 					editeur.removeClass("editeur_objet_plein_ecran");

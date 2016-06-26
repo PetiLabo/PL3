@@ -46,6 +46,12 @@
         <fond>#ddf</fond>
 		<css>border-radius:10px;</css>
     </style_bloc>
+    <style_bloc nom="sombre">
+		<marge>5px</marge>
+		<retrait>15px</retrait>
+        <fond>#336</fond>
+		<css>border-radius:10px;</css>
+    </style_bloc>
 
 	<!-- Styles de texte -->
     <style_texte nom="grand">

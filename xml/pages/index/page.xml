@@ -12,17 +12,23 @@
         </bloc>
     </contenu>
     <contenu>
-        <bloc nom="Gouttière gauche">
+        <bloc nom="Gouttière gauche" style="defaut" taille="1">
             <saut>1</saut>
         </bloc>
-        <bloc nom="Article" taille="6">
+        <bloc nom="Article" style="sombre" taille="5">
             <titre style="defaut" niveau="1">titre_actu</titre>
             <image lien="toto" survol="defaut">vignette_actu</image>
             <paragraphe style="defaut">texte_actu_1</paragraphe>
         </bloc>
-        <bloc nom="Volet droit" taille="3">
+        <bloc nom="Volet droit" style="defaut" taille="1">
             <titre niveau="1">titre_2</titre>
             <saut>2</saut>
+        </bloc>
+    </contenu>
+    <contenu>
+        <bloc>
+        </bloc>
+        <bloc>
         </bloc>
     </contenu>
 </petilabo>
