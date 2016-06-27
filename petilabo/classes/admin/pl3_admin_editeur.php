@@ -23,7 +23,7 @@ abstract class pl3_admin_editeur {
 		$nom_information = $information["nom"];
 		/* Traitement des indirections */
 		$this->traiter_indirection($information, $valeur);
-		$champ_form = $this->type_to_champ_form($information);
+		$champ_form = $this->type_to_champ_form($information, $valeur);
 		if (isset($champ_form["balise"])) {
 			$balise = $champ_form["balise"];
 			$id_form = $nom_information."-".$this->id_objet;
@@ -47,10 +47,11 @@ abstract class pl3_admin_editeur {
 					}
 					break;
 				case "input":
+					$valeur_corrigee = $champ_form["val"];
 					$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
 					$ret .= "<p class=\"editeur_champ_formulaire\">";
 					$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
-					$ret .= "<".$balise." id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur."\"".$champ_form["attr"]."/>";
+					$ret .= "<input id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur_corrigee."\"".$champ_form["attr"]."/>";
 					$ret .= "</p>\n";
 					break;
 				default:
@@ -60,27 +61,36 @@ abstract class pl3_admin_editeur {
 		return $ret;
 	}
 
-	protected function type_to_champ_form(&$information) {
+	protected function type_to_champ_form(&$information, $valeur) {
 		$attr = "";
 		$type_information = $information["type"];
 		switch($type_information) {
 			case pl3_outil_objet_xml::TYPE_ENTIER:
-				if (isset($information["min"])) {$attr .= " min=\"".(int) $information["min"]."\"";}
-				if (isset($information["max"])) {$attr .= " max=\"".(int) $information["max"]."\"";}
-				$ret = array("balise" => "input", "type" => "number", "attr" => $attr);
+				/* Gestion du min/max et correction éventuelle de la valeur */
+				if (isset($information["min"])) {
+					$valeur_min = (int) $information["min"];
+					$attr .= " min=\"".$valeur_min."\"";
+					if (((int) $valeur) < $valeur_min) {$valeur = $valeur_min;}
+				}
+				if (isset($information["max"])) {
+					$valeur_max = (int) $information["max"];
+					$attr .= " max=\"".$valeur_max."\"";
+					if (((int) $valeur) > $valeur_max) {$valeur = $valeur_max;}
+				}
+				$ret = array("balise" => "input", "type" => "number", "attr" => $attr, "val" => $valeur);
 				break;
 			case pl3_outil_objet_xml::TYPE_CHAINE:
-				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_TEXTE:
 				$ret = array("balise" => "textarea");break;
 			case pl3_outil_objet_xml::TYPE_ICONE:
-				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
 				$ret = array("balise" => "select", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_INDIRECTION:
-				$ret = array("balise" => "input", "type" => "text", "attr" => $attr);break;
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:
-				$ret = array("balise" => "input", "type" => "file", "attr" => $attr);break;
+				$ret = array("balise" => "input", "type" => "file", "attr" => $attr, "val" => $valeur);break;
 			default:
 				$ret = array();
 		}

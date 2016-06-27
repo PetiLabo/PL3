@@ -18,7 +18,7 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 	public static $Liste_attributs = array(
 		array("nom" => self::NOM_ATTRIBUT_NOM, "type" => self::TYPE_CHAINE),
 		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_bloc"),
-		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER));
+		array("nom" => self::NOM_ATTRIBUT_TAILLE, "type" => self::TYPE_ENTIER, "min" => 1));
 
 	/* Autres propriétés */
 	private $objets = array();
