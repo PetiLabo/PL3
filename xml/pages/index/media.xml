@@ -21,7 +21,7 @@
         <largeur_reelle>430</largeur_reelle>
         <hauteur_reelle>325</hauteur_reelle>
     </image>
-    <image nom="carrousel_4">
+    <image nom="carrousel-4">
         <fichier>carrousel-4.png</fichier>
         <alt>alt_carrousel_4</alt>
         <taille_standard>Ardoise</taille_standard>

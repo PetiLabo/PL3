@@ -6,11 +6,13 @@
  
 abstract class pl3_admin_editeur {
 	protected $objet = null;
+	protected $classe_objet = null;
 	protected $id_objet = null;
 
 	/* Constructeur */
-	public function __construct(&$objet, $id_objet) {
+	public function __construct(&$objet, $classe_objet, $id_objet) {
 		$this->objet = $objet;
+		$this->classe_objet = $classe_objet;
 		$this->id_objet = $id_objet;
 	}
 	

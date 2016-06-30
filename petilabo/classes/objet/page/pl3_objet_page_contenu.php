@@ -15,7 +15,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";
 	public static $Liste_attributs = array(
-		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_style_style_contenu"));
+		array("nom" => self::NOM_ATTRIBUT_STYLE, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_contenu"));
 	
 	/* Constructeur */
 	public function __construct($id, $objet_parent, &$noeud = null) {

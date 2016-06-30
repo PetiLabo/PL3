@@ -1,6 +1,33 @@
 /*
  * JS PL3 mode administration objets
  */
+ 
+/* Appel AJAX pour soumission d'un éditeur de contenu */
+function soumettre_contenu(nom_page, contenu_id, parametres) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_soumettre_contenu.php",
+		data: {nom_page: nom_page, contenu_id: contenu_id, parametres: parametres},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var maj = data["maj"];
+			if (maj) {
+				var html = data["html"];
+				var contenu = $("#contenu-"+contenu_id);
+				contenu.closest(".contenu_flex").replaceWith(html);
+				appliquer_sortable_contenu("#contenu-"+contenu_id);
+			}
+			$("#editeur-contenu-"+contenu_id).remove();
+		}
+		else {
+			alert("ERREUR : Origine du contenu introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
 
 function ajouter_contenu(nom_page) {
 	$.ajax({
@@ -21,7 +48,29 @@ function ajouter_contenu(nom_page) {
 }
 
 function editer_contenu(nom_page, contenu_id) {
-	alert("Edition du contenu "+contenu_id+" dans la page "+nom_page);
+	var editeur_id = "editeur-contenu-"+contenu_id;
+	var editeur = $("#"+editeur_id);
+	if (editeur.length > 0) {
+		alert("ERREUR : L'éditeur est déjà ouvert pour ce contenu !");
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_editer_contenu.php",
+		data: {nom_page: nom_page, contenu_id: contenu_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			afficher_editeur("contenu", contenu_id, html);
+		}
+		else {
+			alert("ERREUR : Origine de l'objet éditable introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
 }
 
 function ajouter_bloc(nom_page, contenu_id) {
@@ -60,7 +109,7 @@ function editer_bloc(nom_page, contenu_id, bloc_id) {
 		var valide = data["valide"];
 		if (valide) {
 			var html = data["html"];
-			afficher_editeur(editeur_bloc_id, html);
+			afficher_editeur("bloc", editeur_bloc_id, html);
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");
@@ -96,14 +145,13 @@ function soumettre_bloc(nom_page, bloc_id, parametres) {
 	});
 }
 
-
 /* Affichage du code attaché à l'éditeur d'image */
-function afficher_editeur(bloc_id, html) {
-	var bloc = $("#bloc-"+bloc_id);
-	if (bloc.length > 0) {
+function afficher_editeur(elem_nom, elem_id, html) {
+	var elem = $("#"+elem_nom+"-"+elem_id);
+	if (elem.length > 0) {
 		/* Constitution de l'éditeur */
-		var style = calculer_coord_editeur(bloc, false);
-		var div_id = "editeur-bloc-"+bloc_id;
+		var style = calculer_coord_editeur(elem, false);
+		var div_id = "editeur-"+elem_nom+"-"+elem_id;
 		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
@@ -185,10 +233,19 @@ $(document).ready(function() {
 		ajouter_bloc(nom_page, contenu_id);
 		return false;
 	});
-	
+
+	/* Bouton "soumettre" dans les éditeurs de contenu */
+	$("div.page").on("submit", "form.editeur_type_contenu", function() {
+		var form_id = $(this).attr("id");
+		var contenu_id = form_id.replace("formulaire-contenu-", "");
+		var nom_page = parser_page();
+		var parametres = $(this).serialize();
+		soumettre_contenu(nom_page, contenu_id, parametres);
+		return false;
+	});
+
 	/* Bouton "soumettre" dans les éditeurs de bloc */
-	/* TODO : Reconnaître qu'il s'agit bien d'un éditeur de bloc !!! */
-	$("div.page").on("submit", "form.editeur_formulaire", function() {
+	$("div.page").on("submit", "form.editeur_type_bloc", function() {
 		var form_id = $(this).attr("id");
 		var bloc_id = form_id.replace("formulaire-bloc-", "");
 		var nom_page = parser_page();

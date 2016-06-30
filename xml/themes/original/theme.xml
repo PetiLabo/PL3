@@ -38,6 +38,11 @@
     <style_contenu nom="defaut">
         <fond>#bbb</fond>
     </style_contenu>
+    <style_contenu nom="transparent">
+    </style_contenu>
+    <style_contenu nom="alerte">
+		<fond>#a22</fond>
+    </style_contenu>
 
 	<!-- Styles de bloc -->
     <style_bloc nom="defaut">

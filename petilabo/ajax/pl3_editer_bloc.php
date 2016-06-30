@@ -10,7 +10,7 @@ $ajax_objet_valide = pl3_ajax_init::Init_bloc();
 if ($ajax_objet_valide) {
 	$bloc = pl3_ajax_init::Get_bloc();
 	$bloc_id = pl3_ajax_init::Get_bloc_id();
-	$editeur_bloc = new pl3_admin_editeur_objet($bloc, "bloc-".$bloc_id);
+	$editeur_bloc = new pl3_admin_editeur_objet($bloc, "editeur_type_bloc", "bloc-".$bloc_id);
 	$html = $editeur_bloc->editer();
 }
 
