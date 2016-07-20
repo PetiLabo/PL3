@@ -23,6 +23,16 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 		array("nom" => self::NOM_ATTRIBUT_SURVOL, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
 	);
 	
+	/* Destruction */
+	public function detruire() {
+		$source_page = $this->get_source_page();
+		$nom_texte = $this->get_valeur();
+		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
+		if ($texte != null) {
+			$source_page->supprimer($texte);
+		}
+	}
+
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
