@@ -2,6 +2,7 @@
 
 /* Définition de la version PetiLabo */
 define("_VERSION_PETILABO", "3.0.0");
+define("_NOM_BALISE_GENERIQUE", "petilabo");
 
 /* Définitions complémentaires */
 if (!defined("_CHEMIN_BASE_FICHIER")) {define("_CHEMIN_BASE_FICHIER", _CHEMIN_BASE_URL);}
@@ -55,6 +56,7 @@ define("_MODE_ADMIN_GRILLE", 4);
 define("_MODE_ADMIN_MAJ_GRILLE", 5);
 define("_MODE_ADMIN_OBJETS", 8);
 define("_MODE_ADMIN_XML", 16);
+define("_MODE_ADMIN_PAR_DEFAUT", _MODE_ADMIN_PAGE);
 
 /* Sources des fichiers XML */
 define("_NOM_SOURCE_GLOBAL", "global");
@@ -75,11 +77,11 @@ if (isset($_SERVER["PHP_SELF"])) {
 	if (strstr($php_self, "/ajax/") === false) {
 		if (isset($_GET["p"])) {
 			$nom_get_en_cours = htmlentities(basename(trim($_GET["p"])));
-			if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE._SUFFIXE_PHP))) {
+			if ($nom_php_en_cours === _PAGE_PRINCIPALE._SUFFIXE_PHP) {
 				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE;}
 				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
 			}
-			else if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN._SUFFIXE_PHP))) {
+			else if ($nom_php_en_cours === _PAGE_PRINCIPALE_ADMIN._SUFFIXE_PHP) {
 				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE_ADMIN;}
 				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
 			}
@@ -104,26 +106,19 @@ else {
  */
 function autochargement($nom_classe) {
 
+	$classe = explode('_', strtolower($nom_classe), 3);
+	
 	/* Toutes les classes doivent commencer par pl3_ */
-	$prefixe = strtolower(substr($nom_classe, 0, 4));
-	if (strcmp($prefixe, "pl3_")) {
+	if ($classe[0] !== 'pl3') {
 		die("Erreur : la classe ".$nom_classe." porte un préfixe incorrect");
 	}
 
-	$categorie = strtolower(substr($nom_classe, 4, 5));
-	$chemin = _CHEMIN_CLASSES.$categorie."/";
-	if (!(strcmp($categorie, "objet"))) {
-		$pos_fiche = strpos($nom_classe, "_", 10);
-		if ($pos_fiche !== false) {
-			$fiche = substr($nom_classe, 10, $pos_fiche - 10);
-			$chemin .= $fiche."/";
-		}
-		else {
+	$chemin = _CHEMIN_CLASSES.$classe[1]."/";
+	if ($classe[1] === "objet") {
+		if (count($classe) < 4) {
 			die("Erreur : la classe objet ".$nom_classe." porte sur une fiche inconnue");
 		}
-	}
-	else if (!(strcmp($categorie, "ajax_"))) {
-		$chemin = _CHEMIN_AJAX;
+		$chemin .= $classe[2]."/";
 	}
 	$fichier = $chemin.$nom_classe.".php";
     if (@file_exists($fichier)) {
