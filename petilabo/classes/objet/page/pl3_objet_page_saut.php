@@ -3,36 +3,19 @@
 /**
  * Classe de gestion des sauts
  */
- 
-class pl3_objet_page_saut extends pl3_outil_objet_simple_xml {
-	/* Icone */
-	const NOM_ICONE = "fa-arrows-v";
-	
-	/* Fiche */
-	const NOM_FICHE = "page";
 
-	/* Balise */
+class pl3_objet_page_saut extends pl3_outil_objet_xml {
+	const ICONE      = "fa-arrows-v";
+	const NOM_FICHE  = "page";
 	const NOM_BALISE = "saut";
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_ENTIER, "min" => 1);
-	
-	/* Attributs */
-	public static $Liste_attributs = array();
+	const TYPE       = self::TYPE_ENTIER;
+	const MIN        = 1;
 
-	/* Initialisation */
+	/* Création */
 	public function construire_nouveau() {
 		$this->set_valeur(1);
 	}
 
-	/* Destruction */
-	public function detruire() {
-		$source_page = $this->get_source_page();
-		$nom_texte = $this->get_valeur();
-		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_page_saut::NOM_BALISE, $nom_texte);
-		if ($texte != null) {
-			$source_page->supprimer($texte);
-		}
-	}
-	
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";

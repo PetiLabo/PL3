@@ -3,40 +3,24 @@
 /**
  * Classe de gestion des images
  */
- 
-class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
-	/* Icone */
-	const NOM_ICONE = "fa-picture-o";
 
-	/* Fiche */
-	const NOM_FICHE = "page";
-
-	/* Balise */
+class pl3_objet_page_image extends pl3_outil_objet_xml {
+	const ICONE      = "fa-picture-o";
+	const NOM_FICHE  = "page";
 	const NOM_BALISE = "image";
-	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_image");
-	
+	const TYPE       = self::TYPE_REFERENCE;
+	const REFERENCE  = "pl3_objet_media_image";
+
 	/* Attributs */
-	const NOM_ATTRIBUT_LIEN = "lien";
-	const NOM_ATTRIBUT_SURVOL = "survol";
-	public static $Liste_attributs = array(
-		array("nom" => self::NOM_ATTRIBUT_LIEN, "type" => self::TYPE_CHAINE),
-		array("nom" => self::NOM_ATTRIBUT_SURVOL, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
+	static $attributs = array(
+		array("nom" => "lien", "type" => self::TYPE_CHAINE),
+		array("nom" => "survol", "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
 	);
-	
-	/* Destruction */
-	public function detruire() {
-		$source_page = $this->get_source_page();
-		$nom_texte = $this->get_valeur();
-		$texte = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_texte);
-		if ($texte != null) {
-			$source_page->supprimer($texte);
-		}
-	}
 
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
-		$source_page = $this->get_source_page();
+		$source_page = pl3_outil_source_page::Get();
 		$nom_image = $this->get_valeur();
 		$image = $source_page->chercher_liste_medias_par_nom(pl3_objet_media_image::NOM_BALISE, $nom_image);
 		if ($image != null) {
