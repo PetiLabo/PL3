@@ -157,20 +157,7 @@ function deplacer_contenu(nom_page, tab_ordre) {
 		var valide = data["valide"];
 		if (valide) {
 			/* Renumérotation des identifiants selon le nouvel ordre */
-			var re_id = 1;
-			var page = $("div[name='"+nom_page+"'].page");
-			page.children("div.contenu_flex").each(function() {
-				$(this).attr("id", "grille-contenu-"+re_id);
-				$(this).find("p.contenu_poignee_edit").attr("id", "poignee-contenu-"+re_id);
-				$(this).find("div.contenu_grille").attr("id", "contenu-"+re_id);
-				var re_bloc_id = 1;
-				$(this).find("div.contenu_grille div.bloc_grille").each(function() {
-					$(this).attr("id", "bloc-"+re_id+"-"+re_bloc_id);
-					re_bloc_id += 1;
-				});
-				$(this).find("p.bloc_poignee_ajout").attr("id", "poignee-bloc-"+re_id);
-				re_id += 1;
-			});
+			renumeroter_contenu(nom_page);
 		}
 		else {
 			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré.");
@@ -207,8 +194,32 @@ function deplacer_bloc(nom_page, contenu_id, tab_ordre) {
 	});
 }
 
+/* Appel AJAX pour la suppression d'un contenu */
+function supprimer_contenu(nom_page, contenu_id) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_supprimer_contenu.php",
+		data: {nom_page: nom_page, contenu_id: contenu_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			$("#editeur-contenu-"+contenu_id).remove();
+			var contenu = $("#grille-contenu-"+contenu_id);
+			contenu.remove();
+			var editeur = $("#editeur-contenu-"+contenu_id);
+			editeur.remove();
+			renumeroter_contenu(nom_page);
+		}
+		else {
+			alert("ERREUR : La suppression du bloc n'a pas pu être enregistrée.");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
 /* Appel AJAX pour la suppression d'un bloc */
-/* TODO : suppression de l'éditeur s'il est ouvert ! */
 function supprimer_bloc(nom_page, bloc_id) {
 	$.ajax({
 		type: "POST",
@@ -232,6 +243,23 @@ function supprimer_bloc(nom_page, bloc_id) {
 	});
 }
 
+/* Renumérotation des contenus */
+function renumeroter_contenu(nom_page) {
+	var re_id = 1;
+	var page = $("div[name='"+nom_page+"'].page");
+	page.children("div.contenu_flex").each(function() {
+		$(this).attr("id", "grille-contenu-"+re_id);
+		$(this).find("p.contenu_poignee_edit").attr("id", "poignee-contenu-"+re_id);
+		$(this).find("div.contenu_grille").attr("id", "contenu-"+re_id);
+		var re_bloc_id = 1;
+		$(this).find("div.contenu_grille div.bloc_grille").each(function() {
+			$(this).attr("id", "bloc-"+re_id+"-"+re_bloc_id);
+			re_bloc_id += 1;
+		});
+		$(this).find("p.bloc_poignee_ajout").attr("id", "poignee-bloc-"+re_id);
+		re_id += 1;
+	});
+}
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(elem_nom, elem_id, html) {
 	var elem = $("#"+elem_nom+"-"+elem_id);
@@ -358,7 +386,11 @@ $(document).ready(function() {
 	$("div.page").on("click", "form.editeur_type_contenu button.supprimer_formulaire", function() {
 		var contenu_attr_id = $(this).attr("id");
 		var contenu_id = parseInt(contenu_attr_id.replace("supprimer-contenu-", ""));
-		alert("Suppression du contenu "+contenu_id);
+		var nom_page = parser_page();
+		var confirmation = confirm("Confirmez-vous la suppression de ce contenu ?");
+		if (confirmation) {
+			supprimer_contenu(nom_page, contenu_id);
+		}
 		return false;
 	});
 
