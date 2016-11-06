@@ -44,6 +44,26 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$contenu->maj_cardinal_et_largeur();
 		$this->liste_objets["pl3_objet_page_contenu"][] = $contenu;
 	}
+	public function retirer_contenu($contenu_id) {
+		$liste_contenus = array();
+		$nb_contenus = count($this->liste_objets["pl3_objet_page_contenu"]);
+		$id_cpt = 1;
+		for ($cpt = 0;$cpt < $nb_contenus;$cpt ++) {
+			$contenu = &$this->liste_objets["pl3_objet_page_contenu"][$cpt];
+			if ($contenu != null) {
+				if ($contenu->lire_id() != $contenu_id) {
+					$contenu->ecrire_id($id_cpt);
+					$liste_contenus[] = $contenu;
+					$id_cpt += 1;
+				}
+				else {
+					$contenu->detruire();
+					unset($contenu);
+				}
+			}
+		}
+		$this->liste_objets["pl3_objet_page_contenu"] = $liste_contenus;
+	}
 	public function reordonner($tab_ordre) {
 		$nouveaux_contenus = array();
 		foreach ($tab_ordre as $no_ordre) {

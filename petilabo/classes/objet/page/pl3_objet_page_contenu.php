@@ -26,6 +26,12 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$bloc = $this->instancier_nouveau("pl3_objet_page_bloc");
 		$this->ajouter_bloc($bloc);
 	}
+	public function detruire() {
+		foreach($this->liste_objets["pl3_objet_page_bloc"] as $bloc) {
+			$bloc->detruire();
+			unset($bloc);
+		}
+	}
 
 	/* Accesseurs */
 	public function lire_nb_blocs() {return count($this->liste_objets["pl3_objet_page_bloc"]);}
