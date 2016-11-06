@@ -33,14 +33,24 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		}
 	}
 
-	/* Accesseurs / mutateurs */
+	/* Accesseurs */
 	public function get_nom_theme() {return $this->nom_theme;}
 	public function get_nom_style() {return $this->nom_style;}
 	public function get_liste_objets_avec_icone() {return $this->liste_objets_avec_icone;}
+	public function lire_nb_contenus() {return count($this->liste_objets["pl3_objet_page_contenu"]);}
 
+	/* Mutateurs */
 	public function ajouter_contenu(&$contenu) {
 		$contenu->maj_cardinal_et_largeur();
 		$this->liste_objets["pl3_objet_page_contenu"][] = $contenu;
+	}
+	public function reordonner($tab_ordre) {
+		$nouveaux_contenus = array();
+		foreach ($tab_ordre as $no_ordre) {
+			$index = ((int) $no_ordre) - 1;
+			$nouveaux_contenus[] = &$this->liste_objets["pl3_objet_page_contenu"][$index];
+		}
+		$this->liste_objets["pl3_objet_page_contenu"] = $nouveaux_contenus;
 	}
 
 	/* Afficher */
@@ -112,7 +122,22 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	}
 	
 	public function ecrire_body() {
-		if (($this->mode & _MODE_ADMIN_XML) > 0) {
+		if (($this->mode & _MODE_ADMIN_PAGE) > 0) {
+			$contenu_mode = "<h2>Paramètres de la page <strong><em>"._PAGE_COURANTE."</em></strong></h2>\n";
+			$contenu_mode .= "<br/>\n<p class=\"texte\"><label for=\"meta_titre\">Titre</label></p>\n";
+			$contenu_mode .= "<p class=\"texte\"><input type=\"text\" id=\"meta_titre\" name=\"meta_titre\" /></p>\n";
+			$contenu_mode .= "<br/>\n<p class=\"texte\"><label for=\"meta_description\">Description</label></p>\n";
+			$contenu_mode .= "<p class=\"texte\"><input type=\"text\" id=\"meta_description\" name=\"meta_description\" /></p>\n";
+			$contenu_mode .= "<br/>\n<p class=\"texte\"><label for=\"meta_theme\">Thème</label></p>\n";
+			$contenu_mode .= "<p class=\"texte\"><input type=\"text\" id=\"meta_theme\" name=\"meta_theme\" /></p>\n";
+			/*
+			$meta = $this->get_meta();
+			$editeur = new pl3_admin_editeur_objet($meta, "editeur_type_meta", "meta-".$meta->lire_id());
+			$contenu_mode .= $editeur->editer();
+			*/
+			$classe_mode = "page_parametres";
+		}
+		else if (($this->mode & _MODE_ADMIN_XML) > 0) {
 			$xml = $this->ecrire_xml();
 			$html = htmlspecialchars($xml, ENT_QUOTES, "UTF-8");
 			$contenu_mode = nl2br(str_replace(" ","&nbsp;", $html));

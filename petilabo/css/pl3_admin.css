@@ -15,6 +15,7 @@ a.admin_item_mode_actuel{background:#a00;}
 a.admin_item_logo{background:#555;margin-right:18px;}
 
 /* Containers */
+.page_parametres{padding:6px 12px;}
 .page_media{padding:6px 12px;}
 .page_xml{font-family:monospace;padding:6px 12px;}
 

@@ -145,6 +145,67 @@ function soumettre_bloc(nom_page, bloc_id, parametres) {
 	});
 }
 
+/* Appel AJAX pour déplacement d'un contenu dans la page */
+function deplacer_contenu(nom_page, tab_ordre) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_deplacer_contenu.php",
+		data: {nom_page: nom_page, tab_ordre: tab_ordre},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			/* Renumérotation des identifiants selon le nouvel ordre */
+			var re_id = 1;
+			var page = $("div[name='"+nom_page+"'].page");
+			page.children("div.contenu_flex").each(function() {
+				$(this).attr("id", "grille-contenu-"+re_id);
+				$(this).find("p.contenu_poignee_edit").attr("id", "poignee-contenu-"+re_id);
+				$(this).find("div.contenu_grille").attr("id", "contenu-"+re_id);
+				var re_bloc_id = 1;
+				$(this).find("div.contenu_grille div.bloc_grille").each(function() {
+					$(this).attr("id", "bloc-"+re_id+"-"+re_bloc_id);
+					re_bloc_id += 1;
+				});
+				$(this).find("p.bloc_poignee_ajout").attr("id", "poignee-bloc-"+re_id);
+				re_id += 1;
+			});
+		}
+		else {
+			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré ("+data["msg"]+")");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+
+/* Appel AJAX pour déplacement d'un bloc dans le contenu de la page */
+function deplacer_bloc(nom_page, contenu_id, tab_ordre) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_deplacer_bloc.php",
+		data: {nom_page: nom_page, contenu_id: contenu_id, tab_ordre: tab_ordre},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			/* Renumérotation des identifiants selon le nouvel ordre */
+			var re_bloc_id = 1;
+			$("div#contenu-"+contenu_id).children("div.bloc_grille").each(function() {
+				alert($(this).attr("id"));
+				$(this).attr("id", "bloc-"+contenu_id+"-"+re_bloc_id);
+				re_bloc_id += 1;
+			});
+		}
+		else {
+			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré ("+data["msg"]+")");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
 /* Affichage du code attaché à l'éditeur d'image */
 function afficher_editeur(elem_nom, elem_id, html) {
 	var elem = $("#"+elem_nom+"-"+elem_id);
@@ -172,6 +233,19 @@ function appliquer_sortable_contenu(selecteur) {
 		placeholder: "deplaceur_bloc",
 		update: function() {
 			/* Gestion du déplacement d'un objet */
+			var tab_ordre = [];
+			var contenu_attr_id = $(this).attr("id");
+			var contenu_id = parseInt(contenu_attr_id.replace("contenu-", ""));
+			var prefixe_bloc_attr_id = "bloc-"+contenu_id+"-";
+			$(this).find("div[id^='bloc-'].bloc_grille").each(function() {
+				var elem_id = $(this).attr("id");
+				var bloc_id = parseInt(elem_id.replace(prefixe_bloc_attr_id, ""));
+				if (bloc_id > 0) {tab_ordre.push(bloc_id);}
+			});
+			if (tab_ordre.length > 0) {
+				var nom_page = parser_page();
+				deplacer_bloc(nom_page, contenu_id, tab_ordre);
+			}
 		},
 		start: function (e, ui) {
 			var elem = $(ui.item);
@@ -260,7 +334,16 @@ $(document).ready(function() {
 		handle: ".contenu_poignee_edit",
 		placeholder: "deplaceur_contenu",
 		update: function() {
-			/* Gestion du déplacement d'un objet */
+			var tab_ordre = [];
+			$(this).find("div[id^='grille-contenu-'].contenu_flex").each(function() {
+				var elem_id = $(this).attr("id");
+				var contenu_id = parseInt(elem_id.replace("grille-contenu-", ""));
+				if (contenu_id > 0) {tab_ordre.push(contenu_id);}
+			});
+			if (tab_ordre.length > 0) {
+				var nom_page = parser_page();
+				deplacer_contenu(nom_page, tab_ordre);
+			}
 		},
 		start: function (e, ui) {
 			ui.placeholder.height(ui.item.children().height());

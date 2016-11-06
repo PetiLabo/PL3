@@ -27,6 +27,23 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		$this->ajouter_bloc($bloc);
 	}
 
+	/* Accesseurs */
+	public function lire_nb_blocs() {return count($this->liste_objets["pl3_objet_page_bloc"]);}
+	
+	/* Mutateurs */
+	public function ajouter_bloc(&$bloc) {
+		$this->liste_objets["pl3_objet_page_bloc"][] = $bloc;
+		$this->maj_cardinal_et_largeur();
+	}
+	public function reordonner($tab_ordre) {
+		$nouveaux_blocs = array();
+		foreach ($tab_ordre as $no_ordre) {
+			$index = ((int) $no_ordre) - 1;
+			$nouveaux_blocs[] = &$this->liste_objets["pl3_objet_page_bloc"][$index];
+		}
+		$this->liste_objets["pl3_objet_page_bloc"] = $nouveaux_blocs;
+	}
+
 	/* Méthodes */
 	public function charger_xml() {
 		$this->liste_objets["pl3_objet_page_bloc"] = $this->parser_balise(pl3_objet_page_bloc::NOM_BALISE);
@@ -44,11 +61,6 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 		}
 		$xml .= $this->fermer_xml($niveau);
 		return $xml;
-	}
-
-	public function ajouter_bloc(&$bloc) {
-		$this->liste_objets["pl3_objet_page_bloc"][] = $bloc;
-		$this->maj_cardinal_et_largeur();
 	}
 	
 	public function afficher($mode) {
@@ -75,7 +87,7 @@ class pl3_objet_page_contenu extends pl3_outil_objet_xml {
 	private function afficher_grille($mode, $style) {
 		$ret = "";
 		if ($mode == _MODE_ADMIN_GRILLE) {
-			$ret .= "<div class=\"contenu_flex contenu_".$style."\" style=\"\">\n";
+			$ret .= "<div id=\"grille-contenu-".$this->id."\" class=\"contenu_flex contenu_".$style."\" style=\"\">\n";
 			// Affichage de la poignée du contenu
 			$ret .= "<div class=\"contenu_flex_poignee\">";
 			$ret .= $this->afficher_grille_poignee_contenu();
