@@ -28,6 +28,13 @@
         <largeur_reelle>430</largeur_reelle>
         <hauteur_reelle>325</hauteur_reelle>
     </image>
+    <image nom="dsc_0031">
+        <fichier>dsc_0031.jpg</fichier>
+        <alt>id_texte_14</alt>
+        <taille_standard>Ardoise</taille_standard>
+        <largeur_reelle>640</largeur_reelle>
+        <hauteur_reelle>480</hauteur_reelle>
+    </image>
     <galerie nom="carrousel">
         <element>carrousel_1</element>
         <element>carrousel_2</element>

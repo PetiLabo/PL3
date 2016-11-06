@@ -76,7 +76,13 @@ class pl3_objet_page_bloc extends pl3_outil_objet_xml {
 		}
 		$this->objets = $liste_objets;
 	}
-
+	public function detruire() {
+		foreach($this->objets as $objet) {
+			$objet->detruire();
+			unset($objet);
+		}
+	}
+	
 	public function charger_xml() {
 		$source_page = $this->get_source_page();
 		$this->objets = $source_page->parser_toute_balise(pl3_fiche_page::NOM_FICHE, $this, $this->noeud);

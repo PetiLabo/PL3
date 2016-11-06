@@ -32,6 +32,7 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 		$this->objet_parent = $objet_parent;
 		$this->noeud = $noeud;
 	}
+	public function detruire() {}
 	
 	/* Gestion des objets : déclaration d'un objet fils */
 	protected function declarer_objet($nom_classe) {

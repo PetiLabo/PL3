@@ -146,6 +146,7 @@ function soumettre_bloc(nom_page, bloc_id, parametres) {
 }
 
 /* Appel AJAX pour déplacement d'un contenu dans la page */
+/* TODO : déplacement de l'éditeur s'il est ouvert ! */
 function deplacer_contenu(nom_page, tab_ordre) {
 	$.ajax({
 		type: "POST",
@@ -172,7 +173,7 @@ function deplacer_contenu(nom_page, tab_ordre) {
 			});
 		}
 		else {
-			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré ("+data["msg"]+")");
+			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré.");
 		}
 	}).fail(function() {
 		alert("ERREUR : Script AJAX en échec ou introuvable");
@@ -181,6 +182,7 @@ function deplacer_contenu(nom_page, tab_ordre) {
 
 
 /* Appel AJAX pour déplacement d'un bloc dans le contenu de la page */
+/* TODO : déplacement de l'éditeur s'il est ouvert ! */
 function deplacer_bloc(nom_page, contenu_id, tab_ordre) {
 	$.ajax({
 		type: "POST",
@@ -193,13 +195,37 @@ function deplacer_bloc(nom_page, contenu_id, tab_ordre) {
 			/* Renumérotation des identifiants selon le nouvel ordre */
 			var re_bloc_id = 1;
 			$("div#contenu-"+contenu_id).children("div.bloc_grille").each(function() {
-				alert($(this).attr("id"));
 				$(this).attr("id", "bloc-"+contenu_id+"-"+re_bloc_id);
 				re_bloc_id += 1;
 			});
 		}
 		else {
-			alert("ERREUR : Le déplacement du contenu n'a pas pu être enregistré ("+data["msg"]+")");
+			alert("ERREUR : Le déplacement du bloc n'a pas pu être enregistré.");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+/* Appel AJAX pour la suppression d'un bloc */
+/* TODO : suppression de l'éditeur s'il est ouvert ! */
+function supprimer_bloc(nom_page, bloc_id) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_supprimer_bloc.php",
+		data: {nom_page: nom_page, bloc_id: bloc_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			$("#editeur-bloc-"+bloc_id).remove();
+			var contenu_id = parseInt(data["contenu_id"]);
+			var contenu = $("#contenu-"+contenu_id);
+			var html = data["html"];
+			contenu.replaceWith(html);
+		}
+		else {
+			alert("ERREUR : La suppression du bloc n'a pas pu être enregistrée.");
 		}
 	}).fail(function() {
 		alert("ERREUR : Script AJAX en échec ou introuvable");
@@ -325,6 +351,28 @@ $(document).ready(function() {
 		var nom_page = parser_page();
 		var parametres = $(this).serialize();
 		soumettre_bloc(nom_page, bloc_id, parametres);
+		return false;
+	});
+	
+	/* Bouton "supprimer" dans les éditeurs de contenu */
+	$("div.page").on("click", "form.editeur_type_contenu button.supprimer_formulaire", function() {
+		var contenu_attr_id = $(this).attr("id");
+		var contenu_id = parseInt(contenu_attr_id.replace("supprimer-contenu-", ""));
+		alert("Suppression du contenu "+contenu_id);
+		return false;
+	});
+
+	/* Bouton "supprimer" dans les éditeurs de bloc */
+	$("div.page").on("click", "form.editeur_type_bloc button.supprimer_formulaire", function() {
+		var bloc_attr_id = $(this).attr("id");
+		var bloc_id = bloc_attr_id.replace("supprimer-bloc-", "");		
+		var nom_page = parser_page();
+		var nom_bloc = $("#bloc-"+bloc_id).find("p.bloc_legende_nom").text();
+		var question_bloc = (nom_bloc.length > 0)?("du bloc \""+nom_bloc)+"\"":"de ce bloc";
+		var confirmation = confirm("Confirmez-vous la suppression "+question_bloc+" ?");
+		if (confirmation) {
+			supprimer_bloc(nom_page, bloc_id);
+		}
 		return false;
 	});
 	

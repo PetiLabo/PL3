@@ -6,7 +6,6 @@ require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 $ajax_contenu_valide = pl3_ajax_init::Init_contenu();
 
 /* Traitement des paramètres */
-$msg = "";
 if ($ajax_contenu_valide) {
 	$ajax_contenu_valide = false;
 	$source_page = pl3_ajax_init::Get_source_page();
@@ -22,4 +21,4 @@ if ($ajax_contenu_valide) {
 }
 
 /* Retour JSON de la requête AJAX */
-echo json_encode(array("valide" => $ajax_contenu_valide, "msg" => $msg));
+echo json_encode(array("valide" => $ajax_contenu_valide));
