@@ -1,6 +1,5 @@
 <?php
 /* Initialisations */
-$memoire_avant = memory_get_usage() / 1024;
 define("_CHEMIN_BASE_URL", "./");
 define("_CHEMIN_BASE_FICHIER", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
@@ -26,7 +25,7 @@ $media_local->set_mode($mode_admin);
 $html = "";
 $html .= $page->afficher_head();
 $html .= $page->ouvrir_body();
-$html .= $admin_interface->ecrire_barre_outils();
+$html .= $admin_interface->ecrire_barre_outils($mode_admin);
 if ($mode_admin == _MODE_ADMIN_MEDIA) {
 	$html .= $media_local->afficher();
 }
@@ -37,8 +36,3 @@ $html .= $page->fermer_body();
 
 /* Affichage */
 echo $html;
-
-$memoire_apres = memory_get_usage() / 1024;
-printf("<br><b>Avant</b> : %.2f ko<br>",$memoire_avant);
-printf("<b>Après</b> : %.2f ko<br>",$memoire_apres);
-printf("<b>Mémoire utilisée</b> : %.2f ko<br>",$memoire_apres - $memoire_avant);

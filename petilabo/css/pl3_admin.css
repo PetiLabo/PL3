@@ -11,7 +11,8 @@ div.page_mode_admin{margin-top:50px;}
 .admin_barre_outils a span.admin_item_icone{color:#fff;margin-right:6px;}
 .admin_barre_outils a span.admin_item_label{color:#fff;}
 .admin_barre_outils a.admin_item_barre_outils:hover{background:#777;text-decoration:none;}
-a.admin_item_mode_actuel{background:#a00;}
+a.admin_item_mode_page_actuel{background:#a00;}
+a.admin_item_mode_site_actuel{background:#008;}
 a.admin_item_logo{background:#555;margin-right:18px;}
 
 /* Containers */
