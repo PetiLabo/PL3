@@ -19,11 +19,11 @@ RewriteCond %{THE_REQUEST} !admin/.*
 RewriteCond %{THE_REQUEST} !site/.*
 RewriteRule ^(.*\.php)$ index.php?p=$1 [QSA,L]
 
-# Réécriture d'URL pour gérer le mode administration
+# Réécriture d'URL pour gérer le mode administration niveau page
 RewriteCond %{THE_REQUEST} admin/.*
 RewriteRule ^(.*)/(.*\.php)$ index-admin.php?p=$2 [QSA,L]
 
-# Réécriture d'URL pour gérer le mode administration
+# Réécriture d'URL pour gérer le mode administration niveau site
 RewriteCond %{THE_REQUEST} site/.*
 RewriteRule ^(.*)/(.*\.php)$ index-admin-site.php?p=$2 [QSA,L]
 

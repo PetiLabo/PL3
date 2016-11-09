@@ -44,7 +44,7 @@ class pl3_admin_interface {
 			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_PAGE, "fa-arrow-down", "Page", $href_admin_page);
 			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_SITE_GENERAL, "fa-list", "Général");
 			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_SITE_THEMES, "fa-paint-brush", "Thèmes");
-			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_SITE_EXTENSIONS, "fa-cogs", "Extensions");
+			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_SITE_OBJETS, "fa-cogs", "Objets");
 			$html .= $this->ecrire_item_barre_outils_page(_MODE_ADMIN_SITE_MEDIA, "fa-picture-o", "Media");
 		}
 		$html .= "</p>\n";

@@ -70,7 +70,34 @@ class pl3_outil_source_site {
 		return $ret;
 	}
 	public function ecrire_body() {
-		$ret = "";
+		$ret = "<br><br><br>";
+		if (($this->mode & _MODE_ADMIN_SITE_GENERAL) > 0) {
+			$ret .= "<h2>Liste des pages</h2>\n";
+			$ret .= "<ul>\n";
+			$liste_pages = $this->lire_liste_pages();
+			foreach($liste_pages as $page) {
+				$ret .= "<li>".$page."</li>\n";
+			}
+			$ret .= "</ul>\n";
+		}
+		elseif (($this->mode & _MODE_ADMIN_SITE_THEMES) > 0) {
+			$ret .= "<h2>Liste des thèmes</h2>\n";
+			$ret .= "<ul>\n";
+			$liste_themes = $this->lire_liste_themes();
+			foreach($liste_themes as $theme) {
+				$ret .= "<li>".$theme."</li>\n";
+			}
+			$ret .= "</ul>\n";
+		}
+		elseif (($this->mode & _MODE_ADMIN_SITE_OBJETS) > 0) {
+			$ret .= "<h2>Liste des objets</h2>\n";
+			$ret .= "<ul>\n";
+			$liste_objets = $this->lire_liste_objets();
+			foreach($liste_objets as $balise => $icone) {
+				$ret .= "<li><span class=\"fa ".$icone."\"></span>&nbsp;".$balise."</li>\n";
+			}
+			$ret .= "</ul>\n";
+		}
 		return $ret;
 	}
 	public function fermer_body() {
@@ -78,6 +105,54 @@ class pl3_outil_source_site {
 		$ret .= "<script type=\"text/javascript\" src=\""._CHEMIN_JS."pl3_admin.js\"></script>\n";
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
+		return $ret;
+	}
+	
+	public function lire_liste_pages() {
+		$ret = array();
+		$liste = @glob(_CHEMIN_PAGES_XML."*/".(pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML);
+		foreach ($liste as $elem_liste) {
+			if (is_file($elem_liste)) {
+				$nom_dossier = dirname($elem_liste);
+				$ret[] = str_replace(_CHEMIN_PAGES_XML, "", $nom_dossier);
+			}
+		}
+		return $ret;
+	}
+	
+	public function lire_liste_themes() {
+		$ret = array();
+		$liste = @glob(_CHEMIN_THEMES_XML."*/".(pl3_fiche_theme::NOM_FICHE)._SUFFIXE_XML);
+		foreach ($liste as $elem_liste) {
+			if (is_file($elem_liste)) {
+				$nom_dossier = dirname($elem_liste);
+				$ret[] = str_replace(_CHEMIN_THEMES_XML, "", $nom_dossier);
+			}
+		}
+		return $ret;
+	}
+	
+	// TODO : Supprimer l'équivalent dans pl3_fiche_page bien sûr ! 
+	private function lire_liste_objets() {
+		$ret = array();
+		$liste = @glob(_CHEMIN_OBJET.pl3_fiche_page::NOM_FICHE."/"._PREFIXE_OBJET.pl3_fiche_page::NOM_FICHE."_*"._SUFFIXE_PHP);
+		foreach ($liste as $elem_liste) {
+			if (is_file($elem_liste)) {
+				$nom_fichier = basename($elem_liste);
+				$nom_classe = str_replace(_SUFFIXE_PHP, "", $nom_fichier);
+				$nom_constante_balise = $nom_classe."::NOM_BALISE";
+				$nom_constante_icone = $nom_classe."::NOM_ICONE";
+				$nom_constante_fiche = $nom_classe."::NOM_FICHE";
+				if ((@defined($nom_constante_balise)) && (@defined($nom_constante_icone)) && (@defined($nom_constante_fiche)))  {
+					$nom_fiche = $nom_classe::NOM_FICHE;
+					if (!(strcmp($nom_fiche, pl3_fiche_page::NOM_FICHE))) {
+						$nom_balise = $nom_classe::NOM_BALISE;
+						$nom_icone = $nom_classe::NOM_ICONE;
+						$ret[$nom_balise] = $nom_icone;
+					}
+				}
+			}
+		}
 		return $ret;
 	}
 }
