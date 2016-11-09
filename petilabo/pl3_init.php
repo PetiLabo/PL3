@@ -45,6 +45,7 @@ define("_SUFFIXE_PHP", ".php");
 /* Pages principales */
 define("_PAGE_PRINCIPALE", "index");
 define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
+define("_PAGE_PRINCIPALE_ADMIN_SITE", "index-admin-site");
 
 /* Modes PetiLabo */
 define("_MODE_NORMAL", 0);
@@ -85,6 +86,10 @@ if (isset($_SERVER["PHP_SELF"])) {
 			}
 			else if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN._SUFFIXE_PHP))) {
 				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE_ADMIN;}
+				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
+			}
+			else if (!(strcmp($nom_php_en_cours, _PAGE_PRINCIPALE_ADMIN_SITE._SUFFIXE_PHP))) {
+				if (strlen($nom_get_en_cours) == 0) {$nom_page_en_cours = _PAGE_PRINCIPALE_ADMIN_SITE;}
 				else {$nom_page_en_cours = str_replace(_SUFFIXE_PHP, "", $nom_get_en_cours);}
 			}
 			else {

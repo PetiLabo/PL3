@@ -16,11 +16,16 @@ RewriteRule ^admin/$ http://%{HTTP_HOST}%{REQUEST_URI}index.php [L,R=301]
 # Réécriture d'URL pour gérer les noms de page (AJAX exclu)
 RewriteCond %{THE_REQUEST} !ajax/.*
 RewriteCond %{THE_REQUEST} !admin/.*
+RewriteCond %{THE_REQUEST} !site/.*
 RewriteRule ^(.*\.php)$ index.php?p=$1 [QSA,L]
 
 # Réécriture d'URL pour gérer le mode administration
 RewriteCond %{THE_REQUEST} admin/.*
 RewriteRule ^(.*)/(.*\.php)$ index-admin.php?p=$2 [QSA,L]
+
+# Réécriture d'URL pour gérer le mode administration
+RewriteCond %{THE_REQUEST} site/.*
+RewriteRule ^(.*)/(.*\.php)$ index-admin-site.php?p=$2 [QSA,L]
 
 # Doublon avec l'ini_set PHP pour les cookies de session
 <IfModule php5_module>

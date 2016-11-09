@@ -13,7 +13,7 @@ $.fn.replaceWithPush = function(a) {
 };
 
 /* Appel AJAX pour le changement de mode d'administration */
-function changer_mode_admin(mode_admin) {
+function changer_mode_admin(mode_admin, href) {
 	$.ajax({
 		type: "POST",
 		url: "../petilabo/ajax/pl3_changer_mode_admin.php",
@@ -21,7 +21,14 @@ function changer_mode_admin(mode_admin) {
 		dataType: "json"
 	}).done(function(data) {
 		var valide = data["valide"];
-		if (valide) {location.reload();}
+		if (valide) {
+			if (href == "#") {
+				window.location.reload();
+			}
+			else {
+				window.location = href;
+			}
+		}
 		else {alert("ERREUR : Changement de mode d'administration impossible");}
 	}).fail(function() {
 		alert("ERREUR : Script AJAX en échec ou introuvable");
@@ -91,7 +98,8 @@ $(document).ready(function() {
 		var item_id = $(this).attr("id");
 		var mode_id = item_id.replace("admin-mode-", "");
 		var mode_admin = parseInt(mode_id);
-		changer_mode_admin(mode_admin);
+		var href = $(this).attr("href");
+		changer_mode_admin(mode_admin, href);
 	});
 	
 	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */
