@@ -15,15 +15,16 @@ $source_site = pl3_outil_source_site::Get();
 $source_site->charger_xml();
 
 /* Récupération des éléments pour affichage */
-$source_site->set_mode($mode_admin);
+$site = $source_site->get_site();
+$site->set_mode($mode_admin);
 
 /* Constitution du code HTML */
 $html = "";
-$html .= $source_site->afficher_head();
-$html .= $source_site->ouvrir_body();
+$html .= $site->afficher_head();
+$html .= $site->ouvrir_body();
 $html .= $admin_interface->ecrire_barre_outils($mode_admin);
-$html .= $source_site->ecrire_body();
-$html .= $source_site->fermer_body();
+$html .= $site->ecrire_body();
+$html .= $site->fermer_body();
 
 /* Affichage */
 echo $html;

@@ -116,7 +116,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	public function fermer_head() {
 		$ret = "";
 		/* Partie CSS */
-		$ret .= $this->declarer_css("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+		$ret .= $this->declarer_css("https://use.fontawesome.com/4624d65caf.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_objets.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css", _MODE_ADMIN);
