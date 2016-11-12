@@ -13,6 +13,24 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		parent::__construct($chemin, 1);
 	}
 	
+	/* Mutateurs */
+	public function ajouter_page($nom_page) {
+		$dossier = _CHEMIN_PAGES_XML.$nom_page."/";
+		$ret = @mkdir($dossier);
+		if ($ret) {
+			$xml = $this->ouvrir_fiche_xml().$this->fermer_fiche_xml();
+			$page = new pl3_fiche_page($dossier);
+			$page->enregistrer_xml();
+			if ($ret) {
+				$fichier_touch = $dossier."/"._PAGE_TOUCH._SUFFIXE_XML;
+				@touch($fichier_touch);
+			}
+		}
+		return $ret;
+	}
+	public function supprimer_page($nom_page) {
+	}
+
 	/* Chargement */
 	public function charger_xml() {
 		parent::charger_xml();
@@ -38,6 +56,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css("https://use.fontawesome.com/4624d65caf.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css");
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_site.css", _MODE_ADMIN_SITE_GENERAL);
 		
 		/* Partie JS */
 		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
@@ -88,6 +107,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 
 		/* Appel des outils javascript */
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin.js");
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_site.js", _MODE_ADMIN_SITE_GENERAL);
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;
@@ -95,17 +115,30 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 	
 	private function ecrire_body_general() {
 		$ret = "";
-		$ret .= "<h2>Liste des pages</h2>\n";
-		$ret .= "<ul style=\"padding-left:30px;\">\n";
+		$ret .= "<h1>Liste des pages</h1>\n";
+		$ret .= "<div class=\"container_vignettes_page\">\n";
 		$liste_pages = $this->lire_liste_pages();
 		foreach($liste_pages as $page) {
 			$datec = $page["datec"];$datem = $page["datem"];
-			$ret .= "<li>".$page["nom"]." <em>(";
-			$ret .= "Création ".(($datec > 0)?("le ".date("d/m/Y à H:i",$datec)):"à une date inconnue");
-			$ret .= " / Modification ".(($datem > 0)?("le ".date("d/m/Y à H:i",$datem)):"à une date inconnue");
-			$ret .= ")</em></li>\n";
+			$classe = strcmp($page["nom"], _PAGE_COURANTE)?"vignette_page":"vignette_page_active";
+			$ret .= "<div class=\"".$classe."\">";
+			$ret .= "<h2>".$page["nom"]."</h2>";
+			$ret .= "<div class=\"vignette_page_info\">";
+			$ret .= "<p>Création ".(($datec > 0)?("le ".date("d/m/Y à H:i",$datec)):"à une date inconnue")."</p>";
+			$ret .= "<p>Modification ".(($datem > 0)?("le ".date("d/m/Y à H:i",$datem)):"à une date inconnue")."</p>";
+			$ret .= "<hr><p class=\"vignette_icones\">";
+			$ret .= "<a id=\"admin-mode-"._MODE_ADMIN_PAGE."\" class=\"vignette_icone_admin\" href=\"../admin/".$page["nom"]._SUFFIXE_PHP."\" title=\"Administrer la page ".$page["nom"]."\"><span class=\"fa fa-wrench\"></span></a>";
+			$ret .= "<a class=\"vignette_icone_voir\" href=\"../".$page["nom"]._SUFFIXE_PHP."\" title=\"Voir la page ".$page["nom"]."\" target=\"_blank\"><span class=\"fa fa-eye\"></span></a>";
+			$ret .= "</p></div></div>";
 		}
-		$ret .= "</ul>\n";
+		/* Création d'une nouvelle page */
+		$ret .= "<div class=\"vignette_page_nouvelle\">";
+		$ret .= "<h2>Création d'une nouvelle page</h2>";
+		$ret .= "<div class=\"vignette_page_info\">";
+		$ret .= "<form class=\"formulaire_nouvelle_page\" method=\"post\"><p><label for=\"id-nouvelle-page\">Nom&nbsp;:</label><input id=\"id-nouvelle-page\" type=\"text\" name=\"nom-nouvelle-page\"/><input type=\"submit\" value=\" Créer la page \"></p></form>"; 
+		$ret .= "</div></div>";
+
+		$ret .= "</div>\n";
 		return $ret;
 	}
 	
@@ -133,14 +166,14 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
-	private function lire_liste_pages() {
+	public function lire_liste_pages() {
 		$ret = array();
 		$liste = @glob(_CHEMIN_PAGES_XML."*/".(pl3_fiche_page::NOM_FICHE)._SUFFIXE_XML);
 		foreach ($liste as $elem_liste) {
 			if (is_file($elem_liste)) {
 				$nom_dossier = dirname($elem_liste);
 				$datem = @filemtime($elem_liste);
-				$datec = @filemtime($nom_dossier."/touch.xml");
+				$datec = @filemtime($nom_dossier."/"._PAGE_TOUCH._SUFFIXE_XML);
 				$ret[] = array("nom" => str_replace(_CHEMIN_PAGES_XML, "", $nom_dossier), "datec" => $datec, "datem" => $datem);
 			}
 		}

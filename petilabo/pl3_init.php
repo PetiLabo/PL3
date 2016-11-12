@@ -46,6 +46,7 @@ define("_SUFFIXE_PHP", ".php");
 define("_PAGE_PRINCIPALE", "index");
 define("_PAGE_PRINCIPALE_ADMIN", "index-admin");
 define("_PAGE_PRINCIPALE_ADMIN_SITE", "index-admin-site");
+define("_PAGE_TOUCH", "touch");
 
 /* Modes PetiLabo */
 define("_MODE_NORMAL", 0);
