@@ -16,6 +16,8 @@
 .vignette_page_info{padding:10px 6px 4px 6px;vertical-align:top;}
 .vignette_page_info p{font-size:14px;font-weight:normal;margin-bottom:6px;}
 .vignette_icones{text-align:center;margin:6px auto 0 auto;}
-.vignette_icones a{color:#000;font-size:30px;margin:3px 12px 0 12px;}
+.vignette_icones a{color:#000;margin:3px 16px 0 16px;}
 .vignette_icones a:hover{color:#777;}
+.vignette_icones a.vignette_icone_admin{font-size:30px;}
+.vignette_icones a.vignette_icone_supprimer{font-size:20px;}
 input, label{padding:2px;margin:0 5px;}

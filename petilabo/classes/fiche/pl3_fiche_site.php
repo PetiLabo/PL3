@@ -29,6 +29,16 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	public function supprimer_page($nom_page) {
+		$ret = false;
+		if (strcmp($nom_page, "index")) {
+			$dossier = _CHEMIN_PAGES_XML.$nom_page."/";
+			$liste = @glob($dossier."*");
+			foreach ($liste as $elem_liste) {
+				@unlink($elem_liste);
+			}
+			$ret = @rmdir($dossier);
+		}
+		return $ret;
 	}
 
 	/* Chargement */
@@ -113,32 +123,50 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
+	public function ecrire_vignette_page($nom, $datec, $datem) {
+		$ret = "";
+		$classe = strcmp($nom, _PAGE_COURANTE)?"vignette_page":"vignette_page_active";
+		$ret .= "<div class=\"".$classe."\">";
+		$ret .= "<h2>".$nom."</h2>";
+		$ret .= "<div class=\"vignette_page_info\">";
+		$ret .= "<p>Création ".(($datec > 0)?("le ".date("d/m/Y à H:i",$datec)):"à une date inconnue")."</p>";
+		$ret .= "<p>Modification ".(($datem > 0)?("le ".date("d/m/Y à H:i",$datem)):"à une date inconnue")."</p>";
+		$ret .= "<hr><p class=\"vignette_icones\">";
+		$ret .= "<a id=\"admin-mode-"._MODE_ADMIN_PAGE."\" class=\"vignette_icone_admin\" href=\"../admin/".$nom._SUFFIXE_PHP."\" title=\"Administrer la page ".$nom."\"><span class=\"fa fa-wrench\"></span></a>";
+		if (strcmp($nom, "index")) {
+			$ret .= "<a id=\"supprimer-".$nom."\" class=\"vignette_icone_supprimer\" href=\"#\" title=\"Supprimer la page ".$nom."\" target=\"_blank\"><span class=\"fa fa-trash\"></span></a>";
+		}
+		$ret .= "</p></div></div>";
+		return $ret;
+	}
+	
+	public function ecrire_liste_vignettes_page() {
+		$ret = "";
+		$liste_pages = $this->lire_liste_pages();
+		foreach($liste_pages as $page) {
+			$ret .= $this->ecrire_vignette_page($page["nom"], $page["datec"], $page["datem"]);
+		}
+		return $ret;
+	}
+	
 	private function ecrire_body_general() {
 		$ret = "";
 		$ret .= "<h1>Liste des pages</h1>\n";
-		$ret .= "<div class=\"container_vignettes_page\">\n";
-		$liste_pages = $this->lire_liste_pages();
-		foreach($liste_pages as $page) {
-			$datec = $page["datec"];$datem = $page["datem"];
-			$classe = strcmp($page["nom"], _PAGE_COURANTE)?"vignette_page":"vignette_page_active";
-			$ret .= "<div class=\"".$classe."\">";
-			$ret .= "<h2>".$page["nom"]."</h2>";
-			$ret .= "<div class=\"vignette_page_info\">";
-			$ret .= "<p>Création ".(($datec > 0)?("le ".date("d/m/Y à H:i",$datec)):"à une date inconnue")."</p>";
-			$ret .= "<p>Modification ".(($datem > 0)?("le ".date("d/m/Y à H:i",$datem)):"à une date inconnue")."</p>";
-			$ret .= "<hr><p class=\"vignette_icones\">";
-			$ret .= "<a id=\"admin-mode-"._MODE_ADMIN_PAGE."\" class=\"vignette_icone_admin\" href=\"../admin/".$page["nom"]._SUFFIXE_PHP."\" title=\"Administrer la page ".$page["nom"]."\"><span class=\"fa fa-wrench\"></span></a>";
-			$ret .= "<a class=\"vignette_icone_voir\" href=\"../".$page["nom"]._SUFFIXE_PHP."\" title=\"Voir la page ".$page["nom"]."\" target=\"_blank\"><span class=\"fa fa-eye\"></span></a>";
-			$ret .= "</p></div></div>";
-		}
+		$ret .= "<div id=\"liste-pages\" class=\"container_vignettes_page\">\n";
+		$ret .= $this->ecrire_liste_vignettes_page();
+		$ret .= "</div>\n";
+		
 		/* Création d'une nouvelle page */
+		$ret .= "<div id=\"nouvelle-page\" class=\"container_vignettes_page\">\n";
 		$ret .= "<div class=\"vignette_page_nouvelle\">";
 		$ret .= "<h2>Création d'une nouvelle page</h2>";
 		$ret .= "<div class=\"vignette_page_info\">";
-		$ret .= "<form class=\"formulaire_nouvelle_page\" method=\"post\"><p><label for=\"id-nouvelle-page\">Nom&nbsp;:</label><input id=\"id-nouvelle-page\" type=\"text\" name=\"nom-nouvelle-page\"/><input type=\"submit\" value=\" Créer la page \"></p></form>"; 
-		$ret .= "</div></div>";
+		$ret .= "<form class=\"formulaire_nouvelle_page\" method=\"post\">";
+		$ret .= "<p><label for=\"id-nouvelle-page\">Nom&nbsp;:</label><input id=\"id-nouvelle-page\" type=\"text\" name=\"nom-nouvelle-page\"/>";
+		$ret .= "<input id=\"id-nom-page-courante\" type=\"hidden\" name=\"nom-page-courante\" value=\""._PAGE_COURANTE."\">"; 
+		$ret .= "<input type=\"submit\" value=\" Créer la page \"></p>"; 
+		$ret .= "</form></div></div></div>";
 
-		$ret .= "</div>\n";
 		return $ret;
 	}
 	

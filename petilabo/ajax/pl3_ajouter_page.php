@@ -3,9 +3,13 @@ define("_CHEMIN_BASE_URL", "../../");
 define("_CHEMIN_BASE_RESSOURCES", "../");
 require_once(_CHEMIN_BASE_URL."petilabo/pl3_init.php");
 
+$html = "";
 $ajax_msg_erreur = "";
 $ajax_page_valide = true;
 $nom_page = pl3_admin_post::Post("nom_page");
+$nom_page_courante = pl3_admin_post::Post("nom_page_courante");
+define("_PAGE_COURANTE", $nom_page_courante);
+
 $source_site = pl3_outil_source_site::Get();
 $site = $source_site->get_site();
 $liste_pages = $site->lire_liste_pages();
@@ -31,9 +35,14 @@ else {
 	
 	if ($ajax_page_valide) {
 		$ajax_page_valide = $site->ajouter_page($nom_page_ok);
-		$ajax_msg_erreur = "La création de la page ".$nom_page_ok." a échoué.";
+		if ($ajax_page_valide) {
+			$html = $site->ecrire_liste_vignettes_page();
+		}
+		else {
+			$ajax_msg_erreur = "La création de la page ".$nom_page_ok." a échoué.";
+		}
 	}
 }
 
 /* Retour JSON de la requête AJAX */
-echo json_encode(array("valide" => $ajax_page_valide, "msg" => $ajax_msg_erreur));
+echo json_encode(array("valide" => $ajax_page_valide, "msg" => $ajax_msg_erreur, "html" => $html));
