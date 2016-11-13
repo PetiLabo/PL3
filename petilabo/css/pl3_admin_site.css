@@ -5,7 +5,7 @@
 /* Mode administration site général ************************************************/
 
 .container_vignettes_page{margin:10px;}
-.vignette_page, .vignette_page_active {display:inline-block;margin:10px;border-radius:5px;width:90%;max-width:250px;vertical-align:top;}
+.vignette_page, .vignette_page_active {display:inline-block;margin:10px;border-radius:5px;max-width:250px;vertical-align:top;}
 .vignette_page{border:1px solid #008;}
 .vignette_page_active{border:1px solid #a00;}
 .vignette_page h2, .vignette_page_active h2, .vignette_page_nouvelle h2{font-size:18px;font-weight:bold;text-align:center;color:#fff;vertical-align:top;padding:4px 0;}

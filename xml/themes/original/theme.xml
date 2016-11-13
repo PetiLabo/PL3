@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
+	<!-- Meta -->
+    <meta>
+        <auteur>Philippe GILLES</auteur>
+        <forge>PetiLabo</forge>
+		<documentation>http://www.petilabo.net</documentation>
+        <telechargement>http://www.petixml.net/pl3/themes/original</telechargement>
+    </meta>
+
 	<!-- Tailles d'images -->
 	<taille_image nom="Ardoise">
 		<largeur>430</largeur>

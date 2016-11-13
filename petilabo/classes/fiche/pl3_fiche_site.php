@@ -67,6 +67,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_site.css", _MODE_ADMIN_SITE_GENERAL);
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_theme.css", _MODE_ADMIN_SITE_THEMES);
 		
 		/* Partie JS */
 		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
@@ -98,7 +99,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 			$contenu_mode .= $this->ecrire_body_themes();
 		}
 		elseif (($this->mode & _MODE_ADMIN_SITE_OBJETS) > 0) {
-
+			$contenu_mode .= $this->ecrire_body_objets();
 		}
 		$classe = $classe_mode." page_mode_admin";
 		$ret = "<div class=\"".$classe."\" name=\"site\">".$contenu_mode."</div>\n";
@@ -169,16 +170,105 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 
 		return $ret;
 	}
-	
-	private function ecrire_body_themes() {
+
+	public function ecrire_vignette_theme($nom) {
 		$ret = "";
-		$ret .= "<h2>Liste des thèmes</h2>\n";
-		$ret .= "<ul style=\"padding-left:30px;\">\n";
+		$maj_version = false;
+
+		$ret .= "<div class=\"vignette_theme\">";
+		$ret .= "<h2>".$nom."</h2>";
+		$src = _CHEMIN_RESSOURCES_XML."themes/".$nom."/theme.jpg";
+		$ret .= "<img src=\"".$src."\" width=\"400\" />";
+		$ret .= "<div class=\"vignette_theme_info\">";
+		$version_locale = trim($this->lire_version_theme_local($nom));
+		$ret .= "<p>Version installée&nbsp;: ".((strlen($version_locale) == 0)?"inconnue":$version_locale)."</p>";
+
+		/* Chargement des méta du thème */
+		$chemin = _CHEMIN_THEMES_XML.$nom."/";
+		$theme = new pl3_fiche_theme($chemin, 1);
+		$chargement = $theme->charger_xml();
+		if ($chargement) {
+			$auteur = $theme->get_auteur();
+			$forge = $theme->get_forge();
+			$documentation = $theme->get_documentation();
+			$telechargement = $theme->get_telechargement();
+			$version_distante = trim($this->lire_version_theme_distant($telechargement));
+			if (strlen($version_distante) > 0) {
+				if (strlen($version_locale) > 0) {
+					if (strcmp($version_locale, $version_distante)) {
+						$ret .= "<p>Nouvelle version ".$version_distante." disponible&nbsp;!</p>";
+						$maj_version = true;
+					}
+					else {
+						$ret .= "<p>La version du thème est à jour.</p>";
+					}
+				}
+				else {
+					$ret .= "<p>Dernière version disponible :  ".$version_distante."</p>";
+					$maj_version = true;
+				}
+			}
+			else {
+				$ret .= "<p>Serveur de mise à jour indisponible.</p>";
+			}
+			if (strlen($forge) > 0) {
+				if (strlen($auteur) > 0) {
+					$ret .= "<p>Auteur&nbsp;: ".$auteur."</p>";
+				}
+				$ret .= "<p>Site web&nbsp;: ";
+				if (strlen($documentation) > 0) {
+					$ret .= "<a href=\"".$documentation."\" title=\"Ouvrir le site dans un nouvel onglet\" target=\"_blank\">".$forge."</a>";
+				}
+				else {
+					$ret .= $forge;
+				}
+				$ret .= "</p>";
+				if (strlen($auteur) == 0) {$ret .= "<p>&nbsp;</p>";}
+			}
+			else {
+				if (strlen($auteur) > 0) {
+					$ret .= "<p>Auteur&nbsp;: ";
+					if (strlen($documentation) > 0) {
+						$ret .= "<a href=\"".$documentation."\" title=\"Ouvrir le site dans un nouvel onglet\" target=\"_blank\">".$auteur."</a>";
+					}
+					else {
+						$ret .= $auteur;
+					}
+					$ret .= "</p>";
+				}
+				else {
+					$ret .= "<p>&nbsp;</p>";
+				}
+				$ret .= "<p>&nbsp;</p>";
+			}
+		}
+		else {
+			$ret .= "<p>Erreur lors du chargement du thème</p>";
+		}
+		$ret .= "<hr><p class=\"vignette_icones\">";
+		if ($maj_version) {
+			$ret .= "<a id=\"maj-".$nom."\" class=\"vignette_icone_maj\" title=\"Télécharger la version ".$version_distante."\" href=\"#\"><span class=\"fa fa-download\"></span></a>";
+		}
+		$ret .= "<a id=\"maj-".$nom."\" class=\"vignette_icone_supprimer\" title=\"Désinstaller le thème ".$nom."\" href=\"#\"><span class=\"fa fa-trash\"></span></a>";
+		$ret .= "</p></div></div>";
+		return $ret;
+	}
+
+	public function ecrire_liste_vignettes_theme() {
+		$ret = "";
 		$liste_themes = $this->lire_liste_themes();
 		foreach($liste_themes as $theme) {
-			$ret .= "<li>".$theme."</li>\n";
+			$ret .= $this->ecrire_vignette_theme($theme);
 		}
-		$ret .= "</ul>\n";
+		return $ret;
+	}
+
+	private function ecrire_body_themes() {
+		$ret = "";
+		$ret .= "<h1>Liste des thèmes</h1>\n";
+		$ret .= "<div id=\"liste-themes\" class=\"container_vignettes_theme\">\n";
+		$ret .= $this->ecrire_liste_vignettes_theme();
+		$ret .= "</div>\n";
 		return $ret;
 	}
 	
@@ -217,6 +307,31 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 				$ret[] = str_replace(_CHEMIN_THEMES_XML, "", $nom_dossier);
 			}
 		}
+		return $ret;
+	}
+	
+	private function lire_version_theme_local($nom) {
+		$ret = "";
+		$chemin = _CHEMIN_THEMES_XML.$nom."/".(pl3_fiche_theme::NOM_FICHIER_VERSION);
+		$fichier = @fopen($chemin, "r");
+		if ($fichier) {
+			$ret = @fgets($fichier);
+			@fclose($fichier);
+		}
+		return $ret;
+	}
+	
+	private function lire_version_theme_distant($lien) {
+		$ret = null;
+		$url = $lien."/".(pl3_fiche_theme::NOM_FICHIER_VERSION);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_URL, $url);
+		$contenu = @curl_exec($ch);
+		$code = @curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		// On ne traite que le code retour 200
+		if ($code == 200) {$ret = strtok($contenu, "\n");}
+		curl_close($ch);
 		return $ret;
 	}
 	

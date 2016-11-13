@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
+	<!-- Meta -->
+    <meta>
+        <auteur>Philippe GILLES</auteur>
+		<documentation>http://www.petilabo.net</documentation>
+        <telechargement>http://www.petixml.net/dl/themes/standard</telechargement>
+    </meta>
+
 	<!-- Tailles d'images -->
 	<taille_image nom="Panoramique">
 		<largeur>1600</largeur>

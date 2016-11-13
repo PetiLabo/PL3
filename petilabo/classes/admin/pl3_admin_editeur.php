@@ -87,6 +87,8 @@ abstract class pl3_admin_editeur {
 				$ret = array("balise" => "textarea");break;
 			case pl3_outil_objet_xml::TYPE_ICONE:
 				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
+			case pl3_outil_objet_xml::TYPE_LIEN:
+				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
 				$ret = array("balise" => "select", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_INDIRECTION:

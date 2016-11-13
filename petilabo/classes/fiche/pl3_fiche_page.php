@@ -23,14 +23,17 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 	
 	/* Chargement */
 	public function charger_xml() {
-		parent::charger_xml();
-		$meta = $this->get_meta();
-		if ($meta != null) {
-			$meta_theme = $meta->get_valeur_theme();
-			if (strlen($meta_theme) > 0) {$this->nom_theme = $meta_theme;}
-			$meta_style = $meta->get_valeur_style();
-			if (strlen($meta_style) > 0) {$this->nom_style = $meta_style;}
+		$ret = parent::charger_xml();
+		if ($ret) {
+			$meta = $this->get_meta();
+			if ($meta != null) {
+				$meta_theme = $meta->get_valeur_theme();
+				if (strlen($meta_theme) > 0) {$this->nom_theme = $meta_theme;}
+				$meta_style = $meta->get_valeur_style();
+				if (strlen($meta_style) > 0) {$this->nom_style = $meta_style;}
+			}
 		}
+		return $ret;
 	}
 
 	/* Accesseurs */

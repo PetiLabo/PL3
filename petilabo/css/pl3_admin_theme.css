@@ -1,0 +1,17 @@
+/*
+ * CSS PL3 en mode administration
+ */
+
+/* Mode administration site général ************************************************/
+
+.container_vignettes_theme{margin:10px;}
+.vignette_theme{display:inline-block;margin:10px;border:1px solid #008;border-radius:5px;max-width:402px;vertical-align:top;overflow:hidden;}
+.vignette_theme img{width:100%;}
+.vignette_theme h2{font-size:18px;font-weight:bold;text-align:center;color:#fff;vertical-align:top;padding:4px 0;margin-bottom:6px;background:#008;}
+.vignette_theme_info{padding:10px 6px 4px 6px;vertical-align:top;}
+.vignette_theme_info p{font-size:14px;font-weight:normal;margin-bottom:6px;}
+.vignette_icones{text-align:center;margin:6px auto 0 auto;height:30px;}
+.vignette_icones a{color:#000;margin:3px 16px 0 16px;}
+.vignette_icones a:hover{color:#777;}
+.vignette_icones a.vignette_icone_maj{font-size:30px;}
+.vignette_icones a.vignette_icone_supprimer{font-size:20px;}
