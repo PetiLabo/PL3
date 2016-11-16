@@ -1,4 +1,19 @@
 /*
  * CSS PL3 Objets
  */
+
+/* Saut */
 .saut{font-size:1em;}
+
+/* Video */
+.container_video {
+margin: auto;
+   position:relative;
+    width:500px; /* arbitraire, a revoir */
+}
+.video_admin_overlay {
+    position:absolute;
+    width:500px; /* arbitraire, a revoir */
+    height:100%;
+    top:0; left:0;
+}
