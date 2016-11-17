@@ -1,7 +1,7 @@
 /*
  * JS PL3 mode administration objets
  */
- 
+
 /* Appel AJAX pour soumission d'un éditeur de contenu */
 function soumettre_contenu(nom_page, contenu_id, parametres) {
 	$.ajax({
@@ -19,7 +19,7 @@ function soumettre_contenu(nom_page, contenu_id, parametres) {
 				contenu.closest(".contenu_flex").replaceWith(html);
 				appliquer_sortable_contenu("#contenu-"+contenu_id);
 			}
-			$("#editeur-contenu-"+contenu_id).remove();
+			$("#editeur-contenu-"+contenu_id).hide("fade", 200, function(){this.remove();});
 		}
 		else {
 			alert("ERREUR : Origine du contenu introuvable");
@@ -135,7 +135,7 @@ function soumettre_bloc(nom_page, bloc_id, parametres) {
 				var bloc = $("#bloc-"+bloc_id);
 				bloc.parent().replaceWith(html);
 			}
-			$("#editeur-bloc-"+bloc_id).remove();
+			$("#editeur-bloc-"+bloc_id).hide("fade", 200, function(){this.remove();});
 		}
 		else {
 			alert("ERREUR : Origine du bloc introuvable");
@@ -270,13 +270,13 @@ function afficher_editeur(elem_nom, elem_id, html) {
 		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
-		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		//div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
 		div += "</p>";
 		div += html;
 		div += "</div>";
-		
+
 		/* Affichage de l'éditeur */
-		$("div.page").append(div);
+    $(div).hide().appendTo("div.page").show("blind", 100);
 	}
 }
 
@@ -321,8 +321,8 @@ $(document).ready(function() {
 	$("div.page").on("mouseleave", ".bloc_legende_nom", function() {
 		$(this).removeClass("bloc_legende_survol");
 	});
-	
-	/* Gestion du clic sur un bloc */	
+
+	/* Gestion du clic sur un bloc */
 	$("div.page").on("click", ".bloc_grille", function() {
 		var bloc_attr_id = $(this).attr("id");
 		var html_id = bloc_attr_id.replace("bloc-", "");
@@ -336,7 +336,7 @@ $(document).ready(function() {
 			}
 		}
 	});
-	
+
 	/* Gestion du bouton pour l'édition de contenu */
 	$("div.page").on("click", "p.contenu_poignee_edit a", function() {
 		var contenu_attr_id = $(this).parent().attr("id");
@@ -345,14 +345,14 @@ $(document).ready(function() {
 		editer_contenu(nom_page, contenu_id);
 		return false;
 	});
-	
+
 	/* Gestion du bouton pour l'ajout de contenu */
 	$("div.page").on("click", "p.contenu_poignee_ajout a", function() {
 		var nom_page = parser_page();
 		ajouter_contenu(nom_page);
 		return false;
 	});
-	
+
 	/* Gestion des boutons pour l'ajout de bloc */
 	$("div.page").on("click", "p.bloc_poignee_ajout a", function() {
 		var bloc_attr_id = $(this).parent().attr("id");
@@ -381,7 +381,7 @@ $(document).ready(function() {
 		soumettre_bloc(nom_page, bloc_id, parametres);
 		return false;
 	});
-	
+
 	/* Bouton "supprimer" dans les éditeurs de contenu */
 	$("div.page").on("click", "form.editeur_type_contenu button.supprimer_formulaire", function() {
 		var contenu_attr_id = $(this).attr("id");
@@ -397,7 +397,7 @@ $(document).ready(function() {
 	/* Bouton "supprimer" dans les éditeurs de bloc */
 	$("div.page").on("click", "form.editeur_type_bloc button.supprimer_formulaire", function() {
 		var bloc_attr_id = $(this).attr("id");
-		var bloc_id = bloc_attr_id.replace("supprimer-bloc-", "");		
+		var bloc_id = bloc_attr_id.replace("supprimer-bloc-", "");
 		var nom_page = parser_page();
 		var nom_bloc = $("#bloc-"+bloc_id).find("p.bloc_legende_nom").text();
 		var question_bloc = (nom_bloc.length > 0)?("du bloc \""+nom_bloc)+"\"":"de ce bloc";
@@ -407,7 +407,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Possibilité de changer l'ordre des éléments */
 	$(".page").sortable({
 		items: ".contenu_flex",

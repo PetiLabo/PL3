@@ -1,7 +1,7 @@
 /*
  * JS PL3 mode administration objets
  */
- 
+
 /* Appel AJAX pour ouverture d'un éditeur d'objet */
 function editer_objet(nom_page, balise_id, nom_balise) {
 	var editeur_id = "editeur-"+nom_balise+"-"+balise_id;
@@ -61,7 +61,7 @@ function soumettre_objet(nom_page, balise_id, nom_balise, parametres) {
 					}
 				}
 			}
-			$("#editeur-"+nom_balise+"-"+balise_id).remove();
+			$("#editeur-"+nom_balise+"-"+balise_id).hide("fade", 200, function(){this.remove();});
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");
@@ -161,14 +161,14 @@ function afficher_editeur(balise_id, nom_balise, html) {
 		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
-		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		//div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
 		div += "</p>";
 		div += html;
 		div += "</div>";
-		
+
 		/* Affichage de l'éditeur */
-		$("div.page").append(div);
-		
+    $(div).hide().appendTo("div.page").show("blind", 100);
+
 		/* Déclenchement de trumbowyg */
 		$("#"+div_id).find(".editeur_trumbowyg").each(function() {
 			var elem_id = $(this).attr("id");
@@ -240,7 +240,7 @@ function appliquer_editable(selecteur, langue) {
 		]
 	});
 }
-	
+
 /* Initialisations */
 $(document).ready(function() {
 	/* Gestion du clic sur un objet éditable */
@@ -255,7 +255,7 @@ $(document).ready(function() {
 			editer_objet(nom_page, balise_id, nom_balise);
 		}
 	});
-	
+
 	/* Gestion du bouton "ajout" au survol d'un bloc */
 	$("div.page").on("mouseenter", ".bloc", function() {
 		var bloc_id = $(this).attr("id");
@@ -273,7 +273,7 @@ $(document).ready(function() {
 	$("div.page").on("mouseleave", ".objet_editable", function() {
 		$(this).removeClass("admin_survol_objet");
 	});
-	
+
 	/* Gestion des boutons pour l'ajout d'objets */
 	$("div.page").on("click", "p.bloc_poignee_ajout a", function() {
 		var bloc_attr_id = $(this).parent().attr("id");
@@ -283,7 +283,7 @@ $(document).ready(function() {
 		ajouter_objet(nom_page, bloc_id, classe);
 		return false;
 	});
-	
+
 	/* Bouton "soumettre" dans les éditeurs d'objets */
 	$("div.page").on("submit", "form.editeur_formulaire", function() {
 		var form_id = $(this).attr("id");
@@ -299,7 +299,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Boutons "supprimer" dans les éditeurs d'objets */
 	$("div.page").on("click", "form.editeur_formulaire button.supprimer_formulaire", function() {
 		var form_id = $(this).attr("id");
