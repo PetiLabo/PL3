@@ -8,6 +8,8 @@ function editer_objet(nom_page, balise_id, nom_balise) {
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
 		alert("ERREUR : L'éditeur est déjà ouvert pour cet objet !");
+		editeur.effect("highlight");
+		//alert("ERREUR : L'éditeur est déjà ouvert pour cet objet !");
 		return;
 	}
 	$.ajax({
@@ -61,7 +63,7 @@ function soumettre_objet(nom_page, balise_id, nom_balise, parametres) {
 					}
 				}
 			}
-			$("#editeur-"+nom_balise+"-"+balise_id).hide("fade", 200, function(){this.remove();});
+			$("#editeur-"+nom_balise+"-"+balise_id).hide();//"fade", 200, function(){this.remove();});
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");

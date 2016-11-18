@@ -97,7 +97,8 @@ function editer_bloc(nom_page, contenu_id, bloc_id) {
 	var editeur_id = "editeur-bloc-"+editeur_bloc_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-		alert("ERREUR : L'éditeur est déjà ouvert pour ce bloc !");
+		editeur.effect("highlight");
+		//alert("ERREUR : L'éditeur est déjà ouvert pour ce bloc !");
 		return;
 	}
 	$.ajax({
