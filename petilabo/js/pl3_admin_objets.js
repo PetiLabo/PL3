@@ -7,8 +7,8 @@ function editer_objet(nom_page, balise_id, nom_balise) {
 	var editeur_id = "editeur-"+nom_balise+"-"+balise_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-		editeur.effect("highlight");
-		//alert("ERREUR : L'éditeur est déjà ouvert pour cet objet !");
+		// shake effect on div for an error event
+		editeur.addClass("shake");setTimeout(function(){editeur.removeClass("shake")},1000);
 		return;
 	}
 	$.ajax({

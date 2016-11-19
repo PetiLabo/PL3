@@ -78,8 +78,8 @@ function editer_image(nom_page, media_id) {
 	var editeur_id = "editeur-media-"+media_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-    editeur.effect("highlight");
-		//alert("ERREUR : L'éditeur est déjà ouvert pour ce média !");
+    // shake effect on div for an error event
+		editeur.addClass("shake");setTimeout(function(){editeur.removeClass("shake")},1000);
 		return;
 	}
 	$.ajax({

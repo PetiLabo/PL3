@@ -51,7 +51,8 @@ function editer_contenu(nom_page, contenu_id) {
 	var editeur_id = "editeur-contenu-"+contenu_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-		alert("ERREUR : L'éditeur est déjà ouvert pour ce contenu !");
+		// shake effect on div for an error event
+		editeur.addClass("shake");setTimeout(function(){editeur.removeClass("shake")},1000);
 		return;
 	}
 	$.ajax({
@@ -97,8 +98,8 @@ function editer_bloc(nom_page, contenu_id, bloc_id) {
 	var editeur_id = "editeur-bloc-"+editeur_bloc_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-		editeur.effect("highlight");
-		//alert("ERREUR : L'éditeur est déjà ouvert pour ce bloc !");
+		// shake effect on div for an error event
+		editeur.addClass("shake");setTimeout(function(){editeur.removeClass("shake")},1000);
 		return;
 	}
 	$.ajax({
