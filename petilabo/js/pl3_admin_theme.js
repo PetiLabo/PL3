@@ -1,47 +1,42 @@
 /*
- * JS PL3 administration site général
+ * JS PL3 administration site thèmes
  */
  
-/* Appel AJAX pour l'ajout d'une page */
-function ajouter_page(nom_page, nom_page_courante) {
+/* Appel AJAX pour l'installation d'un thème */
+function installer_theme() {
+	var fd = new FormData();
+	fd.append("zip-theme", $("#id-nouveau-theme").get(0).files[0]);
 	$.ajax({
 		type: "POST",
-		url: "../petilabo/ajax/pl3_ajouter_page.php",
-		data: {nom_page: nom_page, nom_page_courante: nom_page_courante},
+		url: "../petilabo/ajax/pl3_ajouter_theme.php",
+		data: fd,
+		processData: false,
+		contentType: false,
 		dataType: "json"
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			var html = data["html"];
-			$("#liste-pages").html(html);
-			$("#id-nouvelle-page").val("");
+			alert(data["html"]);
 		}
 		else {
-			alert("ERREUR : "+data["msg"]);
+			alert(data["msg"]);
 		}
 	}).fail(function() {
 		alert("ERREUR : Script AJAX en échec ou introuvable");
 	});
 }
 
-/* Appel AJAX pour la suppression d'une page */
-function supprimer_page(nom_page, nom_page_courante) {
+/* Appel AJAX pour la désinstallation d'un thème */
+function desinstaller_theme(nom_theme) {
 	$.ajax({
 		type: "POST",
-		url: "../petilabo/ajax/pl3_supprimer_page.php",
-		data: {nom_page: nom_page, nom_page_courante: nom_page_courante},
+		url: "../petilabo/ajax/pl3_supprimer_theme.php",
+		data: {nom_theme: nom_theme},
 		dataType: "json"
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			if (nom_page == nom_page_courante) {
-				alert("ATTENTION : La page courante ayant été supprimée, la nouvelle page courante sera la page index.");
-				window.location = "index.php";
-			}
-			else {
-				var html = data["html"];
-				$("#liste-pages").html(html);
-			}
+			alert("OK");
 		}
 		else {
 			alert("ERREUR : "+data["msg"]);
@@ -53,7 +48,7 @@ function supprimer_page(nom_page, nom_page_courante) {
 
 /* Initialisations */
 $(document).ready(function() {
-	/* Gestion des boutons de la vignette page */
+	/* Gestion des boutons de la vignette thème */
 	$("div.container_vignettes_page").on("click", "a.vignette_icone_admin", function() {
 		var item_id = $(this).attr("id");
 		var mode_id = item_id.replace("admin-mode-", "");
@@ -74,14 +69,11 @@ $(document).ready(function() {
 		return false;
 	});
 
-	/* Soumission du formulaire "nouvelle page" */
-	$("div.page_mode_admin").on("submit", "form.formulaire_nouvelle_page", function() {
-		var nom_page = $("#id-nouvelle-page").val().trim();
-		var nom_page_courante = $("#id-nom-page-courante").val().trim();
-		if (nom_page.length > 0) {
-			ajouter_page(nom_page, nom_page_courante);
-		}
-		$("#id-nouvelle-page").val(nom_page);
+	/* Soumission du formulaire "nouveau thème" */
+	$("div.page_mode_admin").on("submit", "form.formulaire_nouveau_theme", function() {
+		var nb_fichiers = $("#id-nouveau-theme").get(0).files.length;
+		if (nb_fichiers == 1) {installer_theme();}
+		else {alert("ERREUR : Sélectionnez d'abord le thème à installer !");}
 		return false;
 	});
 });
