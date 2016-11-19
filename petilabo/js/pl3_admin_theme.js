@@ -16,7 +16,7 @@ function installer_theme() {
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			alert(data["html"]);
+			alert("Le thème "+data["theme"]+" a été correctement installé");
 		}
 		else {
 			alert(data["msg"]);

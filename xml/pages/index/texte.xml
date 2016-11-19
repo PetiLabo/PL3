@@ -3,5 +3,10 @@
     <texte nom="titre_1">Voici un titre !</texte>
     <texte nom="id_texte_10">A gauche</texte>
     <texte nom="id_texte_11">A droite</texte>
+    <texte nom="id_texte_4">toto</texte>
+    <texte nom="id_texte_5">Blabla</texte>
+    <texte nom="id_texte_6">https://www.youtube.com/watch?v=aqz-KE-bpKQ</texte>
+    <texte nom="id_texte_7">[...]</texte>
+    <texte nom="id_texte_8">[...]</texte>
     <texte_riche nom="id_texte_riche_4">&lt;p&gt;Hello &lt;strong&gt;:-)&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: rgb(147, 137, 83);&quot;&gt;Ca va ?&lt;/strong&gt;&lt;/p&gt;</texte_riche>
 </petilabo>

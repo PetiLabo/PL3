@@ -29,6 +29,7 @@ define("_CHEMIN_IMAGES_XML", _CHEMIN_RESSOURCES_XML."images/");
 /* Chemin thèmes */
 define("_CHEMIN_THEMES_XML", _CHEMIN_XML."themes/");
 define("_CHEMIN_THEMES_CSS", _CHEMIN_THEMES_XML."css/");
+define("_CHEMIN_THEMES_IMAGES", _CHEMIN_THEMES_XML."images/");
 define("_CHEMIN_RESSOURCES_CSS", _CHEMIN_RESSOURCES_XML."themes/css/");
 
 /* Préfixes */
