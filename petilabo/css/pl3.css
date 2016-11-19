@@ -1,15 +1,18 @@
 /*
  * CSS PL3 général
  */
- 
+
 /* Général *************************************************************************/
-* {box-sizing:border-box;margin:0;padding:0;}
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+* {box-sizing:border-box;margin:0;padding:0;font-family: 'Open Sans', sans-serif;}
 body, div.page, p {position:relative;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;align-items:flex-start;} /* align-items:stretch => Même hauteur */
 .bloc{width:0;}
 .bloc > div{padding:3px;text-align:center;}
 .bloc > div > div,
-.bloc > div > p, 
+.bloc > div > p,
 .bloc > div > h1, .bloc > div > h2,
 .bloc > div > h3, .bloc > div > h4,
 .bloc > div > h5, .bloc > div > h6{padding:1px;border:3px solid transparent;}

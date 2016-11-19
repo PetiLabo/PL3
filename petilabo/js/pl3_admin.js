@@ -1,7 +1,7 @@
 /*
  * JS PL3 général
  */
- 
+
 /* Blocage des mises en cache */
 $.ajaxSetup ({cache: false});
 
@@ -44,7 +44,7 @@ function calculer_coord_editeur(objet, plein_ecran) {
     var box = objet.get(0).getBoundingClientRect();
     var pos_haut = box.top + scrollTop;
     var pos_gauche = box.left + scrollLeft;
-	
+
 	/* Calcul de la position top en tenant compte de la position de la page */
 	var decalage_page = parseInt($("div.page").css("margin-top").replace("px", ""));
 	var hauteur = parseInt(objet.outerHeight());
@@ -67,7 +67,7 @@ function calculer_coord_editeur(objet, plein_ecran) {
 		style += "left:"+pos_x+"px;";
 		style += "min-width:"+largeur_min+"px;";
 	}
-	
+
 	return style;
 }
 
@@ -101,13 +101,15 @@ $(document).ready(function() {
 		var href = $(this).attr("href");
 		changer_mode_admin(mode_admin, href);
 	});
-	
+
 	/* Gestion des boutons de la barre d'outils dans l'éditeur d'objets */
+  /*
 	$("div.page").on("click", "p.editeur_objet_barre_outils a.editeur_objet_bouton_fermer", function() {
 		var editeur = $(this).closest("div.editeur_objet");
 		if (editeur) {editeur.remove();}
 		return false;
 	});
+  */
 	$("div.page").on("click", "p.editeur_objet_barre_outils a.editeur_objet_bouton_agrandir", function() {
 		var editeur = $(this).closest("div.editeur_objet");
 		if (editeur) {
@@ -132,20 +134,20 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Gestion du survol d'un bouton */
 	$("div.page").on("mouseover", "button", function() {
 		$(this).css("cursor", "pointer");
 	});
-	
+
 	/* Bouton "annuler" dans les éditeurs d'objets */
 	$("div.page").on("click", "form.editeur_formulaire button.annuler_formulaire", function() {
 		var form_id = $(this).attr("id");
 		var html_id = form_id.replace("annuler-", "editeur-");
-		$("#"+html_id).remove();
+		$("#"+html_id).hide("fade", 200, function(){this.remove();});;
 		return false;
 	});
-	
+
 	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
 	$(window).on("resize", function() {
 		$("div.page div.editeur_objet").each(function() {

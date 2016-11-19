@@ -56,53 +56,38 @@ class pl3_objet_page_video extends pl3_outil_objet_simple_xml {
 		if ($texte != null) {
 			$html_id = $this->get_html_id();
 			$valeur_texte = $texte->get_valeur();
+			// Affichage de la video
+			$ret .= "<div class=\"container_video\">";
+			$ret .= $this->get_from_url($valeur_texte, "html");
 			if ($mode == _MODE_ADMIN_OBJETS) {
-				// Affichage de la miniature à la place de la vidéo
-				$ret .= "<div class=\"container_image\">";
-				$ret .= "<img id=\"".$html_id."\" class=\"image_responsive objet_editable\" src=\"";
-				$ret .= $this->get_thumbnail($valeur_texte);
-				$ret .= "\" />";
-				$ret .= "</div>\n";
+				/* overlay css en mode edition */
+				$ret .= "<div id=\"".$html_id."\" class=\"video_admin_overlay objet_editable\"></div>";
 			}
-			else {
-				// Affichage de la vidéo
-				$ret .= $this->get_iframe($valeur_texte);
-				$ret .= "\n";
-			}
+			$ret .= "</div>\n";
 		}
 		return $ret;
 	}
 
-	/* Extraction du domaine de l'url */
 	private function get_host($url_video) {
 		$foo = parse_url($url_video);
-		return $foo["host"];//array("host" => $foo["host"], "id" => explode('=', $foo["query"])[1]);
+		return $foo["host"];
 	}
 
-	/* Recuperation du code html integrant la video */
-	private function get_iframe($url_video) {
+	private function get_from_url($url_video, $element) {
 		$host = $this->get_host($url_video);
+		$url_api = "";
 		switch (true) {
 			case stristr($host,'youtube'):
-					return $this->get_json(self::URL_API_YOUTUBE.$url_video)["html"];
+					$url_api = self::URL_API_YOUTUBE;
+					break;
 	    case stristr($host,'vimeo'):
-	        return $this->get_json(self::URL_API_VIMEO.$url_video)["html"];
+					$url_api = self::URL_API_VIMEO;
+					break;
 	    case stristr($host,'dailymotion'):
-	        return $this->get_json(self::URL_API_DAILYMOTION.$url_video)["html"];
+					$url_api = self::URL_API_DAILYMOTION;
+					break;
 		}
-	}
-
-	/* Récupération de l'url de la miniature */
-	private function get_thumbnail($url_video) {
-		$host = $this->get_host($url_video);
-		switch (true) {
-			case stristr($host,'youtube'):
-					return $this->get_json(self::URL_API_YOUTUBE.$url_video)["thumbnail_url"];
-			case stristr($host,'vimeo'):
-					return $this->get_json(self::URL_API_VIMEO.$url_video)["thumbnail_url"];
-			case stristr($host,'dailymotion'):
-					return $this->get_json(self::URL_API_DAILYMOTION.$url_video)["thumbnail_url"];
-		}
+		return $this->get_json($url_api.$url_video)[$element];
 	}
 
 	private function get_json($url) {
