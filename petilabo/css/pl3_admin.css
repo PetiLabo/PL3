@@ -71,6 +71,18 @@ a.admin_item_logo{background:#555;margin-right:18px;}
 .editeur_objet button:hover{
 	background-color: rgba(0,0,0,.1);
 }
+
+/* Animation Shake */
+.shake{animation: shake .5s ease-in-out;}
+@keyframes shake{
+  0% {transform: translateX(0)}
+	20% {transform: translateX(-10px)}
+	40% {transform: translateX(10px)}
+	60% {transform: translateX(-10px)}
+	80% {transform: translateX(10px)}
+	100% {transform: translateX(0)}
+}
+
 .editeur_objet button.soumettre_formulaire, .editeur_objet button.annuler_formulaire {min-width:4em;vertical-align:middle;}
 .editeur_objet button.supprimer_formulaire {min-width:4em;vertical-align:middle;}
 .editeur_formulaire_icone_bouton{}
