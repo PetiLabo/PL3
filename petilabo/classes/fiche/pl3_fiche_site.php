@@ -119,6 +119,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		/* Appel des outils javascript */
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin.js");
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_site.js", _MODE_ADMIN_SITE_GENERAL);
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_theme.js", _MODE_ADMIN_SITE_THEMES);
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;
@@ -156,7 +157,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= "<div id=\"liste-pages\" class=\"container_vignettes_page\">\n";
 		$ret .= $this->ecrire_liste_vignettes_page();
 		$ret .= "</div>\n";
-		
+
 		/* Création d'une nouvelle page */
 		$ret .= "<div id=\"nouvelle-page\" class=\"container_vignettes_page\">\n";
 		$ret .= "<div class=\"vignette_page_nouvelle\">";
@@ -260,6 +261,18 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		foreach($liste_themes as $theme) {
 			$ret .= $this->ecrire_vignette_theme($theme);
 		}
+		
+		/* Téléchargement d'un nouveau thème */
+		$ret .= "<div id=\"nouvelle-page\" class=\"container_vignettes_page\">\n";
+		$ret .= "<div class=\"vignette_theme_nouveau\">";
+		$ret .= "<h2>Installation d'un nouveau thème</h2>";
+		$ret .= "<div class=\"vignette_theme_info\">";
+		$ret .= "<form class=\"formulaire_nouveau_theme\" method=\"post\">";
+		$ret .= "<p><input id=\"id-nouveau-theme\" type=\"file\" accept=\".zip\" name=\"fichier-nouveau-theme\"/>";
+		$ret .= "<input id=\"id-nom-page-courante\" type=\"hidden\" name=\"nom-page-courante\" value=\""._PAGE_COURANTE."\">"; 
+		$ret .= "<input type=\"submit\" value=\" Installer \"></p>"; 
+		$ret .= "</form></div></div></div>";
+
 		return $ret;
 	}
 

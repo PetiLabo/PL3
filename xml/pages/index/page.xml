@@ -6,23 +6,36 @@
         <theme>original</theme>
     </meta>
     <contenu>
-        <bloc nom="Bandeau de titre">
-            <titre style="italique" niveau="2">titre_1</titre>
-            <paragraphe style="defaut">id_texte_riche_4</paragraphe>
-        </bloc>
-    </contenu>
-    <contenu>
         <bloc nom="Gauche" style="sombre" taille="1">
             <titre style="italique" niveau="2">id_texte_10</titre>
         </bloc>
+        <bloc nom="Milieu">
+            <image>dsc_0031</image>
+        </bloc>
         <bloc nom="Droite" style="sombre" taille="1">
             <titre style="italique" niveau="2">id_texte_11</titre>
+        </bloc>
+    </contenu>
+    <contenu style="transparent">
+        <bloc nom="Bandeau de titre">
+            <titre style="italique" niveau="2">titre_1</titre>
+            <paragraphe style="defaut">id_texte_riche_4</paragraphe>
+            <titre style="italique" niveau="1">id_texte_5</titre>
         </bloc>
     </contenu>
     <contenu>
         <bloc nom="Début" style="defaut" taille="1">
         </bloc>
         <bloc nom="Fin" style="defaut" taille="1">
+        </bloc>
+    </contenu>
+    <contenu>
+        <bloc nom="Pied de page 1er quart" style="defaut" taille="1">
+        </bloc>
+        <bloc nom="" style="defaut" taille="6">
+            <video>id_texte_6</video>
+        </bloc>
+        <bloc nom="" style="sombre" taille="1">
         </bloc>
     </contenu>
 </petilabo>
