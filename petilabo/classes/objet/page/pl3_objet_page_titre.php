@@ -3,10 +3,10 @@
 /**
  * Classe de gestion des titres
  */
- 
+
 class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 	/* Icone */
-	const NOM_ICONE = "fa-text-height";
+	const NOM_ICONE = "fa-header";
 
 	/* Fiche */
 	const NOM_FICHE = "page";
@@ -14,7 +14,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 	/* Balise */
 	const NOM_BALISE = "titre";
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_INDIRECTION, "reference" => "pl3_objet_texte_texte");
-	
+
 	/* Attributs */
 	const NOM_ATTRIBUT_STYLE = "style";
 	const NOM_ATTRIBUT_NIVEAU = "niveau";
@@ -36,7 +36,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 			$this->set_attribut_niveau(1);
 		}
 	}
-	
+
 	/* Destruction */
 	public function detruire() {
 		$source_page = $this->get_source_page();
@@ -46,7 +46,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 			$source_page->supprimer($texte);
 		}
 	}
-	
+
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
