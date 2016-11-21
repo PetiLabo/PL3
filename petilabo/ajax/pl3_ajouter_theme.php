@@ -9,6 +9,10 @@ $ajax_msg_erreur = "";
 $ajax_theme_valide = false;
 $nom_champ_post = "zip-theme";
 
+$nom_page_courante = pl3_admin_post::Post("nom_page_courante");
+define("_PAGE_COURANTE", $nom_page_courante);
+define("_CHEMIN_PAGE_COURANTE", _CHEMIN_PAGES_XML.$nom_page_courante."/");
+
 if (isset($_FILES[$nom_champ_post])) {
 	/* Traitement du $_FILES en post */
 	$fichier_post = new pl3_admin_telechargement($_FILES[$nom_champ_post]);
@@ -47,6 +51,13 @@ if (isset($_FILES[$nom_champ_post])) {
 }
 else {
 	$ajax_msg_erreur = "ERREUR : Le fichier du thème est introuvable";
+}
+
+/* Génération du HTML */
+if ($ajax_theme_valide) {
+	$source_site = pl3_outil_source_site::Get();
+	$site = $source_site->get_site();
+	$html = $site->ecrire_liste_vignettes_theme();
 }
 
 /* Retour JSON de la requête AJAX */

@@ -261,18 +261,6 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		foreach($liste_themes as $theme) {
 			$ret .= $this->ecrire_vignette_theme($theme);
 		}
-		
-		/* Téléchargement d'un nouveau thème */
-		$ret .= "<div id=\"nouvelle-page\" class=\"container_vignettes_page\">\n";
-		$ret .= "<div class=\"vignette_theme_nouveau\">";
-		$ret .= "<h2>Installation d'un nouveau thème</h2>";
-		$ret .= "<div class=\"vignette_theme_info\">";
-		$ret .= "<form class=\"formulaire_nouveau_theme\" method=\"post\">";
-		$ret .= "<p><input id=\"id-nouveau-theme\" type=\"file\" accept=\".zip\" name=\"fichier-nouveau-theme\"/>";
-		$ret .= "<input id=\"id-nom-page-courante\" type=\"hidden\" name=\"nom-page-courante\" value=\""._PAGE_COURANTE."\">"; 
-		$ret .= "<input type=\"submit\" value=\" Installer \"></p>"; 
-		$ret .= "</form></div></div></div>";
-
 		return $ret;
 	}
 
@@ -282,6 +270,18 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= "<div id=\"liste-themes\" class=\"container_vignettes_theme\">\n";
 		$ret .= $this->ecrire_liste_vignettes_theme();
 		$ret .= "</div>\n";
+
+		/* Téléchargement d'un nouveau thème */
+		$ret .= "<div id=\"nouveau-theme\" class=\"container_vignettes_theme\">\n";
+		$ret .= "<div class=\"vignette_theme_nouveau\">";
+		$ret .= "<h2>Installation d'un nouveau thème</h2>";
+		$ret .= "<div class=\"vignette_theme_info\">";
+		$ret .= "<form class=\"formulaire_nouveau_theme\" method=\"post\">";
+		$ret .= "<p><input id=\"id-nouveau-theme\" type=\"file\" accept=\".zip\" name=\"fichier-nouveau-theme\"/>";
+		$ret .= "<input id=\"id-nom-page-courante\" type=\"hidden\" name=\"nom-page-courante\" value=\""._PAGE_COURANTE."\">"; 
+		$ret .= "<input type=\"submit\" value=\" Installer \"></p>"; 
+		$ret .= "</form></div></div></div>";
+
 		return $ret;
 	}
 	
