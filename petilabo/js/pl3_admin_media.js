@@ -122,9 +122,7 @@ function soumettre_image(nom_page, media_id, parametres) {
 					}
 				}
 			}
-      // La ligne suivante ne marche pas. (pb / jQuery ?) Pourquoi ?
-			//$("#editeur-media-"+media_id).hide("fade", 200, function(){this.remove();});
-      $("#editeur-media-"+media_id).remove(); //la ligne à remplacer
+      $("#editeur-media-"+media_id).fadeOut(200, function() {$(this).remove();});
 		}
 		else {
 			alert("ERREUR : Origine de l'image introuvable");
@@ -168,10 +166,9 @@ function afficher_editeur(media_id, html) {
 		div += html;
 		div += "</div>";
 
-		/* Affichage de l'éditeur */
-    // la ligne suivante fonctionne, mais pas l'effet : source de pb idem à ligne 126 (jQuery ?) Pourquoi?
-    $(div).hide().appendTo("div.page_media").show("blind", 100);
-	}
+    /* Affichage de l'éditeur */
+		$(div).hide().appendTo("div.page_media").fadeIn(250);
+    }
 }
 
 /* Installation du plugin single image upload sur un bouton ajout media */

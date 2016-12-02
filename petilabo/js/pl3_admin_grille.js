@@ -19,7 +19,7 @@ function soumettre_contenu(nom_page, contenu_id, parametres) {
 				contenu.closest(".contenu_flex").replaceWith(html);
 				appliquer_sortable_contenu("#contenu-"+contenu_id);
 			}
-			$("#editeur-contenu-"+contenu_id).hide("fade", 200, function(){this.remove();});
+			$("#editeur-contenu-"+contenu_id).fadeOut(200, function() {$(this).remove();});
 		}
 		else {
 			alert("ERREUR : Origine du contenu introuvable");

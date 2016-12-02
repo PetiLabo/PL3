@@ -62,7 +62,7 @@ function soumettre_objet(nom_page, balise_id, nom_balise, parametres) {
 					}
 				}
 			}
-			$("#editeur-"+nom_balise+"-"+balise_id).hide();//"fade", 200, function(){this.remove();});
+			$("#editeur-"+nom_balise+"-"+balise_id).fadeOut(200, function() {$(this).remove();});
 		}
 		else {
 			alert("ERREUR : Origine de l'objet éditable introuvable");
