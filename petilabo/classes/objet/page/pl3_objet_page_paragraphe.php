@@ -6,7 +6,7 @@
 
 class pl3_objet_page_paragraphe extends pl3_outil_objet_simple_xml {
 	/* Icone */
-	const NOM_ICONE = "fa-paragraph";
+	const NOM_ICONE = "fa-bars";
 
 	/* Fiche */
 	const NOM_FICHE = "page";
