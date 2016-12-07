@@ -3,7 +3,7 @@
 /**
  * Classe de gestion de l'éditeur d'images
  */
- 
+
 class pl3_admin_editeur_image extends pl3_admin_editeur {
 
 	/* Fonctions d'édition */
@@ -13,19 +13,19 @@ class pl3_admin_editeur_image extends pl3_admin_editeur {
 		$ret .= $this->editer_valeurs();
 		$ret .= "<p class=\"boutons_formulaire\">\n";
 		$ret .= "<button id=\"soumettre-media-".$this->id_objet."\" class=\"soumettre_formulaire\" type=\"submit\" value=\"ok\" title=\"Enregistrer et fermer\">";
-		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>OK";
+		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>";
 		$ret .= "</button>";
 		$ret .= "<button id=\"annuler-media-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\">";
-		$ret .= "<span class=\"fa fa-times editeur_formulaire_icone_bouton\"></span>Annuler";
+		$ret .= "<span class=\"fa fa-times editeur_formulaire_icone_bouton\"></span>";
 		$ret .= "</button>";
 		$ret .= "<button id=\"supprimer-media-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cette image\">";
-		$ret .= "<span class=\"fa fa-trash editeur_formulaire_icone_bouton\"></span>Supprimer";
+		$ret .= "<span class=\"fa fa-trash editeur_formulaire_icone_bouton\"></span>";
 		$ret .= "</button>";
 		$ret .= "</p>\n";
 		$ret .= "</form>\n";
 		return $ret;
 	}
-	
+
 	private function editer_valeurs() {
 		$ret = "";
 		$ret .= "<p class=\"editeur_objet_titre_valeur\">Valeurs</p>\n";

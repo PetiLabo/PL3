@@ -65,10 +65,10 @@
             xhr.upload.addEventListener("progress", function(ev) {
                 settings.onProgress(settings.taille, ev.loaded, ev.total);
             }, false);
-            
+
             xhr.open("POST", settings.action, true);
-            xhr.send(fd);  
-        });  
+            xhr.send(fd);
+        });
     	return this;
     }
 }( jQuery ));
@@ -78,7 +78,8 @@ function editer_image(nom_page, media_id) {
 	var editeur_id = "editeur-media-"+media_id;
 	var editeur = $("#"+editeur_id);
 	if (editeur.length > 0) {
-		alert("ERREUR : L'éditeur est déjà ouvert pour ce média !");
+    // shake effect on div for an error event
+		editeur.addClass("shake");setTimeout(function(){editeur.removeClass("shake")},1000);
 		return;
 	}
 	$.ajax({
@@ -121,7 +122,7 @@ function soumettre_image(nom_page, media_id, parametres) {
 					}
 				}
 			}
-			$("#editeur-media-"+media_id).remove();
+      $("#editeur-media-"+media_id).fadeOut(200, function() {$(this).remove();});
 		}
 		else {
 			alert("ERREUR : Origine de l'image introuvable");
@@ -160,14 +161,14 @@ function afficher_editeur(media_id, html) {
 		var div = "<div id=\""+div_id+"\" class=\"editeur_objet\" style=\""+style+"\" >";
 		div += "<p class=\"editeur_objet_barre_outils\">";
 		div += "<a class=\"editeur_objet_bouton_agrandir\" href=\"#\" title=\"Agrandir\"><span class=\"fa fa-expand\"></span></a>";
-		div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
+		//div += "<a class=\"editeur_objet_bouton_fermer\" href=\"#\" title=\"Fermer\"><span class=\"fa fa-times\"></span></a>";
 		div += "</p>";
 		div += html;
 		div += "</div>";
-		
-		/* Affichage de l'éditeur */
-		$("div.page_media").append(div);
-	}
+
+    /* Affichage de l'éditeur */
+		$(div).hide().appendTo("div.page_media").fadeIn(250);
+    }
 }
 
 /* Installation du plugin single image upload sur un bouton ajout media */
@@ -213,7 +214,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-	
+
 	/* Gestion du clic sur un bouton d'ajout media */
 	$("div.page_media").on("click", ".vignette_plus", function() {
 		var plus_id = $(this).attr("id");
@@ -228,7 +229,7 @@ $(document).ready(function() {
 	$("a.vignette_plus").each(function() {
 		installer_single_image_upload($(this));
 	});
-	
+
 	/* Bouton "soumettre" dans les éditeurs d'images */
 	$("div.page").on("submit", "form.editeur_formulaire", function() {
 		var form_id = $(this).attr("id");
@@ -238,7 +239,7 @@ $(document).ready(function() {
 		soumettre_image(nom_page, media_id, parametres);
 		return false;
 	});
-	
+
 	/* Boutons "supprimer" dans les éditeurs d'images */
 	$("div.page").on("click", "form.editeur_formulaire button.supprimer_formulaire", function() {
 		var form_id = $(this).attr("id");

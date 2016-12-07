@@ -3,10 +3,10 @@
 /**
  * Classe de gestion des paragraphes
  */
- 
+
 class pl3_objet_page_paragraphe extends pl3_outil_objet_simple_xml {
 	/* Icone */
-	const NOM_ICONE = "fa-file-text-o ";
+	const NOM_ICONE = "fa-bars";
 
 	/* Fiche */
 	const NOM_FICHE = "page";
@@ -33,7 +33,7 @@ class pl3_objet_page_paragraphe extends pl3_outil_objet_simple_xml {
 			$this->set_valeur($objet_texte_riche->get_attribut_nom());
 		}
 	}
-	
+
 	/* Destruction */
 	public function detruire() {
 		$source_page = $this->get_source_page();

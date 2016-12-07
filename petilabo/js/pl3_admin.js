@@ -144,7 +144,7 @@ $(document).ready(function() {
 	$("div.page").on("click", "form.editeur_formulaire button.annuler_formulaire", function() {
 		var form_id = $(this).attr("id");
 		var html_id = form_id.replace("annuler-", "editeur-");
-		$("#"+html_id).hide("fade", 200, function(){this.remove();});;
+    $("#"+html_id).fadeOut(200, function() {$(this).remove();});
 		return false;
 	});
 
