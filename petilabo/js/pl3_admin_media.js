@@ -142,8 +142,20 @@ function supprimer_image(nom_page, media_id) {
 	}).done(function(data) {
 		var valide = data["valide"];
 		if (valide) {
-			var html = data["html"];
-			alert(html);
+			/* Renumérotation des id des médias */
+			var attr_id = "";var no_id = 0;
+			$("div.page_media").find("a[id^='media-']").each(function() {
+				attr_id = $(this).attr("id");
+				no_id = parseInt(attr_id.replace("media-", ""));
+				if (no_id == media_id) {
+					$(this).parent().remove();
+				}
+				else if (no_id > media_id) {
+					var re_no_id = no_id - 1;
+					$(this).attr("id", "media-"+re_no_id);
+				}
+			});
+			$("#editeur-media-"+media_id).remove();
 		}
 		else {
 			alert("NOK");
@@ -175,7 +187,13 @@ function afficher_editeur(media_id, html) {
 function installer_single_image_upload(bouton) {
 	var plus_id = bouton.attr("id");
 	var taille_id = parseInt(plus_id.replace("ajout-", ""));
-	var nom_taille = bouton.attr("name");
+	var input_taille = $("#titre-taille-"+taille_id);
+	if (input_taille !== undefined) {
+		var nom_taille = $("#input-"+taille_id).attr("value");
+	}
+	else {
+		var nom_taille = "";
+	}
 	var titre_taille = $("#titre-taille-"+taille_id);
 	if (titre_taille !== undefined) {
 		var largeur = parseInt(titre_taille.data("largeur"));
