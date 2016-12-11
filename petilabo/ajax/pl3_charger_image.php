@@ -226,7 +226,6 @@ $info_sortie = "";
 $retour_valide = false;
 $index_taille = (int) pl3_admin_post::Post("taille");
 $nom_taille = pl3_admin_post::Post("nom_taille");
-$nom_taille = "Ardoise";
 $largeur_taille = (int) pl3_admin_post::Post("largeur_taille");
 $hauteur_taille = (int) pl3_admin_post::Post("hauteur_taille");
 $compression = (int) pl3_admin_post::Post("compression");

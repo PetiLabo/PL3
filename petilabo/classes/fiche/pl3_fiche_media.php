@@ -100,7 +100,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$ret .= "</div>\n";
 		return $ret;
 	}
-	
+
 	public function afficher_vignette_media(&$media) {
 		$ret = "";
 		$nom = $media->get_attribut_nom();
@@ -116,8 +116,8 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 	public static function Afficher_ajout_media($id_taille, $nom_taille) {
 		$ret = "";
 		$ret .= "<div class=\"vignette_container\">";
-		$ret .= "<a id=\"ajout-".$id_taille."\" name=\"".$nom_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
-		$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"\"/>\n";
+		$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
+		$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"".$nom_taille."\"/>\n";
 		$ret .= "</div>\n";
 		return $ret;
 	}

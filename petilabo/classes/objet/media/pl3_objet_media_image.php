@@ -43,23 +43,24 @@ class pl3_objet_media_image_alt extends pl3_outil_objet_xml {
 	
 	/* Attributs */
 	public static $Liste_attributs = array();
-	private $nom_alt = null;
 	
 	/* Méthodes */
 	public function construire_nouveau() {
 		/* Création d'une instance de texte */
+		$nom_alt = null;
 		$source_page = $this->get_source_page();
 		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte) {
 			$source_page->enregistrer_nouveau($objet_texte);
-			$this->nom_alt = $objet_texte->get_attribut_nom();
+			$nom_alt = $objet_texte->get_attribut_nom();
 		}
-		return $this->nom_alt;
+		return $nom_alt;
 	}
 	
 	public function detruire() {
 		$source_page = $this->get_source_page();
-		$alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $this->nom_alt);
+		$nom_alt = $this->get_valeur();
+		$alt = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_alt);
 		if ($alt != null) {$source_page->supprimer($alt);}
 	}
 
