@@ -52,9 +52,13 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 		}
 	}
 	/* Gestion des objets : construction d'un nom pour une nouvelle instance */
+	public function construire_nom() {
+		$ret = uniqid(_PREFIXE_ID_OBJET.(static::NOM_BALISE)."_");
+		return $ret;
+	}
 	public function construire_nouveau_nom() {
 		if (!(isset($this->attributs[self::NOM_ATTRIBUT_NOM]))) {
-			$attribut_nom = _PREFIXE_ID_OBJET.(static::NOM_BALISE)."_".($this->lire_id());
+			$attribut_nom = $this->construire_nom();
 			$this->attributs[self::NOM_ATTRIBUT_NOM] = $attribut_nom;
 		}
 	}

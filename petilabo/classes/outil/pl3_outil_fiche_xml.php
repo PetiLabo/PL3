@@ -31,7 +31,7 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 		$this->liste_noms_objets[$nom_classe] = $nom_balise;
 		$this->liste_objets[$nom_classe] = array();
 	}
-	
+
 	public function instancier_nouveau($nom_classe) {
 		if (isset($this->liste_objets[$nom_classe])) {
 			$objet = new $nom_classe(1 + count($this->liste_objets[$nom_classe]), $this);
