@@ -74,7 +74,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 				$liste_medias_par_taille[$nom_taille]["medias"][] = $media;
 			}
 		}
-		
+
 		$classe = "page page_media".((($this->mode & _MODE_ADMIN) > 0)?" page_mode_admin":"");
 		$ret .= "<div class=\"".$classe."\" name=\""._PAGE_COURANTE."\">\n";
 		/* Liste des images taille par taille */
@@ -97,6 +97,16 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 			$ret .= "<div class=\"clearfix\"></div>\n";
 			$ret .= "</div>\n";
 		}
+		/* Liste des galeries */
+		$liste_galeries = $this->liste_objets["pl3_objet_media_galerie"];
+		$ret .= "<h2 id=\"titre-galeries\">Galeries</h2>\n";
+		$ret .= "<div id=\"galeries\" class=\"taille_container\">\n";
+		foreach($liste_galeries as $galerie) {$ret .= $this->afficher_vignette_galerie($galerie);}
+		$ret .= self::Afficher_ajout_galerie();
+		$ret .= "<div class=\"clearfix\"></div>\n";
+		$ret .= "</div>\n";	
+
+		/* Fin de la page */
 		$ret .= "</div>\n";
 		return $ret;
 	}
@@ -112,12 +122,32 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$ret .= "</div>\n";
 		return $ret;
 	}
+
+	public function afficher_vignette_galerie(&$galerie) {
+		$ret = "";
+		$nom = $galerie->get_attribut_nom();
+		$ret .= "<div class=\"vignette_container\">\n";
+		$ret .= "<a id=\"galerie-".$galerie->lire_id()."\" class=\"vignette_galerie_lien\" href=\"#\" title=\"Editer la galerie ".$nom."\">";
+		$ret .= "<span class=\"fa fa-list-alt\" style=\"font-size:120px;\"></span></a>";
+		$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
+		$ret .= "</div>\n";
+		return $ret;
+	}
 	
 	public static function Afficher_ajout_media($id_taille, $nom_taille) {
 		$ret = "";
 		$ret .= "<div class=\"vignette_container\">";
 		$ret .= "<a id=\"ajout-".$id_taille."\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une image au format ".strtolower($nom_taille)."\"></a>";
 		$ret .= "<input type=\"file\" id=\"input-".$id_taille."\" style=\"display:none;\" name=\"img-".$id_taille."\" value=\"".$nom_taille."\"/>\n";
+		$ret .= "</div>\n";
+		return $ret;
+	}
+	
+	public static function Afficher_ajout_galerie() {
+		$ret = "";
+		$ret .= "<div class=\"vignette_container\">";
+		$ret .= "<a id=\"ajout-galerie\" class=\"fa fa-plus-circle vignette_plus\" href=\"#\" title=\"Ajouter une galerie\"></a>";
+		$ret .= "<input type=\"file\" id=\"input-galerie\" style=\"display:none;\" name=\"galerie\" value=\"galerie\"/>\n";
 		$ret .= "</div>\n";
 		return $ret;
 	}

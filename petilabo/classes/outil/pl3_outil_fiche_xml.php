@@ -49,6 +49,13 @@ class pl3_outil_fiche_xml extends pl3_outil_source_xml {
 	public function lire_id() {return $this->id;}
 	public function lire_nom_fichier_xml() {return $this->nom_fichier_xml;}
 	public function fiche_a_jour() {return $this->fiche_a_jour;}
+	public function get_liste_objets($nom_classe) {
+		$ret = array();
+		if (isset($this->liste_noms_objets[$nom_classe])) {
+			$ret = $this->liste_objets[$nom_classe];
+		}
+		return $ret;
+	}
 
 	/* Chargement */
 	public function charger_xml() {

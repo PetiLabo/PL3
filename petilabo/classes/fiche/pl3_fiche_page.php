@@ -126,6 +126,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_media.css", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_grille.css", _MODE_ADMIN_GRILLE);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_objets.css", _MODE_ADMIN_OBJETS);
+		$ret .= $this->declarer_css(_CHEMIN_TIERS."featherlight/css/featherlight.min.css", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN_OBJETS);
 		$theme = $this->get_nom_theme();
@@ -196,6 +197,7 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_media.js", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_grille.js", _MODE_ADMIN_GRILLE);
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_objets.js", _MODE_ADMIN_OBJETS);
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."featherlight/js/featherlight.min.js", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/trumbowyg.min.js", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/langs/fr.min.js", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_js(_CHEMIN_TIERS."trumbo/plugins/colors/trumbowyg.colors.min.js", _MODE_ADMIN_OBJETS);

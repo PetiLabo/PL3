@@ -94,7 +94,28 @@ function editer_image(nom_page, media_id) {
 			afficher_editeur(media_id, html);
 		}
 		else {
-			alert("ERREUR : Origine de l'objet éditable introuvable");
+			alert("ERREUR : Origine du media introuvable");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
+	});
+}
+
+function editer_galerie(nom_page, galerie_id) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_editer_galerie.php",
+		data: {nom_page: nom_page, galerie_id: galerie_id},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			var html = data["html"];
+			$.featherlight(html);
+			retailler_lightbox();
+		}
+		else {
+			alert("ERREUR : Origine de la galerie introuvable");
 		}
 	}).fail(function() {
 		alert("ERREUR : Script AJAX en échec ou introuvable");
@@ -220,6 +241,12 @@ function installer_single_image_upload(bouton) {
 	}
 }
 
+function retailler_lightbox() {
+	var largeur_fenetre = parseInt(window.innerWidth);
+	var largeur_lightbox = parseInt(75 * largeur_fenetre / 100);
+	$(".editeur_type_galerie").css("width", largeur_lightbox+"px");
+}
+
 /* Initialisations */
 $(document).ready(function() {
 	/* Gestion du clic sur un media */
@@ -239,6 +266,17 @@ $(document).ready(function() {
 		var taille_id = parseInt(plus_id.replace("ajout-", ""));
 		if (taille_id > 0) {
 			$("#input-"+taille_id).click();
+		}
+		return false;
+	});
+
+	/* Gestion du clic sur une galerie */
+	$("div.page_media").on("click", ".vignette_galerie_lien", function() {
+		var vignette_id = $(this).attr("id");
+		var galerie_id = parseInt(vignette_id.replace("galerie-", ""));
+		if (galerie_id > 0) {
+			var nom_page = parser_page();
+			editer_galerie(nom_page, galerie_id);
 		}
 		return false;
 	});
@@ -269,5 +307,8 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+
+	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
+	$(window).on("resize", function() {retailler_lightbox();});
 
 });

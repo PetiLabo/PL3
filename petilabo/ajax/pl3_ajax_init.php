@@ -13,6 +13,8 @@ class pl3_ajax_init {
 	private static $Fiche_media_local = null;
 	private static $Media_id = null;
 	private static $Media = null;
+	private static $Galerie_id = null;
+	private static $Galerie = null;
 
 	public static function Init_objet() {
 		/* Récupération du nom de la page */
@@ -129,6 +131,27 @@ class pl3_ajax_init {
 		return $ajax_media_valide;
 	}
 
+	public static function Init_galerie() {
+		/* Récupération du nom de la page */
+		$ajax_galerie_valide = self::Init_page();
+
+		/* Récupération du bloc et de son id */
+		if ($ajax_galerie_valide) {
+			$ajax_galerie_valide = false;
+			self::$Galerie_id = pl3_admin_post::Post("galerie_id");
+			// TODO : Réfléchir sur la nécessité de tout recharger..
+			// self::$Source_page->charger_page_xml();
+			self::$Source_page->charger_xml();
+			self::$Fiche_media_local = self::$Source_page->get_media(_NOM_SOURCE_LOCAL);
+			if (self::$Fiche_media_local != null) {
+				self::$Galerie = self::$Fiche_media_local->chercher_objet_classe_par_id("pl3_objet_media_galerie", self::$Galerie_id);
+				if (self::$Galerie != null) {$ajax_galerie_valide = true;}
+			}
+		}
+		
+		return $ajax_galerie_valide;
+	}
+
 	/* Récupération du nom de la page */	
 	public static function Init_page() {
 		$ajax_page_valide = false;
@@ -159,5 +182,7 @@ class pl3_ajax_init {
 	public static function Get_fiche_media() {return self::$Fiche_media_local;}
 	public static function Get_media_id() {return self::$Media_id;}
 	public static function Get_media() {return self::$Media;}
+	public static function Get_galerie_id() {return self::$Galerie_id;}
+	public static function Get_galerie() {return self::$Galerie;}
 	public static function Get_objet() {return self::$Objet;}
 }
