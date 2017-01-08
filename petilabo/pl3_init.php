@@ -50,6 +50,7 @@ define("_PAGE_PRINCIPALE_ADMIN_SITE", "index-admin-site");
 define("_PAGE_TOUCH", "touch");
 
 /* Modes PetiLabo */
+define("_MODE_TOUS", -1);
 define("_MODE_NORMAL", 0);
 define("_MODE_ADMIN", 511);
 define("_MODE_ADMIN_PAGE", 1);

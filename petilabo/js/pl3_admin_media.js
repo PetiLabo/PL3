@@ -113,6 +113,8 @@ function editer_galerie(nom_page, galerie_id) {
 			var html = data["html"];
 			$.featherlight(html);
 			retailler_lightbox();
+			/* Activation du sortable */
+			$(".container_galerie").sortable({connectWith: ".container_galerie"}).disableSelection();
 		}
 		else {
 			alert("ERREUR : Origine de la galerie introuvable");
@@ -243,7 +245,7 @@ function installer_single_image_upload(bouton) {
 
 function retailler_lightbox() {
 	var largeur_fenetre = parseInt(window.innerWidth);
-	var largeur_lightbox = parseInt(75 * largeur_fenetre / 100);
+	var largeur_lightbox = parseInt(85 * largeur_fenetre / 100);
 	$(".editeur_type_galerie").css("width", largeur_lightbox+"px");
 }
 

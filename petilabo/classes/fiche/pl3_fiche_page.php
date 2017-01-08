@@ -133,8 +133,8 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_RESSOURCES_CSS."style_".$theme.".css");
 		
 		/* Partie JS */
-		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
-		$ret .= $this->declarer_js("//code.jquery.com/ui/1.11.4/jquery-ui.js", _MODE_ADMIN_GRILLE|_MODE_ADMIN_OBJETS);
+		$ret .= $this->declarer_js("https://code.jquery.com/jquery-1.12.4.min.js", _MODE_TOUS, array("integrity" => "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", "crossorigin" => "anonymous"));
+		$ret .= $this->declarer_js("https://code.jquery.com/ui/1.12.1/jquery-ui.min.js", _MODE_ADMIN_MEDIA|_MODE_ADMIN_GRILLE|_MODE_ADMIN_OBJETS, array("integrity" => "sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=", "crossorigin" => "anonymous"));
 		$ret .= "</head>\n";
 		return $ret;
 	}
@@ -235,17 +235,21 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		}
 	}
 
-	private function declarer_css($fichier_css, $mode = -1) {
+	private function declarer_css($fichier_css, $mode = _MODE_TOUS) {
 		$ret = "";
 		if (($mode == -1) || (($mode & $this->mode) > 0)) {
 			$ret .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$fichier_css."\"/>\n";
 		}
 		return $ret;
 	}
-	private function declarer_js($fichier_js, $mode = -1) {
+	private function declarer_js($fichier_js, $mode = _MODE_TOUS, $liste_attr = array()) {
 		$ret = "";
 		if (($mode == -1) || (($mode & $this->mode) > 0)) {
-			$ret .= "<script type=\"text/javascript\" src=\"".$fichier_js."\"></script>\n";
+			$ret .= "<script type=\"text/javascript\" src=\"".$fichier_js."\"";
+			foreach($liste_attr as $attr => $valeur) {
+				$ret .= " ".$attr."=\"".$valeur."\"";
+			}
+			$ret .= "></script>\n";
 		}
 		return $ret;
 	}

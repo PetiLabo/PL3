@@ -39,6 +39,8 @@ class pl3_objet_media_galerie extends pl3_outil_objet_xml {
 	public function charger_xml() {
 		$this->elements = $this->parser_balise_fille(pl3_objet_media_galerie_element::NOM_BALISE, false);
 	}
+	
+	public function get_elements() {return $this->elements;}
 
 	public function ecrire_xml($niveau) {
 		$attr_nom = $this->get_xml_attribut(self::NOM_ATTRIBUT_NOM);
