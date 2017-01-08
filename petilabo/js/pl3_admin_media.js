@@ -117,6 +117,10 @@ function editer_galerie(nom_page, galerie_id) {
 			$(".container_galerie").sortable({
 				connectWith: ".container_galerie", 
 				placeholder: "deplaceur_galerie",
+				update: function() {
+					$("div.container_galerie_from div.vignette_galerie_to").removeClass("vignette_galerie_to").addClass("vignette_galerie_from");
+					$("div.container_galerie_to div.vignette_galerie_from").removeClass("vignette_galerie_from").addClass("vignette_galerie_to");
+				},
 				start: function (e, ui) {
 					var elem = $(ui.item);
 					var hauteur = elem.height();
@@ -190,8 +194,27 @@ function supprimer_image(nom_page, media_id) {
 			$("#editeur-media-"+media_id).remove();
 		}
 		else {
-			alert("NOK");
+			alert("ERREUR : Origine de l'image introuvable");
 		}
+	});
+}
+
+function soumettre_galerie(nom_page, galerie_id, tab_elements) {
+	$.ajax({
+		type: "POST",
+		url: "../petilabo/ajax/pl3_soumettre_galerie.php",
+		data: {nom_page: nom_page, galerie_id: galerie_id, tab_elements: tab_elements},
+		dataType: "json"
+	}).done(function(data) {
+		var valide = data["valide"];
+		if (valide) {
+			fermer_lightbox();
+		}
+		else {
+			alert("ERREUR : L'édition de la galerie n'a pas pu être enregistrée.");
+		}
+	}).fail(function() {
+		alert("ERREUR : Script AJAX en échec ou introuvable");
 	});
 }
 
@@ -259,6 +282,19 @@ function retailler_lightbox() {
 	var hauteur_fenetre = parseInt(window.innerHeight);
 	var hauteur_max = parseInt(50 * hauteur_fenetre / 100);
 	$(".container_galerie").css("height", hauteur_max+"px");
+}
+
+function valider_lightbox(galerie_id) {
+	var tab_elements = [];
+	$("div#editeur-galerie-"+galerie_id).find("div.vignette_galerie_to").each(function() {
+		var elem_id = $(this).attr("id");
+		var media_id = parseInt(elem_id.replace("galerie-", ""));
+		if (media_id > 0) {tab_elements.push(media_id);}
+	});
+	if (tab_elements.length > 0) {
+		var nom_page = parser_page();
+		soumettre_galerie(nom_page, galerie_id, tab_elements);
+	}
 }
 
 function fermer_lightbox() {

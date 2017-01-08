@@ -41,6 +41,17 @@ class pl3_objet_media_galerie extends pl3_outil_objet_xml {
 	}
 	
 	public function get_elements() {return $this->elements;}
+	public function set_elements($tab_nom_media) {
+		unset($this->elements);
+		$this->elements = array();
+		$element_id = 1;
+		foreach($tab_nom_media as $nom_media) {
+			$element = new pl3_objet_media_galerie_element($element_id, $this);
+			$element->set_valeur($nom_media);
+			$this->elements[] = $element;
+			$element_id += 1;
+		}
+	}
 
 	public function ecrire_xml($niveau) {
 		$attr_nom = $this->get_xml_attribut(self::NOM_ATTRIBUT_NOM);

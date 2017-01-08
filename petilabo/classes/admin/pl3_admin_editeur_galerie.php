@@ -36,7 +36,7 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 					$src = $media->get_valeur_fichier();
 					$taille = $media->get_valeur_taille_standard();
 					$fichier = _CHEMIN_IMAGES_XML.html_entity_decode($src, ENT_QUOTES, "UTF-8");
-					$ret .= "<div id=\"galerie-".$media->lire_id()."\" class=\"vignette_galerie_to\"><a><img src=\"".$fichier."\" /></a><span>".$nom."</span><span class=\"legende_taille_standard\">".$taille."</span></div>";
+					$ret .= "<div id=\"galerie-".$media->lire_id()."\" class=\"vignette_galerie_from\"><a><img src=\"".$fichier."\" /></a><span>".$nom."</span><span class=\"legende_taille_standard\">".$taille."</span></div>";
 				}
 			}
 		}
@@ -54,7 +54,7 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 		$ret .= "</div></div>\n";
 		$ret .= "<div class=\"clearfix\"></div>\n";
 		$ret .= "<p class=\"boutons_formulaire\">\n";
-		$ret .= "<button id=\"soumettre-galerie-".$this->id_objet."\" class=\"soumettre_formulaire\" value=\"ok\" title=\"Enregistrer et fermer\">";
+		$ret .= "<button id=\"soumettre-galerie-".$this->id_objet."\" class=\"soumettre_formulaire\" value=\"ok\" title=\"Enregistrer et fermer\" onclick=\"valider_lightbox(".$this->id_objet.");\">";
 		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>";
 		$ret .= "</button>";
 		$ret .= "<button id=\"annuler-galerie-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\" onclick=\"fermer_lightbox();\">";
