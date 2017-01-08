@@ -32,7 +32,11 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 				$id_media = $media->lire_id();
 				// On n'affiche que les médias non présents dans la galerie
 				if (!(in_array($id_media, $liste_id_elements))) {
-					$ret .= "<p>".$media->get_attribut_nom()."</p>\n";
+					$nom = $media->get_attribut_nom();
+					$src = $media->get_valeur_fichier();
+					$taille = $media->get_valeur_taille_standard();
+					$fichier = _CHEMIN_IMAGES_XML.html_entity_decode($src, ENT_QUOTES, "UTF-8");
+					$ret .= "<div id=\"galerie-".$media->lire_id()."\" class=\"vignette_galerie_to\"><a><img src=\"".$fichier."\" /></a><span>".$nom."</span><span class=\"legende_taille_standard\">".$taille."</span></div>";
 				}
 			}
 		}
@@ -41,7 +45,11 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 		$ret .= "<h3>Sélection</h3>\n";
 		$ret .= "<div class=\"container_galerie container_galerie_to\">\n";
 		foreach($liste_elements as $element) {
-			$ret .= "<p>".$element->get_attribut_nom()."</p>\n";
+			$nom = $element->get_attribut_nom();
+			$src = $element->get_valeur_fichier();
+			$fichier = _CHEMIN_IMAGES_XML.html_entity_decode($src, ENT_QUOTES, "UTF-8");
+			$taille = $element->get_valeur_taille_standard();
+			$ret .= "<div id=\"galerie-".$element->lire_id()."\" class=\"vignette_galerie_to\"><a><img src=\"".$fichier."\" /></a><span>".$nom."</span><span class=\"legende_taille_standard\">".$taille."</span></div>";
 		}
 		$ret .= "</div></div>\n";
 		$ret .= "<div class=\"clearfix\"></div>\n";

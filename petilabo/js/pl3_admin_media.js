@@ -114,7 +114,16 @@ function editer_galerie(nom_page, galerie_id) {
 			$.featherlight(html);
 			retailler_lightbox();
 			/* Activation du sortable */
-			$(".container_galerie").sortable({connectWith: ".container_galerie"}).disableSelection();
+			$(".container_galerie").sortable({
+				connectWith: ".container_galerie", 
+				placeholder: "deplaceur_galerie",
+				start: function (e, ui) {
+					var elem = $(ui.item);
+					var hauteur = elem.height();
+					var largeur = elem.width();
+					ui.placeholder.height(hauteur).width(largeur);
+				}
+			}).disableSelection();
 		}
 		else {
 			alert("ERREUR : Origine de la galerie introuvable");
