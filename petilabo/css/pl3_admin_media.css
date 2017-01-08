@@ -21,10 +21,9 @@ p.vignette_legende_image{color:#333;font-style:italic;}
 .clearfix{visibility:hidden;display:block;height:0;clear:both;}
 
 /* Editeur de galeries */
-.editeur_type_galerie{}
-.editeur_galerie_from{float:left;width:46%;margin:10px 1%;padding:10px;border:1px solid #888;}
-.editeur_galerie_to{float:right;width:46%;margin:10px 1%;padding:10px;border:1px solid #888;}
-.container_galerie_from, .container_galerie_to{border-top:1px solid #888;margin-top:10px;padding:5px 0;}
+.editeur_galerie_from{float:left;width:48%;margin:10px 1%;padding:10px;border:1px solid #888;}
+.editeur_galerie_to{float:right;width:48%;margin:10px 1%;padding:10px;border:1px solid #888;}
+.container_galerie_from, .container_galerie_to{border-top:1px solid #888;margin-top:10px;padding:5px 0;overflow-x:hidden;overflow-y:auto;}
 .vignette_galerie_from, .vignette_galerie_to{display:inline-block;padding:0;margin:5px;line-height:1;text-align:center;max-width:100px;vertical-align:top;word-wrap: break-word;}
 .vignette_galerie_from a, .vignette_galerie_to a{display:block;padding:0;margin:0;line-height:1;}
 .vignette_galerie_from a:hover, .vignette_galerie_to a:hover{opacity:0.75;cursor:pointer;}
@@ -32,3 +31,28 @@ p.vignette_legende_image{color:#333;font-style:italic;}
 .vignette_galerie_from span, .vignette_galerie_to span{color:#000;display:block;font-size:13px;padding:0;margin:3px 0 0 0;line-height:1;word-wrap: break-word;}
 .vignette_galerie_from span.legende_taille_standard, .vignette_galerie_to span.legende_taille_standard{font-size:12px;font-style:italic;color:#666;}
 .deplaceur_galerie{display:inline-block;width:100px;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}
+
+.editeur_type_galerie{padding-bottom:10px;}
+.editeur_type_galerie button{
+	background-color:inherit;
+	font-size: 25px;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: none;
+}
+.editeur_type_galerie button:hover{
+	background-color: rgba(0,0,0,.1);
+}
+
+.editeur_type_galerie button.soumettre_formulaire, .editeur_type_galerie button.annuler_formulaire {min-width:4em;vertical-align:middle;}
+.editeur_type_galerie button.supprimer_formulaire {min-width:4em;vertical-align:middle;}
+.editeur_type_galerie button.soumettre_formulaire span.editeur_formulaire_icone_bouton{color:#0a0;}
+.editeur_type_galerie button.annuler_formulaire span.editeur_formulaire_icone_bouton{color:#888;}
+.editeur_type_galerie button.supprimer_formulaire span.editeur_formulaire_icone_bouton{color:#a00;}
+
+
+.featherlight-content{box-sizing: border-box;border-radius:10px;border:10px solid lightgrey!important;padding:15px 20px!important;}

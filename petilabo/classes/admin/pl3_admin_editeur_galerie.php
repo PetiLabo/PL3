@@ -21,7 +21,7 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 				$liste_id_elements[] = $element->lire_id();
 			}
 		}
-		
+
 		$ret = "<div id=\"editeur-galerie-".$this->id_objet."\" class=\"".$this->classe_objet."\">\n";
 		$ret .= "<h2>Galerie ".$galerie->get_attribut_nom()."</h2>\n";
 		$ret .= "<div class=\"editeur_galerie_from\">\n";
@@ -53,6 +53,17 @@ class pl3_admin_editeur_galerie extends pl3_admin_editeur {
 		}
 		$ret .= "</div></div>\n";
 		$ret .= "<div class=\"clearfix\"></div>\n";
+		$ret .= "<p class=\"boutons_formulaire\">\n";
+		$ret .= "<button id=\"soumettre-galerie-".$this->id_objet."\" class=\"soumettre_formulaire\" value=\"ok\" title=\"Enregistrer et fermer\">";
+		$ret .= "<span class=\"fa fa-check editeur_formulaire_icone_bouton\"></span>";
+		$ret .= "</button>";
+		$ret .= "<button id=\"annuler-galerie-".$this->id_objet."\" class=\"annuler_formulaire\" value=\"annuler\" title=\"Annuler et fermer\" onclick=\"fermer_lightbox();\">";
+		$ret .= "<span class=\"fa fa-times editeur_formulaire_icone_bouton\"></span>";
+		$ret .= "</button>";
+		$ret .= "<button id=\"supprimer-galerie-".$this->id_objet."\" class=\"supprimer_formulaire\" value=\"supprimer\" title=\"Supprimer cette galerie\">";
+		$ret .= "<span class=\"fa fa-trash editeur_formulaire_icone_bouton\"></span>";
+		$ret .= "</button>";
+		$ret .= "</p>\n";
 		$ret .= "</div>";
 		return $ret;
 	}

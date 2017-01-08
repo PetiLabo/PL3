@@ -111,7 +111,7 @@ function editer_galerie(nom_page, galerie_id) {
 		var valide = data["valide"];
 		if (valide) {
 			var html = data["html"];
-			$.featherlight(html);
+			$.featherlight(html, {closeIcon:''});
 			retailler_lightbox();
 			/* Activation du sortable */
 			$(".container_galerie").sortable({
@@ -256,6 +256,14 @@ function retailler_lightbox() {
 	var largeur_fenetre = parseInt(window.innerWidth);
 	var largeur_lightbox = parseInt(85 * largeur_fenetre / 100);
 	$(".editeur_type_galerie").css("width", largeur_lightbox+"px");
+	var hauteur_fenetre = parseInt(window.innerHeight);
+	var hauteur_max = parseInt(50 * hauteur_fenetre / 100);
+	$(".container_galerie").css("height", hauteur_max+"px");
+}
+
+function fermer_lightbox() {
+	var current = $.featherlight.current();
+	current.close();
 }
 
 /* Initialisations */
@@ -318,7 +326,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-
+	
 	/* Gestion des éditeurs d'objets lors du retaillage de la fenêtre */
 	$(window).on("resize", function() {retailler_lightbox();});
 

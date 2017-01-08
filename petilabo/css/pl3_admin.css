@@ -58,15 +58,15 @@ a.admin_item_logo{background:#555;margin-right:18px;}
 .editeur_objet input[type="text"]{min-width:15em;}
 .editeur_objet input[type="number"]{width:4em;}
 .editeur_objet button{
-		background-color:inherit;
-		font-size: 25px;
+	background-color:inherit;
+	font-size: 25px;
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     margin: 4px 2px;
     cursor: pointer;
-		border: none;
+	border: none;
 }
 .editeur_objet button:hover{
 	background-color: rgba(0,0,0,.1);
