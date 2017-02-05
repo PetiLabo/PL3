@@ -129,12 +129,14 @@ class pl3_fiche_page extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."featherlight/css/featherlight.min.css", _MODE_ADMIN_MEDIA);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/ui/trumbowyg.min.css", _MODE_ADMIN_OBJETS);
 		$ret .= $this->declarer_css(_CHEMIN_TIERS."trumbo/plugins/colors/ui/trumbowyg.colors.min.css", _MODE_ADMIN_OBJETS);
+		$ret .= $this->declarer_css(_CHEMIN_TIERS."bxslider/bxslider.css");
 		$theme = $this->get_nom_theme();
 		$ret .= $this->declarer_css(_CHEMIN_RESSOURCES_CSS."style_".$theme.".css");
 		
 		/* Partie JS */
 		$ret .= $this->declarer_js("https://code.jquery.com/jquery-1.12.4.min.js", _MODE_TOUS, array("integrity" => "sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=", "crossorigin" => "anonymous"));
 		$ret .= $this->declarer_js("https://code.jquery.com/ui/1.12.1/jquery-ui.min.js", _MODE_ADMIN_MEDIA|_MODE_ADMIN_GRILLE|_MODE_ADMIN_OBJETS, array("integrity" => "sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=", "crossorigin" => "anonymous"));
+		$ret .= $this->declarer_js(_CHEMIN_TIERS."bxslider/bxslider.js");
 		$ret .= "</head>\n";
 		return $ret;
 	}

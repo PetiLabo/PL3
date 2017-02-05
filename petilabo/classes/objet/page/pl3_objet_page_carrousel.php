@@ -26,20 +26,31 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
+		$max_width = 0;
 		$source_page = $this->get_source_page();
 		$nom_galerie = $this->get_valeur();
 		$galerie = $source_page->chercher_liste_medias_par_nom(pl3_objet_media_galerie::NOM_BALISE, $nom_galerie);
 		if ($galerie != null) {
 			$html_id = $this->get_html_id();
 			$ret .= "<div class=\"container_carrousel\">";
-			$ret .= "<div id=\"".$html_id."\" class=\"objet_editable\">";
+			$ret .= "<ul id=\"".$html_id."\" class=\"bxslider objet_editable\">";
 			$liste_noms_elements = $galerie->get_elements();
 			foreach ($liste_noms_elements as $nom_element) {
 				$nom_image = $nom_element->get_valeur();
 				$image = $source_page->chercher_liste_medias_par_nom(pl3_objet_media_image::NOM_BALISE, $nom_image);
-				$ret .= $this->afficher_element($image);
+				$ret .= $this->afficher_element($image, $max_width);
 			}
-			$ret .= "</div></div>\n";
+			$ret .= "</ul></div>\n";
+			$ret .= "<script type=\"text/javascript\">\n";
+			$ret .= "$(document).ready(function(){";
+			$ret .= "$('#".$html_id."').bxSlider({";
+			$ret .= "minSlides: 1,";
+			$ret .= "maxSlides: 5,";
+			$ret .= "moveSlides: 1,";
+			$ret .= "slideWidth: ".$max_width.",";
+			$ret .= "slideMargin: 10});";
+			$ret .= "});\n";
+			$ret .= "</script>\n";
 		}
 		else if (($mode & _MODE_ADMIN) > 0) {
 			$html_id = $this->get_html_id();
@@ -50,7 +61,7 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 		return $ret;
 	}
 	
-	private function afficher_element(&$image) {
+	private function afficher_element(&$image, &$max_width) {
 		$ret = "";
 		if ($image != null) {
 			$source_page = $this->get_source_page();
@@ -65,10 +76,11 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 			$taille = "";
 			$largeur = $image->get_valeur_largeur_reelle();
 			if ($largeur > 0) {$taille .= " width=\"".$largeur."\"";}
+			if ($largeur > $max_width) {$max_width = $largeur;}
 			$hauteur = $image->get_valeur_hauteur_reelle();
 			if ($hauteur > 0) {$taille .= " height=\"".$hauteur."\"";}
 			$html_id = $this->get_html_id();
-			$ret .= "<img ".$src.$alt.$taille." />";
+			$ret .= "<li><img ".$src.$alt.$taille." /></li>";
 		}
 		return $ret;
 	}
