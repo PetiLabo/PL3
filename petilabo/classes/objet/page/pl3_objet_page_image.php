@@ -22,7 +22,12 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 		array("nom" => self::NOM_ATTRIBUT_LIEN, "type" => self::TYPE_CHAINE),
 		array("nom" => self::NOM_ATTRIBUT_SURVOL, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_theme_style_survol")
 	);
-	
+
+	/* Initialisation */
+	public function construire_nouveau() {
+		$this->set_valeur("image_".uniqid());
+	}
+
 	/* Affichage */
 	public function afficher($mode) {
 		$ret = "";
@@ -44,6 +49,15 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 			$hauteur = $image->get_valeur_hauteur_reelle();
 			if ($hauteur > 0) {$taille .= " height=\"".$hauteur."\"";}
 			$html_id = $this->get_html_id();
+			$ret .= "<div class=\"container_image\">";
+			$ret .= "<img id=\"".$html_id."\" class=\"image_responsive objet_editable\"".$src.$alt.$taille." />";
+			$ret .= "</div>\n";
+		}
+		else if (($mode & _MODE_ADMIN) > 0) {
+			$html_id = $this->get_html_id();
+			$alt = " alt=\"Image vide\"";
+			$taille = " width=\"186\" height=\"150\"";
+			$src = " src=\""._CHEMIN_IMAGES."image-vide.png\"";
 			$ret .= "<div class=\"container_image\">";
 			$ret .= "<img id=\"".$html_id."\" class=\"image_responsive objet_editable\"".$src.$alt.$taille." />";
 			$ret .= "</div>\n";

@@ -16,6 +16,7 @@ define("_STYLE_COMMUN_CSS", "pl3_objet_theme_style_commun_css.php");
 /* Chemins ressources */
 define("_CHEMIN_RESSOURCES", _CHEMIN_BASE_FICHIER."petilabo/");
 define("_CHEMIN_AJAX", _CHEMIN_RESSOURCES."ajax/");
+define("_CHEMIN_IMAGES", _CHEMIN_BASE_RESSOURCES."petilabo/images/");
 define("_CHEMIN_CSS", _CHEMIN_RESSOURCES."css/");
 define("_CHEMIN_JS", _CHEMIN_RESSOURCES."js/");
 define("_CHEMIN_TIERS", _CHEMIN_RESSOURCES."tiers/");
