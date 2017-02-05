@@ -128,7 +128,7 @@ class pl3_fiche_media extends pl3_outil_fiche_xml {
 		$nom = $galerie->get_attribut_nom();
 		$ret .= "<div class=\"vignette_container\">\n";
 		$ret .= "<a id=\"galerie-".$galerie->lire_id()."\" class=\"vignette_galerie_lien\" href=\"#\" title=\"Editer la galerie ".$nom."\">";
-		$ret .= "<span class=\"fa fa-list-alt\" style=\"font-size:120px;\"></span></a>";
+		$ret .= "<span class=\"fa fa-files-o\" style=\"font-size:120px;\"></span></a>";
 		$ret .= "<p class=\"vignette_legende_image\">".$nom."</p>";
 		$ret .= "</div>\n";
 		return $ret;

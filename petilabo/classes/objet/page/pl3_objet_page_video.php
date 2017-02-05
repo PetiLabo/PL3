@@ -31,7 +31,7 @@ class pl3_objet_page_video extends pl3_outil_objet_simple_xml {
 		$objet_texte = $source_page->instancier_nouveau(self::$Balise["reference"]);
 		if ($objet_texte) {
 			$objet_texte->construire_nouveau();
-			$objet_texte->set_valeur("https://www.youtube.com/watch?v=aqz-KE-bpKQ");
+			$objet_texte->set_valeur(null);
 			$source_page->enregistrer_nouveau($objet_texte);
 			$this->set_valeur($objet_texte->get_attribut_nom());
 		}
@@ -58,10 +58,15 @@ class pl3_objet_page_video extends pl3_outil_objet_simple_xml {
 			$valeur_texte = $texte->get_valeur();
 			// Affichage de la video
 			$ret .= "<div class=\"container_video\">";
-			$ret .= $this->get_from_url($valeur_texte, "html");
-			if ($mode == _MODE_ADMIN_OBJETS) {
-				/* overlay css en mode edition */
-				$ret .= "<div id=\"".$html_id."\" class=\"video_admin_overlay objet_editable\"></div>";
+			if (strlen($valeur_texte) > 0) {
+				$ret .= $this->get_from_url($valeur_texte, "html");
+				if (($mode & _MODE_ADMIN) > 0) {
+					/* overlay css en mode edition */
+					$ret .= "<div id=\"".$html_id."\" class=\"video_admin_overlay objet_editable\"></div>";
+				}
+			}
+			else if (($mode & _MODE_ADMIN) > 0) {
+				$ret .= "<p id=\"".$html_id."\" class=\"objet_editable\"><span class=\"fa ".self::NOM_ICONE." effet_objet_vide\"></span></p>";
 			}
 			$ret .= "</div>\n";
 		}

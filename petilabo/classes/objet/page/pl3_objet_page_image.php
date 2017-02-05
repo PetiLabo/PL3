@@ -55,11 +55,8 @@ class pl3_objet_page_image extends pl3_outil_objet_simple_xml {
 		}
 		else if (($mode & _MODE_ADMIN) > 0) {
 			$html_id = $this->get_html_id();
-			$alt = " alt=\"Image vide\"";
-			$taille = " width=\"186\" height=\"150\"";
-			$src = " src=\""._CHEMIN_IMAGES."image-vide.png\"";
 			$ret .= "<div class=\"container_image\">";
-			$ret .= "<img id=\"".$html_id."\" class=\"image_responsive objet_editable\"".$src.$alt.$taille." />";
+			$ret .= "<p id=\"".$html_id."\" class=\"objet_editable\"><span class=\"fa ".self::NOM_ICONE." effet_objet_vide\"></span></p>";
 			$ret .= "</div>\n";
 		}
 		return $ret;
