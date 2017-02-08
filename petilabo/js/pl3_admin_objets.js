@@ -168,7 +168,7 @@ function afficher_editeur(balise_id, nom_balise, html) {
 		div += "</div>";
 
 		/* Affichage de l'éditeur */
-    $(div).hide().appendTo("div.page").show("blind", 100);
+		$(div).hide().appendTo("div.page").show("blind", 100);
 
 		/* Déclenchement de trumbowyg */
 		$("#"+div_id).find(".editeur_trumbowyg").each(function() {

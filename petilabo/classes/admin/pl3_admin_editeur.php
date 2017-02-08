@@ -67,6 +67,8 @@ abstract class pl3_admin_editeur {
 		$attr = "";
 		$type_information = $information["type"];
 		switch($type_information) {
+			case pl3_outil_objet_xml::TYPE_BOOLEEN:
+				$ret = array("balise" => "input", "type" => "checkbox", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_ENTIER:
 				/* Gestion du min/max et correction éventuelle de la valeur */
 				if (isset($information["min"])) {

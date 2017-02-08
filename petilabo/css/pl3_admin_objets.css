@@ -8,8 +8,8 @@
 .admin_survol_objet{cursor:pointer;border-color:#c00!important;}
 
 /* Trumbowyg */
-.trumbowyg-editor, .trumbowyg-textarea, .trumbowyg-box{min-height:4em!important;z-index:3;}
-.trumbowyg-dropdown{z-index:4;}
+.trumbowyg-editor, .trumbowyg-textarea, .trumbowyg-box{min-height:4em!important;z-index:299;}
+.trumbowyg-dropdown{z-index:399;}
 
 /* JQuery UI */
 .deplaceur_objet{width:100%;background:#ffb;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border:2px dotted #666;margin:2px auto;}

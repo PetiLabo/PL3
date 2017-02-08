@@ -16,11 +16,24 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_galerie");
 	
 	/* Attributs */
-	public static $Liste_attributs = array();
+	const NOM_ATTRIBUT_MIN_SLIDE = "min";
+	const NOM_ATTRIBUT_MAX_SLIDE = "max";
+	const NOM_ATTRIBUT_PAR_SLIDE = "par";
+	const NOM_ATTRIBUT_PAGER = "pager";
+	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_MIN_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 6),
+		array("nom" => self::NOM_ATTRIBUT_MAX_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 12),
+		array("nom" => self::NOM_ATTRIBUT_PAR_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 6),
+		array("nom" => self::NOM_ATTRIBUT_PAGER, "type" => self::TYPE_BOOLEEN),
+	);
 
 	/* Initialisation */
 	public function construire_nouveau() {
 		$this->set_valeur("galerie_".uniqid());
+		$this->set_attribut_min(0);
+		$this->set_attribut_max(0);
+		$this->set_attribut_par(0);
+		$this->set_attribut_pager(self::VALEUR_BOOLEEN_VRAI);
 	}
 
 	/* Affichage */
@@ -33,7 +46,7 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 		if ($galerie != null) {
 			$html_id = $this->get_html_id();
 			$ret .= "<div class=\"container_carrousel\">";
-			$ret .= "<ul id=\"".$html_id."\" class=\"bxslider objet_editable\">";
+			$ret .= "<ul id=\"".$html_id."\" class=\"bxslider\">";
 			$liste_noms_elements = $galerie->get_elements();
 			foreach ($liste_noms_elements as $nom_element) {
 				$nom_image = $nom_element->get_valeur();
@@ -41,14 +54,29 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 				$ret .= $this->afficher_element($image, $max_width);
 			}
 			$ret .= "</ul></div>\n";
+			$min = $this->get_attribut_entier(self::NOM_ATTRIBUT_MIN_SLIDE);
+			$max = $this->get_attribut_entier(self::NOM_ATTRIBUT_MAX_SLIDE);
+			$par = $this->get_attribut_entier(self::NOM_ATTRIBUT_PAR_SLIDE);
+			$pager = $this->get_attribut_booleen(self::NOM_ATTRIBUT_PAGER);
+			
+			/* Attachement de bxslider au carrousel */
 			$ret .= "<script type=\"text/javascript\">\n";
 			$ret .= "$(document).ready(function(){";
 			$ret .= "$('#".$html_id."').bxSlider({";
-			$ret .= "minSlides: 1,";
-			$ret .= "maxSlides: 5,";
-			$ret .= "moveSlides: 1,";
-			$ret .= "slideWidth: ".$max_width.",";
-			$ret .= "slideMargin: 10});";
+			/* A la fin du chargement on transfère l'id et la classe éditable au wrapper */
+			$ret .= "onSliderLoad: function(){";
+			$ret .= "var ul=$('#".$html_id."');";
+			$ret .= "ul.removeAttr('id');";
+			$ret .= "ul.closest('.bx-wrapper').attr('id', '".$html_id."').addClass('objet_editable');";
+			$ret .= "},";
+			if ($min > 0) {$ret .= "minSlides: ".$min.",";}
+			if ($max > 0) {$ret .= "maxSlides: ".$max.",";}
+			if ($par > 0) {$ret .= "moveSlides: ".$par.",";}
+			if (($min > 0) || ($max > 0) || ($par > 0)) {
+				$ret .= "slideWidth: ".$max_width.",slideMargin: 10,";
+			}
+		
+			$ret .= "pager: ".($pager?"true":"false")."});";
 			$ret .= "});\n";
 			$ret .= "</script>\n";
 		}

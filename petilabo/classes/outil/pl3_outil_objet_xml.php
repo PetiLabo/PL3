@@ -6,15 +6,19 @@
  
 abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	const NOM_VALEUR = "valeur";
-	const TYPE_ENTIER = 1;
-	const TYPE_CHAINE = 2;
-	const TYPE_TEXTE = 3;
-	const TYPE_ICONE = 4;
-	const TYPE_LIEN = 5;
-	const TYPE_REFERENCE = 6;
-	const TYPE_INDIRECTION = 7;
-	const TYPE_FICHIER = 8;
-	const TYPE_COMPOSITE = 9;
+	const TYPE_BOOLEEN = 1;
+	const TYPE_ENTIER = 2;
+	const TYPE_CHAINE = 3;
+	const TYPE_TEXTE = 4;
+	const TYPE_ICONE = 5;
+	const TYPE_LIEN = 6;
+	const TYPE_REFERENCE = 7;
+	const TYPE_INDIRECTION = 8;
+	const TYPE_FICHIER = 9;
+	const TYPE_COMPOSITE = 10;
+	
+	const VALEUR_BOOLEEN_FAUX = "non";
+	const VALEUR_BOOLEEN_VRAI = "oui";
 
 	protected $id = 0;
 	protected $objet_parent = null;
@@ -156,6 +160,11 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	}
 	public function get_attribut_chaine($nom_attribut) {
 		$ret = isset($this->attributs[$nom_attribut])?$this->attributs[$nom_attribut]:null;
+		return $ret;
+	}
+	public function get_attribut_booleen($nom_attribut) {
+		$str = isset($this->attributs[$nom_attribut])?$this->attributs[$nom_attribut]:(self::VALEUR_BOOLEEN_FAUX);
+		$ret = strcmp($str, self::VALEUR_BOOLEEN_FAUX);
 		return $ret;
 	}
 	public function get_attribut_entier($nom_attribut, $defaut = 0) {

@@ -31,7 +31,7 @@ class pl3_objet_page_titre extends pl3_outil_objet_simple_xml {
 			$objet_texte->construire_nouveau();
 			$source_page->enregistrer_nouveau($objet_texte);
 
-			/* Ce nouveau texe riche est la valeur du nouveau paragraphe */
+			/* Ce nouveau texte riche est la valeur du nouveau paragraphe */
 			$this->set_valeur($objet_texte->get_attribut_nom());
 			$this->set_attribut_niveau(1);
 		}
