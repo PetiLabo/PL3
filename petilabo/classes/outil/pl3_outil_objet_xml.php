@@ -12,10 +12,11 @@ abstract class pl3_outil_objet_xml extends pl3_outil_source_xml {
 	const TYPE_TEXTE = 4;
 	const TYPE_ICONE = 5;
 	const TYPE_LIEN = 6;
-	const TYPE_REFERENCE = 7;
-	const TYPE_INDIRECTION = 8;
-	const TYPE_FICHIER = 9;
-	const TYPE_COMPOSITE = 10;
+	const TYPE_CHOIX = 7;
+	const TYPE_REFERENCE = 8;
+	const TYPE_INDIRECTION = 9;
+	const TYPE_FICHIER = 10;
+	const TYPE_COMPOSITE = 11;
 	
 	const VALEUR_BOOLEEN_FAUX = "non";
 	const VALEUR_BOOLEEN_VRAI = "oui";

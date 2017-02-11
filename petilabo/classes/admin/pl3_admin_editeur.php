@@ -36,7 +36,18 @@ abstract class pl3_admin_editeur {
 				case "textarea":
 					$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
 					break;
-				case "select":
+				case "sel":
+					$ret .= "<p class=\"editeur_champ_formulaire ".$class_form."\">";
+					$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
+					$ret .= "<select id=\"".$id_form."\" name=\"".$nom_information."\">";
+					foreach($information["choix"] as $cle => $option) {
+						$selected = strcmp($cle, $valeur)?"":" selected=\"selected\"";
+						$ret .= "<option value=\"".$cle."\"".$selected.">".$option."</option>";
+					}
+					$ret .= "</select>\n";
+					$ret .= "</p>\n";
+					break;
+				case "selref":
 					$liste_noms = $this->traiter_reference($information, $valeur);
 					if (count($liste_noms) > 0) {
 						$ret .= "<p class=\"editeur_champ_formulaire ".$class_form."\">";
@@ -97,8 +108,10 @@ abstract class pl3_admin_editeur {
 				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_LIEN:
 				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
+			case pl3_outil_objet_xml::TYPE_CHOIX:
+				$ret = array("balise" => "sel", "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_REFERENCE:
-				$ret = array("balise" => "select", "type" => "text");break;
+				$ret = array("balise" => "selref", "type" => "text");break;
 			case pl3_outil_objet_xml::TYPE_INDIRECTION:
 				$ret = array("balise" => "input", "type" => "text", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_FICHIER:

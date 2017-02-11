@@ -17,6 +17,10 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	
 	/* Attributs */
 	const NOM_GROUPE_ATTRIBUTS_CARROUSEL = "Carrousel";
+	const NOM_ATTRIBUT_TRANSITION = "transition";
+	const VALEUR_ATTRIBUT_TRANSITION_HORIZONTALE = "horizontal";
+	const VALEUR_ATTRIBUT_TRANSITION_VERTICALE = "vertical";
+	const VALEUR_ATTRIBUT_TRANSITION_DIAPORAMA = "fade";
 	const NOM_ATTRIBUT_MIN_SLIDE = "min";
 	const NOM_ATTRIBUT_MAX_SLIDE = "max";
 	const NOM_ATTRIBUT_PAR_SLIDE = "par";
@@ -27,6 +31,7 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	const NOM_ATTRIBUT_PAGER = "pager";
 	const NOM_ATTRIBUT_NAV = "nav";
 	public static $Liste_attributs = array(
+		array("nom" => self::NOM_ATTRIBUT_TRANSITION, "type" => self::TYPE_CHOIX, "choix" => array(self::VALEUR_ATTRIBUT_TRANSITION_HORIZONTALE => "Horizontale", self::VALEUR_ATTRIBUT_TRANSITION_VERTICALE => "Verticale", self::VALEUR_ATTRIBUT_TRANSITION_DIAPORAMA => "Diaporama")),
 		array("nom" => self::NOM_ATTRIBUT_MIN_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 6),
 		array("nom" => self::NOM_ATTRIBUT_MAX_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 12),
 		array("nom" => self::NOM_ATTRIBUT_PAR_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 6),
@@ -39,6 +44,7 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	/* Initialisation */
 	public function construire_nouveau() {
 		$this->set_valeur("galerie_".uniqid());
+		$this->set_attribut_transition(self::VALEUR_ATTRIBUT_TRANSITION_HORIZONTALE);
 		$this->set_attribut_min(0);
 		$this->set_attribut_max(0);
 		$this->set_attribut_par(0);
@@ -66,6 +72,7 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 				$ret .= $this->afficher_element($image, $max_width);
 			}
 			$ret .= "</ul></div>\n";
+			$transition = $this->get_attribut_chaine(self::NOM_ATTRIBUT_TRANSITION);
 			$min = $this->get_attribut_entier(self::NOM_ATTRIBUT_MIN_SLIDE);
 			$max = $this->get_attribut_entier(self::NOM_ATTRIBUT_MAX_SLIDE);
 			$par = $this->get_attribut_entier(self::NOM_ATTRIBUT_PAR_SLIDE);
@@ -84,11 +91,14 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 			$ret .= "ul.removeAttr('id');";
 			$ret .= "ul.closest('.bx-wrapper').attr('id', '".$html_id."').addClass('objet_editable');";
 			$ret .= "},";
-			if ($min > 0) {$ret .= "minSlides: ".$min.",";}
-			if ($max > 0) {$ret .= "maxSlides: ".$max.",";}
-			if ($par > 0) {$ret .= "moveSlides: ".$par.",";}
-			if (($min > 0) || ($max > 0) || ($par > 0)) {
-				$ret .= "slideWidth: ".$max_width.",slideMargin: 10,";
+			if (strlen($transition) > 0) {$ret .= "mode: '".$transition."',";}
+			if (strcmp($transition, self::VALEUR_ATTRIBUT_TRANSITION_DIAPORAMA)) {
+				if ($min > 0) {$ret .= "minSlides: ".$min.",";}
+				if ($max > 0) {$ret .= "maxSlides: ".$max.",";}
+				if ($par > 0) {$ret .= "moveSlides: ".$par.",";}
+				if (($min > 0) || ($max > 0) || ($par > 0)) {
+					$ret .= "slideWidth: ".$max_width.",slideMargin: 10,";
+				}
 			}
 			$ret .= "auto: ".($auto?"true":"false").",";
 			if (($auto) && ($delai > 0)) {$ret .= "pause: ".($delai * 1000).",";}
