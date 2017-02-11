@@ -16,15 +16,24 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 	public static $Balise = array("nom" => self::NOM_VALEUR, "type" => self::TYPE_REFERENCE, "reference" => "pl3_objet_media_galerie");
 	
 	/* Attributs */
+	const NOM_GROUPE_ATTRIBUTS_CARROUSEL = "Carrousel";
 	const NOM_ATTRIBUT_MIN_SLIDE = "min";
 	const NOM_ATTRIBUT_MAX_SLIDE = "max";
 	const NOM_ATTRIBUT_PAR_SLIDE = "par";
+	const NOM_GROUPE_ATTRIBUTS_DEFILEMENT = "Défilement";
+	const NOM_ATTRIBUT_AUTO = "auto";
+	const NOM_ATTRIBUT_DELAI = "delai";
+	const NOM_GROUPE_ATTRIBUTS_CONTROLES = "Contrôles";
 	const NOM_ATTRIBUT_PAGER = "pager";
+	const NOM_ATTRIBUT_NAV = "nav";
 	public static $Liste_attributs = array(
-		array("nom" => self::NOM_ATTRIBUT_MIN_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 6),
-		array("nom" => self::NOM_ATTRIBUT_MAX_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 12),
-		array("nom" => self::NOM_ATTRIBUT_PAR_SLIDE, "type" => self::TYPE_ENTIER, "min" => 0, "max" => 6),
-		array("nom" => self::NOM_ATTRIBUT_PAGER, "type" => self::TYPE_BOOLEEN),
+		array("nom" => self::NOM_ATTRIBUT_MIN_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 6),
+		array("nom" => self::NOM_ATTRIBUT_MAX_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 12),
+		array("nom" => self::NOM_ATTRIBUT_PAR_SLIDE, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CARROUSEL, "min" => 0, "max" => 6),
+		array("nom" => self::NOM_ATTRIBUT_AUTO, "type" => self::TYPE_BOOLEEN, "groupe" => self::NOM_GROUPE_ATTRIBUTS_DEFILEMENT),
+		array("nom" => self::NOM_ATTRIBUT_DELAI, "type" => self::TYPE_ENTIER, "groupe" => self::NOM_GROUPE_ATTRIBUTS_DEFILEMENT, "min" => 1, "max" => 10),
+		array("nom" => self::NOM_ATTRIBUT_PAGER, "type" => self::TYPE_BOOLEEN, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CONTROLES),
+		array("nom" => self::NOM_ATTRIBUT_NAV, "type" => self::TYPE_BOOLEEN, "groupe" => self::NOM_GROUPE_ATTRIBUTS_CONTROLES),
 	);
 
 	/* Initialisation */
@@ -33,6 +42,9 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 		$this->set_attribut_min(0);
 		$this->set_attribut_max(0);
 		$this->set_attribut_par(0);
+		$this->set_attribut_auto(self::VALEUR_BOOLEEN_FAUX);
+		$this->set_attribut_delai(5);
+		$this->set_attribut_nav(self::VALEUR_BOOLEEN_VRAI);
 		$this->set_attribut_pager(self::VALEUR_BOOLEEN_VRAI);
 	}
 
@@ -57,7 +69,10 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 			$min = $this->get_attribut_entier(self::NOM_ATTRIBUT_MIN_SLIDE);
 			$max = $this->get_attribut_entier(self::NOM_ATTRIBUT_MAX_SLIDE);
 			$par = $this->get_attribut_entier(self::NOM_ATTRIBUT_PAR_SLIDE);
+			$auto = $this->get_attribut_booleen(self::NOM_ATTRIBUT_AUTO);
+			$delai = $this->get_attribut_entier(self::NOM_ATTRIBUT_DELAI);
 			$pager = $this->get_attribut_booleen(self::NOM_ATTRIBUT_PAGER);
+			$nav = $this->get_attribut_booleen(self::NOM_ATTRIBUT_NAV);
 			
 			/* Attachement de bxslider au carrousel */
 			$ret .= "<script type=\"text/javascript\">\n";
@@ -75,7 +90,9 @@ class pl3_objet_page_carrousel extends pl3_outil_objet_simple_xml {
 			if (($min > 0) || ($max > 0) || ($par > 0)) {
 				$ret .= "slideWidth: ".$max_width.",slideMargin: 10,";
 			}
-		
+			$ret .= "auto: ".($auto?"true":"false").",";
+			if (($auto) && ($delai > 0)) {$ret .= "pause: ".($delai * 1000).",";}
+			$ret .= "controls: ".($nav?"true":"false").",";
 			$ret .= "pager: ".($pager?"true":"false")."});";
 			$ret .= "});\n";
 			$ret .= "</script>\n";

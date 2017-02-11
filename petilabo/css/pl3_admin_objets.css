@@ -2,6 +2,12 @@
  * CSS PL3 en mode administration
  */
 
+/* Editeurs d'objets */
+.editeur_champ_min, .editeur_champ_max, .editeur_champ_par{float:left;}
+.editeur_champ_auto{float:left;padding-top:2px;}
+.editeur_champ_delai{float:left;}
+.editeur_champ_pager, .editeur_champ_nav{float:left;}
+
 /* Mode administration objets *******************************************************/
 
 /* Survol des objets */

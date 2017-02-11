@@ -292,6 +292,11 @@ $(document).ready(function() {
 		var parsing_objet_id = parser_html_id(html_id);
 		var erreur_parsing = parsing_objet_id["erreur"];
 		if (!erreur_parsing) {
+			/* Traitement des booleens */
+			$("input[type='checkbox']").each(function() {
+				if ($(this).is(":checked")) {$(this).attr("type", "hidden").val("oui");}
+				else {$(this).attr("type", "hidden").val("non");}
+			});
 			var nom_page = parsing_objet_id["nom_page"];
 			var nom_balise = parsing_objet_id["nom_balise"];
 			var balise_id = parsing_objet_id["balise_id"];

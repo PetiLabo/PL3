@@ -44,9 +44,24 @@ class pl3_admin_editeur_objet extends pl3_admin_editeur {
 		$liste_attributs = $this->objet->get_liste_attributs();
 		if (count($liste_attributs) > 0) {
 			$ret .= "<p class=\"editeur_objet_titre_attributs\">Attributs&nbsp;:</p>\n";
+			$groupe_actuel = "";
 			foreach ($liste_attributs as $attribut) {
 				$valeur = $this->attribut_to_valeur($attribut);
+				$groupe = isset($attribut["groupe"])?$attribut["groupe"]:"";
+				if (strcmp($groupe_actuel, $groupe)) {
+					if (strlen($groupe_actuel) > 0) {
+						$ret .= "<div style=\"clear:both;\"></div></div><div style=\"clear:both;\"></div>\n";
+					}
+					if (strlen($groupe) > 0) {
+						$ret .= "<div class=\"editeur_objet_groupe\">\n";
+						$ret .= "<p class=\"editeur_objet_groupe_titre\">".$groupe."</p>\n";
+						$groupe_actuel = $groupe;
+					}
+				}
 				$ret .= $this->afficher_champ_form($attribut, $valeur);
+			}
+			if (strlen($groupe_actuel) > 0) {
+				$ret .= "<div style=\"clear:both;\"></div></div><div style=\"clear:both;\"></div>\n";
 			}
 		}
 		return $ret;

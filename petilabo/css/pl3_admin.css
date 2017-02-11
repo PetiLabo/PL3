@@ -54,11 +54,13 @@ a.admin_item_logo{background:#555;margin-right:18px;}
 .editeur_objet_titre_attributs, .editeur_objet_titre_xml{margin-top:6px;margin-bottom:6px;}
 .editeur_objet_titre_valeur{margin-top:0;margin-bottom:6px;}
 .editeur_champ_formulaire{margin:3px 0 3px 1em;}
-.editeur_champ_formulaire label{display:inline-block;width:70px;font-weight:bold;}
+.editeur_champ_formulaire label{display:inline-block;margin-right:10px;font-weight:bold;}
+.editeur_objet_groupe{margin:10px;padding:10px;border:1px solid #ccc;border-radius:5px;}
+.editeur_objet_groupe_titre{color:#555;font-weight:bold;margin-bottom:10px;font-size:90%;}
 .editeur_objet_valeur, .editeur_objet_ligne_xml{margin-top:3px;margin-bottom:3px;margin-left:1em;}
 .editeur_objet input, .editeur_objet select, .editeur_objet textarea{padding:3px;margin-right:3px;}
 .editeur_objet select{min-width:8em;}
-.editeur_objet input[type="text"]{min-width:15em;}
+.editeur_objet input[type="text"]{min-width:15em;width:90%;}
 .editeur_objet input[type="number"]{width:4em;}
 .editeur_objet button{
 	background-color:inherit;

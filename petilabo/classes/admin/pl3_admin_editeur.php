@@ -29,6 +29,9 @@ abstract class pl3_admin_editeur {
 		if (isset($champ_form["balise"])) {
 			$balise = $champ_form["balise"];
 			$id_form = $nom_information."-".$this->id_objet;
+			$class_form = "editeur_champ_";
+			$class_form .= isset($champ_form["groupe"])?$champ_form["groupe"]."_":"";
+			$class_form .= $nom_information;
 			switch ($balise) {
 				case "textarea":
 					$ret .= "<textarea id=\"".$id_form."\" class=\"editeur_trumbowyg\">".$valeur."</textarea>\n";
@@ -36,7 +39,7 @@ abstract class pl3_admin_editeur {
 				case "select":
 					$liste_noms = $this->traiter_reference($information, $valeur);
 					if (count($liste_noms) > 0) {
-						$ret .= "<p class=\"editeur_champ_formulaire\">";
+						$ret .= "<p class=\"editeur_champ_formulaire ".$class_form."\">";
 						$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
 						$ret .= "<select id=\"".$id_form."\" name=\"".$nom_information."\">";
 						if (!(in_array(_NOM_STYLE_DEFAUT, $liste_noms))) {$liste_noms = array_merge(array(_NOM_STYLE_DEFAUT),$liste_noms);}
@@ -51,7 +54,7 @@ abstract class pl3_admin_editeur {
 				case "input":
 					$valeur_corrigee = $champ_form["val"];
 					$type = isset($champ_form["type"])?(" type=\"".$champ_form["type"]."\""):"";
-					$ret .= "<p class=\"editeur_champ_formulaire\">";
+					$ret .= "<p class=\"editeur_champ_formulaire ".$class_form."\">";
 					$ret .= "<label for=\"".$id_form."\">".ucfirst($nom_information)."</label>";
 					$ret .= "<input id=\"".$id_form."\"".$type." name=\"".$nom_information."\" value=\"".$valeur_corrigee."\"".$champ_form["attr"]."/>";
 					$ret .= "</p>\n";
@@ -68,6 +71,9 @@ abstract class pl3_admin_editeur {
 		$type_information = $information["type"];
 		switch($type_information) {
 			case pl3_outil_objet_xml::TYPE_BOOLEEN:
+				if (!(strcmp($valeur, pl3_outil_objet_xml::VALEUR_BOOLEEN_VRAI))) {
+					$attr = "checked=\"checked\"";
+				}
 				$ret = array("balise" => "input", "type" => "checkbox", "attr" => $attr, "val" => $valeur);break;
 			case pl3_outil_objet_xml::TYPE_ENTIER:
 				/* Gestion du min/max et correction éventuelle de la valeur */
