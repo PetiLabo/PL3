@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <petilabo>
     <texte nom="ancre_index">Accueil</texte>
-    <texte nom="bulle_index">Retourner à la page d'accueil</texte>
+    <texte nom="bulle_index">Retourner à la page d&#039;accueil</texte>
     <texte nom="ancre_google">Google</texte>
     <texte nom="bulle_google">Ouvrir Google dans un nouvel onglet</texte>
 </petilabo>

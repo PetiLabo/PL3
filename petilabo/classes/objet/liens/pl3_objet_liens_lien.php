@@ -111,8 +111,8 @@ class pl3_objet_liens_lien_bulle extends pl3_outil_objet_xml {
 		$source_page = $this->get_source_page();
 		$nom_bulle = $this->get_valeur();
 		if (strlen($nom_bulle) > 0) {
-			$texte_ancre = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_bulle);
-			if ($texte_ancre != null) {$nom_bulle = $texte_ancre->get_valeur();}
+			$texte_bulle = $source_page->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_bulle);
+			if ($texte_bulle != null) {$nom_bulle = $texte_bulle->get_valeur();}
 		}
 		$ret = (strlen($nom_bulle) > 0)?" title=\"".$nom_bulle."\"":"";
 		return $ret;
@@ -208,6 +208,11 @@ class pl3_objet_liens_lien extends pl3_outil_objet_composite_xml {
 	
 	public function afficher($mode) {
 		$ret = "";
+		$url = $this->get_element(pl3_objet_liens_lien_url::NOM_BALISE);
+		$ret .= (is_null($url))?"":$url->afficher($mode);
+		$bulle = $this->get_element(pl3_objet_liens_lien_bulle::NOM_BALISE);
+		$ret .= (is_null($bulle))?"":$bulle->afficher($mode);
+		$ret .= " target=\"".$this->get_valeur_target()."\"";		
 		return $ret;
 	}
 	

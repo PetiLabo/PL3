@@ -57,6 +57,12 @@ class pl3_objet_theme_style_fond extends pl3_outil_element_theme_xml {
 	const PROPRIETE_CSS = "background";
 }
 
+class pl3_objet_theme_style_opacite extends pl3_outil_element_theme_xml {
+	const NOM_BALISE = "opacite";
+	const TYPE_BALISE = self::TYPE_CHAINE;
+	const PROPRIETE_CSS = "opacity";
+}
+
 class pl3_objet_theme_style_couleur extends pl3_outil_element_theme_xml {
 	const NOM_BALISE = "couleur";
 	const TYPE_BALISE = self::TYPE_CHAINE;

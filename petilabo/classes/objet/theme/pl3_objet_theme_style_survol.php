@@ -18,6 +18,10 @@ class pl3_objet_theme_style_survol extends pl3_outil_objet_composite_xml {
 
 	/* Méthodes */
 	public function __construct($id, &$parent, &$noeud = null) {
+		$this->declarer_element("pl3_objet_theme_style_bordure");
+		$this->declarer_element("pl3_objet_theme_style_opacite");
+		$this->declarer_element("pl3_objet_theme_style_fond");
+		$this->declarer_element("pl3_objet_theme_style_css");
 		parent::__construct($id, $parent, $noeud);
 	}
 
@@ -43,7 +47,7 @@ class pl3_objet_theme_style_survol extends pl3_outil_objet_composite_xml {
 	
 	public function afficher($mode) {
 		$nom = $this->get_attribut_nom();
-		$ret = ".survol_".$nom."{";
+		$ret = "a.survol_".$nom.":hover img{";
 		$ret .= $this->afficher_elements_xml($mode);
 		$ret .= "}\n";
 		return $ret;

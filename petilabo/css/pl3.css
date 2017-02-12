@@ -9,6 +9,8 @@
 * {box-sizing:border-box;margin:0;padding:0;font-family: 'Open Sans', sans-serif;}
 body, div.page, p {position:relative;}
 .contenu{display:flex;flex-wrap:wrap;flex-direction:row;align-items:flex-start;} /* align-items:stretch => Même hauteur */
+
+/* Espace utilisé en mode admin mais aussi en mode normal pour un rendu équivalent */
 .bloc{width:0;}
 .bloc > div{padding:3px;text-align:center;}
 .bloc > div > div,
@@ -16,8 +18,8 @@ body, div.page, p {position:relative;}
 .bloc > div > h1, .bloc > div > h2,
 .bloc > div > h3, .bloc > div > h4,
 .bloc > div > h5, .bloc > div > h6{padding:1px;border:3px solid transparent;}
+
 /* Exception pour les images du fait de la classe image_responsive : A SURVEILLER */
-.bloc > div > img {box-sizing:content-box;padding:1px;border:3px solid transparent;}
 
 /* Gestion responsive ***************************************************************/
 

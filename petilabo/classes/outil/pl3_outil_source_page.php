@@ -184,6 +184,9 @@ class pl3_outil_source_page {
 	public function chercher_liste_medias_par_nom($balise, $nom) {
 		return $this->chercher_liste_fiches_par_nom(pl3_fiche_media::NOM_FICHE, $balise, $nom);
 	}
+	public function chercher_liste_liens_par_nom($balise, $nom) {
+		return $this->chercher_liste_fiches_par_nom(pl3_fiche_liens::NOM_FICHE, $balise, $nom);
+	}
 	public function chercher_liste_themes_par_nom($balise, $nom) {
 		return $this->liste_themes->chercher_instance_balise_par_nom($balise, $nom);
 	}

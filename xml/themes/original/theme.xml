@@ -75,7 +75,14 @@
     </style_texte>
 
 	<!-- Styles de survol -->
-    <style_survol nom="fond_gris">
-		<couleur_fond>#333</couleur_fond>
+    <style_survol nom="attenuation">
+		<opacite>0.8</opacite>
+	</style_survol>
+    <style_survol nom="zoom">
+		<css>transform: scale(1.1);</css>
+	</style_survol>
+    <style_survol nom="zoom_et_attenuation">
+		<opacite>0.8</opacite>
+		<css>transform: scale(1.1);</css>
 	</style_survol>
 </petilabo>

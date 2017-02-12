@@ -5,6 +5,9 @@
 /* Saut */
 .container_saut .saut{font-size:1em;}
 
+/* Images */
+.container_image{overflow:hidden;}
+
 /* Carrousel */
 .bx-wrapper ul{margin:0;}
 .bx-wrapper img{margin:0 auto;}

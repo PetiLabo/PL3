@@ -294,19 +294,14 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$liste_liens = is_null($source_liens)?array():$source_liens->get_liste_objets("pl3_objet_liens_lien");
 		foreach ($liste_liens as $lien) {
 			$nom = $lien->get_attribut_nom();
-			$url = $lien->get_valeur_url();
 			$nom_ancre = $lien->get_valeur_ancre();
 			if (strlen($nom_ancre) > 0) {
 				$texte_ancre = $source_site->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_ancre);
 				if ($texte_ancre != null) {$nom_ancre = $texte_ancre->get_valeur();}
 			}
-			$nom_bulle = $lien->get_valeur_bulle();
-			if (strlen($nom_bulle) > 0) {
-				$texte_bulle = $source_site->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_bulle);
-				if ($texte_bulle != null) {$nom_bulle = $texte_bulle->get_valeur();}
-			}
-			$target = $lien->get_valeur_target();
-			$ret .= "<li><b>".$nom."</b>&nbsp;: <a href=\"".$url."\" title=\"".$nom_bulle."\" target=\"".$target."\">".$nom_ancre."</a></li>\n";
+			$ouvre_a = "<a ".$lien->afficher($this->mode).">";
+			$ferme_a = "</a>\n";
+			$ret .= "<li><b>".$nom."</b>&nbsp;: ".$ouvre_a.$nom_ancre.$ferme_a."</a></li>\n";
 		}
 		$ret .= "</ul>\n";
 		return $ret;

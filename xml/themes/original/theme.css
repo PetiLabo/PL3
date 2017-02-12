@@ -1,2 +1,3 @@
 /* CSS additionnel pour thème standard */
+img{transition:all 0.5s}
 .clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}

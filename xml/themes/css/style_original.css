@@ -7,7 +7,10 @@
 .bloc_sombre{margin:5px;padding:15px;background:#336;border-radius:10px;}
 .texte_grand{font-size:150%;}
 .texte_italique{font-style:italic;}
-.survol_fond_gris{}
+a.survol_attenuation:hover img{opacity:0.8;}
+a.survol_zoom:hover img{transform: scale(1.1);}
+a.survol_zoom_et_attenuation:hover img{opacity:0.8;transform: scale(1.1);}
 
 /* CSS additionnel pour thème standard */
+img{transition:all 0.5s}
 .clearfix:after{content:' ';visibility:hidden;display:block;height:0;clear:both;}
