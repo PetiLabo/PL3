@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petilabo>
+	<!-- Liens internes -->
+	<lien nom="accueil">
+		<url>index.php</url>
+		<ancre>ancre_index</ancre>
+		<bulle>bulle_index</bulle>
+		<externe>non</externe>
+	</lien>
+	<!-- Liens externes -->
+	<lien nom="google">
+		<url>http://www.google.fr</url>
+		<ancre>ancre_google</ancre>
+		<bulle>bulle_google</bulle>
+		<externe>oui</externe>
+	</lien>
+</petilabo>

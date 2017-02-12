@@ -1,5 +1,4 @@
 <?php
-require_once _CHEMIN_OBJET."theme/"._STYLE_COMMUN_CSS;
 
 /**
  * Classe de gestion des textes

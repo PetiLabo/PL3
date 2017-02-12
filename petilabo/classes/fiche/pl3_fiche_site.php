@@ -98,8 +98,8 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		elseif (($this->mode & _MODE_ADMIN_SITE_THEMES) > 0) {
 			$contenu_mode .= $this->ecrire_body_themes();
 		}
-		elseif (($this->mode & _MODE_ADMIN_SITE_OBJETS) > 0) {
-			$contenu_mode .= $this->ecrire_body_objets();
+		elseif (($this->mode & _MODE_ADMIN_SITE_LIENS) > 0) {
+			$contenu_mode .= $this->ecrire_body_liens();
 		}
 		$classe = $classe_mode." page_mode_admin";
 		$ret = "<div class=\"".$classe."\" name=\"site\">".$contenu_mode."</div>\n";
@@ -285,13 +285,28 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		return $ret;
 	}
 	
-	private function ecrire_body_objets() {
+	private function ecrire_body_liens() {
 		$ret = "";
-		$ret .= "<h2>Liste des objets</h2>\n";
+		$ret .= "<h2>Liste des liens</h2>\n";
 		$ret .= "<ul style=\"padding-left:30px;\">\n";
-		$liste_objets = $this->lire_liste_objets();
-		foreach($liste_objets as $balise => $icone) {
-			$ret .= "<li><span class=\"fa ".$icone."\"></span>&nbsp;".$balise."</li>\n";
+		$source_site = pl3_outil_source_site::Get();
+		$source_liens = $source_site->get_liens();
+		$liste_liens = is_null($source_liens)?array():$source_liens->get_liste_objets("pl3_objet_liens_lien");
+		foreach ($liste_liens as $lien) {
+			$nom = $lien->get_attribut_nom();
+			$url = $lien->get_valeur_url();
+			$nom_ancre = $lien->get_valeur_ancre();
+			if (strlen($nom_ancre) > 0) {
+				$texte_ancre = $source_site->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_ancre);
+				if ($texte_ancre != null) {$nom_ancre = $texte_ancre->get_valeur();}
+			}
+			$nom_bulle = $lien->get_valeur_bulle();
+			if (strlen($nom_bulle) > 0) {
+				$texte_bulle = $source_site->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_bulle);
+				if ($texte_bulle != null) {$nom_bulle = $texte_bulle->get_valeur();}
+			}
+			$target = $lien->get_valeur_target();
+			$ret .= "<li><b>".$nom."</b>&nbsp;: <a href=\"".$url."\" title=\"".$nom_bulle."\" target=\"".$target."\">".$nom_ancre."</a></li>\n";
 		}
 		$ret .= "</ul>\n";
 		return $ret;
@@ -347,28 +362,9 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		curl_close($ch);
 		return $ret;
 	}
-	
-	// TODO : Supprimer le doublon avec pl3_fiche_page ! 
-	private function lire_liste_objets() {
+
+	private function lire_liste_liens() {
 		$ret = array();
-		$liste = @glob(_CHEMIN_OBJET.pl3_fiche_page::NOM_FICHE."/"._PREFIXE_OBJET.pl3_fiche_page::NOM_FICHE."_*"._SUFFIXE_PHP);
-		foreach ($liste as $elem_liste) {
-			if (@is_file($elem_liste)) {
-				$nom_fichier = basename($elem_liste);
-				$nom_classe = str_replace(_SUFFIXE_PHP, "", $nom_fichier);
-				$nom_constante_balise = $nom_classe."::NOM_BALISE";
-				$nom_constante_icone = $nom_classe."::NOM_ICONE";
-				$nom_constante_fiche = $nom_classe."::NOM_FICHE";
-				if ((@defined($nom_constante_balise)) && (@defined($nom_constante_icone)) && (@defined($nom_constante_fiche)))  {
-					$nom_fiche = $nom_classe::NOM_FICHE;
-					if (!(strcmp($nom_fiche, pl3_fiche_page::NOM_FICHE))) {
-						$nom_balise = $nom_classe::NOM_BALISE;
-						$nom_icone = $nom_classe::NOM_ICONE;
-						$ret[$nom_balise] = $nom_icone;
-					}
-				}
-			}
-		}
 		return $ret;
 	}
 

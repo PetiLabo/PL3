@@ -30,6 +30,11 @@ class pl3_outil_source_page {
 		$liste_medias->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
 		$liste_medias->ajouter_source(_NOM_SOURCE_LOCAL, _CHEMIN_PAGE_COURANTE);
 		$this->liste_sources[pl3_fiche_media::NOM_FICHE] = $liste_medias;
+	
+		/* Déclaration des liens */
+		$liste_liens = new pl3_outil_liste_fiches_xml("liens");
+		$liste_liens->ajouter_source(_NOM_SOURCE_GLOBAL, _CHEMIN_XML);
+		$this->liste_sources[pl3_fiche_liens::NOM_FICHE] = $liste_liens;
 
 		/* Déclaration du fichier page */
 		$this->page = new pl3_fiche_page(_CHEMIN_PAGE_COURANTE);

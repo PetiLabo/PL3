@@ -293,7 +293,7 @@ $(document).ready(function() {
 		var erreur_parsing = parsing_objet_id["erreur"];
 		if (!erreur_parsing) {
 			/* Traitement des booleens */
-			$("input[type='checkbox']").each(function() {
+			$(this).find("input[type='checkbox']").each(function() {
 				if ($(this).is(":checked")) {$(this).attr("type", "hidden").val("oui");}
 				else {$(this).attr("type", "hidden").val("non");}
 			});

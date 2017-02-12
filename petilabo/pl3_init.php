@@ -62,7 +62,7 @@ define("_MODE_ADMIN_OBJETS", 8);
 define("_MODE_ADMIN_XML", 16);
 define("_MODE_ADMIN_SITE_GENERAL", 32);
 define("_MODE_ADMIN_SITE_THEMES", 64);
-define("_MODE_ADMIN_SITE_OBJETS", 128);
+define("_MODE_ADMIN_SITE_LIENS", 128);
 define("_MODE_ADMIN_SITE_MEDIA", 256);
 
 /* Sources des fichiers XML */
