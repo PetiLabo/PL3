@@ -1,12 +1,14 @@
 /*
  * CSS PL3 Objets
  */
+.bloc > div:not(.container_image){padding:3px;text-align:center;}
 
 /* Saut */
 .container_saut .saut{font-size:1em;}
 
 /* Images */
-.container_image{overflow:hidden;}
+.container_image{padding:0;overflow:hidden;text-align:center;}
+.container_image a{text-decoration:none;height:0!important;}
 
 /* Carrousel */
 .bx-wrapper ul{margin:0;}

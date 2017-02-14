@@ -12,7 +12,6 @@ body, div.page, p {position:relative;}
 
 /* Espace utilisé en mode admin mais aussi en mode normal pour un rendu équivalent */
 .bloc{width:0;}
-.bloc > div{padding:3px;text-align:center;}
 .bloc > div > div,
 .bloc > div > p,
 .bloc > div > h1, .bloc > div > h2,
@@ -24,7 +23,7 @@ body, div.page, p {position:relative;}
 /* Gestion responsive ***************************************************************/
 
 /* Images responsive */
-.image_responsive{max-width:100%;height:auto;}
+.image_responsive{max-width:100%;height:auto;vertical-align: bottom;}
 
 /* Petits écrans */
 @media all and (max-width: 600px) {
