@@ -1,0 +1,14 @@
+/*
+ * CSS PL3 en mode administration
+ */
+
+/* Mode administration liens *******************************************************/
+.container_categorie_liens{padding:10px;}
+.container_vignettes_liens{position:relative;border: 1px solid #888;border-radius: 15px;padding: 10px;margin: 15px;}
+.vignette_lien_interne, .vignette_lien_externe, .vignette_menu{display:inline-block;text-align:center;padding:5px;margin:0 10px;vertical-align:top;}
+.icone_vignette_lien_interne, .icone_vignette_lien_externe, .icone_vignette_menu{font-size:40px;color:#666;text-decoration:none;padding:8px;border:3px solid transparent;}
+.icone_vignette_lien_interne:hover, .icone_vignette_lien_externe:hover, .icone_vignette_menu:hover{border-color:#c00;opacity:0.85;}
+p.vignette_legende_lien, p.vignette_legende_menu{color:#333;font-style:italic;}
+.icone_lien_interne_plus, .icone_lien_externe_plus, .icone_menu_plus{font-size:60px;color:#666;text-decoration:none;margin-left:20px;}
+.icone_lien_interne_plus:hover, .icone_lien_externe_plus:hover, .icone_menu_plus:hover{color:#a00;}
+

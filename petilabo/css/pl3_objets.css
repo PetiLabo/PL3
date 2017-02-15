@@ -8,7 +8,7 @@
 
 /* Images */
 .container_image{padding:0;overflow:hidden;text-align:center;}
-.container_image a{text-decoration:none;height:0!important;}
+.container_image a{text-decoration:none;}
 
 /* Carrousel */
 .bx-wrapper ul{margin:0;}

@@ -12,4 +12,14 @@
         <bulle>bulle_google</bulle>
         <externe>oui</externe>
     </lien>
+    <lien nom="www.petilabo.net">
+        <url>http://www.petilabo.net</url>
+        <ancre>ancre_pl</ancre>
+        <bulle>bulle_pl</bulle>
+        <externe>oui</externe>
+    </lien>
+	<menu nom="principal">
+		<choix>accueil</choix>
+		<choix>www.petilabo.net</choix>
+	</menu>
 </petilabo>

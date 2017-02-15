@@ -68,6 +68,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin.css");
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_site.css", _MODE_ADMIN_SITE_GENERAL);
 		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_theme.css", _MODE_ADMIN_SITE_THEMES);
+		$ret .= $this->declarer_css(_CHEMIN_CSS."pl3_admin_liens.css", _MODE_ADMIN_SITE_LIENS);
 		
 		/* Partie JS */
 		$ret .= $this->declarer_js("//code.jquery.com/jquery-1.12.0.min.js");
@@ -120,6 +121,7 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin.js");
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_site.js", _MODE_ADMIN_SITE_GENERAL);
 		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_theme.js", _MODE_ADMIN_SITE_THEMES);
+		$ret .= $this->declarer_js(_CHEMIN_JS."pl3_admin_liens.js", _MODE_ADMIN_SITE_LIENS);
 		$ret .= "</body>\n";
 		$ret .= "</html>\n";
 		return $ret;
@@ -287,13 +289,19 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 	
 	private function ecrire_body_liens() {
 		$ret = "";
-		$ret .= "<h2>Liste des liens</h2>\n";
-		$ret .= "<ul style=\"padding-left:30px;\">\n";
+		$ret .= "<h1>Liste des liens</h1>\n";
 		$source_site = pl3_outil_source_site::Get();
 		$source_liens = $source_site->get_liens();
 		$liste_liens = is_null($source_liens)?array():$source_liens->get_liste_objets("pl3_objet_liens_lien");
+		$liste_liens_internes = array();
+		$liste_liens_externes = array();
 		foreach ($liste_liens as $lien) {
 			$nom = $lien->get_attribut_nom();
+			$externe = (!(strcmp($lien->get_valeur_externe(), pl3_objet_liens_lien::VALEUR_BOOLEEN_VRAI)));
+			if ($externe) {$liste_liens_externes[$nom] = $lien;}
+			else {$liste_liens_internes[$nom] = $lien;}
+		}
+			/*
 			$nom_ancre = $lien->get_valeur_ancre();
 			if (strlen($nom_ancre) > 0) {
 				$texte_ancre = $source_site->chercher_liste_textes_par_nom(pl3_objet_texte_texte::NOM_BALISE, $nom_ancre);
@@ -301,9 +309,49 @@ class pl3_fiche_site extends pl3_outil_fiche_xml {
 			}
 			$ouvre_a = "<a ".$lien->afficher($this->mode).">";
 			$ferme_a = "</a>\n";
-			$ret .= "<li><b>".$nom."</b>&nbsp;: ".$ouvre_a.$nom_ancre.$ferme_a."</a></li>\n";
+			$html_lien = "<strong>".$nom."</strong>&nbsp;: ".$ouvre_a.$nom_ancre.$ferme_a."</a>\n";
+			*/
+		$ret .= "<div class=\"container_categorie_liens\">\n";
+		$ret .= "<h2>Liens internes</h2>\n";
+		$ret .= "<div id=\"liste-liens-internes\" class=\"container_vignettes_liens\">\n";
+		foreach ($liste_liens_internes as $nom => $lien) {
+			$ret .= "<div class=\"vignette_lien_interne\">";
+			$ret .= "<a id=\"lien-interne-".$lien->lire_id()."\" class=\"fa fa-link icone_vignette_lien_interne\" href=\"\"></a>";
+			$ret .= "<p class=\"vignette_legende_lien\">".$nom."</p>";
+			$ret .= "</div>";
 		}
-		$ret .= "</ul>\n";
+		$ret .= "<div class=\"vignette_lien_interne\">";
+		$ret .= "<a href=\"#\" class=\"fa fa-plus-circle icone_lien_interne_plus\" title=\"Ajouter un lien interne\"></a>";
+		$ret .= "</div>";
+		$ret .= "</div></div>\n";
+		$ret .= "<div class=\"container_categorie_liens\">\n";
+		$ret .= "<h2>Liens externes</h2>\n";
+		$ret .= "<div id=\"liste-liens-externes\" class=\"container_vignettes_liens\">\n";
+		foreach ($liste_liens_externes as $nom => $lien) {
+			$ret .= "<div class=\"vignette_lien_externe\">";
+			$ret .= "<a id=\"lien-externe-".$lien->lire_id()."\" class=\"fa fa-external-link icone_vignette_lien_externe\" href=\"\"></a>";
+			$ret .= "<p class=\"vignette_legende_lien\">".$nom."</p>";
+			$ret .= "</div>";
+		}
+		$ret .= "<div class=\"vignette_lien_externe\">";
+		$ret .= "<a href=\"#\" class=\"fa fa-plus-circle icone_lien_externe_plus\" title=\"Ajouter un lien externe\"></a>";
+		$ret .= "</div>";
+		$ret .= "</div></div>\n";
+		$liste_menus = is_null($source_liens)?array():$source_liens->get_liste_objets("pl3_objet_liens_menu");
+		$ret .= "<div class=\"container_categorie_liens\">\n";
+		$ret .= "<h2>Menus</h2>\n";
+		$ret .= "<div id=\"liste-menus\" class=\"container_vignettes_liens\">\n";
+		foreach ($liste_menus as $menu) {
+			$nom = $menu->get_attribut_nom();
+			$ret .= "<div class=\"vignette_menu\">";
+			$ret .= "<a id=\"menu-".$menu->lire_id()."\" class=\"fa fa-server icone_vignette_menu\" href=\"\"></a>";
+			$ret .= "<p class=\"vignette_legende_menu\">".$nom."</p>";
+			$ret .= "</div>";
+		}
+		$ret .= "<div class=\"vignette_menu\">";
+		$ret .= "<a href=\"#\" class=\"fa fa-plus-circle icone_menu_plus\" title=\"Ajouter un menu\"></a>";
+		$ret .= "</div>";
+		$ret .= "</div></div>\n";
 		return $ret;
 	}
 	

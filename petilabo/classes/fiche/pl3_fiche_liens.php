@@ -10,6 +10,7 @@ class pl3_fiche_liens extends pl3_outil_fiche_xml {
 	/* Constructeur */
 	public function __construct($chemin, $id) {
 		$this->declarer_objet("pl3_objet_liens_lien");
+		$this->declarer_objet("pl3_objet_liens_menu");
 		parent::__construct($chemin, $id);
 	}
 	
